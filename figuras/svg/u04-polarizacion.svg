@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 460 240" style="max-width:621px" role="img" aria-label="Polarización de un dieléctrico entre placas paralelas y cargas ligadas superficiales">
+<style>
+  :root {
+    --surface: #ffffff; --ink: #142030; --muted: #566273; --line: #d8dee7;
+    --accent: #1f4fd1; --accent-soft: #e7edfc; --copper: #a85a18; --copper-soft: #f8eee4;
+    --font-body: "Source Sans 3", "Segoe UI", Roboto, sans-serif;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --surface: #151c26; --ink: #e5eaf1; --muted: #9aa6b6; --line: #29323f;
+      --accent: #84a6ff; --accent-soft: #1b2640; --copper: #e2a26b; --copper-soft: #2a2119;
+    }
+  }
+  svg { background: var(--surface); font-family: var(--font-body); }
+  .w { stroke: var(--ink); stroke-width: 1.8; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+  .wk { stroke: var(--ink); stroke-width: 3.2; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+  .m { stroke: var(--muted); stroke-width: 1.2; fill: none; }
+  .md { stroke: var(--muted); stroke-width: 1.3; stroke-dasharray: 4 4; fill: none; }
+  .a { stroke: var(--accent); stroke-width: 2.2; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+  .ad { stroke: var(--accent); stroke-width: 1.6; stroke-dasharray: 5 4; fill: none; }
+  .c { stroke: var(--copper); stroke-width: 2.2; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+  .cd { stroke: var(--copper); stroke-width: 1.4; stroke-dasharray: 4 3; fill: none; }
+  .fld { stroke: var(--muted); stroke-width: 1.3; opacity: .38; }
+  .fldl { stroke: var(--muted); stroke-width: 1.4; opacity: .6; fill: none; }
+  .af { fill: var(--accent); } .cf { fill: var(--copper); } .wf, .inkf, .wkf { fill: var(--ink); }
+  .mf, .mdf { fill: var(--muted); } .fldlf { fill: var(--muted); opacity: .6; }
+  .adf { fill: var(--accent); } .cdf { fill: var(--copper); }
+  .soft { fill: var(--accent-soft); } .csoft { fill: var(--copper-soft); } .paperf { fill: var(--surface); }
+  .nostroke { stroke: none; } .nofill { fill: none; }
+  .s, .sa, .sc { font: italic 17px "Times New Roman", "STIX Two Text", serif; fill: var(--ink); }
+  .sa { fill: var(--accent); } .sc { fill: var(--copper); }
+  .t { font: 12.5px var(--font-body); fill: var(--muted); }
+  .tb { font: 600 14px var(--font-body); fill: var(--ink); }
+  .tc { font: 600 13px var(--font-body); fill: var(--copper); }
+  .ta { font: 600 13px var(--font-body); fill: var(--accent); }
+  .tw { font: 700 13px var(--font-body); fill: var(--surface); }
+  .gl-ink, .gl-acc, .gl-cop, .gl-mut, .gl-srf { fill: none; stroke-width: 1.2; stroke-linecap: round; }
+  .gl-ink { stroke: var(--ink); } .gl-acc { stroke: var(--accent); } .gl-cop { stroke: var(--copper); }
+  .gl-mut { stroke: var(--muted); } .gl-srf { stroke: var(--surface); }
+  .glf-ink { fill: var(--ink); } .glf-acc { fill: var(--accent); } .glf-cop { fill: var(--copper); }
+  .glf-mut { fill: var(--muted); } .glf-srf { fill: var(--surface); }
+  .sb { font-size: 72%; }
+</style>
+<rect class="paperf w" x="105" y="52" width="236" height="126"/><rect class="soft nostroke" x="105" y="52" width="18" height="126"/><rect class="csoft nostroke" x="323" y="52" width="18" height="126"/><rect class="csoft w" x="45" y="45" width="16" height="140"/><rect class="soft w" x="385" y="45" width="16" height="140"/><ellipse class="m nofill" cx="160" cy="78" rx="22" ry="10"/><ellipse class="m nofill" cx="222" cy="78" rx="22" ry="10"/><ellipse class="m nofill" cx="284" cy="78" rx="22" ry="10"/><ellipse class="m nofill" cx="160" cy="115" rx="22" ry="10"/><ellipse class="m nofill" cx="222" cy="115" rx="22" ry="10"/><ellipse class="m nofill" cx="284" cy="115" rx="22" ry="10"/><ellipse class="m nofill" cx="160" cy="152" rx="22" ry="10"/><ellipse class="m nofill" cx="222" cy="152" rx="22" ry="10"/><ellipse class="m nofill" cx="284" cy="152" rx="22" ry="10"/><line class="w" x1="105" y1="115" x2="82.0" y2="115.0"/><polygon class="inkf" points="75,115 82.0,111.5 82.0,118.5"/><line class="w" x1="341" y1="115" x2="364.0" y2="115.0"/><polygon class="inkf" points="371,115 364.0,118.5 364.0,111.5"/><line class="a" x1="165" y1="204" x2="268.0" y2="204.0"/><polygon class="af" points="275,204 268.0,207.5 268.0,200.5"/><text class="tc" x="53" y="35" text-anchor="middle">+σ</text><text class="ta" x="393" y="35" text-anchor="middle">−σ</text><text class="ta" x="148" y="82" text-anchor="middle">−</text><text class="tc" x="172" y="82" text-anchor="middle">+</text><text class="ta" x="210" y="82" text-anchor="middle">−</text><text class="tc" x="234" y="82" text-anchor="middle">+</text><text class="ta" x="272" y="82" text-anchor="middle">−</text><text class="tc" x="296" y="82" text-anchor="middle">+</text><text class="ta" x="114" y="82" text-anchor="middle">−</text><text class="tc" x="332" y="82" text-anchor="middle">+</text><text class="ta" x="148" y="119" text-anchor="middle">−</text><text class="tc" x="172" y="119" text-anchor="middle">+</text><text class="ta" x="210" y="119" text-anchor="middle">−</text><text class="tc" x="234" y="119" text-anchor="middle">+</text><text class="ta" x="272" y="119" text-anchor="middle">−</text><text class="tc" x="296" y="119" text-anchor="middle">+</text><text class="ta" x="114" y="119" text-anchor="middle">−</text><text class="tc" x="332" y="119" text-anchor="middle">+</text><text class="ta" x="148" y="156" text-anchor="middle">−</text><text class="tc" x="172" y="156" text-anchor="middle">+</text><text class="ta" x="210" y="156" text-anchor="middle">−</text><text class="tc" x="234" y="156" text-anchor="middle">+</text><text class="ta" x="272" y="156" text-anchor="middle">−</text><text class="tc" x="296" y="156" text-anchor="middle">+</text><text class="ta" x="114" y="156" text-anchor="middle">−</text><text class="tc" x="332" y="156" text-anchor="middle">+</text><text class="sa" x="114" y="42" text-anchor="middle">−σb</text><text class="sc" x="332" y="42" text-anchor="middle">+σb</text><text class="s" x="83" y="103" text-anchor="middle">n̂</text><text class="s" x="363" y="103" text-anchor="middle">n̂</text><g><text class="sa" x="206.4" y="224" text-anchor="middle">E</text><line class="gl-acc" x1="204.4" y1="209.4" x2="210.8" y2="209.4"/><polygon class="glf-acc" points="212.3,209.4 206.9,206.8 206.9,211.9"/><text class="sa" x="210.8" y="224" text-anchor="start"> y </text><text class="sa" x="233.6" y="224" text-anchor="middle">P</text><line class="gl-acc" x1="231.6" y1="209.4" x2="238.0" y2="209.4"/><polygon class="glf-acc" points="239.5,209.4 234.1,206.8 234.1,211.9"/></g></svg>

@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 430 272" style="max-width:580px" role="img" aria-label="Circuito de dos mallas del Examen 2022-2 P5 con tres fem y nodos P1, P2, P3">
+<style>
+  :root {
+    --surface: #ffffff; --ink: #142030; --muted: #566273; --line: #d8dee7;
+    --accent: #1f4fd1; --accent-soft: #e7edfc; --copper: #a85a18; --copper-soft: #f8eee4;
+    --font-body: "Source Sans 3", "Segoe UI", Roboto, sans-serif;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --surface: #151c26; --ink: #e5eaf1; --muted: #9aa6b6; --line: #29323f;
+      --accent: #84a6ff; --accent-soft: #1b2640; --copper: #e2a26b; --copper-soft: #2a2119;
+    }
+  }
+  svg { background: var(--surface); font-family: var(--font-body); }
+  .w { stroke: var(--ink); stroke-width: 1.8; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+  .wk { stroke: var(--ink); stroke-width: 3.2; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+  .m { stroke: var(--muted); stroke-width: 1.2; fill: none; }
+  .md { stroke: var(--muted); stroke-width: 1.3; stroke-dasharray: 4 4; fill: none; }
+  .a { stroke: var(--accent); stroke-width: 2.2; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+  .ad { stroke: var(--accent); stroke-width: 1.6; stroke-dasharray: 5 4; fill: none; }
+  .c { stroke: var(--copper); stroke-width: 2.2; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+  .cd { stroke: var(--copper); stroke-width: 1.4; stroke-dasharray: 4 3; fill: none; }
+  .fld { stroke: var(--muted); stroke-width: 1.3; opacity: .38; }
+  .fldl { stroke: var(--muted); stroke-width: 1.4; opacity: .6; fill: none; }
+  .af { fill: var(--accent); } .cf { fill: var(--copper); } .wf, .inkf, .wkf { fill: var(--ink); }
+  .mf, .mdf { fill: var(--muted); } .fldlf { fill: var(--muted); opacity: .6; }
+  .adf { fill: var(--accent); } .cdf { fill: var(--copper); }
+  .soft { fill: var(--accent-soft); } .csoft { fill: var(--copper-soft); } .paperf { fill: var(--surface); }
+  .nostroke { stroke: none; } .nofill { fill: none; }
+  .s, .sa, .sc { font: italic 17px "Times New Roman", "STIX Two Text", serif; fill: var(--ink); }
+  .sa { fill: var(--accent); } .sc { fill: var(--copper); }
+  .t { font: 12.5px var(--font-body); fill: var(--muted); }
+  .tb { font: 600 14px var(--font-body); fill: var(--ink); }
+  .tc { font: 600 13px var(--font-body); fill: var(--copper); }
+  .ta { font: 600 13px var(--font-body); fill: var(--accent); }
+  .tw { font: 700 13px var(--font-body); fill: var(--surface); }
+  .gl-ink, .gl-acc, .gl-cop, .gl-mut, .gl-srf { fill: none; stroke-width: 1.2; stroke-linecap: round; }
+  .gl-ink { stroke: var(--ink); } .gl-acc { stroke: var(--accent); } .gl-cop { stroke: var(--copper); }
+  .gl-mut { stroke: var(--muted); } .gl-srf { stroke: var(--surface); }
+  .glf-ink { fill: var(--ink); } .glf-acc { fill: var(--accent); } .glf-cop { fill: var(--copper); }
+  .glf-mut { fill: var(--muted); } .glf-srf { fill: var(--surface); }
+  .sb { font-size: 72%; }
+</style>
+<polyline class="w" points="75,48 210,48 345,48"/><g transform="translate(345,48) rotate(90)"><polyline class="w" points="0,0 23,0 26.7,8 34,-8 41.3,8 48.7,-8 56,8 63.3,-8 67,0 90,0"/></g><g transform="translate(75,48) rotate(90)"><line class="w" x1="0" y1="0" x2="41" y2="0"/><line class="w" x1="49" y1="0" x2="90" y2="0"/><line class="w" x1="41" y1="-15" x2="41" y2="15"/><line class="wk" x1="49" y1="-8" x2="49" y2="8"/></g><polyline class="w" points="75,138 75,228"/><g transform="translate(75,138) rotate(0)"><polyline class="w" points="0,0 38,0 41.7,8 49,-8 56.3,8 63.7,-8 71,8 78.3,-8 82,0 120,0"/></g><polyline class="w" points="195,138 210,138"/><g transform="translate(210,138) rotate(0)"><line class="w" x1="0" y1="0" x2="63.5" y2="0"/><line class="w" x1="71.5" y1="0" x2="135" y2="0"/><line class="wk" x1="63.5" y1="-8" x2="63.5" y2="8"/><line class="w" x1="71.5" y1="-15" x2="71.5" y2="15"/></g><g transform="translate(75,228) rotate(0)"><line class="w" x1="0" y1="0" x2="131" y2="0"/><line class="w" x1="139" y1="0" x2="270" y2="0"/><line class="wk" x1="131" y1="-8" x2="131" y2="8"/><line class="w" x1="139" y1="-15" x2="139" y2="15"/></g><polyline class="w" points="345,138 345,195 345,228"/><circle class="inkf" cx="75" cy="138" r="3.6"/><circle class="inkf" cx="345" cy="138" r="3.6"/><circle class="inkf" cx="210" cy="48" r="3.6"/><circle class="inkf" cx="210" cy="138" r="3.6"/><circle class="inkf" cx="345" cy="195" r="3.6"/><line class="a" x1="365" y1="165" x2="365.0" y2="202.0"/><polygon class="af" points="365,210 361.0,202.0 369.0,202.0"/><line class="a" x1="135" y1="34" x2="167.0" y2="34.0"/><polygon class="af" points="175,34 167.0,38.0 167.0,30.0"/><line class="a" x1="225" y1="124" x2="247.0" y2="124.0"/><polygon class="af" points="255,124 247.0,128.0 247.0,120.0"/><text class="s" x="210" y="38" text-anchor="middle">P₁</text><text class="s" x="365" y="98" text-anchor="start">R₁</text><text class="s" x="53" y="98" text-anchor="end">ε₁</text><text class="s" x="210" y="128" text-anchor="middle">P₂</text><text class="s" x="135" y="165" text-anchor="middle">R₂</text><text class="s" x="277.5" y="165" text-anchor="middle">ε₂</text><text class="s" x="210" y="255" text-anchor="middle">ε₃</text><text class="s" x="333" y="200" text-anchor="end">P₃</text><text class="sa" x="375" y="192.5" text-anchor="start">I₃</text><text class="sa" x="155" y="28" text-anchor="middle">I₁</text><text class="sa" x="240" y="118" text-anchor="middle">I₂</text></svg>

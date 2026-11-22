@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 590 225" style="max-width:796px" role="img" aria-label="Tres geometrías básicas de capacitores y sus superficies gaussianas">
+<style>
+  :root {
+    --surface: #ffffff; --ink: #142030; --muted: #566273; --line: #d8dee7;
+    --accent: #1f4fd1; --accent-soft: #e7edfc; --copper: #a85a18; --copper-soft: #f8eee4;
+    --font-body: "Source Sans 3", "Segoe UI", Roboto, sans-serif;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --surface: #151c26; --ink: #e5eaf1; --muted: #9aa6b6; --line: #29323f;
+      --accent: #84a6ff; --accent-soft: #1b2640; --copper: #e2a26b; --copper-soft: #2a2119;
+    }
+  }
+  svg { background: var(--surface); font-family: var(--font-body); }
+  .w { stroke: var(--ink); stroke-width: 1.8; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+  .wk { stroke: var(--ink); stroke-width: 3.2; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+  .m { stroke: var(--muted); stroke-width: 1.2; fill: none; }
+  .md { stroke: var(--muted); stroke-width: 1.3; stroke-dasharray: 4 4; fill: none; }
+  .a { stroke: var(--accent); stroke-width: 2.2; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+  .ad { stroke: var(--accent); stroke-width: 1.6; stroke-dasharray: 5 4; fill: none; }
+  .c { stroke: var(--copper); stroke-width: 2.2; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+  .cd { stroke: var(--copper); stroke-width: 1.4; stroke-dasharray: 4 3; fill: none; }
+  .fld { stroke: var(--muted); stroke-width: 1.3; opacity: .38; }
+  .fldl { stroke: var(--muted); stroke-width: 1.4; opacity: .6; fill: none; }
+  .af { fill: var(--accent); } .cf { fill: var(--copper); } .wf, .inkf, .wkf { fill: var(--ink); }
+  .mf, .mdf { fill: var(--muted); } .fldlf { fill: var(--muted); opacity: .6; }
+  .adf { fill: var(--accent); } .cdf { fill: var(--copper); }
+  .soft { fill: var(--accent-soft); } .csoft { fill: var(--copper-soft); } .paperf { fill: var(--surface); }
+  .nostroke { stroke: none; } .nofill { fill: none; }
+  .s, .sa, .sc { font: italic 17px "Times New Roman", "STIX Two Text", serif; fill: var(--ink); }
+  .sa { fill: var(--accent); } .sc { fill: var(--copper); }
+  .t { font: 12.5px var(--font-body); fill: var(--muted); }
+  .tb { font: 600 14px var(--font-body); fill: var(--ink); }
+  .tc { font: 600 13px var(--font-body); fill: var(--copper); }
+  .ta { font: 600 13px var(--font-body); fill: var(--accent); }
+  .tw { font: 700 13px var(--font-body); fill: var(--surface); }
+  .gl-ink, .gl-acc, .gl-cop, .gl-mut, .gl-srf { fill: none; stroke-width: 1.2; stroke-linecap: round; }
+  .gl-ink { stroke: var(--ink); } .gl-acc { stroke: var(--accent); } .gl-cop { stroke: var(--copper); }
+  .gl-mut { stroke: var(--muted); } .gl-srf { stroke: var(--surface); }
+  .glf-ink { fill: var(--ink); } .glf-acc { fill: var(--accent); } .glf-cop { fill: var(--copper); }
+  .glf-mut { fill: var(--muted); } .glf-srf { fill: var(--surface); }
+  .sb { font-size: 72%; }
+</style>
+<circle class="paperf wk" cx="295" cy="102" r="64"/><circle class="csoft w" cx="295" cy="102" r="20"/><circle class="soft w" cx="492" cy="102" r="68"/><circle class="paperf w" cx="492" cy="102" r="58"/><circle class="csoft w" cx="492" cy="102" r="22"/><rect class="csoft w" x="28" y="48" width="120" height="8"/><rect class="soft w" x="28" y="148" width="120" height="8"/><line class="m" x1="158" y1="56" x2="158" y2="148"/><line class="m" x1="162" y1="56" x2="154" y2="56"/><line class="m" x1="162" y1="148" x2="154" y2="148"/><line class="m" x1="295" y1="102" x2="309.142" y2="116.142"/><line class="m" x1="295" y1="102" x2="356.819" y2="85.4356"/><line class="m" x1="492" y1="102" x2="507.556" y2="117.556"/><line class="m" x1="492" y1="102" x2="548.024" y2="86.9885"/><line class="a" x1="58" y1="64" x2="58.0" y2="133.0"/><polygon class="af" points="58,140 54.5,133.0 61.5,133.0"/><line class="a" x1="88" y1="64" x2="88.0" y2="133.0"/><polygon class="af" points="88,140 84.5,133.0 91.5,133.0"/><line class="a" x1="118" y1="64" x2="118.0" y2="133.0"/><polygon class="af" points="118,140 114.5,133.0 121.5,133.0"/><circle class="ad nofill" cx="295" cy="102" r="42"/><circle class="inkf" cx="295" cy="102" r="2.6"/><line class="a" x1="302.416" y1="79.1746" x2="309.5" y2="57.3"/><polygon class="af" points="311.687,50.6429 312.9,58.4 306.2,56.2"/><circle class="ad nofill" cx="492" cy="102" r="40"/><circle class="inkf" cx="492" cy="102" r="2.6"/><text class="tc" x="88" y="41" text-anchor="middle">+Q (+σ)</text><text class="ta" x="88" y="172" text-anchor="middle">−Q (−σ)</text><g><text class="sa" x="106.4" y="106" text-anchor="middle">E</text><line class="gl-acc" x1="104.4" y1="91.4" x2="110.9" y2="91.4"/><polygon class="glf-acc" points="112.4,91.4 106.9,88.8 106.9,93.9"/></g><text class="s" x="166" y="107" text-anchor="start">d</text><text class="t" x="88" y="208" text-anchor="middle">(a) Placas paralelas (área A)</text><text class="tc" x="283" y="107" text-anchor="end">+Q</text><text class="s" x="319.057" y="119.258" text-anchor="middle">ra</text><text class="s" x="334.498" y="83.267" text-anchor="middle">rb</text><text class="sa" x="260.003" y="65.8261" text-anchor="end">r</text><g><text class="sa" x="326.3" y="31.6218" text-anchor="middle">E</text><line class="gl-acc" x1="324.3" y1="17.0" x2="330.7" y2="17.0"/><polygon class="glf-acc" points="332.2,17.0 326.8,14.5 326.8,19.6"/></g><text class="t" x="295" y="208" text-anchor="middle">(b) Cilíndrico coaxial (largo L)</text><text class="tc" x="482" y="107" text-anchor="end">+Q</text><text class="s" x="518.463" y="120.484" text-anchor="middle">ra</text><text class="s" x="527.795" y="85.492" text-anchor="middle">rb</text><text class="ta" x="442" y="46" text-anchor="end">−Q</text><text class="sa" x="461.057" y="65.2339" text-anchor="end">r</text><text class="t" x="492" y="208" text-anchor="middle">(c) Cascarones esféricos</text></svg>

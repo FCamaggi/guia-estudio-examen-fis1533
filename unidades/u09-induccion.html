@@ -1,0 +1,568 @@
+<!-- U9 Inducción electromagnética. Contract: SPEC-PEDAGOGICO.md. Gate: python3 scripts/check_unit.py unidades/u09-induccion.html -->
+<section class="unit" id="u09" data-num="U9" data-title="Inducción electromagnética">
+  <header class="unit-head"><span class="unit-num">U9</span><h1>Inducción electromagnética</h1><span class="unit-weight">22 problemas en exámenes · 5 en los 4 recientes</span></header>
+
+<section class="sec" id="u09-mapa" data-block="mapa" data-title="Mapa de la unidad">
+  <h2>Mapa de la unidad</h2>
+  <div class="key"><b>Idea central.</b> Cuando el flujo magnético que atraviesa un circuito cambia en el tiempo, aparece una fem $\varepsilon = -\dfrac{d\Phi_B}{dt}$. Casi todo problema de inducción se resuelve igual: calcular $\Phi_B(t)$, derivarlo, obtener la corriente con la ley de Ohm, dar el sentido con la ley de Lenz y, si algo se mueve, calcular la fuerza magnética que frena ese movimiento.</div>
+  <div class="goals"><div class="goals-t">Al terminar deberías poder</div><ul>
+    <li>Calcular el flujo de un campo uniforme y el de un campo no uniforme (alambre infinito, $\vec B(z)$), eligiendo y declarando la normal $\hat n$.</li>
+    <li>Aplicar la ley de Faraday con su regla de signos y comprobar el sentido de la corriente con la ley de Lenz.</li>
+    <li>Calcular fem de movimiento, corriente inducida, fuerza magnética sobre cada lado de una espira y la fuerza externa necesaria para mantener la velocidad.</li>
+    <li>Plantear y resolver la ecuación de movimiento de una barra o espira frenada magnéticamente: $v(t)$, distancia recorrida y velocidad terminal.</li>
+    <li>Calcular el campo eléctrico inducido por un $\vec B(t)$ con simetría cilíndrica, dentro y fuera de un solenoide.</li>
+    <li>Usar la corriente de desplazamiento para obtener $\vec B$ entre las placas de un condensador que se carga.</li>
+  </ul></div>
+  <div class="exam-map"><h4>Qué pregunta el examen</h4><ul>
+    <li><b>Espira que se mueve frente a un alambre infinito o que entra a una zona con $\vec B$ uniforme</b> (2014-1, 2015-2 P1, 2022-2 P1, 2024-1 P2, 2025-1 P4, 2026-1 P2): $\vec B$ por Ampère, flujo (logaritmo o $Bax$), fem, corriente, sentido y fuerza externa.</li>
+    <li><b>Espira o barra que cae o desliza y alcanza velocidad terminal</b> (2017-2 P4, 2025-2 P2): $\Phi_B(z)$, $\varepsilon(v)$, fuerza magnética sobre los cuatro lados, ecuación de movimiento y $v_{\text{term}}$.</li>
+    <li><b>Campo $\vec B(t)$ o movimiento relativo de dos espiras coaxiales</b> (2021-2 Ej. 3, 2023-1 P3 y P11, 2024-2 P4): $\Phi_B(t)$, $\varepsilon(t)$ y sentido antes y después de cruzarse.</li>
+    <li>Formato reciente: un problema de 6 puntos dividido en 3 a 5 partes, sin calculadora ni formulario. Por eso esta unidad usa valores numéricos que se calculan a mano y privilegia resultados simbólicos.</li>
+  </ul></div>
+  <details class="prereq"><summary>Repaso exprés: producto cruz y regla de la mano derecha</summary>
+    <p>Para vectores unitarios cartesianos: $\hat x\times\hat y = \hat z$, $\hat y\times\hat z = \hat x$, $\hat z\times\hat x = \hat y$, y al invertir el orden cambia el signo ($\hat y\times\hat x = -\hat z$). La magnitud es $|\vec a\times\vec b| = ab\sin\theta$ y la dirección es perpendicular a ambos.</p>
+    <p>Se usa aquí en dos fórmulas: la fuerza sobre una carga en movimiento, $\vec F = q\,\vec v\times\vec B$, y la fuerza sobre un tramo recto de cable con corriente, $\vec F = I\,\vec\ell\times\vec B$, donde $\vec\ell$ tiene el largo del tramo y apunta en el sentido de la corriente. Unidades: $\vec F$ en N, $q$ en C, $\vec v$ en m/s, $\vec B$ en T, $I$ en A, $\vec\ell$ en m.</p>
+    <p><b>Si $\vec B$ cambia a lo largo del cable</b>, se usa la forma diferencial $d\vec F = I\,d\vec\ell\times\vec B$ y se suma tramo a tramo: $\vec F = \displaystyle\int I\,d\vec\ell\times\vec B$. Si $\vec B$ solo depende de una coordenada y el lado es perpendicular a esa coordenada (lado horizontal con $\vec B(z)$), todo el lado está en el mismo campo y basta $I\vec\ell\times\vec B$.</p>
+    <p><b>Mini ejemplo:</b> corriente hacia arriba ($\vec\ell = \ell\hat y$) en un campo que entra a la hoja ($\vec B = -B\hat z$): $\vec F = I\ell B\,\hat y\times(-\hat z) = -I\ell B\,\hat x$, es decir, hacia la izquierda.</p>
+    <p><b>Regla de la mano derecha para circulaciones:</b> si el pulgar apunta según $\hat n$, los dedos doblados indican el sentido de circulación "positivo". Con $\hat n$ saliendo de la hoja, el sentido positivo es antihorario.</p>
+  </details>
+  <details class="prereq"><summary>Repaso exprés: campo de un alambre infinito y de un solenoide (ley de Ampère)</summary>
+    <p>La ley de Ampère dice $\oint\vec B\cdot d\vec\ell = \mu_0 I_{\text{enc}}$, con $\mu_0 = 4\pi\times10^{-7}\ \text{T·m/A}$. Para un alambre recto infinito con corriente $I$, por simetría $\vec B$ es tangente a circunferencias centradas en el alambre y tiene la misma magnitud en toda la circunferencia de radio $s$. Entonces $B\,(2\pi s) = \mu_0 I$:</p>
+    $$B(s) = \frac{\mu_0 I}{2\pi s}$$
+    <p>La dirección se obtiene con el pulgar en el sentido de $I$: los dedos rodean el alambre en el sentido de $\vec B$. Para un alambre vertical con corriente hacia arriba, a su derecha $\vec B$ entra a la hoja y a su izquierda sale.</p>
+    <p>Para un solenoide ideal con $n$ vueltas por metro y corriente $I$: $B = \mu_0 n I$ en el interior (uniforme, a lo largo del eje) y $B = 0$ afuera.</p>
+  </details>
+  <details class="prereq"><summary>Repaso exprés: campo en el eje de una espira circular</summary>
+    <p>Una espira de radio $R$ con corriente $I$ produce en su eje, a distancia $d$ del centro, un campo a lo largo del eje (ley de Biot-Savart):</p>
+    $$B(d) = \frac{\mu_0 I R^2}{2\,(R^2 + d^2)^{3/2}}$$
+    <p><b>Dirección:</b> con los dedos de la mano derecha en el sentido de $I$, el pulgar indica $\vec B$ sobre el eje, y apunta <b>en el mismo sentido a ambos lados</b> del plano de la espira. Unidades: $R$ y $d$ en m.</p>
+    <p>Límites para comprobarla: en el centro ($d = 0$) da $\mu_0 I/(2R)$; lejos ($d\gg R$) cae como $1/d^3$, como un dipolo.</p>
+  </details>
+  <details class="prereq"><summary>Repaso exprés: logaritmos, regla de la cadena y ecuaciones diferenciales de primer orden</summary>
+    <p><b>Integral:</b> $\displaystyle\int_r^{r+w}\frac{ds}{s} = \ln(r+w) - \ln r = \ln\!\left(\frac{r+w}{r}\right)$.</p>
+    <p><b>Derivada de un logaritmo con $r(t)$:</b> $\dfrac{d}{dt}\ln\!\left(\dfrac{r+w}{r}\right) = \left(\dfrac{1}{r+w} - \dfrac{1}{r}\right)\dfrac{dr}{dt} = -\dfrac{w}{r(r+w)}\,\dfrac{dr}{dt}$.</p>
+    <p><b>Ecuación $\dot v = -v/\tau$</b> con $v(0) = v_0$: separando, $\dfrac{dv}{v} = -\dfrac{dt}{\tau}$; integrando, $\ln(v/v_0) = -t/\tau$, así que $v(t) = v_0\,e^{-t/\tau}$.</p>
+    <p><b>Ecuación $\dot v = g - v/\tau$</b> con $v(0) = 0$: cuando $\dot v = 0$ se llega a $v_\infty = g\tau$. Con $u = v - v_\infty$ queda $\dot u = -u/\tau$, así que $u = -v_\infty e^{-t/\tau}$ y $v(t) = v_\infty\left(1 - e^{-t/\tau}\right)$.</p>
+    <p><b>Valores útiles sin calculadora:</b> $e^{-1}\approx 0{,}37$; $\cos 60^\circ = \sin 30^\circ = \tfrac12$; $\cos 30^\circ = \tfrac{\sqrt3}{2}\approx 0{,}87$.</p>
+  </details>
+  <details class="prereq"><summary>Repaso exprés: ley de Gauss, condensador plano y regla de mallas</summary>
+    <p><b>Ley de Gauss:</b> $\oint\vec E\cdot d\vec A = Q_{\text{enc}}/\varepsilon_0$, con $Q_{\text{enc}}$ la carga encerrada (C) y $\varepsilon_0 = 8{,}85\times10^{-12}\ \text{C}^2/(\text{N·m}^2)$. Entre dos placas paralelas de área $A$ (m²) con cargas $\pm q$, el campo es uniforme, va de $+q$ a $-q$ y vale $E = \dfrac{q}{\varepsilon_0 A}$ (despreciando bordes).</p>
+    <p><b>Regla de mallas (Kirchhoff):</b> al recorrer un circuito cerrado, la suma de las fem es igual a la suma de las caídas $IR$. Una fem inducida entra en esa suma como cualquier otra fem, con su signo: si se opone a una batería $V_0$, queda $V_0 - \varepsilon_{\text{ind}} = IR$.</p>
+  </details>
+</section>
+
+<section class="sec" id="u09-s1" data-block="teoria" data-title="Flujo magnético">
+  <h2>Flujo magnético</h2>
+  <p><b>El problema físico.</b> En los experimentos de Faraday aparece corriente en una espira cuando se le acerca un imán, cuando cambia la corriente de una bobina vecina, o cuando la espira gira o se deforma dentro de un campo. Si imán y espira están quietos y el campo es constante, no pasa nada. Lo que todos los casos con corriente tienen en común es que cambia <em>cuánto campo magnético atraviesa la espira</em>. Esa cantidad es el flujo magnético.</p>
+  <p><b>Intuición.</b> Piensa en las líneas de $\vec B$ como un chorro que pasa por un aro. Pasa más chorro si el aro es grande, si el chorro es intenso y si el aro está de frente. Si el aro está de canto, no pasa nada.</p>
+  <figure class="fig" data-fig="u09-flujo-angulo"><figcaption>Espira plana vista de canto. $\hat n$ es la normal al plano; $\varphi$ es el ángulo entre $\hat n$ y $\vec B$, y $\theta$ el ángulo entre $\vec B$ y el plano. Siempre se cumple $\varphi = 90^\circ - \theta$.</figcaption></figure>
+  <div class="eq key"><div class="lbl">Flujo magnético</div>$$\Phi_B = \int_S \vec B\cdot d\vec A = \int_S B\cos\varphi\,dA \qquad\xrightarrow{\ \vec B\text{ uniforme, }S\text{ plana}\ }\qquad \Phi_B = BA\cos\varphi$$<div class="note">$d\vec A = \hat n\,dA$ es el elemento de área (m²) con dirección normal a la superficie; $\vec B$ es el campo magnético (T); $\varphi$ es el ángulo entre $\vec B$ y $\hat n$. Unidad: $1\ \text{Wb} = 1\ \text{T·m}^2$. Si la espira tiene $N$ vueltas iguales, el flujo total enlazado es $N\Phi_B$.</div></div>
+  <p><b>La normal se elige.</b> Toda superficie tiene dos normales posibles. Cualquiera sirve, pero hay que declararla al comienzo y mantenerla en todo el problema, porque de ella depende el signo de $\Phi_B$ y el de la fem. Lo práctico es elegir $\hat n$ en la dirección de $\vec B$, para que el flujo sea positivo.</p>
+  <p><b>Tres casos con campo uniforme:</b> de frente ($\varphi = 0$): $\Phi_B = BA$. Inclinada: $\Phi_B = BA\cos\varphi$. De canto ($\varphi = 90^\circ$): $\Phi_B = 0$.</p>
+  <details class="deriv" open><summary>Derivación paso a paso: flujo de un alambre infinito a través de una espira rectangular</summary>
+    <figure class="fig" data-fig="u09-alambre-espira"><figcaption>Alambre infinito con corriente $I$ y espira rectangular en el mismo plano: lado $\ell$ paralelo al alambre, ancho $w$, lado cercano a distancia $r$. La franja sombreada de ancho $ds$ está a distancia $s$ del alambre.</figcaption></figure>
+    <p><b>Paso 1 · El campo no es uniforme.</b> A la derecha del alambre, $\vec B$ entra a la hoja con magnitud $B(s) = \mu_0 I/(2\pi s)$. Como $B$ depende de $s$, no se puede usar $BA$; hay que integrar.</p>
+    <p><b>Paso 2 · Cortar en franjas donde $B$ sí es constante.</b> En una franja vertical de ancho $ds$ y alto $\ell$, todos los puntos están a la misma distancia $s$ del alambre, así que ahí $B$ es constante. Con $\hat n$ entrando a la hoja (paralela a $\vec B$), $d\Phi_B = B(s)\,\ell\,ds$.</p>
+    <p><b>Paso 3 · Sumar las franjas.</b></p>
+    $$\Phi_B = \int_r^{r+w}\frac{\mu_0 I}{2\pi s}\,\ell\,ds = \frac{\mu_0 I\ell}{2\pi}\int_r^{r+w}\frac{ds}{s} = \frac{\mu_0 I\ell}{2\pi}\ln\!\left(\frac{r+w}{r}\right)$$
+    <p><b>Comprobación:</b> si la espira es muy angosta ($w\ll r$), $\ln(1 + w/r)\approx w/r$ y $\Phi_B\approx \dfrac{\mu_0 I}{2\pi r}\,\ell w = B(r)\cdot(\text{área})$, que es lo esperable cuando el campo casi no varía sobre la espira.</p>
+  </details>
+  <p><b>Por qué no importa qué superficie elijas.</b> El campo magnético cumple $\oint_{\text{cerrada}}\vec B\cdot d\vec A = 0$ (no existen cargas magnéticas). Por eso el flujo a través de cualquier superficie apoyada en el mismo borde es el mismo, y se puede usar siempre la superficie plana, que es la más fácil.</p>
+  <div class="why"><b>Cuándo se usa / cuándo NO:</b> el flujo es siempre el primer cálculo de un problema de inducción. Usa $BA\cos\varphi$ solo si $\vec B$ es uniforme sobre toda la superficie y esta es plana. Si $B$ depende de la posición, integra en franjas donde $B$ sea constante. Si el campo existe solo en una parte de la espira, usa solo el área donde hay campo.</div>
+</section>
+
+<section class="sec" id="u09-s2" data-block="teoria" data-title="Ley de Faraday y ley de Lenz">
+  <h2>Ley de Faraday y ley de Lenz</h2>
+  <p><b>El problema físico.</b> Ya sabemos qué cantidad cambia en los experimentos. Falta la ley cuantitativa: cuánta fem aparece y en qué sentido empuja a las cargas.</p>
+  <div class="eq key"><div class="lbl">Ley de Faraday</div>$$\varepsilon = \oint\vec E\cdot d\vec\ell = -N\,\frac{d\Phi_B}{dt}$$<div class="note">$\varepsilon$: fem inducida (V), el trabajo por unidad de carga que se hace sobre las cargas en una vuelta completa al circuito; $\vec E$ es el campo eléctrico (V/m) que empuja a las cargas y $d\vec\ell$ (m) el elemento del circuito, recorrido en el sentido positivo. $N$: número de vueltas. $\Phi_B$: flujo por vuelta (Wb). Unidad: $1\ \text{V} = 1\ \text{Wb/s}$. Lo que importa es el <em>cambio</em> del flujo: un flujo grande pero constante no induce nada.</div></div>
+  <p>El flujo $BA\cos\varphi$ puede cambiar de tres maneras, y cada una corresponde a una familia de problemas de examen:</p>
+  <ul>
+    <li><b>Cambia $B$:</b> campo $B(t)$, corriente variable en un alambre o solenoide vecino, o una espira que se mueve hacia donde el campo es distinto.</li>
+    <li><b>Cambia el área con campo:</b> barra que desliza sobre rieles, o espira que entra a una región con campo.</li>
+    <li><b>Cambia el ángulo:</b> espira que gira (generador).</li>
+  </ul>
+  <figure class="fig" data-fig="u09-signo-normal"><figcaption>Regla de signos: el sentido de circulación positivo es el que indican los dedos de la mano derecha con el pulgar según $\hat n$. Si $\varepsilon \gt 0$, la fem empuja en ese sentido; si $\varepsilon \lt 0$, en el contrario.</figcaption></figure>
+  <h3>Regla de signos (método formal)</h3>
+  <ol>
+    <li>Elige $\hat n$ y declárala.</li>
+    <li>Calcula $\Phi_B(t)$ con esa normal y deriva: $\varepsilon = -N\,d\Phi_B/dt$.</li>
+    <li>Si $\varepsilon \gt 0$, la corriente circula en el sentido positivo (mano derecha alrededor de $\hat n$); si $\varepsilon \lt 0$, en el sentido contrario.</li>
+  </ol>
+  <h3>Ley de Lenz (método rápido para el sentido)</h3>
+  <div class="eq key"><div class="lbl">Ley de Lenz</div><p>La corriente inducida circula en el sentido que crea un campo magnético propio que <b>se opone al cambio</b> del flujo (no al flujo).</p><div class="note">Si el flujo aumenta, el campo de la corriente inducida apunta contra el campo externo dentro de la espira. Si el flujo disminuye, apunta a favor. Es la explicación del signo menos de la ley de Faraday.</div></div>
+  <p><b>Por qué tiene que ser así.</b> Si la corriente inducida reforzara el cambio, el flujo crecería más, induciría más corriente, y así sin fin: se obtendría energía de la nada. La conservación de la energía obliga a que la inducción se oponga a su causa. Por la misma razón, cuando la causa es un movimiento, la fuerza magnética sobre la corriente inducida <em>frena</em> ese movimiento.</p>
+  <table>
+    <thead><tr><th>Situación (espira horizontal, vista desde arriba)</th><th>Flujo hacia abajo</th><th>Campo inducido dentro</th><th>Sentido de $I$</th></tr></thead>
+    <tbody>
+      <tr><td>Se acerca el polo norte de un imán desde arriba</td><td>aumenta</td><td>hacia arriba</td><td>antihorario</td></tr>
+      <tr><td>Se aleja ese mismo polo norte</td><td>disminuye</td><td>hacia abajo</td><td>horario</td></tr>
+    </tbody>
+  </table>
+  <details class="deriv"><summary>Consecuencia útil: la carga total que circula no depende de la rapidez del cambio</summary>
+    <p>Con resistencia total $R$, la corriente es $I = \dfrac{|\varepsilon|}{R} = \dfrac{N}{R}\left|\dfrac{d\Phi_B}{dt}\right|$. Si el flujo cambia siempre en el mismo sentido, la carga total es</p>
+    $$Q = \int I\,dt = \frac{N}{R}\int\left|\frac{d\Phi_B}{dt}\right|dt = \frac{N\,|\Delta\Phi_B|}{R}$$
+    <p>Sacar una bobina de un campo rápido o lento hace circular la misma carga; lo único que cambia es cuánto dura el pulso. Así funciona la "bobina exploradora" que mide $B$: se mide $Q$ y se despeja $B = QR/(NA)$.</p>
+  </details>
+  <div class="key"><b>Receta de examen (inducción).</b> 1) Campo en la región: dado, o por Ampère o Biot-Savart. 2) Elegir $\hat n$. 3) $\Phi_B(t)$: con $BA\cos\varphi$ o integrando. 4) $\varepsilon = -N\,d\Phi_B/dt$ (regla de la cadena: $\dfrac{d}{dt} = v\dfrac{d}{dx}$ si hay movimiento). 5) $I = |\varepsilon|/R$ y sentido por Lenz. 6) Si hay movimiento: fuerza magnética $I\vec\ell\times\vec B$ sobre cada lado, que siempre se opone al movimiento, y la fuerza externa igual y opuesta si $v$ es constante.</div>
+  <div class="why"><b>Cuándo se usa / cuándo NO:</b> la ley de Faraday vale siempre que haya un circuito cerrado bien definido, quieto o en movimiento. Para el sentido, usa Lenz y confirma con la regla de signos si el problema la pide. No digas que la corriente se opone al flujo: se opone a su cambio.</div>
+</section>
+
+<section class="sec" id="u09-s3" data-block="teoria" data-title="Fem de movimiento y frenado magnético">
+  <h2>Fem de movimiento y frenado magnético</h2>
+  <p><b>El problema físico.</b> Una barra metálica desliza sobre dos rieles unidos por una resistencia, dentro de un campo uniforme. Nada cambia en el campo, pero el circuito crece. ¿Hay fem? ¿Qué empuja a las cargas? ¿Qué pasa con la barra?</p>
+  <figure class="fig" data-fig="u09-barra-rieles"><figcaption>Barra de largo $\ell$ que desliza con velocidad $\vec v$ sobre rieles unidos por $R$, en un campo uniforme $\vec B$ que entra a la hoja. $x$ es la distancia de la resistencia a la barra.</figcaption></figure>
+  <h3>1. Con la ley de Faraday</h3>
+  <p>Con $\hat n$ entrando a la hoja, $\Phi_B = B\ell x$. Como $dx/dt = v$:</p>
+  $$\varepsilon = -\frac{d}{dt}(B\ell x) = -B\ell v,\qquad |\varepsilon| = B\ell v$$
+  <p>El signo negativo dice que la fem circula al revés del sentido positivo (horario con $\hat n$ entrante), o sea, en sentido <b>antihorario</b>. Lenz lo confirma: el flujo entrante aumenta, así que la corriente debe crear campo saliente dentro del circuito, y eso exige circular en sentido antihorario.</p>
+  <h3>2. Con la fuerza sobre las cargas (misma respuesta)</h3>
+  <p>Cada carga $q$ de la barra se mueve con $\vec v$ y siente $q\,\vec v\times\vec B$. Con $\vec v = v\hat x$ y $\vec B = -B\hat z$: $\vec v\times\vec B = vB\,\hat y$, a lo largo de la barra y hacia arriba. El trabajo por unidad de carga al recorrer la barra es $vB\ell$. Los rieles y la resistencia están quietos y no aportan. En general:</p>
+  <div class="eq key"><div class="lbl">Fem de movimiento</div>$$\varepsilon = \oint\left(\vec v\times\vec B\right)\cdot d\vec\ell \qquad\xrightarrow{\ \text{barra recta},\ \vec v\perp\vec B\perp\vec\ell\ }\qquad |\varepsilon| = B\ell v$$<div class="note">$\vec v$: velocidad de cada tramo del conductor (m/s); $\ell$: largo del tramo que se mueve (m). Solo aportan los tramos que se mueven y "cortan" líneas de campo. Un tramo que se mueve a lo largo de sí mismo no aporta.</div></div>
+  <p><b>Control cruzado útil.</b> Si $B$ no es uniforme, los dos lados de una espira que se mueve aportan fem opuestas y la neta es la diferencia. En la espira que se aleja del alambre infinito: $\varepsilon = \ell v\,[B(r) - B(r+w)]$. Debe coincidir con $-d\Phi_B/dt$, y es un buen control en el examen.</p>
+  <p><b>Signo de la velocidad con coordenadas.</b> Si describes la posición con una coordenada (por ejemplo la altura $z$), la derivada es $v_z = dz/dt$ <em>con signo</em>: al caer, $v_z \lt 0$. Escribe la fem en función de $v_z$ y reemplaza el signo al final; luego compara el sentido con el que da Lenz.</p>
+  <h3>3. Fuerza, energía y frenado</h3>
+  <p>Con resistencia total $R$: $I = B\ell v/R$. La barra con corriente está en el campo y siente $\vec F_B = I\vec\ell\times\vec B$. Con la corriente hacia arriba en la barra, $\hat y\times(-\hat z) = -\hat x$: la fuerza apunta <b>contra la velocidad</b>, de magnitud</p>
+  $$F_B = I\ell B = \frac{B^2\ell^2}{R}\,v$$
+  <p>Aquí $m$ es la masa de la barra (kg), $F_B$ la fuerza magnética (N) y $P$ la potencia (W). Para mantener $v$ constante, un agente externo debe empujar con $F_{\text{ext}} = F_B$ en la dirección del movimiento. Su potencia es $F_{\text{ext}}v = B^2\ell^2v^2/R = \varepsilon^2/R = I^2R$, exactamente la potencia que se disipa en la resistencia: el trabajo mecánico se convierte en calor.</p>
+  <figure class="fig" data-fig="u09-frenado-vt"><figcaption>Barra lanzada con $v_0$ y sin otra fuerza: la velocidad decae exponencialmente. En $t = \tau$ queda el 37 % de $v_0$.</figcaption></figure>
+  <details class="deriv" open><summary>Derivación paso a paso: barra lanzada y barra con fuerza constante</summary>
+    <p><b>Barra lanzada (solo actúa $F_B$).</b> Segunda ley de Newton en $x$:</p>
+    $$m\frac{dv}{dt} = -\frac{B^2\ell^2}{R}\,v\quad\Longleftrightarrow\quad \frac{dv}{dt} = -\frac{v}{\tau},\qquad \tau = \frac{mR}{B^2\ell^2}\ \text{(constante de tiempo, s)}$$
+    <p>Separando variables, $\dfrac{dv}{v} = -\dfrac{dt}{\tau}$, e integrando desde $v(0) = v_0$: $\ln(v/v_0) = -t/\tau$, es decir, $v(t) = v_0\,e^{-t/\tau}$.</p>
+    <p>Distancia total: $x_{\text{total}} = \displaystyle\int_0^\infty v_0e^{-t/\tau}dt = \Big[-v_0\tau\,e^{-t/\tau}\Big]_0^\infty = v_0\tau = \dfrac{mRv_0}{B^2\ell^2}$. Depende de $1/B^2$: con la mitad del campo, la barra llega cuatro veces más lejos.</p>
+    <p><b>Con una fuerza constante $F$ a favor del movimiento</b> (por ejemplo el peso, $F = mg$, en una espira que cae):</p>
+    $$m\frac{dv}{dt} = F - \frac{B^2\ell^2}{R}\,v$$
+    <p>La velocidad crece hasta que la fuerza magnética iguala a $F$ y la aceleración se anula. Esa es la <b>velocidad terminal</b>:</p>
+    $$v_{\text{term}} = \frac{FR}{B^2\ell^2},\qquad v(t) = v_{\text{term}}\left(1 - e^{-t/\tau}\right)\ \text{si }v(0)=0$$
+    <p><b>Con una batería en el circuito</b> (barra impulsada por $V_0$): la fem de movimiento $B\ell v$ se opone a la batería (Lenz), así que la regla de mallas da $V_0 - B\ell v = IR$ e $I = (V_0 - B\ell v)/R$. La barra acelera hasta que $B\ell v = V_0$: ahí $I = 0$, no hay fuerza y la velocidad queda constante, $v_\infty = V_0/(B\ell)$. Es la misma fuerza contraelectromotriz de un motor.</p>
+    <p><b>Comprobación de unidades de $\tau$:</b> $\text{T} = \text{N}/(\text{A·m})$ y $\Omega = \text{V/A}$, así que $\dfrac{\text{kg}\cdot\Omega}{\text{T}^2\text{m}^2} = \dfrac{\text{kg·V·A}}{\text{N}^2} = \dfrac{\text{kg·W}}{\text{N}^2} = \text{s}$.</p>
+  </details>
+  <div class="why"><b>Cuándo se usa / cuándo NO:</b> $|\varepsilon| = B\ell v$ sirve para un tramo recto que se mueve perpendicular a sí mismo y a un $\vec B$ uniforme. Si $B$ cambia de un lado a otro de la espira, usa Faraday integrando el flujo o resta las fem de los dos lados. Si la espira está completamente dentro de un campo uniforme, la fem neta es cero aunque se mueva.</div>
+</section>
+
+<section class="sec" id="u09-s4" data-block="teoria" data-title="Campo eléctrico inducido">
+  <h2>Campo eléctrico inducido</h2>
+  <p><b>El problema físico.</b> Una espira rodea un solenoide largo cuya corriente crece. Fuera del solenoide $B = 0$, así que sobre los electrones de la espira no actúa ninguna fuerza magnética, y además la espira está quieta. Aun así circula corriente. Lo único que puede empujar a cargas quietas es un <b>campo eléctrico</b>: un $\vec B$ que cambia en el tiempo crea un $\vec E$.</p>
+  <figure class="fig" data-fig="u09-solenoide-e"><figcaption>Sección transversal de un solenoide de radio $b$ con $\vec B$ entrando a la hoja y creciendo. Las curvas punteadas de radio $r$ (dentro y fuera) son las que se usan en la ley de Faraday; $\vec E$ es tangente a ellas.</figcaption></figure>
+  <div class="eq key"><div class="lbl">Faraday en forma integral (curva fija) y diferencial</div>$$\oint_C\vec E\cdot d\vec\ell = -\frac{d}{dt}\int_S\vec B\cdot d\vec A \qquad\Longleftrightarrow\qquad \nabla\times\vec E = -\frac{\partial\vec B}{\partial t}$$<div class="note">$C$ es una curva cerrada fija y $S$ cualquier superficie apoyada en ella, orientada con la mano derecha respecto al sentido de recorrido de $C$. Este $\vec E$ no proviene de cargas sino de $\partial\vec B/\partial t$, y <b>no es conservativo</b>: su circulación no es cero, así que no existe un potencial $V$ único para él.</div></div>
+  <details class="deriv" open><summary>Derivación paso a paso: $\vec E$ dentro y fuera de un solenoide con $B(t)$</summary>
+    <p><b>Paso 1 · Simetría.</b> El solenoide es un cilindro y el campo es uniforme en su interior, así que $\vec E$ solo puede depender de la distancia $r$ al eje. No puede ser radial, porque entonces habría flujo eléctrico neto a través de un cilindro coaxial sin carga dentro, lo que contradice la ley de Gauss. Una componente a lo largo del eje no aporta a la circulación sobre la circunferencia y, en un solenoide infinito, no hay nada que la produzca, así que se toma nula. Entonces $\vec E$ es tangente a circunferencias coaxiales y tiene magnitud constante sobre cada una.</p>
+    <p><b>Paso 2 · Circulación.</b> Sobre la circunferencia de radio $r$: $\oint\vec E\cdot d\vec\ell = E\,(2\pi r)$.</p>
+    <p><b>Paso 3 · Flujo encerrado.</b> Dentro ($r \lt b$): $\Phi_B = B\,\pi r^2$. Fuera ($r \gt b$): solo hay campo en la sección del solenoide, así que $\Phi_B = B\,\pi b^2$.</p>
+    <p><b>Paso 4 · Igualar</b> (en magnitud):</p>
+    $$E\,2\pi r = \pi r^2\left|\frac{dB}{dt}\right|\ \Rightarrow\ E = \frac{r}{2}\left|\frac{dB}{dt}\right|\ \ (r\lt b);\qquad E\,2\pi r = \pi b^2\left|\frac{dB}{dt}\right|\ \Rightarrow\ E = \frac{b^2}{2r}\left|\frac{dB}{dt}\right|\ \ (r\gt b)$$
+    <p><b>Paso 5 · Sentido.</b> Por Lenz, si $B$ entrante crece, una espira en esa curva tendría corriente antihoraria, así que $\vec E$ circula en sentido antihorario. <b>Comprobación:</b> en $r = b$ ambas expresiones dan $E = \tfrac{b}{2}|dB/dt|$; $\vec E$ es continuo.</p>
+    <p><b>De la forma integral a la diferencial:</b> el rotor $\nabla\times\vec E$ mide cuánto "gira" el campo alrededor de cada punto (circulación por unidad de área), y el teorema de Stokes dice que la circulación en una curva es la suma del rotor sobre la superficie que encierra: $\oint_C\vec E\cdot d\vec\ell = \int_S(\nabla\times\vec E)\cdot d\vec A$. Si $C$ está fija, la derivada entra a la integral: $\int_S(\nabla\times\vec E)\cdot d\vec A = -\int_S\dfrac{\partial\vec B}{\partial t}\cdot d\vec A$ para toda superficie, de modo que los integrandos son iguales.</p>
+  </details>
+  <p><b>Corrientes de Foucault.</b> En una placa o disco metálico que se mueve en un campo, o que está en un campo variable, el campo inducido mueve cargas en lazos dentro del volumen (corrientes parásitas). Por Lenz, frenan el movimiento: frenos magnéticos de trenes, detectores de metales, cocinas de inducción. En transformadores y motores calientan el núcleo, y por eso se usan núcleos laminados, que cortan esos lazos.</p>
+  <div class="why"><b>Cuándo se usa / cuándo NO:</b> $E$ se despeja de la ley de Faraday solo cuando hay simetría (cilíndrica) que hace a $E$ constante y tangente sobre la curva. Sin simetría, Faraday da la fem total pero no $\vec E$ punto a punto. Y no uses $\Delta V = -\int\vec E\cdot d\vec\ell$ con este campo: el resultado depende del camino.</div>
+</section>
+
+<section class="sec" id="u09-s5" data-block="teoria" data-title="Generador de corriente alterna">
+  <h2>Generador de corriente alterna</h2>
+  <p><b>El problema físico.</b> ¿Cómo se produce la electricidad de la red? Haciendo girar una bobina dentro de un campo magnético: el flujo cambia porque cambia el ángulo.</p>
+  <figure class="fig" data-fig="u09-generador"><figcaption>Bobina de $N$ vueltas y área $A$ (vista de canto) que gira con velocidad angular $\omega$ en torno a un eje perpendicular a $\vec B$. La normal forma el ángulo $\varphi = \omega t$ con el campo.</figcaption></figure>
+  <div class="eq key"><div class="lbl">Generador (alternador)</div>$$\Phi_B = BA\cos(\omega t),\qquad \varepsilon(t) = -N\frac{d\Phi_B}{dt} = NBA\omega\,\sin(\omega t),\qquad \varepsilon_{\text{máx}} = NBA\omega$$<div class="note">$\omega$: velocidad angular (rad/s), con $\omega = 2\pi f$ y $f$ la frecuencia (Hz; en Chile la red usa 50 Hz). Se supone $\varphi = 0$ en $t = 0$.</div></div>
+  <p><b>Interpretación.</b> La fem es máxima cuando el flujo es <em>cero</em> (plano de la bobina paralelo a $\vec B$), porque ahí el flujo cambia más rápido. Y es cero cuando el flujo es máximo (bobina de frente al campo). Es el ejemplo más claro de que la fem depende del cambio del flujo y no de su valor. Esta fem sinusoidal es la fuente de los circuitos de corriente alterna (unidad U11).</p>
+  <p><b>Motor y fuerza contraelectromotriz.</b> Un motor es un generador al revés: una fuente hace circular corriente por la bobina y el torque magnético la hace girar. Al girar, la bobina induce una fem que, por Lenz, se opone a la corriente de la fuente. Esa fem crece con la rapidez de giro y limita la corriente.</p>
+  <div class="why"><b>Cuándo se usa / cuándo NO:</b> la fórmula vale para un campo uniforme y una rotación uniforme en torno a un eje perpendicular a $\vec B$. Si el eje es paralelo a $\vec B$, el flujo no cambia y no hay fem.</div>
+</section>
+
+<section class="sec" id="u09-s6" data-block="teoria" data-title="Corriente de desplazamiento y ecuaciones de Maxwell">
+  <h2>Corriente de desplazamiento y ecuaciones de Maxwell</h2>
+  <p><b>El problema físico.</b> Un condensador se está cargando con corriente $i$. Toma una curva circular alrededor del cable. La ley de Ampère dice que $\oint\vec B\cdot d\vec\ell = \mu_0 I_{\text{enc}}$, con $I_{\text{enc}}$ calculada a través de <em>cualquier</em> superficie apoyada en la curva. Con un disco plano que corta el cable, $I_{\text{enc}} = i$. Con una superficie abombada que pasa entre las placas sin tocar el cable, $I_{\text{enc}} = 0$. La misma circulación no puede valer dos cosas: a la ley de Ampère le falta un término.</p>
+  <figure class="fig" data-fig="u09-condensador-maxwell"><figcaption>Condensador de placas circulares de radio $R$ que se carga con corriente $i$. Entre las placas no hay corriente de conducción, pero el campo $\vec E$ crece. La curva punteada de radio $r$ está entre las placas.</figcaption></figure>
+  <div class="eq key"><div class="lbl">Ley de Ampère-Maxwell</div>$$\oint_C\vec B\cdot d\vec\ell = \mu_0\left(I_{\text{enc}} + \varepsilon_0\frac{d\Phi_E}{dt}\right),\qquad I_D \equiv \varepsilon_0\frac{d\Phi_E}{dt}$$<div class="note">$I_{\text{enc}}$: corriente de conducción que atraviesa $S$ (A). $\Phi_E = \int_S\vec E\cdot d\vec A$: flujo eléctrico por $S$ (V·m). $\varepsilon_0 = 8{,}85\times10^{-12}\ \text{C}^2/(\text{N·m}^2)$. $I_D$: corriente de desplazamiento (A). Un campo eléctrico que cambia crea campo magnético, igual que una corriente.</div></div>
+  <details class="deriv" open><summary>Derivación paso a paso: la corriente de desplazamiento continúa a la del cable</summary>
+    <p><b>Paso 1.</b> Entre placas de área $A = \pi R^2$ con carga $q$: $E = \dfrac{q}{\varepsilon_0 A}$ (uniforme, despreciando bordes). Flujo a través de toda el área: $\Phi_E = EA = q/\varepsilon_0$.</p>
+    <p><b>Paso 2.</b> $I_D = \varepsilon_0\dfrac{d\Phi_E}{dt} = \dfrac{dq}{dt} = i$. La corriente de desplazamiento entre las placas es igual a la del cable, y las dos superficies dan la misma circulación, $\mu_0 i$.</p>
+    <p><b>Paso 3 · Campo entre las placas.</b> Por simetría, $\vec B$ es tangente a circunferencias coaxiales. Una curva de radio $r \lt R$ encierra el flujo $\Phi_E(r) = E\,\pi r^2 = \dfrac{q}{\varepsilon_0}\dfrac{r^2}{R^2}$, así que $I_{D,\text{enc}} = \varepsilon_0\dfrac{d\Phi_E(r)}{dt} = i\,\dfrac{r^2}{R^2}$:</p>
+    $$B\,2\pi r = \mu_0\,i\,\frac{r^2}{R^2}\ \Rightarrow\ B = \frac{\mu_0\,i\,r}{2\pi R^2}\ \ (r\lt R);\qquad B = \frac{\mu_0\,i}{2\pi r}\ \ (r\gt R)$$
+    <p><b>Comprobación:</b> son las mismas expresiones que dentro y fuera de un cable grueso con corriente uniforme. En $r = R$ coinciden.</p>
+  </details>
+  <table>
+    <thead><tr><th>Ecuación de Maxwell</th><th>Forma integral</th><th>Forma diferencial</th><th>Qué dice</th></tr></thead>
+    <tbody>
+      <tr><td>Gauss (eléctrica)</td><td>$\oint\vec E\cdot d\vec A = \dfrac{Q_{\text{enc}}}{\varepsilon_0}$</td><td>$\nabla\cdot\vec E = \dfrac{\rho}{\varepsilon_0}$</td><td>Las cargas son fuentes de $\vec E$.</td></tr>
+      <tr><td>Gauss (magnética)</td><td>$\oint\vec B\cdot d\vec A = 0$</td><td>$\nabla\cdot\vec B = 0$</td><td>No hay cargas magnéticas.</td></tr>
+      <tr><td>Faraday</td><td>$\oint\vec E\cdot d\vec\ell = -\dfrac{d\Phi_B}{dt}$</td><td>$\nabla\times\vec E = -\dfrac{\partial\vec B}{\partial t}$</td><td>Un $\vec B$ variable crea $\vec E$.</td></tr>
+      <tr><td>Ampère-Maxwell</td><td>$\oint\vec B\cdot d\vec\ell = \mu_0 I_{\text{enc}} + \mu_0\varepsilon_0\dfrac{d\Phi_E}{dt}$</td><td>$\nabla\times\vec B = \mu_0\vec J + \mu_0\varepsilon_0\dfrac{\partial\vec E}{\partial t}$</td><td>Corrientes y $\vec E$ variable crean $\vec B$.</td></tr>
+    </tbody>
+  </table>
+  <p>Símbolos de la tabla: $\rho$ es la densidad volumétrica de carga (C/m³), $\vec J$ la densidad de corriente (A/m²), $Q_{\text{enc}}$ la carga encerrada (C) e $I_{\text{enc}}$ la corriente encerrada (A).</p>
+  <p>Las dos últimas, juntas, permiten que un $\vec E$ variable cree un $\vec B$ variable y viceversa sin cargas ni corrientes: una onda electromagnética que viaja con la rapidez de la luz, $c = 1/\sqrt{\mu_0\varepsilon_0}\approx 3\times10^8\ \text{m/s}$ (unidad U11).</p>
+  <div class="why"><b>Cuándo se usa / cuándo NO:</b> el término $\varepsilon_0\,d\Phi_E/dt$ importa donde $\vec E$ cambia y no hay corriente de conducción (entre placas de un condensador, en el vacío). En un cable con corriente estacionaria es despreciable y basta la ley de Ampère. En los exámenes recientes aparece sobre todo como pregunta conceptual.</div>
+</section>
+
+<section class="sec" id="u09-ejemplos" data-block="ejemplos" data-title="Ejemplos resueltos">
+  <h2>Ejemplos resueltos</h2>
+
+  <div class="prob" id="u09-e1" data-kind="ejemplo" data-diff="1">
+    <div class="prob-head"><span class="tag">Ejemplo 1</span><span class="ptitle">Bobina en un campo inclinado que disminuye</span><span class="diff">dificultad 1/3</span></div>
+    <div class="prob-grid">
+      <div>
+        <p class="stmt">Una bobina cuadrada de $N = 200$ vueltas y lado $10\ \text{cm}$ está en un campo magnético uniforme que forma un ángulo de $30^\circ$ con el <em>plano</em> de la bobina. El campo disminuye a razón de $0{,}50\ \text{T/s}$. La resistencia de la bobina es $R = 2{,}0\ \Omega$. Calcula la magnitud de la fem inducida, la corriente, y describe su sentido.</p>
+        <div class="given"><div><b>Datos</b> $N = 200$, $A = (0{,}10\ \text{m})^2$, $\theta = 30^\circ$ con el plano, $dB/dt = -0{,}50\ \text{T/s}$, $R = 2{,}0\ \Omega$</div><div><b>Piden</b> $|\varepsilon|$, $I$, sentido</div></div>
+      </div>
+      <figure class="fig" data-fig="u09-flujo-angulo"><figcaption>Geometría genérica: $\theta$ con el plano, $\varphi$ con la normal. En este ejemplo $\theta = 30^\circ$, así que $\varphi = 60^\circ$.</figcaption></figure>
+    </div>
+    <div class="predict"><b>Antes de calcular:</b> ¿qué ángulo va en el coseno de $\Phi_B = BA\cos\varphi$, el de $30^\circ$ u otro? ¿El campo de la corriente inducida va a favor o en contra de $\vec B$?</div>
+    <ol class="reveal">
+      <li class="hint">El ángulo del flujo se mide desde la normal, no desde el plano.</li>
+      <li><span class="rl">Paso 1 · Ángulo con la normal</span><p class="do"><b>Qué hago:</b> $\varphi = 90^\circ - 30^\circ = 60^\circ$, así que $\cos\varphi = \tfrac12$.</p><p><b>Por qué:</b> $\Phi_B = \vec B\cdot\vec A$ usa el ángulo entre $\vec B$ y $\hat n$, que es perpendicular al plano.</p></li>
+      <li><span class="rl">Paso 2 · Flujo y su derivada</span><p class="do"><b>Qué hago:</b> $\Phi_B = BA\cos60^\circ = \tfrac12 BA$. Solo cambia $B$: $\dfrac{d\Phi_B}{dt} = \tfrac12 A\dfrac{dB}{dt} = \tfrac12(1{,}0\times10^{-2})(-0{,}50) = -2{,}5\times10^{-3}\ \text{Wb/s}$.</p><p><b>Por qué:</b> el área y el ángulo son fijos.</p></li>
+      <li><span class="rl">Paso 3 · Ley de Faraday y ley de Ohm</span><p class="do"><b>Qué hago:</b> $\varepsilon = -N\dfrac{d\Phi_B}{dt} = -200\,(-2{,}5\times10^{-3}) = 0{,}50\ \text{V}$; $I = \varepsilon/R = 0{,}50/2{,}0 = 0{,}25\ \text{A}$.</p><p><b>Por qué:</b> las $N$ vueltas están en serie y sus fem se suman.</p></li>
+      <li><span class="rl">Paso 4 · Sentido</span><p class="do"><b>Qué hago:</b> el flujo disminuye, así que la corriente crea dentro de la bobina un campo <b>en el mismo sentido</b> que $\vec B$. Con la regla de signos, $\varepsilon \gt 0$ con $\hat n$ elegida según la componente normal de $\vec B$: la corriente circula según los dedos de la mano derecha con el pulgar en $\hat n$.</p><p><b>Por qué:</b> Lenz: la inducción se opone a la disminución del flujo.</p></li>
+      <li class="final">$$\boxed{|\varepsilon| = 0{,}50\ \text{V},\qquad I = 0{,}25\ \text{A}}$$ con sentido tal que refuerza a $\vec B$ dentro de la bobina.</li>
+      <li class="check"><b>Verificación:</b> unidades $\text{T·m}^2/\text{s} = \text{V}$. Límite: si $\vec B$ estuviera en el plano ($\theta = 0$, $\varphi = 90^\circ$), el flujo sería cero siempre y $\varepsilon = 0$. Si por error usas $\cos30^\circ$, obtienes $0{,}87\ \text{V}$: el ángulo correcto es la diferencia.</li>
+    </ol>
+    <div class="ctrl"></div>
+  </div>
+
+  <div class="prob" id="u09-e2" data-kind="ejemplo" data-diff="2">
+    <div class="prob-head"><span class="tag">Ejemplo 2</span><span class="ptitle">Barra sobre rieles a velocidad constante</span><span class="diff">dificultad 2/3</span></div>
+    <div class="prob-grid">
+      <div>
+        <p class="stmt">Una barra de largo $\ell = 0{,}40\ \text{m}$ desliza sin roce sobre rieles unidos por una resistencia $R = 2{,}0\ \Omega$ (la única del circuito), en un campo uniforme $B = 0{,}50\ \text{T}$ que entra a la hoja. Un agente externo la mueve a la derecha con rapidez constante $v = 5{,}0\ \text{m/s}$. Calcula la fem, la corriente y su sentido, la fuerza magnética sobre la barra, la fuerza externa necesaria, y comprueba el balance de potencia.</p>
+        <div class="given"><div><b>Datos</b> $\ell = 0{,}40\ \text{m}$, $R = 2{,}0\ \Omega$, $B = 0{,}50\ \text{T}$ (entrante), $v = 5{,}0\ \text{m/s}$</div><div><b>Piden</b> $\varepsilon$, $I$ y sentido, $\vec F_B$, $\vec F_{\text{ext}}$, potencias</div></div>
+      </div>
+      <figure class="fig" data-fig="u09-barra-rieles"><figcaption>La barra se mueve a la derecha; el área del circuito, $\ell x$, aumenta.</figcaption></figure>
+    </div>
+    <div class="predict"><b>Antes de calcular:</b> si la barra frena por la fuerza magnética, ¿hacia dónde debe empujar el agente externo: a favor o en contra de $\vec v$?</div>
+    <ol class="reveal">
+      <li class="hint">Flujo $\Phi_B = B\ell x$ con $\hat n$ entrante; la fuerza magnética sobre la barra es $I\vec\ell\times\vec B$.</li>
+      <li><span class="rl">Paso 1 · Fem</span><p class="do"><b>Qué hago:</b> $|\varepsilon| = B\ell v = (0{,}50)(0{,}40)(5{,}0) = 1{,}0\ \text{V}$.</p><p><b>Por qué:</b> $\varepsilon = -\dfrac{d}{dt}(B\ell x) = -B\ell v$.</p></li>
+      <li><span class="rl">Paso 2 · Corriente y sentido</span><p class="do"><b>Qué hago:</b> $I = 1{,}0/2{,}0 = 0{,}50\ \text{A}$. El flujo entrante aumenta, así que el campo inducido sale de la hoja: la corriente es <b>antihoraria</b> (hacia arriba en la barra).</p><p><b>Por qué:</b> ley de Ohm y ley de Lenz.</p></li>
+      <li><span class="rl">Paso 3 · Fuerza magnética</span><p class="do"><b>Qué hago:</b> $\vec F_B = I\ell\,\hat y\times(-B\hat z) = -I\ell B\,\hat x$; $F_B = (0{,}50)(0{,}40)(0{,}50) = 0{,}10\ \text{N}$, hacia la izquierda.</p><p><b>Por qué:</b> la corriente sube por la barra y el campo entra; la fuerza se opone al movimiento, como exige Lenz.</p></li>
+      <li><span class="rl">Paso 4 · Fuerza externa y potencias</span><p class="do"><b>Qué hago:</b> con $v$ constante, $\sum F = 0$: $F_{\text{ext}} = 0{,}10\ \text{N}$ a la derecha. $P_{\text{ext}} = F_{\text{ext}}v = 0{,}50\ \text{W}$ e $I^2R = (0{,}25)(2{,}0) = 0{,}50\ \text{W}$.</p><p><b>Por qué:</b> conservación de la energía: el trabajo del agente se disipa en $R$.</p></li>
+      <li class="final">$$\boxed{|\varepsilon| = 1{,}0\ \text{V},\quad I = 0{,}50\ \text{A (antihoraria)},\quad F_B = 0{,}10\ \text{N}\leftarrow,\quad F_{\text{ext}} = 0{,}10\ \text{N}\rightarrow}$$ y $P_{\text{ext}} = P_R = 0{,}50\ \text{W}$.</li>
+      <li class="check"><b>Verificación:</b> unidades $\text{T·m·(m/s)} = \text{V}$ y $\text{A·m·T} = \text{N}$. Balance: $P_{\text{ext}} = P_R = 0{,}50\ \text{W}$. Límite: con $R\to\infty$ (circuito abierto) hay fem, pero no corriente ni fuerza.</li>
+    </ol>
+    <div class="ctrl"></div>
+  </div>
+
+  <div class="prob" id="u09-e3" data-kind="ejemplo" data-diff="3">
+    <div class="prob-head"><span class="tag">Ejemplo 3</span><span class="ptitle">Barra lanzada: frenado magnético y energía</span><span class="diff">dificultad 3/3</span></div>
+    <div class="prob-grid">
+      <div>
+        <p class="stmt">La barra del ejemplo anterior, de masa $m$, se lanza con rapidez $v_0$ hacia la derecha y se suelta en $t = 0$ (no hay agente externo ni roce). Encuentra $v(t)$, la distancia total recorrida, y demuestra que el calor total disipado en $R$ es igual a la energía cinética inicial.</p>
+        <div class="given"><div><b>Datos</b> $m$, $v_0$, $\ell$, $B$ (entrante), $R$</div><div><b>Piden</b> $v(t)$, $x_{\text{total}}$, $Q_{\text{calor}}$</div></div>
+      </div>
+      <figure class="fig" data-fig="u09-frenado-vt"><figcaption>Forma esperada de $v(t)$: decae desde $v_0$ y en $t = \tau$ vale $0{,}37\,v_0$.</figcaption></figure>
+    </div>
+    <div class="predict"><b>Antes de calcular:</b> ¿la barra se detiene en un tiempo finito? Pista: la fuerza de frenado es proporcional a $v$.</div>
+    <ol class="reveal">
+      <li class="hint">Es la ecuación $m\dot v = -\dfrac{B^2\ell^2}{R}v$; la solución es una exponencial.</li>
+      <li><span class="rl">Paso 1 · Ecuación de movimiento</span><p class="do"><b>Qué hago:</b> la única fuerza horizontal es $F_B = \dfrac{B^2\ell^2}{R}v$ hacia la izquierda: $m\dfrac{dv}{dt} = -\dfrac{B^2\ell^2}{R}v$.</p><p><b>Por qué:</b> $I = B\ell v/R$ y $F_B = I\ell B$ (ejemplo 2, en símbolos).</p></li>
+      <li><span class="rl">Paso 2 · Resolver</span><p class="do"><b>Qué hago:</b> separar variables: $\dfrac{dv}{v} = -\dfrac{dt}{\tau}$ con $\tau = \dfrac{mR}{B^2\ell^2}$; integrar desde $v_0$: $v(t) = v_0e^{-t/\tau}$.</p><p><b>Por qué:</b> ecuación lineal de primer orden con coeficiente constante.</p></li>
+      <li><span class="rl">Paso 3 · Distancia</span><p class="do"><b>Qué hago:</b> $x_{\text{total}} = \displaystyle\int_0^\infty v_0e^{-t/\tau}dt = v_0\tau = \dfrac{mRv_0}{B^2\ell^2}$.</p><p><b>Por qué:</b> la distancia es el área bajo $v(t)$; es finita aunque la barra nunca se detenga del todo.</p></li>
+      <li><span class="rl">Paso 4 · Calor</span><p class="do"><b>Qué hago:</b> $P_R = I^2R = \dfrac{B^2\ell^2v^2}{R} = \dfrac{B^2\ell^2v_0^2}{R}e^{-2t/\tau}$. Integrando: $Q_{\text{calor}} = \displaystyle\int_0^\infty P_R\,dt = \dfrac{B^2\ell^2v_0^2}{R}\int_0^\infty e^{-2t/\tau}dt = \dfrac{B^2\ell^2v_0^2}{R}\cdot\dfrac{\tau}{2} = \dfrac{B^2\ell^2v_0^2}{R}\cdot\dfrac{mR}{2B^2\ell^2} = \tfrac12 mv_0^2$.</p><p><b>Por qué:</b> $\displaystyle\int_0^\infty e^{-2t/\tau}dt = \tau/2$.</p></li>
+      <li class="final">$$\boxed{v(t) = v_0e^{-t/\tau},\quad \tau = \frac{mR}{B^2\ell^2},\quad x_{\text{total}} = \frac{mRv_0}{B^2\ell^2},\quad Q_{\text{calor}} = \tfrac12 mv_0^2}$$</li>
+      <li class="check"><b>Verificación:</b> $[\tau] = \text{s}$ (ver teoría). Límites: si $B\to0$, $\tau\to\infty$ y la barra sigue con $v_0$; si $R\to0$, frena instantáneamente. La energía cierra exactamente: toda la energía cinética termina como calor.</li>
+    </ol>
+    <div class="ctrl"></div>
+  </div>
+
+  <div class="prob" id="u09-e4" data-kind="ejemplo" data-diff="2">
+    <div class="prob-head"><span class="tag">Ejemplo 4</span><span class="ptitle">Campo eléctrico inducido por un solenoide con corriente alterna</span><span class="diff">dificultad 2/3</span></div>
+    <div class="prob-grid">
+      <div>
+        <p class="stmt">Un solenoide muy largo de radio $b$ tiene $n$ vueltas por unidad de largo y lleva una corriente $I(t) = I_0\sin(\omega t)$. Encuentra el campo magnético dentro del solenoide y el campo eléctrico inducido dentro ($r \lt b$) y fuera ($r \gt b$). Usa $\hat z$ a lo largo del eje, en el sentido del campo cuando $I \gt 0$, y $\hat\theta$ el sentido de giro antihorario visto desde $+\hat z$.</p>
+        <div class="given"><div><b>Datos</b> $b$, $n$, $I(t) = I_0\sin\omega t$</div><div><b>Piden</b> $\vec B$ (dentro), $\vec E(r)$ dentro y fuera</div></div>
+      </div>
+      <figure class="fig" data-fig="u09-solenoide-e"><figcaption>Sección transversal del solenoide y curvas circulares de radio $r$ dentro y fuera.</figcaption></figure>
+    </div>
+    <div class="predict"><b>Antes de calcular:</b> ¿dónde es máximo $|\vec E|$: en el eje, en $r = b$ o muy lejos? ¿Cuándo es máximo en el tiempo: cuando $I$ es máxima o cuando $I = 0$?</div>
+    <ol class="reveal">
+      <li class="hint">Primero $B = \mu_0 nI(t)$; luego Faraday en una circunferencia de radio $r$, con el flujo que realmente encierra.</li>
+      <li><span class="rl">Paso 1 · Campo magnético</span><p class="do"><b>Qué hago:</b> $\vec B = \mu_0 n I_0\sin(\omega t)\,\hat z$ dentro, y $0$ fuera.</p><p><b>Por qué:</b> ley de Ampère para el solenoide ideal, con la corriente de cada instante (aproximación cuasiestática).</p></li>
+      <li><span class="rl">Paso 2 · Faraday dentro ($r \lt b$)</span><p class="do"><b>Qué hago:</b> recorriendo en $+\hat\theta$ (normal $+\hat z$): $E_\theta\,2\pi r = -\dfrac{d}{dt}\left(\mu_0 nI_0\sin\omega t\;\pi r^2\right) = -\mu_0 nI_0\omega\cos(\omega t)\,\pi r^2$.</p><p><b>Por qué:</b> por simetría $\vec E = E_\theta(r)\,\hat\theta$, constante sobre la circunferencia.</p></li>
+      <li><span class="rl">Paso 3 · Faraday fuera ($r \gt b$)</span><p class="do"><b>Qué hago:</b> el flujo encerrado es solo el de la sección del solenoide: $E_\theta\,2\pi r = -\mu_0 nI_0\omega\cos(\omega t)\,\pi b^2$.</p><p><b>Por qué:</b> fuera del solenoide $B = 0$, pero el flujo dentro de la curva no es cero.</p></li>
+      <li class="final">$$\boxed{\vec B = \mu_0 nI_0\sin(\omega t)\,\hat z\ \ (r\lt b)}$$ $$\boxed{\vec E = -\frac{\mu_0 nI_0\omega\,r}{2}\cos(\omega t)\,\hat\theta\ \ (r\lt b),\qquad \vec E = -\frac{\mu_0 nI_0\omega\,b^2}{2r}\cos(\omega t)\,\hat\theta\ \ (r\gt b)}$$</li>
+      <li class="check"><b>Verificación:</b> unidades: $\mu_0 nI_0$ es un campo (T), y $\text{T}\cdot\text{s}^{-1}\cdot\text{m} = \text{V/m}$. Continuidad: en $r = b$ ambas dan $\vec E = -\tfrac{b}{2}\mu_0 nI_0\omega\cos(\omega t)\,\hat\theta$. $|\vec E|$ es máximo en $r = b$ y cuando $I = 0$ (ahí $I$ cambia más rápido). Lenz: para $t$ pequeño, $B$ crece en $+\hat z$ y $\vec E$ circula en $-\hat\theta$, oponiéndose.</li>
+    </ol>
+    <div class="ctrl"></div>
+  </div>
+</section>
+
+<section class="sec" id="u09-examen" data-block="arquetipos" data-title="Arquetipos de examen">
+  <h2>Arquetipos de examen</h2>
+  <p>Problemas reales de exámenes anteriores, con el puntaje de la pauta. Resuélvelos primero en papel y con tiempo (unos 25 minutos cada uno, como en el examen), sin abrir los pasos.</p>
+
+  <div class="prob" id="u09-x1" data-kind="arquetipo" data-diff="1">
+    <div class="prob-head"><span class="tag">Arquetipo de examen 1</span><span class="ptitle">Espira cuadrada que entra a una zona con campo</span><span class="diff">dificultad 1/3</span><span class="src">Examen 2026-1 · P2</span></div>
+    <div class="prob-grid">
+      <div>
+        <p class="stmt">Una espira cuadrada de resistencia $R$ y arista $a$ se mueve con velocidad constante $\vec v$ hacia una zona de campo magnético constante $\vec B$ entrante. a) <b>(5 pts.)</b> Determine la fem inducida, la corriente inducida y su sentido en tres etapas: I) antes de que la espira entre en la región con campo; II) cuando está parcialmente inmersa; III) cuando avanza completamente inmersa. b) <b>(1 pto.)</b> Usando la ley de Lenz, indique el sentido en que debe aplicarse una fuerza externa para mantener la rapidez constante mientras la espira ingresa. Suponga que la corriente transporta cargas positivas.</p>
+        <div class="given"><div><b>Datos</b> $a$, $R$, $\vec v$ constante (hacia la derecha), $\vec B$ entrante</div><div><b>Piden</b> $\varepsilon$, $I$ y sentido en I, II, III; sentido de $\vec F_{\text{ext}}$</div></div>
+      </div>
+      <figure class="fig" data-fig="u09-espira-entrando"><figcaption>La espira ha penetrado una distancia $x$ en la región con campo ($0 \lt x \lt a$).</figcaption></figure>
+    </div>
+    <div class="predict"><b>Antes de calcular:</b> en la etapa III los lados verticales se mueven dentro del campo. ¿Hay fem en cada lado? ¿Y fem neta?</div>
+    <ol class="reveal">
+      <li class="hint">Solo la parte de la espira que está dentro del campo aporta flujo: $\Phi_B = B\cdot(\text{área inmersa})$.</li>
+      <li><span class="rl">Paso 1 · Etapa I (1,0 pto.)</span><p class="do"><b>Qué hago:</b> fuera de la región, $\vec B = 0$ en toda la espira: $\Phi_B = 0$ constante, así que $\varepsilon = 0$ e $I = 0$.</p><p><b>Por qué:</b> sin cambio de flujo no hay fem.</p></li>
+      <li><span class="rl">Paso 2 · Etapa II: flujo (0,5) y su derivada (1,0)</span><p class="do"><b>Qué hago:</b> con $\hat n$ entrante y área inmersa $ax$: $\Phi_B = Bax$, $\dfrac{d\Phi_B}{dt} = Ba\dfrac{dx}{dt} = Bav$.</p><p><b>Por qué:</b> $B$ es uniforme en la parte inmersa y $dx/dt = v$.</p></li>
+      <li><span class="rl">Paso 3 · Etapa II: fem (0,5), corriente (0,5) y sentido (0,5)</span><p class="do"><b>Qué hago:</b> $\varepsilon = -Bav$; $I = \dfrac{Bav}{R}$. El flujo entrante aumenta, así que el campo inducido sale de la hoja: corriente <b>antihoraria</b>.</p><p><b>Por qué:</b> ley de Faraday, ley de Ohm y ley de Lenz. El signo negativo con $\hat n$ entrante (positivo = horario) también da antihorario.</p></li>
+      <li><span class="rl">Paso 4 · Etapa III (1,0 pto.)</span><p class="do"><b>Qué hago:</b> toda la espira está dentro: $\Phi_B = Ba^2$ constante, así que $\varepsilon = 0$ e $I = 0$.</p><p><b>Por qué:</b> cada lado vertical tiene fem $Bav$, pero las dos empujan en sentidos opuestos alrededor de la espira y se cancelan.</p></li>
+      <li><span class="rl">Paso 5 · Parte b (0,5 + 0,5)</span><p class="do"><b>Qué hago:</b> en el lado derecho (dentro del campo) la corriente sube: $\vec F_B = I a\,\hat y\times(-B\hat z) = -IaB\,\hat x$, hacia la izquierda. Para $v$ constante, $\vec F_{\text{ext}}$ va hacia la <b>derecha</b>, con magnitud $IaB = \dfrac{B^2a^2v}{R}$.</p><p><b>Por qué:</b> Lenz: la fuerza magnética se opone a la entrada; el agente externo la compensa.</p></li>
+      <li class="final">$$\boxed{\text{I y III: }\varepsilon = 0,\ I = 0;\qquad \text{II: }\varepsilon = -Bav,\ I = \frac{Bav}{R}\ \text{(antihoraria)};\qquad \vec F_{\text{ext}}\ \text{hacia la derecha}}$$</li>
+      <li class="check"><b>Verificación:</b> unidades $[Bav] = \text{V}$, $[Bav/R] = \text{A}$. Energía en II: $F_{\text{ext}}v = \dfrac{B^2a^2v^2}{R} = I^2R$. Al <em>salir</em> de la región el flujo disminuiría y la corriente sería horaria, pero la fuerza seguiría frenando.</li>
+    </ol>
+    <div class="ctrl"></div>
+  </div>
+
+  <div class="prob" id="u09-x2" data-kind="arquetipo" data-diff="2">
+    <div class="prob-head"><span class="tag">Arquetipo de examen 2</span><span class="ptitle">Lazo rectangular que se aleja de un alambre infinito</span><span class="diff">dificultad 2/3</span><span class="src">Examen 2024-1 · P2</span></div>
+    <div class="prob-grid">
+      <div>
+        <p class="stmt">Un lazo rectangular de dimensiones $\ell$ (paralelo al alambre) y $w$ se mueve con velocidad constante $\vec v$ alejándose de un alambre recto infinitamente largo que lleva una corriente $I$, en el plano del lazo (en la figura, la corriente sube y el lazo está a la derecha del alambre). La resistencia total del lazo es $R$. a) <b>(2 pts.)</b> Usando la ley de Ampère, encuentre el campo magnético a una distancia $s$ del alambre. b) <b>(2 pts.)</b> Calcule el flujo magnético a través del lazo en el instante en que su lado más cercano está a una distancia $r$ del alambre. c) <b>(2 pts.)</b> En ese instante, encuentre la fem inducida y la corriente inducida, e indique en qué dirección fluye.</p>
+        <div class="given"><div><b>Datos</b> $I$, $\ell$, $w$, $v = dr/dt$, $R$</div><div><b>Piden</b> $B(s)$, $\Phi_B(r)$, $\varepsilon$, $I_{\text{ind}}$, sentido</div></div>
+      </div>
+      <figure class="fig" data-fig="u09-alambre-espira"><figcaption>Figura adaptada (en el original el alambre es horizontal): la geometría y el resultado son los mismos.</figcaption></figure>
+    </div>
+    <div class="predict"><b>Antes de calcular:</b> al alejarse, ¿el flujo aumenta o disminuye? Entonces, ¿el campo de la corriente inducida va a favor o en contra del campo del alambre?</div>
+    <ol class="reveal">
+      <li class="hint">El campo no es uniforme sobre el lazo: integra en franjas paralelas al alambre. Después deriva con la regla de la cadena, $dr/dt = v$.</li>
+      <li><span class="rl">Paso 1 · Campo por Ampère (parte a, 2 pts.; la pauta reserva 0,25 para la dirección)</span><p class="do"><b>Qué hago:</b> circunferencia amperiana de radio $s$ centrada en el alambre: $\oint\vec B\cdot d\vec\ell = B\,2\pi s = \mu_0 I$, así que $B = \dfrac{\mu_0 I}{2\pi s}$, azimutal. En el lado del lazo, entra a la hoja.</p><p><b>Por qué:</b> por simetría, $\vec B$ es tangente y de magnitud constante sobre la circunferencia; la dirección sale de la mano derecha.</p></li>
+      <li><span class="rl">Paso 2 · Flujo (parte b, 2 pts.)</span><p class="do"><b>Qué hago:</b> con $\hat n$ entrante y franjas $dA = \ell\,ds$: $\Phi_B = \displaystyle\int_r^{r+w}\frac{\mu_0 I}{2\pi s}\ell\,ds = \frac{\mu_0 I\ell}{2\pi}\ln\!\left(1 + \frac{w}{r}\right)$.</p><p><b>Por qué:</b> en cada franja la distancia al alambre es fija, así que $B$ es constante en ella.</p></li>
+      <li><span class="rl">Paso 3 · Fem (parte c, 2 pts. junto con el paso 4)</span><p class="do"><b>Qué hago:</b> $\varepsilon = -\dfrac{d\Phi_B}{dt} = -\dfrac{\mu_0 I\ell}{2\pi}\left(\dfrac{1}{r+w} - \dfrac{1}{r}\right)\dfrac{dr}{dt} = \dfrac{\mu_0 I\ell\,w\,v}{2\pi\,r(r+w)}$.</p><p><b>Por qué:</b> solo cambia $r$; $\frac{1}{r+w} - \frac1r = -\frac{w}{r(r+w)}$.</p></li>
+      <li><span class="rl">Paso 4 · Corriente y sentido</span><p class="do"><b>Qué hago:</b> $I_{\text{ind}} = \dfrac{\varepsilon}{R} = \dfrac{\mu_0 I\ell\,w\,v}{2\pi R\,r(r+w)}$. El flujo entrante disminuye, así que el campo inducido también entra: corriente <b>horaria</b>. (Con $\hat n$ entrante, $\varepsilon \gt 0$ significa horario: coincide.)</p><p><b>Por qué:</b> ley de Ohm y ley de Lenz.</p></li>
+      <li class="final">$$\boxed{B = \frac{\mu_0 I}{2\pi s},\qquad \Phi_B = \frac{\mu_0 I\ell}{2\pi}\ln\!\left(1+\frac wr\right),\qquad \varepsilon = \frac{\mu_0 I\ell\,w\,v}{2\pi r(r+w)},\qquad I_{\text{ind}} = \frac{\varepsilon}{R}\ \text{(horaria)}}$$ con $\vec B$ azimutal, entrando a la hoja en la zona del lazo.</li>
+      <li class="check"><b>Verificación cruzada con fem de movimiento:</b> los lados paralelos al alambre se mueven perpendicularmente a $\vec B$: $\varepsilon = \ell v\,[B(r) - B(r+w)] = \dfrac{\mu_0 I\ell v}{2\pi}\left(\dfrac1r - \dfrac{1}{r+w}\right)$, que es lo mismo. Límites: $r\to\infty$ da $\varepsilon\to0$; $v = 0$ da $\varepsilon = 0$. Unidades: $\mu_0 I/(2\pi r)$ es un campo (T), y $\text{T·m·(m/s)} = \text{V}$.</li>
+    </ol>
+    <div class="ctrl"></div>
+  </div>
+
+  <div class="prob" id="u09-x3" data-kind="arquetipo" data-diff="3">
+    <div class="prob-head"><span class="tag">Arquetipo de examen 3</span><span class="ptitle">Espira que cae en un campo que depende de la altura</span><span class="diff">dificultad 3/3</span><span class="src">Examen 2025-2 · P2</span></div>
+    <div class="prob-grid">
+      <div>
+        <p class="stmt">Una espira cuadrada de lado $a$ y masa $m$ está en el plano $yz$, en un campo $\vec B = (B_0 - \alpha z)\,\hat x$ con $\alpha \gt 0$. La espira, de resistencia $R$ y autoinducción despreciable (es decir, se ignora el flujo que crea la propia corriente inducida), cae verticalmente por la gravedad. ($\alpha$ se mide en T/m.) a) <b>(1 pto.)</b> Determine el flujo magnético a través de la espira. b) <b>(2 pts.)</b> Encuentre la fem y la corriente inducida en función de la velocidad $v$. c) <b>(1 pto.)</b> Indique el sentido de la corriente y justifíquelo con la ley de Lenz. d) <b>(1 pto.)</b> Determine la fuerza que experimenta la espira. e) <b>(1 pto.)</b> ¿Cuál es la velocidad terminal?</p>
+        <div class="given"><div><b>Datos</b> $a$, $m$, $R$, $B_0$, $\alpha \gt 0$, $g$; borde inferior a altura $z$</div><div><b>Piden</b> $\Phi_B$, $\varepsilon$, $I$, sentido, $\vec F$, $v_{\text{term}}$</div></div>
+      </div>
+      <figure class="fig" data-fig="u09-espira-cayendo"><figcaption>$\hat x$ sale de la hoja, $\hat y$ a la derecha, $\hat z$ hacia arriba. El borde inferior está a altura $z$ y el superior a $z + a$.</figcaption></figure>
+    </div>
+    <div class="predict"><b>Antes de calcular:</b> los lados horizontales están a alturas distintas, así que sienten campos distintos. ¿La fuerza magnética neta es hacia arriba o hacia abajo?</div>
+    <ol class="reveal">
+      <li class="hint">$B$ solo depende de $z$: integra $\int_0^a dy\int_z^{z+a}(B_0 - \alpha z')\,dz'$. Al derivar, $dz/dt = v_z$, y al caer $v_z \lt 0$.</li>
+      <li><span class="rl">Paso 1 · Flujo (0,5 + 0,5)</span><p class="do"><b>Qué hago:</b> con $\hat n = \hat x$ y franjas horizontales de ancho $a$ y alto $dz'$: $\Phi_B = \displaystyle\int_z^{z+a}(B_0 - \alpha z')\,a\,dz' = a\left[B_0z' - \tfrac{\alpha}{2}z'^2\right]_z^{z+a} = a\left[B_0a - \tfrac{\alpha}{2}\big((z+a)^2 - z^2\big)\right] = a^2B_0 - \dfrac{\alpha a^2(2z+a)}{2}$.</p><p><b>Por qué:</b> $(z+a)^2 - z^2 = a(2z+a)$.</p></li>
+      <li><span class="rl">Paso 2 · Fem y corriente (2 pts.)</span><p class="do"><b>Qué hago:</b> $\varepsilon = -\dfrac{d\Phi_B}{dt} = \alpha a^2\dfrac{dz}{dt} = \alpha a^2 v_z$. Como cae, $v_z = -|v|$: $\varepsilon = -\alpha a^2|v|$ e $I = \dfrac{\alpha a^2|v|}{R}$.</p><p><b>Por qué:</b> solo $z$ depende del tiempo; $\frac{d}{dt}(2z+a) = 2v_z$.</p></li>
+      <li><span class="rl">Paso 3 · Sentido (0,5 + 0,5)</span><p class="do"><b>Qué hago:</b> al bajar, $B_x = B_0 - \alpha z$ aumenta, así que el flujo en $+\hat x$ aumenta. El campo inducido debe apuntar en $-\hat x$ (hacia la hoja): corriente <b>horaria</b> vista desde $+\hat x$. Coincide con $\varepsilon \lt 0$ respecto de $\hat n = \hat x$.</p><p><b>Por qué:</b> ley de Lenz. Ojo: el campo decrece <em>linealmente</em> con la altura (la pauta oficial dice "inversamente proporcional", lo que es un error).</p></li>
+      <li><span class="rl">Paso 4 · Fuerza (1 pto.)</span><p class="do"><b>Qué hago:</b> horaria significa: arriba hacia $+\hat y$, lado derecho hacia abajo, abajo hacia $-\hat y$, lado izquierdo hacia arriba. Lados verticales: $B$ cambia a lo largo de ellos, así que se usa $d\vec F = I\,d\vec\ell\times\vec B(z')$; a cada altura $z'$, el tramo $dz'$ del lado izquierdo (corriente $+\hat z$) y el del derecho (corriente $-\hat z$) están en el mismo campo, y sus fuerzas $\pm\hat y$ se cancelan tramo a tramo. Superior: $Ia\,\hat y\times B(z+a)\hat x = -IaB(z+a)\,\hat z$. Inferior: $-Ia\,\hat y\times B(z)\hat x = +IaB(z)\,\hat z$. Neta magnética: $Ia[B(z) - B(z+a)]\,\hat z = I\alpha a^2\,\hat z = \dfrac{\alpha^2a^4|v|}{R}\hat z$. Con el peso: $\vec F_{\text{total}} = \left(\dfrac{\alpha^2a^4|v|}{R} - mg\right)\hat z$.</p><p><b>Por qué:</b> $\vec F = I\vec\ell\times\vec B$ en cada lado; el lado inferior está en campo más intenso, así que gana la fuerza hacia arriba: frena la caída.</p></li>
+      <li><span class="rl">Paso 5 · Velocidad terminal (1 pto.)</span><p class="do"><b>Qué hago:</b> $\vec F_{\text{total}} = 0$: $\dfrac{\alpha^2a^4|v_{\text{term}}|}{R} = mg$.</p><p><b>Por qué:</b> a velocidad terminal la aceleración es cero.</p></li>
+      <li class="final">$$\boxed{\Phi_B = a^2B_0 - \tfrac12\alpha a^2(2z+a),\quad \varepsilon = -\alpha a^2|v|,\quad I = \frac{\alpha a^2|v|}{R}\ \text{(horaria)}}$$ $$\boxed{\vec F_{\text{total}} = \left(\frac{\alpha^2a^4|v|}{R} - mg\right)\hat z,\qquad |v_{\text{term}}| = \frac{mgR}{\alpha^2a^4}}$$ ($\varepsilon$ con $\hat n = +\hat x$.)</li>
+      <li class="check"><b>Verificación:</b> unidades: $[\alpha] = \text{T/m}$, así que $[\alpha a^2 v] = \text{T·m·(m/s)} = \text{V}$, y $\dfrac{mgR}{\alpha^2a^4}$ da $\dfrac{\text{N}\cdot\Omega}{\text{T}^2\text{m}^2}$, las mismas unidades que $mgR/(B^2\ell^2)$, o sea m/s. Energía: a velocidad terminal, $I^2R = \dfrac{\alpha^2a^4v_{\text{term}}^2}{R} = mg\,v_{\text{term}}$: la energía potencial que se pierde por segundo se disipa como calor. Límite: si $\alpha\to0$ el campo es uniforme, la fuerza magnética desaparece y la espira cae libre ($v_{\text{term}}\to\infty$). Nota: la pauta oficial usa por error un largo $L$ en vez de $a$ en d) y e); con $L = a$ se obtiene lo de arriba.</li>
+    </ol>
+    <div class="ctrl"></div>
+  </div>
+
+  <div class="prob" id="u09-x4" data-kind="arquetipo" data-diff="2">
+    <div class="prob-head"><span class="tag">Arquetipo de examen 4</span><span class="ptitle">Espira grande que se acerca a una espira pequeña coaxial</span><span class="diff">dificultad 2/3</span><span class="src">Examen 2024-2 · P4</span></div>
+    <div class="prob-grid">
+      <div>
+        <p class="stmt">Una espira circular de radio pequeño $r$ está fija. Una espira grande de radio $R$, paralela y coaxial, se le acerca con velocidad constante $\vec v = v\hat z$ y lleva una corriente constante $I$. En $t = 0$ la distancia entre ambas es $z$ (aquí $z$ es un número fijo, la separación inicial, no la coordenada). La espira pequeña tiene resistencia $R_e$. a) <b>(2 pts.)</b> Calcule cómo cambia en el tiempo el flujo del campo de la espira grande a través de la pequeña, suponiendo $r\ll R$ (campo uniforme sobre la espira pequeña e igual al del eje). b) <b>(2 pts.)</b> Calcule la fem inducida en la espira pequeña en un instante $t$. c) <b>(2 pts.)</b> Argumente en qué dirección fluye la corriente inducida, comparada con el sentido de $d\vec\ell$ de la figura (mismo sentido que $I$), cuando la espira grande está a la izquierda y a la derecha de la pequeña. Calcule la corriente inducida cuando las espiras están en el mismo plano y cuando $t\to+\infty$.</p>
+        <div class="given"><div><b>Datos</b> $r\ll R$, $I$, $v$, distancia inicial $z$</div><div><b>Piden</b> $\Phi(t)$, $\varepsilon(t)$, sentido, $I_{\text{ind}}$ en dos instantes</div></div>
+      </div>
+      <figure class="fig" data-fig="u09-espiras-coaxiales"><figcaption>La distancia entre las espiras es $d(t) = z - vt$; $d\vec\ell$ en la espira pequeña tiene el mismo sentido de giro que $I$.</figcaption></figure>
+    </div>
+    <div class="predict"><b>Antes de calcular:</b> ¿cuándo es máximo el flujo? ¿Qué vale la fem en ese instante?</div>
+    <ol class="reveal">
+      <li class="hint">Usa el campo en el eje de una espira (repaso exprés) con $d(t) = z - vt$, multiplica por $\pi r^2$, y deriva con la regla de la cadena.</li>
+      <li><span class="rl">Paso 1 · Flujo (0,5 + 0,5 + 0,5 + 0,5)</span><p class="do"><b>Qué hago:</b> $B(d) = \dfrac{\mu_0 IR^2}{2(R^2 + d^2)^{3/2}}$ con $d = z - vt$. Con $\hat n = +\hat z$ (concordante con $d\vec\ell$): $\Phi(t) = \dfrac{\mu_0 IR^2\,\pi r^2}{2\left[R^2 + (z - vt)^2\right]^{3/2}}$.</p><p><b>Por qué:</b> con $r\ll R$ el campo es casi uniforme sobre la espira pequeña.</p></li>
+      <li><span class="rl">Paso 2 · Fem (0,5 + 0,5 + 1,0)</span><p class="do"><b>Qué hago:</b> llamando $u = z - vt$ ($du/dt = -v$) y $K = \tfrac12\mu_0IR^2\pi r^2$: $\dfrac{d\Phi}{dt} = K\left(-\tfrac32\right)(R^2+u^2)^{-5/2}\,2u\,(-v) = \dfrac{3Kuv}{(R^2+u^2)^{5/2}}$. Entonces $\varepsilon(t) = -\dfrac{3\mu_0IR^2\pi r^2\,v\,(z - vt)}{2\left[R^2 + (z-vt)^2\right]^{5/2}}$.</p><p><b>Por qué:</b> regla de la cadena sobre $(R^2 + u^2)^{-3/2}$.</p></li>
+      <li><span class="rl">Paso 3 · Sentido (0,5 + 0,5)</span><p class="do"><b>Qué hago:</b> espira grande a la izquierda ($z - vt \gt 0$): se acerca, el flujo crece, $\varepsilon \lt 0$: corriente <b>opuesta</b> a $d\vec\ell$. A la derecha ($z - vt \lt 0$): se aleja, el flujo decrece, $\varepsilon \gt 0$: corriente <b>en el sentido</b> de $d\vec\ell$.</p><p><b>Por qué:</b> Lenz; corrientes opuestas se repelen y frenan el acercamiento, corrientes iguales se atraen y frenan el alejamiento.</p></li>
+      <li><span class="rl">Paso 4 · Casos límite (0,5 + 0,5)</span><p class="do"><b>Qué hago:</b> con $I_{\text{ind}} = \varepsilon/R_e$: mismo plano ($t_0 = z/v$, $u = 0$): $\varepsilon = 0$, así que $I_{\text{ind}} = 0$. Si $t\to\infty$: el numerador crece como $|u|$ y el denominador como $u^5$, así que $\varepsilon\to0$ e $I_{\text{ind}}\to0$.</p><p><b>Por qué:</b> en $u = 0$ el flujo es máximo y su derivada se anula; muy lejos ya no hay flujo que cambie.</p></li>
+      <li class="final">$$\boxed{\Phi(t) = \frac{\mu_0IR^2\pi r^2}{2[R^2+(z-vt)^2]^{3/2}},\qquad \varepsilon(t) = -\frac{3\mu_0IR^2\pi r^2\,v\,(z-vt)}{2[R^2+(z-vt)^2]^{5/2}},\qquad I_{\text{ind}}(z/v) = 0,\ \ I_{\text{ind}}(\infty) = 0}$$ Sentido: opuesto a $d\vec\ell$ mientras se acerca ($t \lt z/v$) y igual a $d\vec\ell$ cuando se aleja ($t \gt z/v$).</li>
+      <li class="check"><b>Verificación:</b> unidades: $\dfrac{\mu_0IR^2}{(R^2)^{3/2}}$ es un campo (T); por $\pi r^2$ da Wb; la fem tiene un factor extra $v/\text{longitud}$, así que Wb/s = V. Simetría: $\varepsilon$ es impar en $u$, como debe ser (acercarse y alejarse dan sentidos opuestos). La pauta acepta el signo contrario si se interpretó $I$ girando al revés.</li>
+    </ol>
+    <div class="ctrl"></div>
+  </div>
+</section>
+
+<section class="sec" id="u09-errores" data-block="errores" data-title="Errores típicos">
+  <h2>Errores típicos</h2>
+  <div class="trap"><b>Usar el ángulo con el plano en vez del ángulo con la normal.</b> $\Phi_B = BA\cos\varphi$ usa el ángulo entre $\vec B$ y $\hat n$. Si el enunciado da el ángulo $\theta$ con el plano, entonces $\Phi_B = BA\sin\theta$. Cómo detectarlo: con $\vec B$ en el plano de la espira el flujo debe ser cero; si tu fórmula da $BA$, está al revés (2021-2 Ej. 3).</div>
+  <div class="trap"><b>Confundir flujo con cambio de flujo.</b> Una espira completamente dentro de un campo uniforme tiene mucho flujo, pero si se traslada sin girar el flujo no cambia y $\varepsilon = 0$. En el generador, la fem es máxima cuando el flujo es cero. Cómo detectarlo: pregúntate qué depende del tiempo en $\Phi_B$; si nada depende, no hay fem.</div>
+  <div class="trap"><b>Usar el área equivocada.</b> El flujo usa solo el área donde hay campo: el área inmersa $ax$ de una espira que entra a una región, o el área $\pi b^2$ del solenoide para una espira más grande que lo rodea. Cómo detectarlo: dibuja dónde hay campo antes de escribir $A$.</div>
+  <div class="trap"><b>Usar $B\ell v$ con un campo que no es uniforme.</b> Frente a un alambre infinito, los dos lados paralelos al alambre tienen fem opuestas; la neta es $\ell v[B(r) - B(r+w)]$, no $B(r)\ell v$. Cómo detectarlo: si la espira está entera en un campo uniforme y tu fórmula no da cero, está mal.</div>
+  <div class="trap"><b>Perder el signo de la velocidad al caer.</b> Si $z$ es la altura, $v_z = dz/dt \lt 0$ cuando la espira cae (2025-2 P2). Escribe $\varepsilon$ en función de $v_z$ y reemplaza $v_z = -|v|$ al final. Cómo detectarlo: el sentido que da el signo debe coincidir con el que da Lenz.</div>
+  <div class="trap"><b>Poner la fuerza externa en el sentido equivocado.</b> La fuerza magnética sobre la corriente inducida siempre frena. Para mantener $v$ constante, la fuerza externa va <em>a favor</em> del movimiento (2026-1 P2 b). Cómo detectarlo: la potencia del agente externo debe ser positiva e igual a $I^2R$.</div>
+  <div class="trap"><b>Olvidar el factor $N$ en una bobina.</b> La fem se multiplica por $N$, y la corriente también. La fuerza magnética sobre una bobina con $N$ vueltas es entonces proporcional a $N^2$ (2022-2 P1). Cómo detectarlo: relee el enunciado buscando "vueltas" o "espiras".</div>
+</section>
+
+<section class="sec" id="u09-practica" data-block="practica" data-title="Práctica">
+  <h2>Práctica</h2>
+  <p>Ejercicios para practicar como en el examen: resuélvelos completos en papel, sin calculadora, y compara después con la solución paso a paso.</p>
+
+  <div class="prob" id="u09-p1" data-kind="practica" data-diff="1">
+    <div class="prob-head"><span class="tag">Práctica 1</span><span class="ptitle">Generador de corriente alterna</span><span class="diff">dificultad 1/3</span></div>
+    <div class="prob-grid">
+      <div>
+        <p class="stmt">Una bobina de $N = 10$ vueltas y área $A = 5{,}0\times10^{-2}\ \text{m}^2$ gira con $\omega = 100\ \text{rad/s}$ en un campo uniforme $B = 0{,}40\ \text{T}$, en torno a un eje perpendicular al campo. En $t = 0$ la normal es paralela a $\vec B$. Su resistencia total es $R = 4{,}0\ \Omega$. Escribe $\varepsilon(t)$, calcula $\varepsilon_{\text{máx}}$ e $I_{\text{máx}}$, e indica en qué orientación ocurre la fem máxima.</p>
+        <div class="given"><div><b>Datos</b> $N = 10$, $A = 5{,}0\times10^{-2}\ \text{m}^2$, $\omega = 100\ \text{rad/s}$, $B = 0{,}40\ \text{T}$, $R = 4{,}0\ \Omega$</div><div><b>Piden</b> $\varepsilon(t)$, $\varepsilon_{\text{máx}}$, $I_{\text{máx}}$, orientación</div></div>
+      </div>
+      <figure class="fig" data-fig="u09-generador"><figcaption>La normal forma el ángulo $\omega t$ con $\vec B$.</figcaption></figure>
+    </div>
+    <div class="predict"><b>Antes de calcular:</b> ¿la fem es máxima con la bobina de frente al campo o de canto?</div>
+    <ol class="reveal">
+      <li class="hint">$\Phi_B = BA\cos\omega t$ por vuelta.</li>
+      <li><span class="rl">Paso 1 · Fem</span><p class="do"><b>Qué hago:</b> $\varepsilon = -N\dfrac{d}{dt}(BA\cos\omega t) = NBA\omega\sin\omega t$.</p><p><b>Por qué:</b> ley de Faraday; lo único que cambia es el ángulo.</p></li>
+      <li><span class="rl">Paso 2 · Valores máximos</span><p class="do"><b>Qué hago:</b> $\varepsilon_{\text{máx}} = (10)(0{,}40)(5{,}0\times10^{-2})(100) = 20\ \text{V}$; $I_{\text{máx}} = 20/4{,}0 = 5{,}0\ \text{A}$.</p><p><b>Por qué:</b> $|\sin\omega t| \le 1$.</p></li>
+      <li><span class="rl">Paso 3 · Orientación</span><p class="do"><b>Qué hago:</b> $\sin\omega t = \pm1$ cuando $\omega t = 90^\circ$ o $270^\circ$: la normal es perpendicular a $\vec B$, o sea, el plano de la bobina es paralelo al campo y el flujo es cero.</p><p><b>Por qué:</b> ahí el flujo cambia más rápido.</p></li>
+      <li class="final">$$\boxed{\varepsilon(t) = 20\sin(100\,t)\ \text{V},\qquad \varepsilon_{\text{máx}} = 20\ \text{V},\qquad I_{\text{máx}} = 5{,}0\ \text{A}}$$ La fem es máxima con el plano de la bobina paralelo a $\vec B$ (flujo nulo).</li>
+      <li class="check"><b>Verificación:</b> $\text{T·m}^2\cdot\text{s}^{-1} = \text{V}$. Si se duplica $\omega$, se duplica la fem. Con el eje paralelo a $\vec B$ el flujo sería constante y $\varepsilon = 0$.</li>
+    </ol>
+    <div class="ctrl"></div>
+  </div>
+
+  <div class="prob" id="u09-p2" data-kind="practica" data-diff="2">
+    <div class="prob-head"><span class="tag">Práctica 2</span><span class="ptitle">Espira fija junto a un alambre con corriente creciente</span><span class="diff">dificultad 2/3</span></div>
+    <div class="prob-grid">
+      <div>
+        <p class="stmt">(Ejercicio original, del tipo de Examen 2018-2 P6.) La espira rectangular de la figura, de lado $\ell$ paralelo al alambre y ancho $w$, está <b>en reposo</b>, con su lado cercano a distancia $r$ de un alambre infinito. La corriente del alambre crece como $I(t) = \beta t$, con $\beta \gt 0$ constante (en A/s), hacia arriba como en la figura. La espira tiene resistencia $R$. Calcula la fem, la corriente inducida y su sentido.</p>
+        <div class="given"><div><b>Datos</b> $\ell$, $w$, $r$ fijos; $I(t) = \beta t$; $R$</div><div><b>Piden</b> $\varepsilon$, $I_{\text{ind}}$, sentido</div></div>
+      </div>
+      <figure class="fig" data-fig="u09-alambre-espira"><figcaption>Misma geometría del arquetipo 2, pero aquí la espira no se mueve ($v = 0$).</figcaption></figure>
+    </div>
+    <div class="predict"><b>Antes de calcular:</b> ¿la fem depende del tiempo si la corriente crece linealmente?</div>
+    <ol class="reveal">
+      <li class="hint">El flujo ya está calculado en la teoría; ahora lo que depende del tiempo es $I$, no $r$.</li>
+      <li><span class="rl">Paso 1 · Flujo</span><p class="do"><b>Qué hago:</b> $\Phi_B(t) = \dfrac{\mu_0\,I(t)\,\ell}{2\pi}\ln\!\left(1 + \dfrac wr\right) = \dfrac{\mu_0\beta\ell\,t}{2\pi}\ln\!\left(1 + \dfrac wr\right)$, con $\hat n$ entrante.</p><p><b>Por qué:</b> integración en franjas paralelas al alambre.</p></li>
+      <li><span class="rl">Paso 2 · Fem y corriente</span><p class="do"><b>Qué hago:</b> $\varepsilon = -\dfrac{d\Phi_B}{dt} = -\dfrac{\mu_0\beta\ell}{2\pi}\ln\!\left(1 + \dfrac wr\right)$; $I_{\text{ind}} = \dfrac{|\varepsilon|}{R}$.</p><p><b>Por qué:</b> $r$, $w$ y $\ell$ son fijos; solo cambia $I$.</p></li>
+      <li><span class="rl">Paso 3 · Sentido</span><p class="do"><b>Qué hago:</b> el flujo entrante crece, así que el campo inducido sale de la hoja: corriente <b>antihoraria</b>. (Con $\hat n$ entrante, $\varepsilon \lt 0$ significa antihorario: coincide.)</p><p><b>Por qué:</b> ley de Lenz.</p></li>
+      <li class="final">$$\boxed{|\varepsilon| = \frac{\mu_0\beta\ell}{2\pi}\ln\!\left(1+\frac wr\right),\qquad I_{\text{ind}} = \frac{\mu_0\beta\ell}{2\pi R}\ln\!\left(1+\frac wr\right)\ \text{(antihoraria)}}$$</li>
+      <li class="check"><b>Verificación:</b> constante en el tiempo, porque $dI/dt = \beta$ es constante. Unidades: $\mu_0\beta$ tiene unidades de $\mu_0 I/\text{s}$, así que $\mu_0\beta\ell$ es $\text{T·m}^2/\text{s} = \text{V}$. Límite $w\ll r$: $|\varepsilon|\approx\dfrac{\mu_0\beta}{2\pi r}\ell w$, el campo local por el área, derivado en el tiempo.</li>
+    </ol>
+    <div class="ctrl"></div>
+  </div>
+
+  <div class="prob" id="u09-p3" data-kind="practica" data-diff="2">
+    <div class="prob-head"><span class="tag">Práctica 3</span><span class="ptitle">Espira larga que cae entrando a un campo</span><span class="diff">dificultad 2/3</span></div>
+    <div class="prob-grid">
+      <div>
+        <p class="stmt">Una espira rectangular de resistencia $R$, ancho $a$, largo muy grande y masa $m$ cae por la gravedad. Hay un campo uniforme $\vec B$ perpendicular a la espira (entrando a la hoja) solo bajo una línea horizontal. Una parte de la espira siempre queda fuera del campo. Parte del reposo. Determina $v(t)$, la velocidad terminal y el sentido de la corriente. (Basado en Ayudantía 21, 2026-2.)</p>
+        <div class="given"><div><b>Datos</b> $R$, $a$, $m$, $B$, $g$; $v(0) = 0$</div><div><b>Piden</b> $v(t)$, $v_{\text{term}}$, sentido</div></div>
+      </div>
+      <figure class="fig" data-fig="u09-espira-semi"><figcaption>$h$ es la longitud de la espira que ya está dentro del campo.</figcaption></figure>
+    </div>
+    <div class="predict"><b>Antes de calcular:</b> ¿sobre qué lado actúa la fuerza magnética neta, y hacia dónde?</div>
+    <ol class="reveal">
+      <li class="hint">Área inmersa $a\,h$, con $dh/dt = v$ (rapidez de caída). Solo el lado inferior siente una fuerza vertical.</li>
+      <li><span class="rl">Paso 1 · Fem y corriente</span><p class="do"><b>Qué hago:</b> con $\hat n$ entrante, $\Phi_B = Bah$; $|\varepsilon| = Bav$; $I = Bav/R$.</p><p><b>Por qué:</b> el área con campo crece a razón de $av$.</p></li>
+      <li><span class="rl">Paso 2 · Sentido</span><p class="do"><b>Qué hago:</b> el flujo entrante aumenta, así que el campo inducido sale: corriente <b>antihoraria</b> (en el lado inferior va hacia la derecha).</p><p><b>Por qué:</b> ley de Lenz.</p></li>
+      <li><span class="rl">Paso 3 · Fuerza y ecuación de movimiento</span><p class="do"><b>Qué hago:</b> lado inferior (con $\hat x$ a la derecha, $\hat y$ hacia arriba y $\hat z$ saliendo de la hoja): $\vec F = Ia\,\hat x\times(-B\hat z) = IaB\,\hat y$, hacia arriba, de magnitud $\dfrac{B^2a^2v}{R}$. Las partes inmersas de los lados verticales sienten fuerzas horizontales opuestas que se cancelan. Entonces $m\dfrac{dv}{dt} = mg - \dfrac{B^2a^2}{R}v$.</p><p><b>Por qué:</b> $\hat x\times(-\hat z) = \hat y$; la fuerza magnética frena la caída.</p></li>
+      <li><span class="rl">Paso 4 · Resolver</span><p class="do"><b>Qué hago:</b> con $\tau = \dfrac{mR}{B^2a^2}$: $\dot v = g - v/\tau$, $v(0) = 0$, así que $v(t) = g\tau\left(1 - e^{-t/\tau}\right)$ y $v_{\text{term}} = g\tau$.</p><p><b>Por qué:</b> ecuación de primer orden con término constante (repaso exprés).</p></li>
+      <li class="final">$$\boxed{v_{\text{term}} = \frac{mgR}{B^2a^2},\qquad v(t) = v_{\text{term}}\left(1 - e^{-t/\tau}\right),\quad \tau = \frac{mR}{B^2a^2},\qquad \text{corriente antihoraria}}$$</li>
+      <li class="check"><b>Verificación:</b> $mg\,v_{\text{term}} = I^2R = \dfrac{B^2a^2v_{\text{term}}^2}{R}$, coherente. Unidades: $\dfrac{\text{kg·(m/s}^2)\cdot\Omega}{\text{T}^2\text{m}^2} = \dfrac{\text{N}\cdot\Omega}{\text{T}^2\text{m}^2}$, y con $\text{T} = \text{N/(A·m)}$, $\Omega = \text{V/A}$, resulta $\text{V·A/N} = \text{W/N} = \text{m/s}$. Límite: $B\to0$ da caída libre.</li>
+    </ol>
+    <div class="ctrl"></div>
+  </div>
+
+  <div class="prob" id="u09-p4" data-kind="practica" data-diff="3">
+    <div class="prob-head"><span class="tag">Práctica 4</span><span class="ptitle">Barra impulsada por una batería: velocidad límite</span><span class="diff">dificultad 3/3</span></div>
+    <div class="prob-grid">
+      <div>
+        <p class="stmt">Una barra de masa $m$ desliza sin roce sobre rieles separados por $b$, en un campo uniforme $B_0$ que sale de la hoja. Los rieles se conectan a una batería de fem $V_0$; la resistencia total del circuito es $R$. La batería está conectada de modo que, con la barra quieta, la fuerza magnética la empuja hacia la derecha. La barra parte del reposo en $t = 0$. Encuentra $v(t)$ y la velocidad límite, y explica por qué la corriente tiende a cero. (Basado en Ayudantía 22, 2026-2.)</p>
+        <div class="given"><div><b>Datos</b> $m$, $b$, $B_0$, $V_0$, $R$; $v(0) = 0$</div><div><b>Piden</b> $v(t)$, $v_\infty = \lim_{t\to\infty}v(t)$, $I(t\to\infty)$</div></div>
+      </div>
+      <figure class="fig" data-fig="u09-barra-bateria"><figcaption>La batería impulsa corriente por la barra; el movimiento induce una fem que se opone a la batería.</figcaption></figure>
+    </div>
+    <div class="predict"><b>Antes de calcular:</b> al acelerar, la barra induce una fem. ¿Se suma a la de la batería o se le opone?</div>
+    <ol class="reveal">
+      <li class="hint">Por Lenz, la fem de movimiento $B_0bv$ se opone a la corriente que causa el movimiento: la corriente neta es $(V_0 - B_0bv)/R$.</li>
+      <li><span class="rl">Paso 1 · Corriente</span><p class="do"><b>Qué hago:</b> regla de mallas: $V_0 - B_0bv = IR$, así que $I = \dfrac{V_0 - B_0bv}{R}$.</p><p><b>Por qué:</b> al moverse a la derecha, la barra induce $|\varepsilon| = B_0bv$ y, por Lenz, esa fem empuja corriente contra la de la batería (si la ayudara, la barra aceleraría sin límite). Es una fuerza contraelectromotriz, como en un motor.</p></li>
+      <li><span class="rl">Paso 2 · Ecuación de movimiento</span><p class="do"><b>Qué hago:</b> $m\dfrac{dv}{dt} = IbB_0 = \dfrac{B_0b}{R}\left(V_0 - B_0bv\right)$.</p><p><b>Por qué:</b> $F = I\ell B$ sobre la barra, hacia la derecha mientras $I \gt 0$.</p></li>
+      <li><span class="rl">Paso 3 · Resolver</span><p class="do"><b>Qué hago:</b> con $\tau = \dfrac{mR}{B_0^2b^2}$ y $v_\infty = \dfrac{V_0}{B_0b}$: $\dot v = \dfrac{v_\infty - v}{\tau}$, $v(0) = 0$, así que $v(t) = v_\infty\left(1 - e^{-t/\tau}\right)$.</p><p><b>Por qué:</b> misma estructura que la velocidad terminal (repaso exprés).</p></li>
+      <li><span class="rl">Paso 4 · Por qué $I\to0$</span><p class="do"><b>Qué hago:</b> en $v_\infty$, la fem inducida $B_0bv_\infty = V_0$ cancela la de la batería: $I = 0$, no hay fuerza y la barra sigue con velocidad constante (sin roce).</p><p><b>Por qué:</b> sin pérdidas mecánicas no se necesita fuerza para mantener la velocidad.</p></li>
+      <li class="final">$$\boxed{v(t) = \frac{V_0}{B_0b}\left(1 - e^{-t/\tau}\right),\qquad \tau = \frac{mR}{B_0^2b^2},\qquad v_\infty = \frac{V_0}{B_0b},\qquad I(\infty) = 0}$$</li>
+      <li class="check"><b>Verificación:</b> unidades de $v_\infty$: $\text{V}/(\text{T·m}) = \text{V}/(\text{V·s/m}^2\cdot\text{m}) = \text{m/s}$ (pues $\text{T} = \text{V·s/m}^2$). Límite: si $B_0$ es más grande, $v_\infty$ es menor: basta poca velocidad para igualar $V_0$. En $t = 0$, $I = V_0/R$, como en un circuito con la barra fija.</li>
+    </ol>
+    <div class="ctrl"></div>
+  </div>
+
+  <div class="prob" id="u09-p5" data-kind="practica" data-diff="2">
+    <div class="prob-head"><span class="tag">Práctica 5</span><span class="ptitle">Campo magnético entre las placas de un condensador</span><span class="diff">dificultad 2/3</span></div>
+    <div class="prob-grid">
+      <div>
+        <p class="stmt">Un condensador de placas circulares de radio $R$ se carga con una corriente constante $i$. Calcula la corriente de desplazamiento total entre las placas y el campo magnético a una distancia $r$ del eje, dentro de la región entre placas, para $r \lt R$ y para $r \gt R$. ¿Cuánto vale en $r = R/2$?</p>
+        <div class="given"><div><b>Datos</b> $R$, $i$ constante</div><div><b>Piden</b> $I_D$, $B(r)$, $B(R/2)$</div></div>
+      </div>
+      <figure class="fig" data-fig="u09-condensador-maxwell"><figcaption>Curva amperiana circular de radio $r$, coaxial, entre las placas.</figcaption></figure>
+    </div>
+    <div class="predict"><b>Antes de calcular:</b> ¿dónde es máximo $B$ entre las placas: en el eje, en el borde o fuera?</div>
+    <ol class="reveal">
+      <li class="hint">$\Phi_E$ a través de un círculo de radio $r$ es la fracción $r^2/R^2$ del flujo total $q/\varepsilon_0$.</li>
+      <li><span class="rl">Paso 1 · Corriente de desplazamiento total</span><p class="do"><b>Qué hago:</b> $\Phi_E = \dfrac{q}{\varepsilon_0}$, así que $I_D = \varepsilon_0\dfrac{d\Phi_E}{dt} = \dfrac{dq}{dt} = i$.</p><p><b>Por qué:</b> $E = q/(\varepsilon_0\pi R^2)$ uniforme entre las placas.</p></li>
+      <li><span class="rl">Paso 2 · Ampère-Maxwell dentro y fuera</span><p class="do"><b>Qué hago:</b> $r \lt R$: $B\,2\pi r = \mu_0 i\,r^2/R^2$, así que $B = \dfrac{\mu_0 ir}{2\pi R^2}$. $r \gt R$: $B\,2\pi r = \mu_0 i$, así que $B = \dfrac{\mu_0 i}{2\pi r}$.</p><p><b>Por qué:</b> no hay corriente de conducción entre placas; solo encierra corriente de desplazamiento.</p></li>
+      <li><span class="rl">Paso 3 · Evaluar</span><p class="do"><b>Qué hago:</b> $B(R/2) = \dfrac{\mu_0 i\,(R/2)}{2\pi R^2} = \dfrac{\mu_0 i}{4\pi R}$.</p><p><b>Por qué:</b> reemplazo directo en la expresión de $r \lt R$.</p></li>
+      <li class="final">$$\boxed{I_D = i,\qquad B = \frac{\mu_0 ir}{2\pi R^2}\ (r\lt R),\qquad B = \frac{\mu_0 i}{2\pi r}\ (r\gt R),\qquad B(R/2) = \frac{\mu_0 i}{4\pi R}}$$</li>
+      <li class="check"><b>Verificación:</b> continuidad en $r = R$: ambas dan $\mu_0 i/(2\pi R)$, que es el máximo. En el eje $B = 0$ por simetría. Unidades: $\mu_0 i/\text{m} = \text{T}$.</li>
+    </ol>
+    <div class="ctrl"></div>
+  </div>
+</section>
+
+<section class="sec" id="u09-quiz" data-block="quiz" data-title="Autoevaluación">
+  <h2>Autoevaluación</h2>
+  <div class="quiz" id="u09-quiz-1">
+    <div class="q" data-correct="c">
+      <p class="qt">1. Se acerca el polo norte de un imán, desde arriba, a una espira horizontal. Vista desde arriba, la corriente inducida circula en sentido:</p>
+      <div class="opts"><button type="button" data-o="a">horario</button><button type="button" data-o="b">no hay corriente, porque el imán no toca la espira</button><button type="button" data-o="c">antihorario</button></div>
+      <p class="fb" data-o="a">Horario crearía un campo hacia abajo dentro de la espira, reforzando el aumento del flujo hacia abajo. Eso contradice la ley de Lenz.</p><p class="fb" data-o="b">La inducción no requiere contacto: basta con que cambie el flujo, y al acercarse el imán el flujo hacia abajo aumenta.</p><p class="fb" data-o="c">Correcto. El flujo hacia abajo aumenta, así que la corriente crea un campo hacia arriba, lo que exige circulación antihoraria vista desde arriba. La espira repele al imán.</p>
+    </div>
+    <div class="q" data-correct="a">
+      <p class="qt">2. Una espira cuadrada de lado $a$ se traslada con velocidad constante, completamente dentro de un campo uniforme $\vec B$ perpendicular a ella. La fem neta inducida es:</p>
+      <div class="opts"><button type="button" data-o="a">cero</button><button type="button" data-o="b">$Bav$</button><button type="button" data-o="c">$2Bav$</button></div>
+      <p class="fb" data-o="a">Correcto. El flujo $Ba^2$ es constante. Cada lado perpendicular a $\vec v$ tiene fem $Bav$, pero recorriendo la espira se cancelan.</p><p class="fb" data-o="b">$Bav$ es la fem de un solo lado. Recorriendo la espira, la del otro lado la cancela.</p><p class="fb" data-o="c">Las fem de los dos lados no se suman: empujan en sentidos opuestos alrededor de la espira.</p>
+    </div>
+    <div class="q" data-correct="b">
+      <p class="qt">3. Un campo uniforme forma $30^\circ$ con el <em>plano</em> de una espira de área $A$. El flujo es:</p>
+      <div class="opts"><button type="button" data-o="a">$BA\cos30^\circ$</button><button type="button" data-o="b">$BA\sin30^\circ$</button><button type="button" data-o="c">$BA$</button></div>
+      <p class="fb" data-o="a">Ese sería el flujo si $30^\circ$ fuera el ángulo con la normal. Aquí es con el plano.</p><p class="fb" data-o="b">Correcto. El ángulo con la normal es $60^\circ$ y $\cos60^\circ = \sin30^\circ$.</p><p class="fb" data-o="c">Solo si $\vec B$ fuera perpendicular al plano (paralelo a la normal).</p>
+    </div>
+    <div class="q" data-correct="c">
+      <p class="qt">4. Una barra lanzada sobre rieles se frena por inducción. Si el campo $B$ se reduce a la mitad (todo lo demás igual), la distancia total que recorre:</p>
+      <div class="opts"><button type="button" data-o="a">se duplica</button><button type="button" data-o="b">se reduce a la mitad</button><button type="button" data-o="c">se cuadruplica</button></div>
+      <p class="fb" data-o="a">La fuerza de frenado es $B^2\ell^2v/R$: depende de $B^2$, no de $B$.</p><p class="fb" data-o="b">Con menos campo, el frenado es más débil y la barra llega más lejos, no menos.</p><p class="fb" data-o="c">Correcto. $x_{\text{total}} = mRv_0/(B^2\ell^2)$, proporcional a $1/B^2$.</p>
+    </div>
+    <div class="q" data-correct="a">
+      <p class="qt">5. El campo eléctrico que crea un campo magnético variable en el tiempo:</p>
+      <div class="opts"><button type="button" data-o="a">tiene circulación distinta de cero, así que no se le puede asociar un potencial único</button><button type="button" data-o="b">es conservativo, igual que el de una carga puntual</button><button type="button" data-o="c">siempre apunta radialmente desde el eje del solenoide</button></div>
+      <p class="fb" data-o="a">Correcto. $\oint\vec E\cdot d\vec\ell = -d\Phi_B/dt \neq 0$: el trabajo en un camino cerrado no es cero.</p><p class="fb" data-o="b">El campo electrostático es conservativo; el inducido no, porque su circulación es la fem.</p><p class="fb" data-o="c">Un campo radial implicaría carga encerrada (ley de Gauss). Por simetría es tangente a circunferencias coaxiales.</p>
+    </div>
+    <div class="q" data-correct="b">
+      <p class="qt">6. Se saca una espira de resistencia $R$ de un campo, de modo que su flujo pasa de $\Phi_0$ a cero. La carga total que circula:</p>
+      <div class="opts"><button type="button" data-o="a">es mayor si se saca más rápido</button><button type="button" data-o="b">vale $\Phi_0/R$, sin importar la rapidez</button><button type="button" data-o="c">vale $\Phi_0 R$</button></div>
+      <p class="fb" data-o="a">Más rapidez da más corriente, pero durante menos tiempo; la carga total no cambia.</p><p class="fb" data-o="b">Correcto. $Q = \int I\,dt = \frac1R\int|d\Phi_B/dt|\,dt = |\Delta\Phi_B|/R$.</p><p class="fb" data-o="c">Revisa las unidades: Wb·Ω no es carga. La resistencia divide.</p>
+    </div>
+    <div class="q" data-correct="c">
+      <p class="qt">7. Un condensador se carga con corriente $i$ en los cables. La corriente de desplazamiento total entre sus placas es:</p>
+      <div class="opts"><button type="button" data-o="a">cero, porque entre las placas no pasan cargas</button><button type="button" data-o="b">$i/2$</button><button type="button" data-o="c">igual a $i$</button></div>
+      <p class="fb" data-o="a">No pasa corriente de conducción, pero el flujo eléctrico cambia, y eso es corriente de desplazamiento.</p><p class="fb" data-o="b">No hay ningún reparto: $I_D = \varepsilon_0\,d\Phi_E/dt = dq/dt = i$.</p><p class="fb" data-o="c">Correcto. Por eso la ley de Ampère-Maxwell da el mismo resultado con cualquier superficie.</p>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="u09-formulas" data-block="formulas" data-title="Tarjeta de fórmulas">
+  <h2>Tarjeta de fórmulas</h2>
+  <div class="formulas"><table><thead><tr><th>Fórmula</th><th>Significado</th><th>Válida si</th></tr></thead>
+  <tbody>
+    <tr><td>$\Phi_B = \displaystyle\int\vec B\cdot d\vec A$; $\ \Phi_B = BA\cos\varphi$</td><td>Flujo magnético (Wb); $\varphi$ entre $\vec B$ y $\hat n$</td><td>La forma corta, solo con $\vec B$ uniforme y superficie plana</td></tr>
+    <tr><td>$\Phi_B = \dfrac{\mu_0 I\ell}{2\pi}\ln\!\left(\dfrac{r+w}{r}\right)$</td><td>Flujo de un alambre infinito por una espira rectangular coplanar</td><td>Lado $\ell$ paralelo al alambre, ancho $w$, lado cercano a distancia $r$</td></tr>
+    <tr><td>$\varepsilon = -N\dfrac{d\Phi_B}{dt}$</td><td>Ley de Faraday; $\varepsilon$ en V, $N$ vueltas</td><td>Siempre; signo según la mano derecha alrededor de $\hat n$</td></tr>
+    <tr><td>Ley de Lenz</td><td>La corriente inducida se opone al <em>cambio</em> del flujo</td><td>Siempre; la fuerza sobre la corriente inducida frena el movimiento</td></tr>
+    <tr><td>$\varepsilon = \displaystyle\oint(\vec v\times\vec B)\cdot d\vec\ell$; $\ |\varepsilon| = B\ell v$</td><td>Fem de movimiento; $\ell$ largo del tramo que se mueve (m)</td><td>La forma corta, para un tramo recto con $\vec v$, $\vec B$, $\vec\ell$ perpendiculares y $B$ uniforme</td></tr>
+    <tr><td>$I = \dfrac{|\varepsilon|}{R}$, $\ \vec F = I\vec\ell\times\vec B$</td><td>Corriente inducida (A) y fuerza sobre un tramo recto (N)</td><td>Autoinducción despreciable; $\vec B$ uniforme sobre el tramo</td></tr>
+    <tr><td>$F_B = \dfrac{B^2\ell^2v}{R}$, $\ P = \dfrac{\varepsilon^2}{R}$</td><td>Fuerza de frenado y potencia disipada (W)</td><td>Barra sobre rieles en campo uniforme</td></tr>
+    <tr><td>$v = v_0e^{-t/\tau}$, $\ \tau = \dfrac{mR}{B^2\ell^2}$, $\ x_{\text{total}} = v_0\tau$</td><td>Barra lanzada, frenada solo por inducción</td><td>Sin roce ni otras fuerzas</td></tr>
+    <tr><td>$v_{\text{term}} = \dfrac{FR}{B^2\ell^2}$</td><td>Velocidad terminal con fuerza constante $F$ (p. ej. $mg$)</td><td>Fuerza magnética $\propto v$; con $\vec B(z)$, usar la fuerza neta real (p. ej. $\alpha^2a^4v/R$)</td></tr>
+    <tr><td>$\displaystyle\oint\vec E\cdot d\vec\ell = -\frac{d\Phi_B}{dt}$; $\ \nabla\times\vec E = -\dfrac{\partial\vec B}{\partial t}$</td><td>Campo eléctrico inducido (V/m), no conservativo</td><td>Curva fija</td></tr>
+    <tr><td>$E = \dfrac r2\left|\dfrac{dB}{dt}\right|$ ($r\lt b$); $\ E = \dfrac{b^2}{2r}\left|\dfrac{dB}{dt}\right|$ ($r\gt b$)</td><td>$\vec E$ tangente en un solenoide de radio $b$</td><td>Solenoide largo, simetría cilíndrica</td></tr>
+    <tr><td>$\varepsilon = NBA\omega\sin\omega t$, $\ \varepsilon_{\text{máx}} = NBA\omega$</td><td>Generador; $\omega = 2\pi f$ (rad/s)</td><td>Rotación uniforme, eje perpendicular a $\vec B$ uniforme</td></tr>
+    <tr><td>$Q = \dfrac{N|\Delta\Phi_B|}{R}$</td><td>Carga total que circula (C)</td><td>El flujo cambia en un solo sentido</td></tr>
+    <tr><td>$I_D = \varepsilon_0\dfrac{d\Phi_E}{dt}$; $\ \displaystyle\oint\vec B\cdot d\vec\ell = \mu_0(I_{\text{enc}} + I_D)$</td><td>Corriente de desplazamiento y ley de Ampère-Maxwell</td><td>Siempre; importa donde $\vec E$ cambia sin corriente de conducción</td></tr>
+    <tr><td>$B = \dfrac{\mu_0 ir}{2\pi R^2}$ ($r\lt R$)</td><td>Campo entre placas circulares de un condensador que se carga</td><td>Placas de radio $R$, campo eléctrico uniforme entre ellas</td></tr>
+  </tbody></table></div>
+</section>
+</section>

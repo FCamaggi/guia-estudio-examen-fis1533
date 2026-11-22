@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 210" style="max-width:648px" role="img" aria-label="Regiones para buscar el punto de campo nulo entre dos cargas de distinto signo">
+<style>
+  :root {
+    --surface: #ffffff; --ink: #142030; --muted: #566273; --line: #d8dee7;
+    --accent: #1f4fd1; --accent-soft: #e7edfc; --copper: #a85a18; --copper-soft: #f8eee4;
+    --font-body: "Source Sans 3", "Segoe UI", Roboto, sans-serif;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --surface: #151c26; --ink: #e5eaf1; --muted: #9aa6b6; --line: #29323f;
+      --accent: #84a6ff; --accent-soft: #1b2640; --copper: #e2a26b; --copper-soft: #2a2119;
+    }
+  }
+  svg { background: var(--surface); font-family: var(--font-body); }
+  .w { stroke: var(--ink); stroke-width: 1.8; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+  .wk { stroke: var(--ink); stroke-width: 3.2; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+  .m { stroke: var(--muted); stroke-width: 1.2; fill: none; }
+  .md { stroke: var(--muted); stroke-width: 1.3; stroke-dasharray: 4 4; fill: none; }
+  .a { stroke: var(--accent); stroke-width: 2.2; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+  .ad { stroke: var(--accent); stroke-width: 1.6; stroke-dasharray: 5 4; fill: none; }
+  .c { stroke: var(--copper); stroke-width: 2.2; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+  .cd { stroke: var(--copper); stroke-width: 1.4; stroke-dasharray: 4 3; fill: none; }
+  .fld { stroke: var(--muted); stroke-width: 1.3; opacity: .38; }
+  .fldl { stroke: var(--muted); stroke-width: 1.4; opacity: .6; fill: none; }
+  .af { fill: var(--accent); } .cf { fill: var(--copper); } .wf, .inkf, .wkf { fill: var(--ink); }
+  .mf, .mdf { fill: var(--muted); } .fldlf { fill: var(--muted); opacity: .6; }
+  .adf { fill: var(--accent); } .cdf { fill: var(--copper); }
+  .soft { fill: var(--accent-soft); } .csoft { fill: var(--copper-soft); } .paperf { fill: var(--surface); }
+  .nostroke { stroke: none; } .nofill { fill: none; }
+  .s, .sa, .sc { font: italic 17px "Times New Roman", "STIX Two Text", serif; fill: var(--ink); }
+  .sa { fill: var(--accent); } .sc { fill: var(--copper); }
+  .t { font: 12.5px var(--font-body); fill: var(--muted); }
+  .tb { font: 600 14px var(--font-body); fill: var(--ink); }
+  .tc { font: 600 13px var(--font-body); fill: var(--copper); }
+  .ta { font: 600 13px var(--font-body); fill: var(--accent); }
+  .tw { font: 700 13px var(--font-body); fill: var(--surface); }
+  .gl-ink, .gl-acc, .gl-cop, .gl-mut, .gl-srf { fill: none; stroke-width: 1.2; stroke-linecap: round; }
+  .gl-ink { stroke: var(--ink); } .gl-acc { stroke: var(--accent); } .gl-cop { stroke: var(--copper); }
+  .gl-mut { stroke: var(--muted); } .gl-srf { stroke: var(--surface); }
+  .glf-ink { fill: var(--ink); } .glf-acc { fill: var(--accent); } .glf-cop { fill: var(--copper); }
+  .glf-mut { fill: var(--muted); } .glf-srf { fill: var(--surface); }
+  .sb { font-size: 72%; }
+</style>
+<line class="m" x1="25" y1="132" x2="447.0" y2="132.0"/><polygon class="mf" points="455,132 447.0,136.0 447.0,128.0"/><circle class="csoft c" cx="135" cy="132" r="9"/><circle class="soft a" cx="255" cy="132" r="9"/><circle class="inkf" cx="375" cy="132" r="3.6"/><line class="a" x1="92" y1="56" x2="52.0" y2="56.0"/><polygon class="af" points="44,56 52.0,52.0 52.0,60.0"/><line class="c" x1="56" y1="86" x2="72.0" y2="86.0"/><polygon class="cf" points="80,86 72.0,90.0 72.0,82.0"/><line class="a" x1="168" y1="56" x2="214.0" y2="56.0"/><polygon class="af" points="222,56 214.0,60.0 214.0,52.0"/><line class="c" x1="176" y1="86" x2="206.0" y2="86.0"/><polygon class="cf" points="214,86 206.0,90.0 206.0,82.0"/><line class="a" x1="375" y1="72" x2="413.0" y2="72.0"/><polygon class="af" points="421,72 413.0,76.0 413.0,68.0"/><line class="c" x1="375" y1="72" x2="337.0" y2="72.0"/><polygon class="cf" points="329,72 337.0,68.0 337.0,76.0"/><text class="s" x="462" y="137" text-anchor="start">x</text><text class="tc" x="135" y="136.5" text-anchor="middle">+</text><text class="s" x="135" y="157" text-anchor="middle">+9q (0)</text><text class="ta" x="255" y="136.5" text-anchor="middle">−</text><text class="s" x="255" y="157" text-anchor="middle">−q (d)</text><text class="ta" x="375" y="156" text-anchor="middle">x₀ = 3d/2</text><text class="tb" x="72" y="22" text-anchor="middle">x &lt; 0</text><g><text class="sa" x="63.6" y="48" text-anchor="middle">E</text><line class="gl-acc" x1="61.6" y1="33.4" x2="68.0" y2="33.4"/><polygon class="glf-acc" points="69.5,33.4 64.1,30.8 64.1,35.9"/><text class="sa" x="68.0" y="48" text-anchor="start">₁</text></g><g><text class="sc" x="63.6" y="78" text-anchor="middle">E</text><line class="gl-cop" x1="61.6" y1="63.4" x2="68.0" y2="63.4"/><polygon class="glf-cop" points="69.5,63.4 64.1,60.8 64.1,65.9"/><text class="sc" x="68.0" y="78" text-anchor="start">₂</text></g><text class="tb" x="195" y="22" text-anchor="middle">0 &lt; x &lt; d</text><g><text class="sa" x="190.6" y="48" text-anchor="middle">E</text><line class="gl-acc" x1="188.6" y1="33.4" x2="195.0" y2="33.4"/><polygon class="glf-acc" points="196.5,33.4 191.1,30.8 191.1,35.9"/><text class="sa" x="195.0" y="48" text-anchor="start">₁</text></g><g><text class="sc" x="190.6" y="78" text-anchor="middle">E</text><line class="gl-cop" x1="188.6" y1="63.4" x2="195.0" y2="63.4"/><polygon class="glf-cop" points="196.5,63.4 191.1,60.8 191.1,65.9"/><text class="sc" x="195.0" y="78" text-anchor="start">₂</text></g><text class="tc" x="195" y="190" text-anchor="middle">nunca se anulan</text><text class="tb" x="375" y="22" text-anchor="middle">x &gt; d</text><g><text class="sa" x="393.6" y="62" text-anchor="middle">E</text><line class="gl-acc" x1="391.6" y1="47.4" x2="398.0" y2="47.4"/><polygon class="glf-acc" points="399.5,47.4 394.1,44.8 394.1,49.9"/><text class="sa" x="398.0" y="62" text-anchor="start">₁</text></g><g><text class="sc" x="347.6" y="62" text-anchor="middle">E</text><line class="gl-cop" x1="345.6" y1="47.4" x2="352.0" y2="47.4"/><polygon class="glf-cop" points="353.5,47.4 348.1,44.8 348.1,49.9"/><text class="sc" x="352.0" y="62" text-anchor="start">₂</text></g></svg>

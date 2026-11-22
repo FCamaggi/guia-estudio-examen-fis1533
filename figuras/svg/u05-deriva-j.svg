@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 560 240" style="max-width:756px" role="img" aria-label="Portadores positivos y negativos bajo un campo eléctrico E⃗: velocidad de deriva y densidad de corriente J⃗">
+<style>
+  :root {
+    --surface: #ffffff; --ink: #142030; --muted: #566273; --line: #d8dee7;
+    --accent: #1f4fd1; --accent-soft: #e7edfc; --copper: #a85a18; --copper-soft: #f8eee4;
+    --font-body: "Source Sans 3", "Segoe UI", Roboto, sans-serif;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --surface: #151c26; --ink: #e5eaf1; --muted: #9aa6b6; --line: #29323f;
+      --accent: #84a6ff; --accent-soft: #1b2640; --copper: #e2a26b; --copper-soft: #2a2119;
+    }
+  }
+  svg { background: var(--surface); font-family: var(--font-body); }
+  .w { stroke: var(--ink); stroke-width: 1.8; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+  .wk { stroke: var(--ink); stroke-width: 3.2; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+  .m { stroke: var(--muted); stroke-width: 1.2; fill: none; }
+  .md { stroke: var(--muted); stroke-width: 1.3; stroke-dasharray: 4 4; fill: none; }
+  .a { stroke: var(--accent); stroke-width: 2.2; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+  .ad { stroke: var(--accent); stroke-width: 1.6; stroke-dasharray: 5 4; fill: none; }
+  .c { stroke: var(--copper); stroke-width: 2.2; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+  .cd { stroke: var(--copper); stroke-width: 1.4; stroke-dasharray: 4 3; fill: none; }
+  .fld { stroke: var(--muted); stroke-width: 1.3; opacity: .38; }
+  .fldl { stroke: var(--muted); stroke-width: 1.4; opacity: .6; fill: none; }
+  .af { fill: var(--accent); } .cf { fill: var(--copper); } .wf, .inkf, .wkf { fill: var(--ink); }
+  .mf, .mdf { fill: var(--muted); } .fldlf { fill: var(--muted); opacity: .6; }
+  .adf { fill: var(--accent); } .cdf { fill: var(--copper); }
+  .soft { fill: var(--accent-soft); } .csoft { fill: var(--copper-soft); } .paperf { fill: var(--surface); }
+  .nostroke { stroke: none; } .nofill { fill: none; }
+  .s, .sa, .sc { font: italic 17px "Times New Roman", "STIX Two Text", serif; fill: var(--ink); }
+  .sa { fill: var(--accent); } .sc { fill: var(--copper); }
+  .t { font: 12.5px var(--font-body); fill: var(--muted); }
+  .tb { font: 600 14px var(--font-body); fill: var(--ink); }
+  .tc { font: 600 13px var(--font-body); fill: var(--copper); }
+  .ta { font: 600 13px var(--font-body); fill: var(--accent); }
+  .tw { font: 700 13px var(--font-body); fill: var(--surface); }
+  .gl-ink, .gl-acc, .gl-cop, .gl-mut, .gl-srf { fill: none; stroke-width: 1.2; stroke-linecap: round; }
+  .gl-ink { stroke: var(--ink); } .gl-acc { stroke: var(--accent); } .gl-cop { stroke: var(--copper); }
+  .gl-mut { stroke: var(--muted); } .gl-srf { stroke: var(--surface); }
+  .glf-ink { fill: var(--ink); } .glf-acc { fill: var(--accent); } .glf-cop { fill: var(--copper); }
+  .glf-mut { fill: var(--muted); } .glf-srf { fill: var(--surface); }
+  .sb { font-size: 72%; }
+</style>
+<rect class="paperf w" x="42" y="38" width="298" height="56" rx="4"/><rect class="soft nostroke" x="188" y="38" width="68" height="56"/><rect class="paperf w" x="42" y="148" width="298" height="56" rx="4"/><ellipse class="soft a" cx="188" cy="66" rx="8" ry="28"/><ellipse class="soft a" cx="256" cy="66" rx="8" ry="28"/><line class="m" x1="188" y1="102" x2="256" y2="102"/><line class="m" x1="188" y1="98" x2="188" y2="106"/><line class="m" x1="256" y1="98" x2="256" y2="106"/><circle class="csoft c" cx="92" cy="56" r="7.5"/><line class="a" x1="102" y1="56" x2="119.0" y2="56.0"/><polygon class="af" points="126,56 119.0,59.5 119.0,52.5"/><circle class="csoft c" cx="132" cy="76" r="7.5"/><line class="a" x1="142" y1="76" x2="159.0" y2="76.0"/><polygon class="af" points="166,76 159.0,79.5 159.0,72.5"/><circle class="csoft c" cx="222" cy="62" r="7.5"/><line class="a" x1="232" y1="62" x2="249.0" y2="62.0"/><polygon class="af" points="256,62 249.0,65.5 249.0,58.5"/><circle class="soft a" cx="110" cy="166" r="7.5"/><line class="a" x1="100" y1="166" x2="83.0" y2="166.0"/><polygon class="af" points="76,166 83.0,162.5 83.0,169.5"/><circle class="soft a" cx="185" cy="186" r="7.5"/><line class="a" x1="175" y1="186" x2="158.0" y2="186.0"/><polygon class="af" points="151,186 158.0,182.5 158.0,189.5"/><circle class="soft a" cx="265" cy="170" r="7.5"/><line class="a" x1="255" y1="170" x2="238.0" y2="170.0"/><polygon class="af" points="231,170 238.0,166.5 238.0,173.5"/><line class="c" x1="380" y1="62" x2="458.0" y2="62.0"/><polygon class="cf" points="465,62 458.0,65.5 458.0,58.5"/><line class="a" x1="380" y1="96" x2="458.0" y2="96.0"/><polygon class="af" points="465,96 458.0,99.5 458.0,92.5"/><text class="sa" x="270" y="34" text-anchor="start">A</text><text class="s" x="222" y="117" text-anchor="middle">v dt</text><text class="tc" x="92" y="60.5" text-anchor="middle">+</text><text class="tc" x="132" y="80.5" text-anchor="middle">+</text><text class="tc" x="222" y="66.5" text-anchor="middle">+</text><text class="tc" x="118" y="30" text-anchor="middle">q &gt; 0</text><g><text class="sa" x="158.0" y="64" text-anchor="middle">v</text><line class="gl-acc" x1="156.0" y1="49.4" x2="162.4" y2="49.4"/><polygon class="glf-acc" points="163.9,49.4 158.5,46.8 158.5,51.9"/></g><text class="ta" x="110" y="170.5" text-anchor="middle">−</text><text class="ta" x="185" y="190.5" text-anchor="middle">−</text><text class="ta" x="265" y="174.5" text-anchor="middle">−</text><text class="ta" x="118" y="140" text-anchor="middle">q &lt; 0</text><g><text class="sa" x="146.0" y="190" text-anchor="middle">v</text><line class="gl-acc" x1="144.0" y1="175.4" x2="150.4" y2="175.4"/><polygon class="glf-acc" points="151.9,175.4 146.5,172.8 146.5,177.9"/></g><g><text class="sc" x="479.4" y="67" text-anchor="middle">E</text><line class="gl-cop" x1="477.4" y1="52.4" x2="483.9" y2="52.4"/><polygon class="glf-cop" points="485.4,52.4 479.9,49.8 479.9,54.9"/></g><g><text class="sa" x="479.4" y="101" text-anchor="middle">J</text><line class="gl-acc" x1="477.4" y1="86.4" x2="483.9" y2="86.4"/><polygon class="glf-acc" points="485.4,86.4 479.9,83.8 479.9,88.9"/><text class="sa" x="483.8" y="101" text-anchor="start">, I</text></g><text class="tb" x="380" y="148" text-anchor="start">En ambos casos:</text><g><text class="s" x="384.4" y="172" text-anchor="middle">J</text><line class="gl-ink" x1="382.4" y1="157.4" x2="388.9" y2="157.4"/><polygon class="glf-ink" points="390.4,157.4 384.9,154.8 384.9,159.9"/><text class="s" x="388.8" y="172" text-anchor="start"> = n q </text><text class="s" x="438.8" y="172" text-anchor="middle">v</text><line class="gl-ink" x1="436.8" y1="157.4" x2="443.3" y2="157.4"/><polygon class="glf-ink" points="444.8,157.4 439.3,154.8 439.3,159.9"/><text class="s" x="443.2" y="172" text-anchor="start">   y   I = n |q| A v</text></g><text class="t" x="380" y="196" text-anchor="start">Mismo sentido que</text><g><text class="sc" x="504.4" y="196" text-anchor="middle">E</text><line class="gl-cop" x1="502.4" y1="181.4" x2="508.9" y2="181.4"/><polygon class="glf-cop" points="510.4,181.4 504.9,178.8 504.9,183.9"/></g></svg>

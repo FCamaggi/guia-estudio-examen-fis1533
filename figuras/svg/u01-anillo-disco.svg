@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 510 260" style="max-width:688px" role="img" aria-label="Anillo uniforme y disco uniforme en su eje">
+<style>
+  :root {
+    --surface: #ffffff; --ink: #142030; --muted: #566273; --line: #d8dee7;
+    --accent: #1f4fd1; --accent-soft: #e7edfc; --copper: #a85a18; --copper-soft: #f8eee4;
+    --font-body: "Source Sans 3", "Segoe UI", Roboto, sans-serif;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --surface: #151c26; --ink: #e5eaf1; --muted: #9aa6b6; --line: #29323f;
+      --accent: #84a6ff; --accent-soft: #1b2640; --copper: #e2a26b; --copper-soft: #2a2119;
+    }
+  }
+  svg { background: var(--surface); font-family: var(--font-body); }
+  .w { stroke: var(--ink); stroke-width: 1.8; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+  .wk { stroke: var(--ink); stroke-width: 3.2; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+  .m { stroke: var(--muted); stroke-width: 1.2; fill: none; }
+  .md { stroke: var(--muted); stroke-width: 1.3; stroke-dasharray: 4 4; fill: none; }
+  .a { stroke: var(--accent); stroke-width: 2.2; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+  .ad { stroke: var(--accent); stroke-width: 1.6; stroke-dasharray: 5 4; fill: none; }
+  .c { stroke: var(--copper); stroke-width: 2.2; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+  .cd { stroke: var(--copper); stroke-width: 1.4; stroke-dasharray: 4 3; fill: none; }
+  .fld { stroke: var(--muted); stroke-width: 1.3; opacity: .38; }
+  .fldl { stroke: var(--muted); stroke-width: 1.4; opacity: .6; fill: none; }
+  .af { fill: var(--accent); } .cf { fill: var(--copper); } .wf, .inkf, .wkf { fill: var(--ink); }
+  .mf, .mdf { fill: var(--muted); } .fldlf { fill: var(--muted); opacity: .6; }
+  .adf { fill: var(--accent); } .cdf { fill: var(--copper); }
+  .soft { fill: var(--accent-soft); } .csoft { fill: var(--copper-soft); } .paperf { fill: var(--surface); }
+  .nostroke { stroke: none; } .nofill { fill: none; }
+  .s, .sa, .sc { font: italic 17px "Times New Roman", "STIX Two Text", serif; fill: var(--ink); }
+  .sa { fill: var(--accent); } .sc { fill: var(--copper); }
+  .t { font: 12.5px var(--font-body); fill: var(--muted); }
+  .tb { font: 600 14px var(--font-body); fill: var(--ink); }
+  .tc { font: 600 13px var(--font-body); fill: var(--copper); }
+  .ta { font: 600 13px var(--font-body); fill: var(--accent); }
+  .tw { font: 700 13px var(--font-body); fill: var(--surface); }
+  .gl-ink, .gl-acc, .gl-cop, .gl-mut, .gl-srf { fill: none; stroke-width: 1.2; stroke-linecap: round; }
+  .gl-ink { stroke: var(--ink); } .gl-acc { stroke: var(--accent); } .gl-cop { stroke: var(--copper); }
+  .gl-mut { stroke: var(--muted); } .gl-srf { stroke: var(--surface); }
+  .glf-ink { fill: var(--ink); } .glf-acc { fill: var(--accent); } .glf-cop { fill: var(--copper); }
+  .glf-mut { fill: var(--muted); } .glf-srf { fill: var(--surface); }
+  .sb { font-size: 72%; }
+</style>
+<ellipse class="csoft w" cx="380" cy="200" rx="74" ry="22"/><ellipse class="wk nofill" cx="120" cy="200" rx="66" ry="20"/><line class="md" x1="120" y1="200" x2="186" y2="200"/><line class="md" x1="120" y1="230" x2="120" y2="62"/><line class="ad" x1="54" y1="200" x2="120" y2="86"/><line class="ad" x1="186" y1="200" x2="120" y2="86"/><ellipse class="soft a" cx="380" cy="200" rx="48.84" ry="14.52"/><ellipse class="csoft w" cx="380" cy="200" rx="38.48" ry="11.44"/><line class="md" x1="380" y1="200" x2="454" y2="200"/><line class="md" x1="380" y1="232" x2="380" y2="62"/><line class="ad" x1="306" y1="200" x2="380" y2="86"/><line class="ad" x1="454" y1="200" x2="380" y2="86"/><circle class="inkf" cx="120" cy="86" r="3.6"/><line class="a" x1="120" y1="86" x2="120.0" y2="52.0"/><polygon class="af" points="120,44 124.0,52.0 116.0,52.0"/><circle class="inkf" cx="380" cy="86" r="3.6"/><line class="a" x1="380" y1="86" x2="380.0" y2="52.0"/><polygon class="af" points="380,44 384.0,52.0 376.0,52.0"/><text class="tb" x="120" y="20" text-anchor="middle">Anillo uniforme (Q, R)</text><text class="s" x="153" y="214" text-anchor="middle">R</text><text class="sc" x="40" y="205" text-anchor="middle">λ</text><text class="s" x="130" y="91" text-anchor="start">P</text><g><text class="sa" x="90.3" y="70" text-anchor="start">d</text><text class="sa" x="103.6" y="70" text-anchor="middle">E</text><line class="gl-acc" x1="101.6" y1="55.4" x2="108.0" y2="55.4"/><polygon class="glf-acc" points="109.5,55.4 104.1,52.8 104.1,57.9"/></g><text class="s" x="130" y="145" text-anchor="start">z</text><text class="tb" x="380" y="20" text-anchor="middle">Disco uniforme (σ, R)</text><text class="s" x="417" y="214" text-anchor="middle">R</text><text class="sc" x="292" y="205" text-anchor="middle">σ</text><text class="s" x="390" y="91" text-anchor="start">P</text><g><text class="sa" x="350.3" y="70" text-anchor="start">d</text><text class="sa" x="363.6" y="70" text-anchor="middle">E</text><line class="gl-acc" x1="361.6" y1="55.4" x2="368.0" y2="55.4"/><polygon class="glf-acc" points="369.5,55.4 364.1,52.8 364.1,57.9"/></g><text class="s" x="390" y="145" text-anchor="start">x</text><text class="sa" x="448" y="226" text-anchor="start">dr</text></svg>

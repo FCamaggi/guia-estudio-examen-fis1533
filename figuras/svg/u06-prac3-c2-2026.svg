@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 440 270" style="max-width:594px" role="img" aria-label="Circuito plano con nodo central e y cinco resistencias del Control 2 2026-1">
+<style>
+  :root {
+    --surface: #ffffff; --ink: #142030; --muted: #566273; --line: #d8dee7;
+    --accent: #1f4fd1; --accent-soft: #e7edfc; --copper: #a85a18; --copper-soft: #f8eee4;
+    --font-body: "Source Sans 3", "Segoe UI", Roboto, sans-serif;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --surface: #151c26; --ink: #e5eaf1; --muted: #9aa6b6; --line: #29323f;
+      --accent: #84a6ff; --accent-soft: #1b2640; --copper: #e2a26b; --copper-soft: #2a2119;
+    }
+  }
+  svg { background: var(--surface); font-family: var(--font-body); }
+  .w { stroke: var(--ink); stroke-width: 1.8; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+  .wk { stroke: var(--ink); stroke-width: 3.2; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+  .m { stroke: var(--muted); stroke-width: 1.2; fill: none; }
+  .md { stroke: var(--muted); stroke-width: 1.3; stroke-dasharray: 4 4; fill: none; }
+  .a { stroke: var(--accent); stroke-width: 2.2; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+  .ad { stroke: var(--accent); stroke-width: 1.6; stroke-dasharray: 5 4; fill: none; }
+  .c { stroke: var(--copper); stroke-width: 2.2; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+  .cd { stroke: var(--copper); stroke-width: 1.4; stroke-dasharray: 4 3; fill: none; }
+  .fld { stroke: var(--muted); stroke-width: 1.3; opacity: .38; }
+  .fldl { stroke: var(--muted); stroke-width: 1.4; opacity: .6; fill: none; }
+  .af { fill: var(--accent); } .cf { fill: var(--copper); } .wf, .inkf, .wkf { fill: var(--ink); }
+  .mf, .mdf { fill: var(--muted); } .fldlf { fill: var(--muted); opacity: .6; }
+  .adf { fill: var(--accent); } .cdf { fill: var(--copper); }
+  .soft { fill: var(--accent-soft); } .csoft { fill: var(--copper-soft); } .paperf { fill: var(--surface); }
+  .nostroke { stroke: none; } .nofill { fill: none; }
+  .s, .sa, .sc { font: italic 17px "Times New Roman", "STIX Two Text", serif; fill: var(--ink); }
+  .sa { fill: var(--accent); } .sc { fill: var(--copper); }
+  .t { font: 12.5px var(--font-body); fill: var(--muted); }
+  .tb { font: 600 14px var(--font-body); fill: var(--ink); }
+  .tc { font: 600 13px var(--font-body); fill: var(--copper); }
+  .ta { font: 600 13px var(--font-body); fill: var(--accent); }
+  .tw { font: 700 13px var(--font-body); fill: var(--surface); }
+  .gl-ink, .gl-acc, .gl-cop, .gl-mut, .gl-srf { fill: none; stroke-width: 1.2; stroke-linecap: round; }
+  .gl-ink { stroke: var(--ink); } .gl-acc { stroke: var(--accent); } .gl-cop { stroke: var(--copper); }
+  .gl-mut { stroke: var(--muted); } .gl-srf { stroke: var(--surface); }
+  .glf-ink { fill: var(--ink); } .glf-acc { fill: var(--accent); } .glf-cop { fill: var(--copper); }
+  .glf-mut { fill: var(--muted); } .glf-srf { fill: var(--surface); }
+  .sb { font-size: 72%; }
+</style>
+<g transform="translate(95,50) rotate(0)"><polyline class="w" points="0,0 98,0 101.7,8 109,-8 116.3,8 123.7,-8 131,8 138.3,-8 142,0 240,0"/></g><g transform="translate(95,50) rotate(90)"><polyline class="w" points="0,0 63,0 66.7,8 74,-8 81.3,8 88.7,-8 96,8 103.3,-8 107,0 170,0"/></g><g transform="translate(95,220) rotate(0)"><polyline class="w" points="0,0 98,0 101.7,8 109,-8 116.3,8 123.7,-8 131,8 138.3,-8 142,0 240,0"/></g><g transform="translate(335,50) rotate(90)"><line class="w" x1="0" y1="0" x2="81" y2="0"/><line class="w" x1="89" y1="0" x2="170" y2="0"/><line class="w" x1="81" y1="-15" x2="81" y2="15"/><line class="wk" x1="89" y1="-8" x2="89" y2="8"/></g><g transform="translate(95,50) rotate(37.6942)"><line class="w" x1="0" y1="0" x2="65.5072" y2="0"/><line class="w" x1="73.5072" y1="0" x2="139.014" y2="0"/><line class="w" x1="65.5072" y1="-15" x2="65.5072" y2="15"/><line class="wk" x1="73.5072" y1="-8" x2="73.5072" y2="8"/></g><g transform="translate(335,50) rotate(146.821)"><polyline class="w" points="0,0 55.7,0 59.3,8 66.7,-8 74,8 81.3,-8 88.7,8 96,-8 99.7,0 155.3,0"/></g><g transform="translate(95,220) rotate(-37.6942)"><polyline class="w" points="0,0 47.5,0 51.2,8 58.5,-8 65.8,8 73.2,-8 80.5,8 87.8,-8 91.5,0 139,0"/></g><circle class="inkf" cx="95" cy="50" r="3.6"/><circle class="inkf" cx="335" cy="50" r="3.6"/><circle class="inkf" cx="335" cy="220" r="3.6"/><circle class="inkf" cx="95" cy="220" r="3.6"/><circle class="inkf" cx="205" cy="135" r="3.6"/><line class="a" x1="245" y1="70" x2="198.0" y2="70.0"/><polygon class="af" points="190,70 198.0,66.0 198.0,74.0"/><line class="a" x1="112" y1="98" x2="112.0" y2="130.0"/><polygon class="af" points="112,138 108.0,130.0 116.0,130.0"/><line class="a" x1="190" y1="200" x2="237.0" y2="200.0"/><polygon class="af" points="245,200 237.0,204.0 237.0,196.0"/><line class="a" x1="300" y1="94" x2="266.7" y2="115.6"/><polygon class="af" points="260,120 264.5,112.3 268.9,119.0"/><line class="a" x1="122" y1="177" x2="149.7" y2="155.0"/><polygon class="af" points="156,150 152.2,158.1 147.2,151.8"/><text class="s" x="215" y="32" text-anchor="middle">R₂</text><text class="s" x="75" y="140" text-anchor="end">R₁</text><text class="s" x="215" y="245" text-anchor="middle">R₅</text><text class="s" x="357" y="140" text-anchor="start">E₁</text><text class="tb" x="311" y="126" text-anchor="middle">+</text><text class="tb" x="311" y="152" text-anchor="middle">−</text><text class="s" x="150" y="74.5" text-anchor="middle">E₂</text><text class="s" x="270" y="74.5" text-anchor="middle">R₃</text><text class="s" x="150" y="202.5" text-anchor="middle">R₄</text><text class="s" x="95" y="40" text-anchor="middle">a</text><text class="s" x="335" y="40" text-anchor="middle">b</text><text class="s" x="335" y="244" text-anchor="middle">c</text><text class="s" x="95" y="244" text-anchor="middle">d</text><text class="s" x="217" y="140" text-anchor="start">e</text><text class="sa" x="217.5" y="87" text-anchor="middle">I₂</text><text class="sa" x="120" y="123" text-anchor="start">I₁</text><text class="sa" x="217.5" y="192" text-anchor="middle">I₅</text><text class="sa" x="280" y="126" text-anchor="middle">I₃</text><text class="sa" x="139" y="151.5" text-anchor="middle">I₄</text></svg>

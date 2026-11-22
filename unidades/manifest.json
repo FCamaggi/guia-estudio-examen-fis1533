@@ -1,0 +1,79 @@
+[
+  {
+    "id": "u01",
+    "num": "U1",
+    "title": "Carga, Coulomb y campo eléctrico",
+    "file": "u01-campo-electrico.html",
+    "block": "A · Electrostática"
+  },
+  {
+    "id": "u02",
+    "num": "U2",
+    "title": "Ley de Gauss y conductores",
+    "file": "u02-gauss.html",
+    "block": "A · Electrostática"
+  },
+  {
+    "id": "u03",
+    "num": "U3",
+    "title": "Potencial eléctrico",
+    "file": "u03-potencial.html",
+    "block": "A · Electrostática"
+  },
+  {
+    "id": "u04",
+    "num": "U4",
+    "title": "Capacitancia y dieléctricos",
+    "file": "u04-capacitancia.html",
+    "block": "A · Electrostática"
+  },
+  {
+    "id": "u05",
+    "num": "U5",
+    "title": "Corriente, resistencia y fem",
+    "file": "u05-corriente.html",
+    "block": "B · Circuitos"
+  },
+  {
+    "id": "u06",
+    "num": "U6",
+    "title": "Circuitos DC, Kirchhoff y RC",
+    "file": "u06-circuitos-dc.html",
+    "block": "B · Circuitos"
+  },
+  {
+    "id": "u07",
+    "num": "U7",
+    "title": "Fuerza magnética",
+    "file": "u07-fuerza-magnetica.html",
+    "block": "C · Magnetismo"
+  },
+  {
+    "id": "u08",
+    "num": "U8",
+    "title": "Fuentes de campo magnético",
+    "file": "u08-fuentes-campo.html",
+    "block": "C · Magnetismo"
+  },
+  {
+    "id": "u09",
+    "num": "U9",
+    "title": "Inducción electromagnética",
+    "file": "u09-induccion.html",
+    "block": "D · Inducción y CA"
+  },
+  {
+    "id": "u10",
+    "num": "U10",
+    "title": "Inductancia y circuitos RL, LC, RLC",
+    "file": "u10-inductancia.html",
+    "block": "D · Inducción y CA"
+  },
+  {
+    "id": "u11",
+    "num": "U11",
+    "title": "Corriente alterna y ondas EM",
+    "file": "u11-ca-ondas.html",
+    "block": "D · Inducción y CA"
+  }
+]

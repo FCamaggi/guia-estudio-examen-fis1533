@@ -1,0 +1,4 @@
+qa/render/
+__pycache__/
+*.pyc
+qa/preview/

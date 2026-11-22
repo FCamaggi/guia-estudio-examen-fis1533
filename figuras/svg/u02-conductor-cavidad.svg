@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 485 250" style="max-width:655px" role="img" aria-label="Conductor en equilibrio con cavidad interior que contiene una carga +Q">
+<style>
+  :root {
+    --surface: #ffffff; --ink: #142030; --muted: #566273; --line: #d8dee7;
+    --accent: #1f4fd1; --accent-soft: #e7edfc; --copper: #a85a18; --copper-soft: #f8eee4;
+    --font-body: "Source Sans 3", "Segoe UI", Roboto, sans-serif;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --surface: #151c26; --ink: #e5eaf1; --muted: #9aa6b6; --line: #29323f;
+      --accent: #84a6ff; --accent-soft: #1b2640; --copper: #e2a26b; --copper-soft: #2a2119;
+    }
+  }
+  svg { background: var(--surface); font-family: var(--font-body); }
+  .w { stroke: var(--ink); stroke-width: 1.8; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+  .wk { stroke: var(--ink); stroke-width: 3.2; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+  .m { stroke: var(--muted); stroke-width: 1.2; fill: none; }
+  .md { stroke: var(--muted); stroke-width: 1.3; stroke-dasharray: 4 4; fill: none; }
+  .a { stroke: var(--accent); stroke-width: 2.2; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+  .ad { stroke: var(--accent); stroke-width: 1.6; stroke-dasharray: 5 4; fill: none; }
+  .c { stroke: var(--copper); stroke-width: 2.2; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+  .cd { stroke: var(--copper); stroke-width: 1.4; stroke-dasharray: 4 3; fill: none; }
+  .fld { stroke: var(--muted); stroke-width: 1.3; opacity: .38; }
+  .fldl { stroke: var(--muted); stroke-width: 1.4; opacity: .6; fill: none; }
+  .af { fill: var(--accent); } .cf { fill: var(--copper); } .wf, .inkf, .wkf { fill: var(--ink); }
+  .mf, .mdf { fill: var(--muted); } .fldlf { fill: var(--muted); opacity: .6; }
+  .adf { fill: var(--accent); } .cdf { fill: var(--copper); }
+  .soft { fill: var(--accent-soft); } .csoft { fill: var(--copper-soft); } .paperf { fill: var(--surface); }
+  .nostroke { stroke: none; } .nofill { fill: none; }
+  .s, .sa, .sc { font: italic 17px "Times New Roman", "STIX Two Text", serif; fill: var(--ink); }
+  .sa { fill: var(--accent); } .sc { fill: var(--copper); }
+  .t { font: 12.5px var(--font-body); fill: var(--muted); }
+  .tb { font: 600 14px var(--font-body); fill: var(--ink); }
+  .tc { font: 600 13px var(--font-body); fill: var(--copper); }
+  .ta { font: 600 13px var(--font-body); fill: var(--accent); }
+  .tw { font: 700 13px var(--font-body); fill: var(--surface); }
+  .gl-ink, .gl-acc, .gl-cop, .gl-mut, .gl-srf { fill: none; stroke-width: 1.2; stroke-linecap: round; }
+  .gl-ink { stroke: var(--ink); } .gl-acc { stroke: var(--accent); } .gl-cop { stroke: var(--copper); }
+  .gl-mut { stroke: var(--muted); } .gl-srf { stroke: var(--surface); }
+  .glf-ink { fill: var(--ink); } .glf-acc { fill: var(--accent); } .glf-cop { fill: var(--copper); }
+  .glf-mut { fill: var(--muted); } .glf-srf { fill: var(--surface); }
+  .sb { font-size: 72%; }
+</style>
+<circle class="soft w" cx="152" cy="126" r="90"/><circle class="paperf w" cx="152" cy="126" r="44"/><circle class="cd nofill" cx="152" cy="126" r="67"/><circle class="inkf" cx="152" cy="126" r="2.6"/><circle class="csoft c" cx="152" cy="126" r="8"/><line class="a" x1="244" y1="126" x2="266.0" y2="126.0"/><polygon class="af" points="274,126 266.0,130.0 266.0,122.0"/><line class="a" x1="198" y1="46.3257" x2="209.0" y2="27.3"/><polygon class="af" points="213,20.3449 212.5,29.3 205.5,25.3"/><line class="a" x1="72.3257" y1="80" x2="53.3" y2="69.0"/><polygon class="af" points="46.3449,65 55.3,65.5 51.3,72.5"/><line class="a" x1="106" y1="205.674" x2="95.0" y2="224.7"/><polygon class="af" points="91,231.655 91.5,222.7 98.5,226.7"/><line class="a" x1="211.136" y1="196.476" x2="225.3" y2="213.3"/><polygon class="af" points="230.42,219.457 222.2,215.9 228.3,210.8"/><text class="sc" x="96.6238" y="74.6238" text-anchor="middle">S</text><text class="tc" x="152" y="130.5" text-anchor="middle">+</text><text class="s" x="152" y="150" text-anchor="middle">+Q</text><text class="ta" x="186.769" y="117.345" text-anchor="middle">−</text><text class="tc" x="229.055" y="101.954" text-anchor="middle">+</text><text class="ta" x="139.345" y="95.2314" text-anchor="middle">−</text><text class="tc" x="123.954" y="52.9452" text-anchor="middle">+</text><text class="ta" x="117.231" y="142.655" text-anchor="middle">−</text><text class="tc" x="74.9452" y="158.046" text-anchor="middle">+</text><text class="ta" x="164.655" y="164.769" text-anchor="middle">−</text><text class="tc" x="180.046" y="207.055" text-anchor="middle">+</text><g><text class="sa" x="290.4" y="40" text-anchor="middle">E</text><line class="gl-acc" x1="288.4" y1="25.4" x2="294.9" y2="25.4"/><polygon class="glf-acc" points="296.4,25.4 290.9,22.8 290.9,27.9"/><text class="sa" x="294.8" y="40" text-anchor="start">ext</text></g><text class="t" x="320" y="40" text-anchor="start">⊥ sup. (E = σ/ε₀)</text><text class="tb" x="286" y="86" text-anchor="start">en el metal (S):</text><g><text class="sc" x="290.4" y="108" text-anchor="middle">E</text><line class="gl-cop" x1="288.4" y1="93.4" x2="294.9" y2="93.4"/><polygon class="glf-cop" points="296.4,93.4 290.9,90.8 290.9,95.9"/><text class="sc" x="294.8" y="108" text-anchor="start"> = 0 ⇒ qint = −Q</text></g><text class="tb" x="286" y="142" text-anchor="start">superficie exterior:</text><text class="s" x="286" y="164" text-anchor="start">qext = Qcond + Q</text></svg>

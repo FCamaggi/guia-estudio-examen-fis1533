@@ -1,0 +1,529 @@
+<!-- U8 Fuentes de campo magnético. Contract: SPEC-PEDAGOGICO.md. Gate: python3 scripts/check_unit.py unidades/u08-fuentes-campo.html -->
+<section class="unit" id="u08" data-num="U8" data-title="Fuentes de campo magnético">
+  <header class="unit-head"><span class="unit-num">U8</span><h1>Fuentes de campo magnético</h1><span class="unit-weight">25 problemas en exámenes · 4 en los 4 recientes</span></header>
+
+<section class="sec" id="u08-mapa" data-block="mapa" data-title="Mapa de la unidad">
+  <h2>Mapa de la unidad</h2>
+  <div class="key"><b>Idea central.</b> Toda fuente de campo magnético es carga en movimiento. Para geometrías arbitrarias o tramos finitos se suma cada elemento de corriente con la <b>ley de Biot-Savart</b> ($d\vec B \propto I\,d\vec\ell\times\hat r/r^2$); cuando hay alta simetría (cilíndrica, toroidal, planar o solenoide largo), la <b>ley de Ampère</b> ($\oint\vec B\cdot d\vec\ell = \mu_0 I_{\text{enc}}$) despeja $\vec B$ sin integrar elemento a elemento.</div>
+  <div class="goals"><div class="goals-t">Al terminar deberías poder</div><ul>
+    <li>Calcular el campo $\vec B$ de una carga puntual en movimiento y de cualquier circuito de tramos rectos o arcos circulares usando la ley de Biot-Savart.</li>
+    <li>Justificar cuándo un tramo recto aporta campo nulo ($d\vec\ell\times\hat r = \vec 0$) y calcular el momento dipolar magnético $\vec\mu = NIA\,\hat n$ de espiras compuestas.</li>
+    <li>Calcular la fuerza magnética entre conductores paralelos y entre un alambre infinito y una espira coplanar.</li>
+    <li>Enunciar la ley de Gauss del magnetismo ($\oint\vec B\cdot d\vec A = 0$) y explicar por qué se necesita la ley de Ampère para hallar $\vec B$.</li>
+    <li>Integrar densidades de corriente no uniformes $\vec J(r)$ con el jacobiano $r\,dr\,d\theta$ para hallar constantes de normalización e $I_{\text{enc}}$.</li>
+    <li>Aplicar la estrategia de Ampère al cilindro grueso, al cable coaxial de 3 o 4 regiones (graficando $|B(r)|$), al solenoide ideal, al toroide y a la lámina infinita.</li>
+  </ul></div>
+  <div class="exam-map"><h4>Qué pregunta el examen</h4><ul>
+    <li><b>Biot-Savart en arcos circulares concéntricos + segmentos rectos</b> (2011-1 P7, 2017-2 P2, 2018-2 P4, 2022-2 P4, 2023-1 P1, 2024-2 P2): justificar contribución nula de los tramos rectos colineales con $P$, sumar o restar $\vec B$ de cada arco con la regla de la mano derecha y calcular $\vec\mu$.</li>
+    <li><b>Ley de Ampère en cable coaxial / cilindro con $\vec J(r)$ no uniforme</b> (2015-2 P2 y P15, 2022-2 P2, 2023-2 Ej. 3, 2024-1 P1, 2025-1 P3): hallar constantes $\alpha, \beta$ integrando $I_0 = \int\vec J\cdot d\vec A$, calcular $\vec B(r)$ en 3 o 4 regiones y graficar $|B(r)|$.</li>
+    <li><b>Fuerza magnética entre alambre infinito (o cilindro) y espira coplanar</b> (2021-2 Ej. 4, 2022-2 P6, 2023-2 Ej. 3, 2024-2 P1): $\vec B(r)$ por Ampère y fuerza neta sumando $I_2\int d\vec\ell\times\vec B$ sobre los cuatro lados.</li>
+    <li>Formato reciente: problemas de desarrollo de 6 puntos, sin calculadora ni formulario. Por eso aquí usamos números que se calculan a mano y privilegiamos resultados simbólicos verificables por límites y dimensiones.</li>
+  </ul></div>
+  <details class="prereq"><summary>Repaso exprés: producto cruz $d\vec\ell\times\hat r$ y regla de la mano derecha</summary>
+    <p>En base cartesiana derecha $(\hat x, \hat y, \hat z)$: $\hat x\times\hat y = \hat z$, $\hat y\times\hat z = \hat x$, $\hat z\times\hat x = \hat y$, y al invertir el orden cambia el signo ($\hat y\times\hat x = -\hat z$). Vectores paralelos o antiparalelos tienen producto cruz nulo: $\vec a\times\vec b = \vec 0$ si $\theta = 0^\circ$ o $180^\circ$. En general, $|\vec a\times\vec b| = ab\sin\theta$.</p>
+    <p>En base polar/cilíndrica $(r, \theta, z)$ en el plano $xy$ (con $\hat z$ saliendo de la hoja, $+\hat k$): $\hat\rho$ apunta radialmente hacia afuera, $\hat\theta$ en sentido antihorario, y $(\hat\rho,\hat\theta,\hat z)$ es una terna derecha:</p>
+    $$\hat\rho\times\hat\theta = \hat z,\qquad \hat\theta\times\hat z = \hat\rho,\qquad \hat z\times\hat\rho = \hat\theta,\qquad \hat\theta\times\hat\rho = -\hat z$$
+    <p><b>En Biot-Savart:</b> $\hat r$ apunta <em>desde</em> el elemento de corriente $d\vec\ell$ <em>hacia</em> el punto de campo $P$, o sea $\hat r = (\vec r - \vec r\,')/|\vec r - \vec r\,'|$. Si $P$ es el origen ($\vec r = \vec 0$) y el elemento está en un arco circular de radio $R$ ($\vec r\,' = R\hat\rho$), entonces $\vec r - \vec r\,' = -R\hat\rho$ y $\hat r = -\hat\rho$. Para un arco recorrido en sentido antihorario ($d\vec\ell = R\,d\theta\,\hat\theta$): $d\vec\ell\times\hat r = R\,d\theta\,\hat\theta\times(-\hat\rho) = +R\,d\theta\,\hat z$ (saliente $\odot$); si es horario, entra ($\otimes$).</p>
+    <p><b>Convención gráfica:</b> $\odot$ indica un vector que <b>sale</b> de la hoja ($+\hat z$); $\otimes$ indica un vector que <b>entra</b> a la hoja ($-\hat z$).</p>
+  </details>
+  <details class="prereq"><summary>Repaso exprés: integrales en polares y cilíndricas (jacobiano $r\,dr\,d\theta$)</summary>
+    <p>Cuando una corriente atraviesa la sección transversal de un cilindro con densidad volumétrica $\vec J$ (en $\text{A/m}^2$), la corriente total es el flujo de $\vec J$ por el área $S$ ($d\vec A$ en $\text{m}^2$): $I = \displaystyle\int_S \vec J\cdot d\vec A$. En coordenadas polares $(r, \theta)$ sobre un disco o corona circular perpendicular al eje $z$, el elemento de área es</p>
+    $$d\vec A = r\,dr\,d\theta\,\hat z \qquad\text{(o anillos concéntricos de área }dA = 2\pi r\,dr\text{ si }J\text{ no depende de }\theta\text{)}$$
+    <p>El factor $r$ es el <b>jacobiano</b> polar: un arco de espesor $dr$ y abertura $d\theta$ mide $dr$ por $r\,d\theta$. Olvidar esa $r$ cambia el exponente y las unidades.</p>
+    <p><b>Mini ejemplo:</b> si $\vec J(r) = \alpha r\,\hat z$ (con $\alpha$ en $\text{A/m}^3$) en un cilindro de radio $a$ ($\text{m}$), entonces $I_0 = \displaystyle\int_0^{2\pi}d\theta\int_0^a (\alpha r)(r\,dr) = 2\pi\alpha\int_0^a r^2\,dr = \frac{2\pi\alpha a^3}{3}$, de donde $\alpha = \dfrac{3I_0}{2\pi a^3}$ (unidades: $\text{A/m}^3$).</p>
+    <p><b>Integral trigonométrica útil para alambres rectos:</b> $\displaystyle\int \frac{dx}{(x^2+R^2)^{3/2}}$ se resuelve con $x = R\tan\theta$, $dx = R\sec^2\theta\,d\theta$, $\sqrt{x^2+R^2} = R\sec\theta$: queda $\displaystyle\int \frac{R\sec^2\theta\,d\theta}{R^3\sec^3\theta} = \frac{1}{R^2}\int\cos\theta\,d\theta = \frac{\sin\theta}{R^2} = \frac{x}{R^2\sqrt{x^2+R^2}}$.</p>
+  </details>
+  <details class="prereq"><summary>Repaso exprés: fuerza sobre conductores y momento dipolar magnético</summary>
+    <p>Un campo magnético $\vec B$ (en T) ejerce sobre un conductor con corriente $I$ (en A) la fuerza diferencial $d\vec F = I\,d\vec\ell\times\vec B$, donde $d\vec\ell$ (en m) apunta en el sentido de la corriente. Si el tramo es recto de vector $\vec\ell$ y $\vec B$ es uniforme sobre todo el tramo, $\vec F = I\,\vec\ell\times\vec B$ (en N); si $\vec B$ varía a lo largo del tramo, hay que integrar.</p>
+    <p>Una espira plana cerrada de $N$ vueltas, corriente $I$ y área $A$ ($\text{m}^2$) tiene <b>momento dipolar magnético</b></p>
+    $$\vec\mu = N I A\,\hat n \qquad (\text{unidades: }\text{A·m}^2;\ \text{en Cádiz se denota }\vec m)$$
+    <p>donde $\hat n$ es la normal al plano dada por la mano derecha: dedos doblados en el sentido de $I$, el pulgar indica $\hat n$. En un campo uniforme $\vec B$, la fuerza neta sobre la espira cerrada es cero, pero actúa un torque $\vec\tau = \vec\mu\times\vec B$ (en $\text{N·m}$).</p>
+  </details>
+</section>
+
+<section class="sec" id="u08-s1" data-block="teoria" data-title="Carga en movimiento y ley de Biot-Savart">
+  <h2>Carga en movimiento y ley de Biot-Savart</h2>
+  <p><b>El problema físico.</b> En 1819 Oersted observó que una corriente eléctrica desvía la aguja de una brújula: las cargas en movimiento producen campo magnético. ¿Cuánto campo crea una sola carga en movimiento y cómo generalizamos eso a un cable de forma cualquiera?</p>
+  <p><b>Intuición.</b> A diferencia del campo eléctrico de una carga puntual (que apunta radialmente), el campo magnético de una carga $q$ que viaja con velocidad $\vec v$ rodea la recta de movimiento en círculos perpendiculares a $\vec v$, siguiendo la regla de la mano derecha: pulgar en $\vec v$, dedos en el sentido de $\vec B$ (para $q \gt 0$). Delante y detrás de la carga ($\vec r \parallel \vec v$), el campo es nulo.</p>
+  <figure class="fig" data-fig="u08-biot-savart"><figcaption>Elemento de corriente $I\,d\vec\ell$ en $\vec r\,'$ y punto de campo $P$ en $\vec r$. El vector $\vec r - \vec r\,'$ va de la fuente a $P$, formando ángulo $\phi$ con $d\vec\ell$; aquí $d\vec B$ entra al plano ($\otimes$).</figcaption></figure>
+  <div class="eq key"><div class="lbl">Campo de una carga puntual en movimiento (velocidad constante, $v\ll c$)</div>$$\vec B = \frac{\mu_0}{4\pi}\,\frac{q\,\vec v\times\hat r}{r^2},\qquad B = \frac{\mu_0}{4\pi}\,\frac{|q|\,v\sin\phi}{r^2}$$<div class="note">$q$: carga (C); $\vec v$: velocidad (m/s); $r$: distancia de la carga al punto $P$ (m); $\hat r$: vector unitario desde la carga hacia $P$; $\phi$: ángulo entre $\vec v$ y $\hat r$; $\mu_0 = 4\pi\times10^{-7}\ \text{T·m/A}$ es la permeabilidad del vacío. Además $\varepsilon_0\mu_0 = 1/c^2$, donde $\varepsilon_0 \approx 8{,}85\times10^{-12}\ \text{C}^2/(\text{N·m}^2)$ es la permitividad del vacío y $c \approx 3{,}00\times10^8\ \text{m/s}$ es la rapidez de la luz en el vacío.</div></div>
+  <p><b>De una carga a una corriente: ley de Biot-Savart.</b> En un tramo infinitesimal de cable de largo $d\vec\ell$ con corriente $I$, la carga móvil $dq$ con velocidad de arrastre $\vec v_d = d\vec\ell/dt$ cumple $dq\,\vec v_d = dq\,(d\vec\ell/dt) = (dq/dt)\,d\vec\ell = I\,d\vec\ell$. Sustituyendo $q\vec v \to I\,d\vec\ell$ y sumando por superposición sobre todo el circuito resulta la ley de Biot-Savart:</p>
+  <div class="eq key"><div class="lbl">Ley de Biot-Savart</div>$$d\vec B = \frac{\mu_0}{4\pi}\,\frac{I\,d\vec\ell\times\hat r}{r^2} \qquad\Longrightarrow\qquad \vec B(\vec r) = \frac{\mu_0 I}{4\pi}\int_{\text{circuito}} \frac{d\vec\ell\times(\vec r - \vec r\,')}{|\vec r - \vec r\,'|^3}$$<div class="note">$d\vec\ell$ (equivalente a $d\vec s$ o $d\vec R$ en otros textos) es el elemento de cable en el sentido de la corriente $I$ (A); $\vec r\,'$ es la posición del elemento de fuente (m) y $\vec r$ la del punto de campo $P$ (m); $\hat r = (\vec r - \vec r\,')/|\vec r - \vec r\,'|$. Cada término aporta en $\text{T}$.</div></div>
+  <div class="why"><b>Cuándo se usa / cuándo NO:</b> la ley de Biot-Savart es universal para corrientes estacionarias y es la herramienta obligatoria cuando <em>no</em> hay simetría suficiente para la ley de Ampère: segmentos rectos finitos, arcos circulares, espiras en su eje o polígonos. Si la simetría es muy alta (alambre infinito, cilindro infinito, solenoide ideal, toroide, lámina infinita), la ley de Ampère es mucho más rápida.</div>
+</section>
+
+<section class="sec" id="u08-s2" data-block="teoria" data-title="Alambre recto y fuerza entre conductores paralelos">
+  <h2>Alambre recto y fuerza entre conductores paralelos</h2>
+  <p><b>El problema físico.</b> ¿Cuál es el campo magnético de un alambre recto de largo finito, y qué ocurre en el límite de alambre muy largo? Además, si ponemos un segundo cable paralelo con corriente dentro de ese campo, los dos cables se ejercen fuerza mutua.</p>
+  <figure class="fig" data-fig="u08-alambre-finito"><figcaption>Alambre recto sobre el eje $x$ desde $x_1$ hasta $x_2$ y punto $P$ a distancia perpendicular $R$. Los extremos subtienden los ángulos $\theta_1$ y $\theta_2$ medidos desde la perpendicular.</figcaption></figure>
+  <details class="deriv" open><summary>Derivación paso a paso: campo de un alambre recto finito e infinito</summary>
+    <p><b>Paso 1 · Geometría y producto cruz.</b> Ponemos el alambre sobre el eje $x$ con corriente $I$ en $+\hat x$ y el punto $P$ en $(0, R, 0)$. Un elemento en $(x, 0, 0)$ tiene $d\vec\ell = dx\,\hat x$ y vector hacia $P$ dado por $\vec r - \vec r\,' = -x\,\hat x + R\,\hat y$, de módulo $\sqrt{x^2+R^2}$. Entonces:</p>
+    $$d\vec\ell\times(\vec r - \vec r\,') = dx\,\hat x\times(-x\,\hat x + R\,\hat y) = R\,dx\,(\hat x\times\hat y) = R\,dx\,\hat z$$
+    <p>Todos los elementos apuntan en $+\hat z$ (saliendo de la hoja, regla de la mano derecha), así que integramos la componente $z$.</p>
+    <p><b>Paso 2 · Cambio de variable angular.</b> Sea $\theta$ el ángulo entre la perpendicular $R$ y la recta elemento–$P$ (positivo hacia $+x$): $x = R\tan\theta$, $dx = R\sec^2\theta\,d\theta$ y $(x^2+R^2)^{3/2} = R^3\sec^3\theta$.</p>
+    $$dB = \frac{\mu_0 I}{4\pi}\frac{R\cdot R\sec^2\theta\,d\theta}{R^3\sec^3\theta} = \frac{\mu_0 I}{4\pi R}\cos\theta\,d\theta$$
+    <p><b>Paso 3 · Integrar entre $\theta_1$ y $\theta_2$.</b></p>
+    $$B = \frac{\mu_0 I}{4\pi R}\int_{\theta_1}^{\theta_2}\cos\theta\,d\theta = \frac{\mu_0 I}{4\pi R}\left(\sin\theta_2 - \sin\theta_1\right) = \frac{\mu_0 I}{4\pi R}\left(\frac{x_2}{\sqrt{x_2^2+R^2}} - \frac{x_1}{\sqrt{x_1^2+R^2}}\right)$$
+    <p><b>Paso 4 · Caso infinito.</b> Cuando $x_1\to-\infty$ ($\theta_1 = -\pi/2$) y $x_2\to+\infty$ ($\theta_2 = +\pi/2$), se tiene $\sin\theta_2 - \sin\theta_1 = 1 - (-1) = 2$, obteniéndose $B = \dfrac{\mu_0 I}{2\pi R}$. Para un alambre semi-infinito que parte frente a $P$ ($x_1 = 0$, $x_2\to+\infty$), da la mitad: $\dfrac{\mu_0 I}{4\pi R}$.</p>
+  </details>
+  <div class="eq key"><div class="lbl">Alambre recto finito e infinito</div>$$B_{\text{finito}} = \frac{\mu_0 I}{4\pi R}\left(\sin\theta_2 - \sin\theta_1\right), \qquad \vec B_{\text{infinito}}(r) = \frac{\mu_0 I}{2\pi r}\,\hat\theta$$<div class="note">$R$ (o $r$, también denotado $s$) es la distancia perpendicular al alambre (m); $\theta_1, \theta_2$ son los ángulos con signo desde la perpendicular hacia los extremos; $\hat\theta$ (o $\hat\phi$) rodea el alambre según la mano derecha con el pulgar en el sentido de $I$.</div></div>
+  <h3>Fuerza entre conductores paralelos</h3>
+  <p>Considera dos alambres rectos, largos y paralelos separados por una distancia $d$ (m), con corrientes $I_1$ e $I_2$ (A). El alambre 1 produce en la posición del alambre 2 un campo perpendicular de magnitud $B_1 = \dfrac{\mu_0 I_1}{2\pi d}$. Sobre un largo $L$ (m) del alambre 2 actúa $\vec F_2 = I_2\vec L\times\vec B_1$:</p>
+  <figure class="fig" data-fig="u08-alambres-paralelos"><figcaption>Dos conductores paralelos con corrientes en el mismo sentido se atraen; con corrientes opuestas se repelen.</figcaption></figure>
+  <div class="eq key"><div class="lbl">Fuerza por unidad de largo entre alambres paralelos</div>$$\frac{F}{L} = \frac{\mu_0 I_1 I_2}{2\pi d}$$<div class="note">$I_1, I_2$: corrientes (A); $d$: separación entre los alambres (m); $F/L$: fuerza por metro (N/m). Corrientes en el <b>mismo sentido se atraen</b>; en <b>sentidos opuestos se repelen</b> (al revés de las cargas eléctricas). Históricamente, esta fórmula definió el ampere ($F/L = 2\times10^{-7}\ \text{N/m}$ para $I_1=I_2=1\ \text{A}$ y $d=1\ \text{m}$).</div></div>
+  <div class="why"><b>Cuándo se usa / cuándo NO:</b> usa $B_{\text{infinito}}$ solo lejos de los extremos o cuando el cable sea infinito; para lados de un polígono o cables semi-infinitos usa $B_{\text{finito}}$. La fórmula $F/L$ vale para dos alambres rectos largos paralelos; si uno de los conductores es una espira rectangular frente a un alambre, aplica $\vec F = I\vec\ell\times\vec B$ a cada lado por separado.</div>
+</section>
+
+<section class="sec" id="u08-s3" data-block="teoria" data-title="Espira circular, arcos y momento dipolar magnético">
+  <h2>Espira circular, arcos y momento dipolar magnético</h2>
+  <p><b>El problema físico.</b> Un alambre doblado en círculo concentra las líneas de campo en su interior. ¿Cuánto vale $\vec B$ en el centro y sobre el eje de una espira, y cómo se calcula el campo de espiras formadas por arcos circulares y tramos rectos, el clásico problema de examen?</p>
+  <figure class="fig" data-fig="u08-espira-eje"><figcaption>Espira circular de radio $R$ con corriente $I$ en el plano $xy$ y punto $P$ sobre el eje $z$. Las componentes perpendiculares al eje se cancelan por pares diametrales.</figcaption></figure>
+  <details class="deriv" open><summary>Derivación paso a paso: campo en el eje de una espira circular</summary>
+    <p><b>Paso 1 · Vectores en polares.</b> Colocamos la espira de radio $R$ en el plano $xy$ (centrada en el origen, corriente antihoraria vista desde $+z$) y el punto $P$ en $\vec r = z\,\hat z$. Un elemento en el ángulo $\phi$ está en $\vec r\,' = R\cos\phi\,\hat x + R\sin\phi\,\hat y$, y su diferencial de línea es $d\vec\ell = R\,d\phi\,(-\sin\phi\,\hat x + \cos\phi\,\hat y)$.</p>
+    <p><b>Paso 2 · Vector relativo y producto cruz.</b> $\vec r - \vec r\,' = -R\cos\phi\,\hat x - R\sin\phi\,\hat y + z\,\hat z$, con módulo constante $|\vec r - \vec r\,'| = \sqrt{R^2 + z^2}$.</p>
+    $$d\vec\ell\times(\vec r - \vec r\,') = R\,d\phi\begin{vmatrix}\hat x & \hat y & \hat z\\ -\sin\phi & \cos\phi & 0\\ -R\cos\phi & -R\sin\phi & z\end{vmatrix} = R\,d\phi\left(z\cos\phi\,\hat x + z\sin\phi\,\hat y + R\,\hat z\right)$$
+    <p><b>Paso 3 · Integrar de $0$ a $2\pi$.</b> Como $\int_0^{2\pi}\cos\phi\,d\phi = \int_0^{2\pi}\sin\phi\,d\phi = 0$, las componentes $x$ e $y$ se cancelan (cada elemento tiene un opuesto diametral). Solo sobrevive $\hat z$:</p>
+    $$\vec B(z) = \frac{\mu_0 I}{4\pi(R^2+z^2)^{3/2}}\int_0^{2\pi} R^2\,d\phi\;\hat z = \frac{\mu_0 I R^2}{2\,(R^2+z^2)^{3/2}}\,\hat z$$
+    <p><b>Límite lejano ($|z|\gg R$):</b> $(R^2+z^2)^{3/2}\approx |z|^3$ y usando $\mu = I\pi R^2$, resulta $B(z) \approx \dfrac{\mu_0}{2\pi}\dfrac{\mu}{|z|^3}$, la firma exacta de un <b>dipolo magnético</b> de momento $\vec\mu = I A\,\hat n$ sobre su eje.</p>
+  </details>
+  <div class="eq key"><div class="lbl">Espira circular, arcos y dipolo magnético</div>$$\vec B_{\text{eje}}(z) = \frac{\mu_0 I R^2}{2\,(R^2+z^2)^{3/2}}\,\hat z, \qquad B_{\text{centro}} = \frac{\mu_0 I}{2R}, \qquad B_{\text{arco}} = \frac{\mu_0 I\phi}{4\pi R}$$<div class="note">$R$: radio de la espira o arco (m); $z$: posición en el eje (m); $\phi$: ángulo del arco <b>en radianes</b> (rad). Para $N$ vueltas apretadas se multiplica por $N$. Para una semicircunferencia ($\phi = \pi$): $B = \dfrac{\mu_0 I}{4R}$. El sentido de $\vec B$ sobre el eje coincide con $\vec\mu = NIA\,\hat n$ (dedos en $I$, pulgar en $\vec B$ y $\vec\mu$).</div></div>
+  <h3>Arcos circulares y segmentos rectos colineales con $P$</h3>
+  <figure class="fig" data-fig="u08-arco-segmentos"><figcaption>Circuito con dos arcos concéntricos de radios $a$ y $b$ (abertura $\phi$) y dos segmentos rectos radiales que pasan por la recta de $P$.</figcaption></figure>
+  <p>En muchos exámenes aparece un circuito plano formado por arcos circulares concéntricos en un punto $P$ y segmentos rectos unidos a ellos. Para resolverlo sin errores sigue estas dos reglas:</p>
+  <ol>
+    <li><b>Segmentos rectos colineales con $P$ aportan cero.</b> Si la recta que contiene al segmento recto pasa por $P$, entonces para cada elemento del tramo $d\vec\ell$ y $\vec r - \vec r\,'$ son paralelos o antiparalelos. Por tanto $d\vec\ell\times(\vec r - \vec r\,') = \vec 0$ y ese tramo aporta $\vec B_{\text{recto}} = \vec 0$, sin importar cuán largo sea.</li>
+    <li><b>Cada arco aporta según su ángulo y su sentido de giro.</b> En un arco de radio $R$ y abertura $\phi$ (rad) centrado en $P$, $d\vec\ell$ es tangente y $\hat r$ apunta radialmente hacia $P$, así que $d\vec\ell\perp\hat r$ y $|d\vec\ell\times\hat r| = R\,d\theta$. Integrando sobre $\phi$ se obtiene $B_{\text{arco}} = \dfrac{\mu_0 I\phi}{4\pi R}$, con signo dado por la mano derecha (antihorario $\to +\hat z$ saliente; horario $\to -\hat z$ entrante).</li>
+  </ol>
+  <div class="why"><b>Cuándo se usa / cuándo NO:</b> $B_{\text{arco}} = \mu_0 I\phi/(4\pi R)$ solo vale en el <em>centro de curvatura</em> $P$ del arco (con $\phi$ en radianes, nunca en grados). Si los segmentos rectos <em>no</em> pasan por la recta de $P$ (por ejemplo, son tangentes o desplazados), sí contribuyen y debes evaluarlos con la fórmula del alambre recto finito.</div>
+</section>
+
+<section class="sec" id="u08-s4" data-block="teoria" data-title="Ley de Gauss del magnetismo y ley de Ampère">
+  <h2>Ley de Gauss del magnetismo y ley de Ampère</h2>
+  <p><b>El problema físico.</b> En electrostática, la ley de Gauss $\oint\vec E\cdot d\vec A = Q_{\text{enc}}/\varepsilon_0$ permite hallar $\vec E$ cuando hay simetría. ¿Sirve el flujo magnético sobre una superficie cerrada para calcular $\vec B$? No, porque toda línea de $\vec B$ es cerrada.</p>
+  <div class="eq key"><div class="lbl">Ley de Gauss para el magnetismo</div>$$\oint_S \vec B\cdot d\vec A = 0 \qquad\Longleftrightarrow\qquad \nabla\cdot\vec B = 0$$<div class="note">El flujo magnético neto a través de cualquier superficie cerrada $S$ es siempre nulo, porque no existen cargas magnéticas aisladas (monopolos magnéticos). Toda línea de $\vec B$ que entra a $S$ vuelve a salir.</div></div>
+  <p>Como el flujo neto cerrado es siempre cero, para relacionar $\vec B$ con sus fuentes necesitamos la <b>circulación</b> de $\vec B$ a lo largo de una curva cerrada $C$, es decir, la <b>ley de Ampère</b>.</p>
+  <figure class="fig" data-fig="u08-ampere-lazo"><figcaption>Curva amperiana cerrada $C$ recorrida en sentido antihorario. Por la regla de la mano derecha, las corrientes salientes suman positivo y las entrantes negativo; $I_4$ (exterior) no entra en $I_{\text{enc}}$.</figcaption></figure>
+  <div class="eq key"><div class="lbl">Ley de Ampère (corrientes estacionarias)</div>$$\oint_C \vec B\cdot d\vec\ell = \mu_0\,I_{\text{enc}} \qquad\Longleftrightarrow\qquad \nabla\times\vec B = \mu_0\,\vec J$$<div class="note">$C$ es una curva cerrada arbitraria (curva amperiana); $I_{\text{enc}} = \displaystyle\int_S\vec J\cdot d\vec A$ es la corriente neta (A) que atraviesa cualquier superficie $S$ apoyada en $C$. Regla de signos: si los dedos de la mano derecha recorren $C$, el pulgar define el sentido positivo de $I_{\text{enc}}$. Las corrientes exteriores contribuyen a $\vec B$ punto a punto, pero su aporte neto a la circulación es cero.</div></div>
+  <div class="key"><b>Estrategia en 4 pasos para aplicar la ley de Ampère.</b>
+    <br>1) <b>Simetría:</b> identifica invariancias (traslación axial, rotación azimutal, reflexión) para deducir de qué variable depende $B$ y en qué dirección apunta $\vec B$.
+    <br>2) <b>Elegir la curva amperiana $C$:</b> tómala de modo que en cada tramo $\vec B\parallel d\vec\ell$ con $B$ constante (sale de la integral: $B\ell$), o $\vec B\perp d\vec\ell$ (aporte 0), o $B=0$.
+    <br>3) <b>Calcular $I_{\text{enc}}$:</b> suma las corrientes encerradas con el signo de la mano derecha; si $\vec J$ depende de $r$, integra $I_{\text{enc}} = \int\vec J\cdot d\vec A$ usando el jacobiano $r\,dr\,d\theta$.
+    <br>4) <b>Despejar y verificar:</b> iguala $\oint\vec B\cdot d\vec\ell = \mu_0 I_{\text{enc}}$, despeja $\vec B$ y verifica continuidad en los bordes de corriente volumétrica y el límite lejano.
+  </div>
+  <div class="why"><b>Cuándo se usa / cuándo NO:</b> la ley de Ampère siempre es verdadera para corrientes estacionarias (y con la corrección de Maxwell vale siempre), pero solo permite <em>despejar</em> $\vec B$ en cinco geometrías con alta simetría: alambre o cilindro infinito, cable coaxial infinito, solenoide ideal, toroide ideal y lámina infinita. <b>Nunca</b> la uses para un segmento finito, una espira circular única ni una cinta de ancho finito: allí debes usar Biot-Savart.</div>
+</section>
+
+<section class="sec" id="u08-s5" data-block="teoria" data-title="Cilindro con corriente y cable coaxial">
+  <h2>Cilindro con corriente y cable coaxial</h2>
+  <p><b>El problema físico.</b> Un cable real tiene radio finito $R$, y un cable coaxial lleva corriente $I_0$ por un núcleo interno y la retorna en sentido opuesto por una funda exterior. ¿Cómo varía $\vec B(r)$ dentro de los conductores, en el espacio intermedio y afuera del cable?</p>
+  <figure class="fig" data-fig="u08-cilindro-ampere"><figcaption>Sección transversal de un conductor cilíndrico de radio $R$ con corriente saliente y dos curvas amperianas circulares concéntricas ($r_1 \lt R$ y $r_2 \gt R$).</figcaption></figure>
+  <details class="deriv" open><summary>Derivación paso a paso: cilindro macizo con corriente uniforme</summary>
+    <p><b>Paso 1 · Simetría y circulación.</b> El cilindro es infinito en $z$ y simétrico bajo rotaciones en $\theta$, así que $\vec B = B(r)\,\hat\theta$ (se descarta componente radial por $\nabla\cdot\vec B = 0$ y componente axial por Biot-Savart, pues $d\vec\ell\times\hat r\perp\hat z$). Sobre una circunferencia concéntrica de radio $r$ recorrida en $+\hat\theta$, $\oint\vec B\cdot d\vec\ell = B(r)\,2\pi r$.</p>
+    <p><b>Paso 2 · Región exterior ($r \gt R$).</b> La curva encierra toda la corriente $I$: $B\,2\pi r = \mu_0 I \implies \vec B = \dfrac{\mu_0 I}{2\pi r}\,\hat\theta$.</p>
+    <p><b>Paso 3 · Región interior ($r \lt R$).</b> Con densidad uniforme $J = \dfrac{I}{\pi R^2}$, la corriente encerrada en el disco de radio $r$ es $I_{\text{enc}}(r) = J(\pi r^2) = I\dfrac{r^2}{R^2}$. Igualando:</p>
+    $$B(r)\,2\pi r = \mu_0 I\,\frac{r^2}{R^2} \quad\Longrightarrow\quad \vec B(r) = \frac{\mu_0 I r}{2\pi R^2}\,\hat\theta \ \ (r\lt R)$$
+    <p><b>Comprobación:</b> en $r = 0$, $B = 0$; en $r = R$, ambas expresiones coinciden en $\mu_0 I/(2\pi R)$.</p>
+    <p><b>Forma vectorial (útil para cavidades por superposición):</b> como $\dfrac{I}{\pi R^2} = J_0$ (con $\vec J = J_0\,\hat z$ en $\text{A/m}^2$) y $\hat z\times\hat\rho = \hat\theta$, si $\vec r_\perp = r\,\hat\rho$ es el vector perpendicular desde el eje del cilindro hasta el punto interior, se cumple</p>
+    $$\vec B(\vec r_\perp) = \frac{\mu_0 J_0 r}{2}\,\hat\theta = \frac{1}{2}\mu_0\,(\vec J\times\vec r_\perp)$$
+    <p>Si un cilindro tiene un hueco cilíndrico paralelo descentrado, por superposición equivale a un cilindro macizo completo con densidad $+\vec J$ más un cilindro menor en la posición de la cavidad con densidad $-\vec J$.</p>
+  </details>
+  <h3>Densidad de corriente no uniforme $\vec J(r)$ y cable coaxial</h3>
+  <p>Si el enunciado da una densidad no uniforme $\vec J(r) = \alpha r^n\,\hat z$ (con $\alpha$ constante en $\text{A/m}^{n+2}$), el procedimiento tiene siempre dos pasos previos obligatorios:</p>
+  <ol>
+    <li><b>Hallar la constante de normalización:</b> integra sobre toda la sección del conductor usando el jacobiano $r\,dr\,d\theta$: $I_0 = \displaystyle\int_0^{2\pi}d\theta\int_{r_{\text{in}}}^{r_{\text{out}}} J_z(r)\,r\,dr$.</li>
+    <li><b>Calcular $I_{\text{enc}}(r)$ por regiones:</b> en un cable coaxial de radios $a \lt b \lt c$ (en $\text{m}$), dentro del núcleo ($r\lt a$) se integra de $0$ a $r$; en el vacío intermedio ($a\lt r\lt b$) solo está encerrada la corriente del núcleo ($+I_0$); dentro del cascarón externo ($b\lt r\lt c$) debes <b>sumar</b> la corriente interna $+I_0$ y la fracción de corriente opuesta del cascarón entre $b$ y $r$; fuera ($r\gt c$), las corrientes opuestas se cancelan si tienen igual magnitud ($I_{\text{enc}} = I_0 - I_0 = 0 \implies \vec B = \vec 0$).</li>
+  </ol>
+  <div class="prob-grid">
+    <figure class="fig" data-fig="u08-coaxial-corte"><figcaption>Sección de un cable coaxial de 4 regiones: núcleo ($r\lt a$), vacío ($a\lt r\lt b$), cascarón ($b\lt r\lt c$) y exterior ($r\gt c$).</figcaption></figure>
+    <figure class="fig" data-fig="u08-coaxial-br"><figcaption>Perfil típico de $|B(r)|$ en las 4 regiones (caso $\vec J_1 = \alpha r\hat z$, $\vec J_2 = -\beta\hat z$): continuo en $a, b, c$ y nulo para $r\ge c$.</figcaption></figure>
+  </div>
+  <div class="why"><b>Cuándo se usa / cuándo NO:</b> este método vale siempre que $\vec J$ solo dependa de $r$ y apunte a lo largo de un cilindro o cable coaxial infinito. Si $\vec J$ dependiera del ángulo $\theta$, se rompería la simetría rotacional y no podrías sacar $B$ de la integral de Ampère.</div>
+</section>
+
+<section class="sec" id="u08-s6" data-block="teoria" data-title="Solenoide, toroide y lámina infinita">
+  <h2>Solenoide, toroide y lámina infinita</h2>
+  <p><b>El problema físico.</b> ¿Cómo generar un campo magnético uniforme y confinado en el laboratorio o en un circuito? Enrollando un alambre en hélice apretada (solenoide o toroide), o extendiendo corriente sobre una superficie plana (lámina).</p>
+  <figure class="fig" data-fig="u08-solenoide-ampere"><figcaption>Solenoide ideal de largo $\ell$ con $n = N/\ell$ vueltas por metro: $\vec B$ uniforme en el interior, $B \approx 0$ afuera, y lazo amperiano rectangular $abcd$.</figcaption></figure>
+  <details class="deriv" open><summary>Derivación paso a paso: solenoide ideal, toroide y lámina infinita</summary>
+    <p><b>1. Solenoide ideal.</b> Para un solenoide muy largo de longitud $\ell$ ($\text{m}$) con $n = N/\ell$ vueltas por metro (en $\text{m}^{-1}$) y corriente $I$ ($\text{A}$), los campos de las espiras se suman dentro a lo largo del eje y se dispersan afuera ($B_{\text{ext}}\approx 0$). Sobre el rectángulo $abcd$ (lado $ab$ de largo $L$ en $\text{m}$ dentro, paralelo al eje; $cd$ afuera; $bc$ y $da$ perpendiculares al eje): solo aporta $ab$, dando $\oint\vec B\cdot d\vec\ell = BL$. El rectángulo encierra $nL$ vueltas, así que $I_{\text{enc}} = nLI$:</p>
+    $$BL = \mu_0 nLI \quad\Longrightarrow\quad B = \mu_0 nI = \frac{\mu_0 NI}{\ell}\ \text{(interior)},\qquad B = 0\ \text{(exterior)}$$
+    <p>En un solenoide real (finito), justo en la boca del extremo el campo cae a aproximadamente la mitad: $B_{\text{boca}}\approx \tfrac12\mu_0 nI$.</p>
+    <p><b>2. Toroide ideal.</b> Es un anillo con $N$ vueltas muy juntas, radio interior $b$ y exterior $c$ (ambos en $\text{m}$). Por simetría rotacional alrededor del eje central, las líneas de $\vec B$ son círculos concéntricos. Con lazos circulares de radio $r$: para $r\lt b$, $I_{\text{enc}} = 0 \implies B = 0$. Para $b\lt r\lt c$, el lazo encierra las $N$ caras interiores del devanado, $I_{\text{enc}} = NI \implies B\,2\pi r = \mu_0 NI \implies B = \dfrac{\mu_0 NI}{2\pi r}$. Para $r\gt c$, cada vuelta entra y vuelve a salir del disco del lazo, así que $I_{\text{enc}} = NI - NI = 0 \implies B = 0$.</p>
+    <p><b>3. Lámina infinita de corriente (delgada y gruesa).</b> Un plano infinito delgado con corriente superficial uniforme $\vec K$ (corriente por unidad de ancho, en $\text{A/m}$; en Control 3 2026-1 se denota $J_s$). Descomponiéndola en filamentos paralelos, pares simétricos cancelan la componente normal al plano, quedando $\vec B$ paralelo a la lámina, perpendicular a $\vec K$ y de igual magnitud pero sentidos opuestos a cada lado (simetría de reflexión). En un rectángulo amperiano de lado $L$ ($\text{m}$) paralelo a $\vec B$ que cruza la lámina, los dos lados perpendiculares aportan $0$ ($\vec B\perp d\vec\ell$) y los dos lados paralelos aportan $BL$ cada uno: $\oint\vec B\cdot d\vec\ell = 2BL = \mu_0 KL \implies B = \dfrac{\mu_0 K}{2}$.</p>
+    <p>Si la lámina tiene <b>grosor $b$</b> (en $\text{m}$) y densidad volumétrica uniforme $\vec J$ (en $\text{A/m}^2$), el mismo rectángulo que atraviesa todo el espesor $b$ encierra una corriente $I_{\text{enc}} = JbL$, equivalente a $K = Jb$: fuera de la lámina el campo es uniforme e igual a $B = \dfrac{\mu_0 Jb}{2}$.</p>
+  </details>
+  <div class="prob-grid">
+    <figure class="fig" data-fig="u08-toroide-ampere"><figcaption>Toroide en corte: el campo queda confinado en el núcleo ($b\lt r\lt c$) y cae como $1/r$.</figcaption></figure>
+    <figure class="fig" data-fig="u08-lamina-ampere"><figcaption>Lámina infinita con corriente $\vec K$ saliente y lazo amperiano rectangular de lado $L$.</figcaption></figure>
+  </div>
+  <div class="eq key"><div class="lbl">Solenoide, toroide y lámina infinita</div>$$B_{\text{solenoide}} = \mu_0 n I,\qquad B_{\text{toroide}} = \frac{\mu_0 N I}{2\pi r}\ \ (b\lt r\lt c),\qquad B_{\text{lámina}} = \frac{\mu_0 K}{2}$$<div class="note">$n = N/\ell$: densidad de vueltas ($\text{m}^{-1}$); $N$: vueltas totales; $K$: densidad superficial de corriente ($\text{A/m}$). Si dos láminas paralelas llevan corrientes opuestas $\pm\vec K$, sus campos se suman entre ellas ($B = \mu_0 K$) y se anulan afuera: es exactamente el modelo del solenoide ideal con $K = nI$.</div></div>
+  <div class="why"><b>Cuándo se usa / cuándo NO:</b> $B = \mu_0 nI$ supone un solenoide largo lejos de los bordes; en los extremos vale $\sim\frac12\mu_0 nI$. En el toroide, $B$ <em>no</em> es uniforme en el núcleo (varía como $1/r$), salvo cuando el grosor $c-b$ es mucho menor que el radio medio.</div>
+</section>
+
+<section class="sec" id="u08-ejemplos" data-block="ejemplos" data-title="Ejemplos resueltos">
+  <h2>Ejemplos resueltos</h2>
+
+  <div class="prob" id="u08-e1" data-kind="ejemplo" data-diff="1">
+    <div class="prob-head"><span class="tag">Ejemplo 1</span><span class="ptitle">Dos alambres paralelos: campo neto, punto nulo y fuerza</span><span class="diff">dificultad 1/3</span></div>
+    <div class="prob-grid">
+      <div>
+        <p class="stmt">Dos alambres rectos, muy largos y paralelos al eje $z$ pasan por $x = 0$ y $x = d = 0{,}20\ \text{m}$ (sobre el eje $x$, con $\hat z$ saliendo de la hoja e $\hat y$ hacia arriba). Llevan corrientes en el mismo sentido ($+\hat z$): $I_1 = 6{,}0\ \text{A}$ e $I_2 = 2{,}0\ \text{A}$. Calcula a mano: a) el campo magnético $\vec B$ en el punto medio $x = 0{,}10\ \text{m}$; b) la posición $x_0$ entre ambos alambres donde $\vec B = \vec 0$; c) la fuerza por unidad de largo sobre el alambre 2 (magnitud y dirección).</p>
+        <div class="given"><div><b>Datos</b> $I_1 = 6{,}0\ \text{A}$ ($x=0$), $I_2 = 2{,}0\ \text{A}$ ($x=0{,}20\ \text{m}$), ambas en $+\hat z$</div><div><b>Piden</b> $\vec B(0{,}10\ \text{m})$, $x_0$ donde $\vec B=\vec 0$, $\vec F_2/L$</div></div>
+      </div>
+      <figure class="fig" data-fig="u08-alambres-paralelos"><figcaption>Izquierda: dos corrientes paralelas en el mismo sentido se atraen.</figcaption></figure>
+    </div>
+    <div class="predict"><b>Antes de calcular:</b> ¿el punto donde $\vec B = \vec 0$ está más cerca del alambre con corriente $I_1$ (mayor) o del alambre con corriente $I_2$ (menor)?</div>
+    <ol class="reveal">
+      <li class="hint">Con el pulgar en $+\hat z$, a la derecha de un alambre $\vec B$ apunta en $+\hat y$ y a su izquierda en $-\hat y$. Usa $\mu_0/(2\pi) = 2\times10^{-7}\ \text{T·m/A}$.</li>
+      <li><span class="rl">Paso 1 · Campo en el punto medio ($x = 0{,}10\ \text{m}$)</span><p class="do"><b>Qué hago:</b> el punto medio está a $r_1 = r_2 = 0{,}10\ \text{m}$ de cada alambre. Por la mano derecha, $I_1$ produce $+\hat y$ e $I_2$ (que está a la derecha) produce $-\hat y$:</p>
+      $$\vec B = \frac{\mu_0}{2\pi(0{,}10)}(I_1 - I_2)\,\hat y = \frac{2\times10^{-7}}{0{,}10}(6{,}0 - 2{,}0)\,\hat y = 8{,}0\times10^{-6}\,\hat y\ \text{T}$$
+      <p><b>Por qué:</b> superposición vectorial de dos alambres infinitos.</p></li>
+      <li><span class="rl">Paso 2 · Punto donde $\vec B = \vec 0$</span><p class="do"><b>Qué hago:</b> entre los cables ($0 \lt x_0 \lt d$), los campos tienen sentidos opuestos. Igualando magnitudes:</p>
+      $$\frac{\mu_0 I_1}{2\pi x_0} = \frac{\mu_0 I_2}{2\pi(d - x_0)} \implies \frac{6{,}0}{x_0} = \frac{2{,}0}{0{,}20 - x_0} \implies 3(0{,}20 - x_0) = x_0 \implies 4x_0 = 0{,}60 \implies x_0 = 0{,}15\ \text{m}$$
+      <p><b>Por qué:</b> se necesita estar más lejos del cable de mayor corriente para que los módulos se igualen.</p></li>
+      <li><span class="rl">Paso 3 · Fuerza por unidad de largo sobre el alambre 2</span><p class="do"><b>Qué hago:</b> $\dfrac{F_2}{L} = \dfrac{\mu_0 I_1 I_2}{2\pi d} = \dfrac{(2\times10^{-7})(6{,}0)(2{,}0)}{0{,}20} = 1{,}2\times10^{-5}\ \text{N/m}$, hacia la izquierda ($-\hat x$).</p><p><b>Por qué:</b> en $x = d$, $\vec B_1 = B_1\hat y$, y $\hat z\times\hat y = -\hat x$; corrientes iguales se atraen.</p></li>
+      <li class="final">$$\boxed{\vec B(0{,}10\ \text{m}) = 8{,}0\,\mu\text{T}\,\hat y,\qquad x_0 = 0{,}15\ \text{m},\qquad \frac{\vec F_2}{L} = -1{,}2\times10^{-5}\,\hat x\ \text{N/m}\ (\text{atracción})}$$</li>
+      <li class="check"><b>Verificación:</b> unidades $\text{T·m/A}\cdot\text{A/m} = \text{T}$ y $\text{T·m/A}\cdot\text{A}^2/\text{m} = \text{N/m}$. El punto nulo $0{,}15\ \text{m}$ queda a $0{,}05\ \text{m}$ de $I_2$ y a $0{,}15\ \text{m}$ de $I_1$ (razón $1:3$, igual que $I_2:I_1$).</li>
+    </ol>
+    <div class="ctrl"></div>
+  </div>
+
+  <div class="prob" id="u08-e2" data-kind="ejemplo" data-diff="2">
+    <div class="prob-head"><span class="tag">Ejemplo 2</span><span class="ptitle">Campo en el centro de una espira cuadrada</span><span class="diff">dificultad 2/3</span></div>
+    <div class="prob-grid">
+      <div>
+        <p class="stmt">Una espira cuadrada de lado $2a$ ($\text{m}$) en el plano $xy$ está centrada en el punto $P$ y lleva corriente $I$ ($\text{A}$) en sentido antihorario. Calcula el vector campo magnético $\vec B$ en $P$.</p>
+        <div class="given"><div><b>Datos</b> lado $2a$, corriente $I$ (antihoraria en el plano $xy$)</div><div><b>Piden</b> $\vec B(P)$</div></div>
+      </div>
+      <figure class="fig" data-fig="u08-espira-cuadrada"><figcaption>Cada lado es un tramo recto finito a distancia perpendicular $a$ de $P$, con extremos a $\pm45^\circ$.</figcaption></figure>
+    </div>
+    <div class="predict"><b>Antes de calcular:</b> ¿esperas un campo algo mayor o menor que el de un círculo inscrito de radio $a$ ($B_{\text{círc}} = \mu_0 I/(2a)$)?</div>
+    <ol class="reveal">
+      <li class="hint">Aplica la fórmula del alambre recto finito a uno de los cuatro lados y multiplica por 4, pues todos aportan en $+\hat z$.</li>
+      <li><span class="rl">Paso 1 · Aporte de un lado</span><p class="do"><b>Qué hago:</b> cada lado está a distancia perpendicular $R = a$ de $P$ y va desde $\theta_1 = -45^\circ$ hasta $\theta_2 = +45^\circ$:</p>
+      $$B_{\text{lado}} = \frac{\mu_0 I}{4\pi a}\left(\sin 45^\circ - \sin(-45^\circ)\right) = \frac{\mu_0 I}{4\pi a}\left(\frac{\sqrt 2}{2} + \frac{\sqrt 2}{2}\right) = \frac{\sqrt 2\,\mu_0 I}{4\pi a}$$
+      <p><b>Por qué:</b> ley de Biot-Savart para un tramo recto finito.</p></li>
+      <li><span class="rl">Paso 2 · Superposición de los cuatro lados</span><p class="do"><b>Qué hago:</b> con corriente antihoraria en $xy$, la mano derecha da $+\hat z$ (saliente) para los cuatro lados: $\vec B(P) = 4 B_{\text{lado}}\,\hat z$.</p><p><b>Por qué:</b> los cuatro lados son simétricos respecto de $P$ y sus campos apuntan en la misma dirección.</p></li>
+      <li class="final">$$\boxed{\vec B(P) = \frac{\sqrt 2\,\mu_0 I}{\pi a}\,\hat z}$$</li>
+      <li class="check"><b>Verificación:</b> numéricamente $\frac{\sqrt 2}{\pi} \approx \frac{1{,}414}{3{,}142} \approx 0{,}450$, algo menor que $\frac{1}{2} = 0{,}500$ del círculo inscrito de radio $a$ (porque las esquinas del cuadrado están más lejos de $P$, a distancia $\sqrt 2 a$). Unidades: $(\text{T·m/A})\cdot\text{A/m} = \text{T}$.</li>
+    </ol>
+    <div class="ctrl"></div>
+  </div>
+
+  <div class="prob" id="u08-e3" data-kind="ejemplo" data-diff="2">
+    <div class="prob-head"><span class="tag">Ejemplo 3</span><span class="ptitle">Dos espiras circulares coaxiales (bobinas de Helmholtz)</span><span class="diff">dificultad 2/3</span></div>
+    <div class="prob-grid">
+      <div>
+        <p class="stmt">Dos espiras circulares idénticas de radio $R$ ($\text{m}$) y $N$ vueltas cada una están en planos paralelos perpendiculares al eje $z$, centradas en $z = -R/2$ y $z = +R/2$ (separadas una distancia $R$). Ambas llevan corriente $I$ ($\text{A}$) en el mismo sentido (antihorario visto desde $+\hat z$). Encuentra el campo magnético $\vec B$ en el punto medio del eje ($z = 0$).</p>
+        <div class="given"><div><b>Datos</b> radio $R$, $N$ vueltas c/u, corriente $I$, posiciones $z = \pm R/2$</div><div><b>Piden</b> $\vec B(z=0)$</div></div>
+      </div>
+      <figure class="fig" data-fig="u08-espira-eje"><figcaption>Geometría de referencia para una espira en su eje; en el problema se superponen dos espiras a distancia $R/2$ a cada lado del punto medio.</figcaption></figure>
+    </div>
+    <div class="predict"><b>Antes de calcular:</b> como las corrientes giran en el mismo sentido, ¿los campos en el punto medio se suman o se restan?</div>
+    <ol class="reveal">
+      <li class="hint">Usa $B_{\text{eje}}(d) = \dfrac{N\mu_0 I R^2}{2(R^2+d^2)^{3/2}}$ con $d = R/2$ para cada espira, y súmalos.</li>
+      <li><span class="rl">Paso 1 · Campo de una espira a distancia $d = R/2$</span><p class="do"><b>Qué hago:</b> sustituimos $d = R/2$ en la fórmula de una bobina de $N$ vueltas:</p>
+      $$B_1 = \frac{\mu_0 N I R^2}{2\left(R^2 + \frac{R^2}{4}\right)^{3/2}} = \frac{\mu_0 N I R^2}{2\left(\frac{5}{4}R^2\right)^{3/2}} = \frac{\mu_0 N I}{2R}\cdot\frac{8}{5\sqrt 5} = \frac{4\,\mu_0 N I}{5\sqrt 5\,R}$$
+      <p><b>Por qué:</b> $(5/4)^{3/2} = 5\sqrt 5/8$, y por la mano derecha el campo apunta en $+\hat z$ a ambos lados de la espira.</p></li>
+      <li><span class="rl">Paso 2 · Superposición de las dos espiras</span><p class="do"><b>Qué hago:</b> ambas corrientes giran igual, así que ambos campos apuntan en $+\hat z$: $\vec B(0) = 2 B_1\,\hat z$.</p><p><b>Por qué:</b> en el punto medio la distancia a cada bobina es la misma ($R/2$).</p></li>
+      <li class="final">$$\boxed{\vec B(0) = \frac{8\,\mu_0 N I}{5\sqrt 5\,R}\,\hat z = \frac{8\sqrt 5\,\mu_0 N I}{25\,R}\,\hat z}$$</li>
+      <li class="check"><b>Verificación:</b> $\frac{8\sqrt 5}{25}\approx 0{,}716$, menor que $2\times\frac{1}{2} = 1$ (que sería con $d=0$, espiras juntas). Unidades: $\text{T}$. Nota: la separación $d_{\text{sep}} = R$ anula la segunda derivada $d^2B/dz^2$ en el centro, logrando un campo muy uniforme (bobinas de Helmholtz).</li>
+    </ol>
+    <div class="ctrl"></div>
+  </div>
+
+  <div class="prob" id="u08-e4" data-kind="ejemplo" data-diff="3">
+    <div class="prob-head"><span class="tag">Ejemplo 4</span><span class="ptitle">Cilindro con $\vec J(r) = kr^2\,\hat z$ y fuerza sobre espira coplanar</span><span class="diff">dificultad 3/3</span></div>
+    <div class="prob-grid">
+      <div>
+        <p class="stmt">Un cilindro conductor infinito de radio $R$ ($\text{m}$) alineado con el eje $z$ lleva una densidad de corriente no uniforme $\vec J = kr^2\,\hat z$ (con $k$ constante en $\text{A/m}^4$) y corriente total $I_1 \gt 0$ ($\text{A}$). El eje $z$ del cilindro es vertical en el plano de la hoja y la espira yace en el plano $x = 0$ (plano $yz$, con $\hat x$ saliendo de la hoja, $\hat y$ a la derecha y $\hat z$ arriba). La espira rectangular coplanar tiene ancho $b$ ($\text{m}$) y alto $c$ ($\text{m}$), y lleva corriente $I_2$ ($\text{A}$) en sentido horario (sube por el lado cercano a distancia $a \gt R$ en $\text{m}$ del eje y baja por el lado lejano a $a+b$). Calcula: a) $k$ en función de $I_1$ y $R$; b) $\vec B(r)$ dentro y fuera del cilindro; c) la fuerza neta $\vec F$ sobre la espira. (Basado en Examen 2023-2 Ej. 3 y Ayudantía 20 P3.)</p>
+        <div class="given"><div><b>Datos</b> $R$, $\vec J = kr^2\hat z$, $I_1$; espira $b\times c$ en $y\in[a,a+b]$, $I_2$ horaria</div><div><b>Piden</b> $k$, $\vec B(r)$, $\vec F_{\text{neta}}$</div></div>
+      </div>
+      <figure class="fig" data-fig="u08-cilindro-espira"><figcaption>Cilindro con $I_1$ en $+\hat z$ y espira coplanar con $I_2$ horaria en el plano $yz$. En la zona de la espira, $\vec B$ entra a la hoja ($-\hat x$).</figcaption></figure>
+    </div>
+    <div class="predict"><b>Antes de calcular:</b> ¿la fuerza neta sobre la espira la atrae hacia el cilindro o la repele? Fíjate en el lado más cercano ($y = a$).</div>
+    <ol class="reveal">
+      <li class="hint">Integra $\vec J\cdot d\vec A$ con $r\,dr\,d\theta$ para $k$; usa Ampère para $\vec B(r)$; suma $I_2\int d\vec\ell\times\vec B$ en los 4 lados de la espira.</li>
+      <li><span class="rl">Paso 1 · Constante $k$</span><p class="do"><b>Qué hago:</b> $I_1 = \displaystyle\int_0^{2\pi}d\theta\int_0^R (kr^2)(r\,dr) = 2\pi k\left[\frac{r^4}{4}\right]_0^R = \frac{\pi k R^4}{2}$, luego $k = \dfrac{2I_1}{\pi R^4}$.</p><p><b>Por qué:</b> el jacobiano cilíndrico es $r\,dr\,d\theta$.</p></li>
+      <li><span class="rl">Paso 2 · Campo $\vec B(r)$ por Ampère</span><p class="do"><b>Qué hago:</b> por simetría cilíndrica, $\vec B = B(r)\,\hat\theta$ y $B(r)\,2\pi r = \mu_0 I_{\text{enc}}(r)$. Para $r\le R$: $I_{\text{enc}}(r) = 2\pi k\int_0^r r'^3 dr' = \frac{\pi k r^4}{2} = I_1\frac{r^4}{R^4}$, así que $\vec B = \dfrac{\mu_0 I_1 r^3}{2\pi R^4}\,\hat\theta$. Para $r \gt R$: $I_{\text{enc}} = I_1$, así que $\vec B = \dfrac{\mu_0 I_1}{2\pi r}\,\hat\theta$.</p><p><b>Por qué:</b> circunferencia amperiana concéntrica de radio $r$.</p></li>
+      <li><span class="rl">Paso 3 · Fuerza sobre los 4 lados de la espira</span><p class="do"><b>Qué hago:</b> en el plano de la espira ($y\gt 0, x=0$), $\hat\theta = -\hat x$, así que $\vec B(y) = -\dfrac{\mu_0 I_1}{2\pi y}\,\hat x$. Lados horizontales ($z=c$ en $+\hat y$ y $z=0$ en $-\hat y$): sufren fuerzas iguales y opuestas en $\pm\hat z$ que se cancelan. Lado vertical cercano ($y=a$, corriente $+\hat z$): $\vec F_{\text{izq}} = I_2 c\,\hat z\times\left(-\frac{\mu_0 I_1}{2\pi a}\hat x\right) = -\dfrac{\mu_0 I_1 I_2 c}{2\pi a}\,\hat y$. Lado lejano ($y=a+b$, corriente $-\hat z$): $\vec F_{\text{der}} = +\dfrac{\mu_0 I_1 I_2 c}{2\pi(a+b)}\,\hat y$. Sumando:</p>
+      $$\vec F_{\text{neta}} = -\frac{\mu_0 I_1 I_2 c}{2\pi}\left(\frac{1}{a} - \frac{1}{a+b}\right)\hat y = -\frac{\mu_0 I_1 I_2 b c}{2\pi a(a+b)}\,\hat y$$
+      <p><b>Por qué:</b> el tramo cercano lleva corriente en el mismo sentido que $I_1$ y está en campo más intenso: gana la atracción ($-\hat y$). *(Nota: la pauta de Ayudantía 20 P3 tiene una errata tipográfica en su ec. 16 al escribir $a+c$ dentro del corchete; lo correcto es $a+b$.)*</p></li>
+      <li class="final">$$\boxed{k = \frac{2I_1}{\pi R^4},\quad \vec B = \begin{cases}\dfrac{\mu_0 I_1 r^3}{2\pi R^4}\hat\theta & (r\le R)\\ \dfrac{\mu_0 I_1}{2\pi r}\hat\theta & (r\gt R)\end{cases},\quad \vec F_{\text{neta}} = -\frac{\mu_0 I_1 I_2 b c}{2\pi a(a+b)}\,\hat y\ (\text{atractiva})}$$</li>
+      <li class="check"><b>Verificación:</b> continuidad en $r=R$: ambas dan $\mu_0 I_1/(2\pi R)$. Unidades: $[k] = \text{A/m}^4$; $[\vec F] = \frac{\text{T·m}}{\text{A}}\cdot\frac{\text{A}^2\text{m}^2}{\text{m}^2} = \text{N}$. Si $a\to\infty$ o $b\to 0$, $\vec F\to\vec 0$.</li>
+    </ol>
+    <div class="ctrl"></div>
+  </div>
+</section>
+
+<section class="sec" id="u08-examen" data-block="arquetipos" data-title="Arquetipos de examen">
+  <h2>Arquetipos de examen</h2>
+  <p>Problemas reales de exámenes anteriores con la distribución de puntaje de la pauta oficial. Inténtalos primero en papel sin abrir los pasos (unos 25 minutos cada uno).</p>
+
+  <div class="prob" id="u08-x1" data-kind="arquetipo" data-diff="2">
+    <div class="prob-head"><span class="tag">Arquetipo de examen 1</span><span class="ptitle">Dos semicircunferencias concéntricas y momento dipolar</span><span class="diff">dificultad 2/3</span><span class="src">Examen 2024-2 · P2</span></div>
+    <div class="prob-grid">
+      <div>
+        <p class="stmt">Una corriente $I$ ($\text{A}$) circula por la espira cerrada de radios $b$ y $a$ ($b \gt a$, en $\text{m}$) mostrada en la figura, en el plano $xy$ con origen en $P$ ($\hat x$ a la derecha, $\hat y$ arriba, $\hat k \equiv \hat z$ saliendo de la hoja). La corriente recorre en <b>sentido horario</b>: una semicircunferencia superior de radio $b$ ($y\ge 0$, de izquierda a derecha), un segmento recto sobre el eje $+x$ recorrido de $x = b$ hasta $x = a$ (sentido $-\hat x$), una semicircunferencia inferior de radio $a$ ($y\le 0$, de $a$ a $-a$ por abajo) y un segmento recto sobre el eje $-x$ recorrido de $x = -a$ hasta $x = -b$ (sentido $-\hat x$). Ambas semicircunferencias tienen centro en $P$. Calcule: a) <b>(4 pts.)</b> El vector campo magnético en $P$. b) <b>(2 pts.)</b> El vector momento dipolar magnético de la espira.</p>
+        <div class="given"><div><b>Datos</b> $b \gt a$, $I$ (sentido horario), centro $P$ en el origen</div><div><b>Piden</b> $\vec B_P$, $\vec\mu$</div></div>
+      </div>
+      <figure class="fig" data-fig="u08-arq-arcos"><figcaption>Espira cerrada del Examen 2024-2 P2: las dos semicircunferencias están en semiplanos opuestos y rodean a $P$ en sentido horario.</figcaption></figure>
+    </div>
+    <div class="predict"><b>Antes de calcular:</b> como la corriente gira en sentido horario en ambas mitades alrededor de $P$, ¿los campos de los dos arcos se suman o se restan?</div>
+    <ol class="reveal">
+      <li class="hint">Los segmentos rectos pasan por la recta de $P$, así que su aporte es nulo. En coordenadas polares $\hat\theta\times(-\hat\rho) = +\hat k$ (para sentido antihorario) y $(-\hat\theta)\times(-\hat\rho) = -\hat k$ (para horario).</li>
+      <li><span class="rl">Paso 1 · Planteo y tramos rectos (parte a: 0,5 pto.)</span><p class="do"><b>Qué hago:</b> por Biot-Savart y superposición, $\vec B_P = \vec B_\cap + \vec B_\cup + \vec B_- + \vec B_-$. En los dos segmentos horizontales sobre el eje $x$, tanto $d\vec\ell$ como $\vec r - \vec r\,'$ son colineales con $\hat x$ (o $\hat\imath$), así que $d\vec\ell\times(\vec r - \vec r\,') = \vec 0$ y no aportan.</p><p><b>Por qué:</b> elementos colineales con el punto de campo dan producto cruz nulo.</p></li>
+      <li><span class="rl">Paso 2 · Parametrización de ambos arcos (parte a: 0,5 + 0,5 pto.)</span><p class="do"><b>Qué hago:</b> con $\vec r = \vec 0$ en $P$: para el arco superior $\cap$ (radio $b$, horario), $\vec r\,' = b\hat\rho$ y $d\vec\ell = b\,d\theta\,(-\hat\theta)$ con $\theta\in[0,\pi]$; para el inferior $\cup$ (radio $a$, horario), $\vec r\,' = a\hat\rho$ y $d\vec\ell = a\,d\theta\,(-\hat\theta)$ con $\theta\in[-\pi,0]$ (el sentido horario se recoge explícitamente en $-\hat\theta$).</p><p><b>Por qué:</b> $\hat\theta$ apunta antihorario; como $I$ es horaria, el elemento sigue $-\hat\theta$ al integrar en orden creciente de $\theta$.</p></li>
+      <li><span class="rl">Paso 3 · Integrales de Biot-Savart (parte a: 0,5 + 0,5 + 0,5 + 0,5 pto.)</span><p class="do"><b>Qué hago:</b> usando $\vec r - \vec r\,' = -R\hat\rho$ y $(-\hat\theta)\times(-\hat\rho) = \hat\theta\times\hat\rho = -\hat k$:</p>
+      $$\vec B_\cap = \frac{\mu_0}{4\pi}\int_0^\pi \frac{Ib\,d\theta\,(-\hat\theta)\times(-b\hat\rho)}{b^3} = \frac{\mu_0 I}{4\pi b}\int_0^\pi (-\hat k)\,d\theta = -\frac{\mu_0 I}{4b}\,\hat k$$
+      $$\vec B_\cup = \frac{\mu_0}{4\pi}\int_{-\pi}^0 \frac{Ia\,d\theta\,(-\hat\theta)\times(-a\hat\rho)}{a^3} = \frac{\mu_0 I}{4\pi a}\int_{-\pi}^0 (-\hat k)\,d\theta = -\frac{\mu_0 I}{4a}\,\hat k$$
+      <p><b>Por qué:</b> cada arco cubre $\pi\ \text{rad}$ y aporta en $-\hat k$ (entrando al plano).</p></li>
+      <li><span class="rl">Paso 4 · Suma total (parte a: 0,5 pto.)</span><p class="do"><b>Qué hago:</b> $\vec B_P = \vec B_\cap + \vec B_\cup = -\dfrac{\mu_0 I}{4}\left(\dfrac{1}{a} + \dfrac{1}{b}\right)\hat k$.</p><p><b>Por qué:</b> ambos campos apuntan en $-\hat k$.</p></li>
+      <li><span class="rl">Paso 5 · Momento dipolar magnético (parte b: 1,0 magnitud + 1,0 dirección)</span><p class="do"><b>Qué hago:</b> el área encerrada por la espira es la suma de los dos semicírculos: $A = \frac{\pi b^2}{2} + \frac{\pi a^2}{2} = \frac{\pi}{2}(b^2+a^2)$. Como la corriente gira en sentido horario en $xy$, la mano derecha da $\hat n = -\hat k$, así que $\vec\mu = IA\,\hat n = -I\dfrac{\pi}{2}(b^2+a^2)\,\hat k$.</p><p><b>Por qué:</b> ambas mitades están a lados opuestos del eje $x$ y encierran región con la misma orientación de circulación.</p></li>
+      <li class="final">$$\boxed{\vec B_P = -\frac{\mu_0 I}{4}\left(\frac{1}{a} + \frac{1}{b}\right)\hat k,\qquad \vec\mu = -I\frac{\pi}{2}(b^2 + a^2)\,\hat k}$$</li>
+      <li class="check"><b>Verificación:</b> caso límite $a = b$: la espira forma un círculo completo de radio $b$ con corriente horaria, dando $\vec B_P = -\dfrac{\mu_0 I}{2b}\hat k$ y $\vec\mu = -I\pi b^2\hat k$. Unidades: $[\vec B] = \text{T}$, $[\vec\mu] = \text{A·m}^2$.</li>
+    </ol>
+    <div class="ctrl"></div>
+  </div>
+
+  <div class="prob" id="u08-x2" data-kind="arquetipo" data-diff="2">
+    <div class="prob-head"><span class="tag">Arquetipo de examen 2</span><span class="ptitle">Cable coaxial con $\vec J_1$ no uniforme y gráfico de $|B(r)|$</span><span class="diff">dificultad 2/3</span><span class="src">Examen 2024-1 · P1</span></div>
+    <div class="prob-grid">
+      <div>
+        <p class="stmt">Un cable coaxial muy largo consiste en un cilindro sólido de radio $a$, rodeado por un cascarón cilíndrico conductor concéntrico de radio interno $b$ y exterior $c$ ($a \lt b \lt c$, todos en $\text{m}$). El conductor interior tiene densidad de corriente no uniforme $\vec J_1 = \alpha r\,\hat z$ ($\alpha$ constante en $\text{A/m}^3$). El cilindro exterior tiene densidad de corriente uniforme $\vec J_2 = -\beta\,\hat z$ ($\beta \gt 0$ en $\text{A/m}^2$). Cada región conductora lleva una corriente total de igual magnitud $I_0 \gt 0$ (en $\text{A}$), en direcciones opuestas. Entre ambos conductores existe vacío. a) <b>(2 pts.)</b> Encuentre $\alpha$ y $\beta$ en términos de $a, b, c$ e $I_0$. b) <b>(2 pts.)</b> Determine $\vec B$ en todo el espacio en términos de $a, b, c$ e $I_0$. c) <b>(2 pts.)</b> Realice un gráfico de $|\vec B|$ respecto a la distancia radial $r$.</p>
+        <div class="given"><div><b>Datos</b> radios $a\lt b\lt c$ ($\text{m}$), $\vec J_1 = \alpha r\hat z$ ($\text{A/m}^3$), $\vec J_2 = -\beta\hat z$ ($\text{A/m}^2$), $I_0$ ($\text{A}$)</div><div><b>Piden</b> $\alpha, \beta$; $\vec B(r)$ en 4 regiones; gráfico $|\vec B(r)|$</div></div>
+      </div>
+      <figure class="fig" data-fig="u08-coaxial-br"><figcaption>Gráfico esperado de $|B(r)|$ en las 4 regiones, marcando $B(a)$ y $B(b)$.</figcaption></figure>
+    </div>
+    <div class="predict"><b>Antes de calcular:</b> ¿qué potencia de $r$ tiene $|\vec B(r)|$ dentro del núcleo ($r\lt a$) si $J_1 \propto r$? ¿Y qué vale fuera del cable ($r \gt c$)?</div>
+    <ol class="reveal">
+      <li class="hint">En polares, $d\vec A = r\,dr\,d\theta\,\hat z$. Para $b \lt r \le c$, la corriente encerrada es $+I_0$ menos la fracción que lleva el cascarón entre $b$ y $r$.</li>
+      <li><span class="rl">Paso 1 · Constantes $\alpha$ y $\beta$ (parte a: 0,5 + 0,5 + 0,5 + 0,5 pto.)</span><p class="do"><b>Qué hago:</b> integrando sobre cada sección transversal:</p>
+      $$I_0 = \int_0^{2\pi}\int_0^a (\alpha r\,\hat z)\cdot(r\,dr\,d\theta\,\hat z) = \frac{2\pi\alpha a^3}{3} \implies \alpha = \frac{3I_0}{2\pi a^3}$$
+      $$-I_0 = \int_0^{2\pi}\int_b^c (-\beta\,\hat z)\cdot(r\,dr\,d\theta\,\hat z) = -\beta\pi(c^2 - b^2) \implies \beta = \frac{I_0}{\pi(c^2 - b^2)}$$
+      <p><b>Por qué:</b> la corriente total es el flujo de $\vec J$ por la sección (incluyendo el jacobiano $r\,dr\,d\theta$).</p></li>
+      <li><span class="rl">Paso 2 · Simetría y regiones $r \lt a$ y $a \le r \le b$ (parte b: 0,5 + 0,5 pto.; la pauta da +0,5 bonus por plantear la ley de Ampère)</span><p class="do"><b>Qué hago:</b> por simetría cilíndrica, $\vec B = B(r)\,\hat\theta$ y $B(r)\,2\pi r = \mu_0 I_{\text{enc}}$. Para $r \lt a$: $I_{\text{enc}} = \int_0^{2\pi}\int_0^r \alpha r'^2\,dr'\,d\theta = \frac{2\pi\alpha r^3}{3} = I_0\frac{r^3}{a^3}$, luego $\vec B = \dfrac{\mu_0 I_0 r^2}{2\pi a^3}\,\hat\theta$. Para $a \le r \le b$: $I_{\text{enc}} = I_0$, luego $\vec B = \dfrac{\mu_0 I_0}{2\pi r}\,\hat\theta$.</p><p><b>Por qué:</b> en el vacío intermedio toda la corriente del núcleo queda encerrada.</p></li>
+      <li><span class="rl">Paso 3 · Regiones $b \lt r \le c$ y $r \gt c$ (parte b: 0,5 + 0,5 pto.)</span><p class="do"><b>Qué hago:</b> para $b \lt r \le c$: $I_{\text{enc}} = I_0 - \int_0^{2\pi}\int_b^r \beta r'\,dr'\,d\theta = I_0 - \beta\pi(r^2 - b^2) = I_0\left(1 - \dfrac{r^2 - b^2}{c^2 - b^2}\right) = I_0\dfrac{c^2 - r^2}{c^2 - b^2}$, dando $\vec B = \dfrac{\mu_0 I_0}{2\pi r}\dfrac{c^2 - r^2}{c^2 - b^2}\,\hat\theta$. Para $r \gt c$: $I_{\text{enc}} = I_0 - I_0 = 0 \implies \vec B = \vec 0$.</p><p><b>Por qué:</b> en el cascarón se resta la corriente que retorna en $-\hat z$; afuera la corriente neta es cero.</p></li>
+      <li><span class="rl">Paso 4 · Gráfico de $|\vec B(r)|$ (parte c: 1,0 curva + 0,5 $B(a)$ + 0,5 $B(b)$)</span><p class="do"><b>Qué hago:</b> en $0\le r\le a$ sube parabólicamente ($\propto r^2$) hasta el máximo $B(a) = \dfrac{\mu_0 I_0}{2\pi a}$; en $a\le r\le b$ decae como $1/r$ hasta $B(b) = \dfrac{\mu_0 I_0}{2\pi b}$; en $b\le r\le c$ cae continuamente a $0$ en $r = c$; para $r \gt c$ es $0$ (ver figura).</p><p><b>Por qué:</b> no hay corrientes superficiales singulares, así que $|B(r)|$ es continuo en todas las fronteras.</p></li>
+      <li class="final">$$\boxed{\alpha = \frac{3I_0}{2\pi a^3},\qquad \beta = \frac{I_0}{\pi(c^2-b^2)}}$$ $$\boxed{\vec B(r) = \begin{cases}\dfrac{\mu_0 I_0 r^2}{2\pi a^3}\,\hat\theta & (r \lt a)\\[1ex] \dfrac{\mu_0 I_0}{2\pi r}\,\hat\theta & (a \le r \le b)\\[1ex] \dfrac{\mu_0 I_0}{2\pi r}\dfrac{c^2-r^2}{c^2-b^2}\,\hat\theta & (b \lt r \le c)\\[1ex] \vec 0 & (r \gt c)\end{cases}}$$<p><b>Gráfico $|\vec B(r)|$:</b> continuo en todo $r \ge 0$; sube parabólicamente ($\propto r^2$) hasta el máximo $B(a) = \dfrac{\mu_0 I_0}{2\pi a}$, decae como $1/r$ hasta $B(b) = \dfrac{\mu_0 I_0}{2\pi b}$, cae continuamente hasta $0$ en $r = c$ y vale $0$ para $r \gt c$.</p></li>
+      <li class="check"><b>Verificación:</b> continuidad: en $r=a$ ambas dan $\mu_0 I_0/(2\pi a)$; en $r=b$ ambas dan $\mu_0 I_0/(2\pi b)$; en $r=c$ da $0$. Unidades: $[\alpha] = \text{A/m}^3$, $[\beta] = \text{A/m}^2$, $[\vec B] = \text{T}$.</li>
+    </ol>
+    <div class="ctrl"></div>
+  </div>
+
+  <div class="prob" id="u08-x3" data-kind="arquetipo" data-diff="2">
+    <div class="prob-head"><span class="tag">Arquetipo de examen 3</span><span class="ptitle">Cable coaxial de tres regiones con corrientes uniformes</span><span class="diff">dificultad 2/3</span><span class="src">Examen 2025-1 · P3</span></div>
+    <div class="prob-grid">
+      <div>
+        <p class="stmt">Un cable coaxial lleva una corriente $I_1 = I_0$ ($\text{A}$) hacia arriba ($+\hat k$), distribuida homogéneamente en un área circular de radio $a$ ($\text{m}$). Entre $r = a$ y $r = b$ ($\text{m}$) se distribuye homogéneamente una corriente $I_2 = I_0$ hacia abajo ($-\hat k$). a) <b>(5 pts.)</b> Calcule el campo magnético en cada una de las tres regiones: i) $r \lt a$, ii) $a \lt r \lt b$, iii) $r \gt b$. b) <b>(1 pto.)</b> Realice un gráfico de $|\vec B|$ con respecto a la distancia desde el eje de simetría $r$.</p>
+        <div class="given"><div><b>Datos</b> $I_1 = I_0$ ($+\hat k$, $r\lt a$) e $I_2 = I_0$ ($-\hat k$, $a\lt r\lt b$), ambas uniformes</div><div><b>Piden</b> $\vec B(r)$ en las 3 regiones, gráfico $|\vec B(r)|$</div></div>
+      </div>
+      <figure class="fig" data-fig="u08-coaxial-3reg-br"><figcaption>Gráfico de $|B(r)|$ para el cable coaxial sin hueco intermedio: lineal hasta $B(a) = \mu_0 I_0/(2\pi a)$, luego decrece hasta $0$ en $r = b$.</figcaption></figure>
+    </div>
+    <div class="predict"><b>Antes de calcular:</b> al no haber vacío entre $a$ y $b$, ¿dónde alcanza $|B(r)|$ su valor máximo?</div>
+    <ol class="reveal">
+      <li class="hint">Plantea la curva amperiana circular $\vec B = B\hat\theta$ y $d\vec\ell = r\,d\theta\,\hat\theta$. Para $a \lt r \lt b$, la densidad es $\vec J_2 = -\dfrac{I_0}{\pi(b^2-a^2)}\hat k$.</li>
+      <li><span class="rl">Paso 1 · Planteo por Ampère y simetría (parte a: 1,0 pto.)</span><p class="do"><b>Qué hago:</b> $\oint\vec B\cdot d\vec\ell = \mu_0 I_{\text{enc}}$ (0,1). Por simetría cilíndrica, curva circular concéntrica de radio $r$ con $d\vec\ell = r\,d\theta\,\hat\theta$ (0,2 + 0,2) y $\vec B = B\,\hat\theta$ (0,2), así que $\int_0^{2\pi} (B\hat\theta)\cdot(r\,d\theta\,\hat\theta) = 2\pi r B = \mu_0 I_{\text{enc}}$ (0,3).</p><p><b>Por qué:</b> la pauta desglosa explícitamente la simetría y la definición de la curva antes de integrar.</p></li>
+      <li><span class="rl">Paso 2 · Región $r \lt a$ (parte a: 0,5 $\vec J_1$ + 0,2 integral + 0,2 $I_{\text{enc}}$ + 0,5 $\vec B$ = 1,4 pts.)</span><p class="do"><b>Qué hago:</b> $\vec J_1 = \dfrac{I_0}{\pi a^2}\,\hat k$; integrando $I_{\text{enc}} = \int_0^r\int_0^{2\pi} \frac{I_0}{\pi a^2}\hat k\cdot r'\,dr'\,d\theta\,\hat k = I_0\dfrac{r^2}{a^2}$ (la pauta oficial omite el exponente en un paso intermedio por errata de transcripción, el resultado es $\pi a^2$), de donde $\vec B = \dfrac{\mu_0 I_0 r}{2\pi a^2}\,\hat\theta$.</p><p><b>Por qué:</b> densidad uniforme implica $I_{\text{enc}}$ proporcional al área $\pi r^2$.</p></li>
+      <li><span class="rl">Paso 3 · Región $a \lt r \lt b$ (parte a: 0,5 $\vec J_2$ + 0,4 integral + 0,2 $I_{\text{enc}}$ + 0,5 $\vec B$ = 1,6 pts.)</span><p class="do"><b>Qué hago:</b> $\vec J_2 = -\dfrac{I_0}{\pi(b^2-a^2)}\,\hat k$; sumando la corriente interna completa y el tramo anular de $a$ a $r$:</p>
+      $$I_{\text{enc}} = I_0 + \int_a^r\int_0^{2\pi}\left(-\frac{I_0}{\pi(b^2-a^2)}\right)r'\,dr'\,d\theta = I_0 - I_0\frac{r^2 - a^2}{b^2 - a^2} = I_0\frac{b^2 - r^2}{b^2 - a^2}$$
+      $$\vec B = \frac{\mu_0 I_0}{2\pi r}\,\frac{b^2 - r^2}{b^2 - a^2}\,\hat\theta$$
+      <p><b>Por qué:</b> la curva rodea todo el núcleo interno más una fracción del cascarón externo.</p></li>
+      <li><span class="rl">Paso 4 · Región $r \gt b$ y gráfico (parte a: 0,5 + 0,5 = 1,0 pto.; parte b: 1,0 pto.)</span><p class="do"><b>Qué hago:</b> para $r \gt b$, $I_{\text{enc}} = I_0 - I_0 = 0$, así que $\vec B = \vec 0$. Gráfico: crece linealmente en $r\lt a$ hasta $B(a) = \dfrac{\mu_0 I_0}{2\pi a}$, decrece monótonamente en $a\lt r\lt b$ hasta $0$ en $r = b$, y es nulo para $r\gt b$ *(nota: la pauta dice «dentro del cilindro», refiriéndose al cascarón externo $a\lt r\lt b$)*.</p><p><b>Por qué:</b> las corrientes totales opuestas se cancelan fuera del cable.</p></li>
+      <li class="final">$$\boxed{\vec B(r) = \begin{cases}\dfrac{\mu_0 I_0 r}{2\pi a^2}\,\hat\theta & (r \lt a)\\[1ex] \dfrac{\mu_0 I_0}{2\pi r}\,\dfrac{b^2-r^2}{b^2-a^2}\,\hat\theta & (a \lt r \lt b)\\[1ex] \vec 0 & (r \gt b)\end{cases}}$$<p><b>Gráfico $|\vec B(r)|$:</b> continuo; crece linealmente en $r \lt a$ hasta el máximo $B(a) = \dfrac{\mu_0 I_0}{2\pi a}$, decrece monótonamente hasta $0$ en $r = b$ y vale $0$ para $r \gt b$.</p></li>
+      <li class="check"><b>Verificación:</b> en $r=a$ ambas dan $\mu_0 I_0/(2\pi a)$; en $r=b$ da $0$. Unidades: $\text{T}$. Nota de erratas del original: el enunciado de la pauta escribe «$r = a =$ y $r = b$» (sobra el segundo $=$) y omite el cuadrado de $\pi a^2$ en una línea intermedia.</li>
+    </ol>
+    <div class="ctrl"></div>
+  </div>
+</section>
+
+<section class="sec" id="u08-errores" data-block="errores" data-title="Errores típicos">
+  <h2>Errores típicos</h2>
+  <div class="trap"><b>Olvidar el jacobiano $r\,dr\,d\theta$ al integrar $\vec J(r)$.</b> Integrar $\int_0^a \alpha r\,dr$ en vez de $\int_0^{2\pi}\int_0^a \alpha r\,(r\,dr\,d\theta)$ da $\alpha \propto 1/a^2$ en vez de $1/a^3$ (2024-1 P1). Cómo detectarlo: revisa las unidades de la constante: si $\vec J = \alpha r\,\hat z$ está en $\text{A/m}^2$, entonces $[\alpha] = \text{A/m}^3$.</div>
+  <div class="trap"><b>Olvidar restar la corriente del núcleo en el cascarón externo de un coaxial.</b> En la región $b\lt r\lt c$, la curva amperiana encierra <em>toda</em> la corriente del núcleo interno $+I_0$ además de la fracción negativa del cascarón (2024-1 P1, 2025-1 P3). Cómo detectarlo: evalúa tu expresión en $r = b$ y en $r = c$; debe ser continua con $B(b) = \mu_0 I_0/(2\pi b)$ y $B(c) = 0$.</div>
+  <div class="trap"><b>Sumar o restar campos de arcos concéntricos de memoria.</b> Si los dos arcos están en el mismo semiplano (por ejemplo, ambos en $y\ge 0$ como en 2018-2 P4), uno gira horario y el otro antihorario, así que sus campos se <em>restan</em> ($\propto \frac{1}{a} - \frac{1}{b}$). Si están en semiplanos opuestos rodeando a $P$ en el mismo sentido de giro (2024-2 P2), sus campos se <em>suman</em> ($\propto \frac{1}{a} + \frac{1}{b}$). Cómo detectarlo: aplica la mano derecha a cada arco por separado.</div>
+  <div class="trap"><b>Calcular mal el área de $\vec\mu = IA\,\hat n$ en espiras de dos arcos.</b> En 2024-2 P2 la espira encierra dos semicírculos recorridos ambos en sentido horario, por lo que $A = \frac{\pi}{2}(b^2+a^2)$; en un sector anular del mismo lado (Práctica 1), el área es la diferencia $\frac{\phi}{2}(b^2-a^2)$. Cómo detectarlo: sombrea la región encerrada por el cable antes de escribir $A$.</div>
+  <div class="trap"><b>Aplicar la ley de Ampère a un alambre finito o a una sola espira circular.</b> La ley siempre se cumple, pero sin simetría traslacional infinita $B$ no es constante sobre la curva y no puedes sacarlo de la integral. Cómo detectarlo: si el enunciado da el largo del cable o pide el campo en el eje de una espira, necesitas Biot-Savart.</div>
+  <div class="trap"><b>Confundir atracción/repulsión entre cables con el signo de cargas eléctricas.</b> En electrostática, cargas iguales se repelen; en magnetostática, corrientes paralelas en el <em>mismo sentido</em> se atraen y en sentidos opuestos se repelen. Cómo detectarlo: verifica con $\vec F_2 = I_2\vec\ell\times\vec B_1$ paso a paso.</div>
+  <div class="trap"><b>Invertir el orden en Biot-Savart ($\vec r\,' - \vec r$ en vez de $\vec r - \vec r\,'$).</b> El vector $\hat r$ apunta desde el elemento de corriente hacia el punto de campo $P$; invertirlo cambia el signo de $\vec B$. Cómo detectarlo: contrasta el signo que dio tu integral con la regla de la mano derecha sobre el dibujo.</div>
+</section>
+
+<section class="sec" id="u08-practica" data-block="practica" data-title="Práctica">
+  <h2>Práctica</h2>
+  <p>Resuelve cada problema completo en papel antes de abrir los pasos, sin calculadora.</p>
+
+  <div class="prob" id="u08-p1" data-kind="practica" data-diff="1">
+    <div class="prob-head"><span class="tag">Práctica 1</span><span class="ptitle">Sector circular con dos arcos concéntricos (cálculo a mano)</span><span class="diff">dificultad 1/3</span></div>
+    <div class="prob-grid">
+      <div>
+        <p class="stmt">Una espira plana cerrada tiene forma de sector circular de ángulo $\phi = 90^\circ$ ($\pi/2\ \text{rad}$), con dos arcos concéntricos en $P$ de radios $a = 10\ \text{cm}$ y $b = 20\ \text{cm}$, unidos por dos segmentos radiales. Por la espira circula $I = 4{,}0\ \text{A}$ en sentido antihorario en el arco exterior $b$ y horario en el arco interior $a$ (como en la figura, en el plano $xy$). Calcula el vector campo magnético $\vec B(P)$ (deja expresado en $\mu_0$ y en $\mu\text{T}$) y el momento dipolar magnético $\vec\mu$.</p>
+        <div class="given"><div><b>Datos</b> $\phi = \pi/2\ \text{rad}$, $a = 0{,}10\ \text{m}$, $b = 0{,}20\ \text{m}$, $I = 4{,}0\ \text{A}$</div><div><b>Piden</b> $\vec B(P)$, $\vec\mu$</div></div>
+      </div>
+      <figure class="fig" data-fig="u08-arco-segmentos"><figcaption>Sector circular de ángulo $\phi = 90^\circ$ y radios $a, b$.</figcaption></figure>
+    </div>
+    <div class="predict"><b>Antes de calcular:</b> ¿qué arco domina la dirección de $\vec B(P)$, el interior de radio $a$ o el exterior de radio $b$?</div>
+    <ol class="reveal">
+      <li class="hint">Los dos segmentos radiales son colineales con $P$ y aportan cero. El arco interior $a$ está más cerca y domina el signo.</li>
+      <li><span class="rl">Paso 1 · Aporte de cada tramo</span><p class="do"><b>Qué hago:</b> tramos rectos radiales: $d\vec\ell\times\hat r = \vec 0 \implies \vec B_{\text{rectos}} = \vec 0$. Arco exterior (antihorario, $+\hat z$): $\vec B_b = +\dfrac{\mu_0 I\phi}{4\pi b}\,\hat z$. Arco interior (horario, $-\hat z$): $\vec B_a = -\dfrac{\mu_0 I\phi}{4\pi a}\,\hat z$.</p><p><b>Por qué:</b> $B_{\text{arco}} = \mu_0 I\phi/(4\pi R)$ con $\phi$ en radianes.</p></li>
+      <li><span class="rl">Paso 2 · Evaluar $\vec B(P)$ a mano</span><p class="do"><b>Qué hago:</b></p>
+      $$\vec B(P) = \frac{\mu_0 I\phi}{4\pi}\left(\frac{1}{b} - \frac{1}{a}\right)\hat z = \frac{\mu_0 (4{,}0)(\pi/2)}{4\pi}\left(\frac{1}{0{,}20} - \frac{1}{0{,}10}\right)\hat z = \frac{\mu_0}{2}(5 - 10)\,\hat z = -\frac{5}{2}\mu_0\,\hat z$$
+      <p>Con $\mu_0 = 4\pi\times10^{-7}\ \text{T·m/A}$: $\vec B(P) = -\pi\times10^{-6}\,\hat z \approx -3{,}14\,\mu\text{T}\,\hat z$ (entrando a la hoja).</p><p><b>Por qué:</b> $1/0{,}10 = 10\ \text{m}^{-1}$ y $1/0{,}20 = 5\ \text{m}^{-1}$; el radio menor domina.</p></li>
+      <li><span class="rl">Paso 3 · Momento dipolar magnético</span><p class="do"><b>Qué hago:</b> el área de la corona de ángulo $\phi = \pi/2$ es $A = \frac{\phi}{2}(b^2 - a^2) = \frac{\pi}{4}(0{,}04 - 0{,}01) = 7{,}5\pi\times10^{-3}\ \text{m}^2$. La corriente rodea esta área en sentido antihorario, así que $\hat n = +\hat z$: $\vec\mu = IA\,\hat z = 4{,}0\cdot(7{,}5\pi\times10^{-3})\,\hat z = 0{,}030\pi\,\hat z \approx 9{,}4\times10^{-2}\,\hat z\ \text{A·m}^2$.</p><p><b>Por qué:</b> el borde completo de la región sombreada se recorre en sentido antihorario.</p></li>
+      <li class="final">$$\boxed{\vec B(P) = -\frac{5}{2}\mu_0\,\hat z = -\pi\,\mu\text{T}\,\hat z\ (\text{entrando}),\qquad \vec\mu = 3{,}0\times10^{-2}\pi\,\hat z\ \text{A·m}^2}$$</li>
+      <li class="check"><b>Verificación:</b> $\vec B(P)$ apunta en $-\hat z$ porque domina el arco interior, mientras que $\vec\mu$ apunta en $+\hat z$ porque el contorno exterior se recorre en sentido antihorario. Si $a = b$, $\vec B = \vec 0$ y $\vec\mu = \vec 0$.</li>
+    </ol>
+    <div class="ctrl"></div>
+  </div>
+
+  <div class="prob" id="u08-p2" data-kind="practica" data-diff="2">
+    <div class="prob-head"><span class="tag">Práctica 2</span><span class="ptitle">Fuerza neta de un alambre infinito sobre una espira coplanar</span><span class="diff">dificultad 2/3</span></div>
+    <div class="prob-grid">
+      <div>
+        <p class="stmt">(Basado en Examen 2024-2 P1 a–b.) Un alambre infinito sobre el eje $z$ lleva una corriente $I_1$ ($\text{A}$) en $+\hat z$. En el plano $yz$ ($x = 0$, $y \gt 0$) se coloca una espira rectangular de ancho $b$ ($\text{m}$, en $y$) y alto $c$ ($\text{m}$, en $z$), con su lado cercano en $y = a$ ($\text{m}$) y el lejano en $y = a + b$. Por la espira circula una corriente $I_2$ ($\text{A}$) en sentido <b>antihorario</b> (baja por $y = a$ y sube por $y = a + b$, con $\hat x$ saliendo de la hoja). Calcula: a) $\vec B_1(y)$ producido por el alambre en el plano de la espira; b) la fuerza neta $\vec F$ sobre la espira.</p>
+        <div class="given"><div><b>Datos</b> $I_1$ en $+\hat z$; espira $b\times c$ en $y\in[a,a+b]$, $I_2$ antihoraria</div><div><b>Piden</b> $\vec B_1(y)$, $\vec F$</div></div>
+      </div>
+      <figure class="fig" data-fig="u08-cilindro-espira"><figcaption>Geometría de referencia (alambre delgado $R\to 0$; aquí $I_2$ circula en sentido antihorario, opuesto al dibujo).</figcaption></figure>
+    </div>
+    <div class="predict"><b>Antes de calcular:</b> como ahora $I_2$ baja por el lado cercano ($y=a$), opuesta a $I_1$, ¿la fuerza neta atrae o repele la espira?</div>
+    <ol class="reveal">
+      <li class="hint">En $y\gt 0, x=0$, el campo de $I_1$ apunta en $-\hat x$ (entra a la hoja). Aplica $I_2\vec\ell\times\vec B_1$ a los dos lados verticales.</li>
+      <li><span class="rl">Paso 1 · Campo del alambre</span><p class="do"><b>Qué hago:</b> por Ampère, $\vec B_1(r) = \dfrac{\mu_0 I_1}{2\pi r}\,\hat\theta$. En el semiplano $y \gt 0, x = 0$, $\hat\theta = -\hat x$, así que $\vec B_1(y) = -\dfrac{\mu_0 I_1}{2\pi y}\,\hat x$.</p><p><b>Por qué:</b> con el pulgar en $+\hat z$, los dedos entran a la hoja a la derecha del alambre.</p></li>
+      <li><span class="rl">Paso 2 · Fuerza sobre los 4 lados</span><p class="do"><b>Qué hago:</b> los lados horizontales ($z = c$ en $-\hat y$ y $z = 0$ en $+\hat y$) reciben fuerzas iguales y opuestas en $\mp\hat z$ que se cancelan. Lado cercano ($y = a$, corriente $-\hat z$): $\vec F_{\text{izq}} = I_2 c\,(-\hat z)\times\left(-\frac{\mu_0 I_1}{2\pi a}\hat x\right) = +\dfrac{\mu_0 I_1 I_2 c}{2\pi a}\,\hat y$. Lado lejano ($y = a+b$, corriente $+\hat z$): $\vec F_{\text{der}} = -\dfrac{\mu_0 I_1 I_2 c}{2\pi(a+b)}\,\hat y$. Sumando:</p>
+      $$\vec F = \frac{\mu_0 I_1 I_2 c}{2\pi}\left(\frac{1}{a} - \frac{1}{a+b}\right)\hat y = \frac{\mu_0 I_1 I_2 b c}{2\pi a(a+b)}\,\hat y$$
+      <p><b>Por qué:</b> en el tramo más cercano las corrientes son antiparalelas y se repelen.</p></li>
+      <li class="final">$$\boxed{\vec B_1(y) = -\frac{\mu_0 I_1}{2\pi y}\,\hat x,\qquad \vec F = +\frac{\mu_0 I_1 I_2 b c}{2\pi a(a+b)}\,\hat y\ (\text{repulsiva})}$$</li>
+      <li class="check"><b>Verificación:</b> compara con el Ejemplo 4: al invertir $I_2$, la fuerza invierte su signo y pasa de atractiva a repulsiva. Límite $a\gg b$: $F \approx \dfrac{\mu_0 I_1 I_2 b c}{2\pi a^2}$.</li>
+    </ol>
+    <div class="ctrl"></div>
+  </div>
+
+  <div class="prob" id="u08-p3" data-kind="practica" data-diff="2">
+    <div class="prob-head"><span class="tag">Práctica 3</span><span class="ptitle">Toroide ideal: campo en tres regiones</span><span class="diff">dificultad 2/3</span></div>
+    <div class="prob-grid">
+      <div>
+        <p class="stmt">Un toroide de sección rectangular tiene $N = 500$ vueltas, radio interior $b = 8{,}0\ \text{cm}$ y radio exterior $c = 12\ \text{cm}$, y conduce una corriente $I = 2{,}0\ \text{A}$. Calcula la magnitud del campo magnético $B$ a distancia radial: a) $r = 5{,}0\ \text{cm}$; b) $r = 10\ \text{cm}$ (radio medio del núcleo); c) $r = 15\ \text{cm}$. ¿Qué campo tendría un solenoide largo del mismo largo medio $\ell = 2\pi(0{,}10\ \text{m})$ con las mismas $N$ vueltas e igual corriente?</p>
+        <div class="given"><div><b>Datos</b> $N = 500$, $b = 0{,}080\ \text{m}$, $c = 0{,}12\ \text{m}$, $I = 2{,}0\ \text{A}$</div><div><b>Piden</b> $B$ en $5{,}0$, $10$ y $15\ \text{cm}$; comparación con solenoide</div></div>
+      </div>
+      <figure class="fig" data-fig="u08-toroide-ampere"><figcaption>Tres curvas amperianas concéntricas en un toroide de radios $b$ y $c$.</figcaption></figure>
+    </div>
+    <div class="predict"><b>Antes de calcular:</b> ¿en cuál de los tres radios el campo es distinto de cero?</div>
+    <ol class="reveal">
+      <li class="hint">Solo el lazo dentro del núcleo ($b \lt r \lt c$) tiene corriente neta encerrada no nula ($I_{\text{enc}} = NI$).</li>
+      <li><span class="rl">Paso 1 · Regiones $r = 5{,}0\ \text{cm}$ y $r = 15\ \text{cm}$</span><p class="do"><b>Qué hago:</b> en $r = 5{,}0\ \text{cm} \lt b$ no encierra ningún alambre ($I_{\text{enc}} = 0 \implies B = 0$). En $r = 15\ \text{cm} \gt c$ encierra cada vuelta dos veces con signos opuestos ($I_{\text{enc}} = NI - NI = 0 \implies B = 0$).</p><p><b>Por qué:</b> el campo del toroide ideal queda confinado dentro del núcleo.</p></li>
+      <li><span class="rl">Paso 2 · Región $r = 10\ \text{cm}$ (dentro del núcleo)</span><p class="do"><b>Qué hago:</b></p>
+      $$B = \frac{\mu_0 N I}{2\pi r} = \frac{(4\pi\times10^{-7})(500)(2{,}0)}{2\pi(0{,}10)} = \frac{2\times10^{-7}\times1000}{0{,}10} = 2{,}0\times10^{-3}\ \text{T} = 2{,}0\ \text{mT}$$
+      <p><b>Por qué:</b> $\mu_0/(2\pi) = 2\times10^{-7}\ \text{T·m/A}$, cálculo exacto sin calculadora.</p></li>
+      <li><span class="rl">Paso 3 · Comparación con el solenoide</span><p class="do"><b>Qué hago:</b> con $n = N/\ell = N/(2\pi r_{\text{medio}})$, $B_{\text{sol}} = \mu_0 nI = \dfrac{\mu_0 NI}{2\pi r_{\text{medio}}} = 2{,}0\ \text{mT}$.</p><p><b>Por qué:</b> en el radio medio coincide con el solenoide, pero en el toroide varía ligeramente de $2{,}5\ \text{mT}$ (borde interno) a $1{,}7\ \text{mT}$ (borde externo).</p></li>
+      <li class="final">$$\boxed{B(5{,}0\ \text{cm}) = 0,\qquad B(10\ \text{cm}) = 2{,}0\ \text{mT},\qquad B(15\ \text{cm}) = 0,\qquad B_{\text{sol}} = 2{,}0\ \text{mT}}$$</li>
+      <li class="check"><b>Verificación:</b> unidades $\text{T·m/A}\cdot\text{A/m} = \text{T}$. En $r = 8\ \text{cm}$ el campo es $2{,}5\ \text{mT}$ y en $r = 12\ \text{cm}$ es $1{,}67\ \text{mT}$, decreciente como $1/r$.</li>
+    </ol>
+    <div class="ctrl"></div>
+  </div>
+
+  <div class="prob" id="u08-p4" data-kind="practica" data-diff="2">
+    <div class="prob-head"><span class="tag">Práctica 4</span><span class="ptitle">Lámina gruesa infinita y cilindro no uniforme: anulación de $\vec B$</span><span class="diff">dificultad 2/3</span></div>
+    <div class="prob-grid">
+      <div>
+        <p class="stmt">(Basado en Ayudantía 20 P2, 2026-2.) Dos corrientes estacionarias fluyen en $+\hat z$ (saliendo de la hoja): una lámina plana infinita de grosor $b$ ($\text{m}$) ubicada en $y \lt -R$ con densidad volumétrica uniforme $\vec J_{\text{lám}} = j_{\text{lám}}\,\hat z$ ($j_{\text{lám}} \gt 0$ en $\text{A/m}^2$), y un cilindro infinito de radio $R$ ($\text{m}$) centrado en el origen con densidad $\vec J_c = j_0(1 - r/R)\,\hat z$ ($0\le r\le R$, con $j_0$ en $\text{A/m}^2$). Encuentra $j_0$ en términos de $j_{\text{lám}}$, $b$ y $R$ para que el campo magnético total en el punto $P = (0, -R/2, 0)$ (dentro del cilindro, a distancia $R/2$ debajo del eje) sea nulo.</p>
+        <div class="given"><div><b>Datos</b> lámina grosor $b$ ($\text{m}$), $\vec J_{\text{lám}} = j_{\text{lám}}\hat z$ ($\text{A/m}^2$); cilindro radio $R$ ($\text{m}$), $\vec J_c = j_0(1-r/R)\hat z$; $P=(0,-R/2,0)$</div><div><b>Piden</b> $j_0$ ($\text{A/m}^2$) tal que $\vec B_{\text{total}}(P) = \vec 0$</div></div>
+      </div>
+      <figure class="fig" data-fig="u08-lamina-ampere"><figcaption>Lazo amperiano rectangular para la lámina (para grosor $b$, la corriente por unidad de ancho es $K = j_{\text{lám}} b$).</figcaption></figure>
+    </div>
+    <div class="predict"><b>Antes de calcular:</b> ¿hacia dónde apunta el campo del cilindro en $P$ (debajo del eje, con corriente saliente) y hacia dónde apunta el de la lámina (encima de ella)?</div>
+    <ol class="reveal">
+      <li class="hint">Calcula $\vec B_c(P)$ integrando $I_{\text{enc}}(R/2)$ con el jacobiano $r\,dr\,d\theta$, y $\vec B_{\text{lám}}(P)$ con un rectángulo amperiano que cruce todo el grosor $b$ de la lámina.</li>
+      <li><span class="rl">Paso 1 · Campo del cilindro en $P$ ($r = R/2$)</span><p class="do"><b>Qué hago:</b> $I_{\text{enc}}(R/2) = \displaystyle\int_0^{2\pi}d\theta\int_0^{R/2} j_0\left(1 - \frac{r'}{R}\right)r'\,dr' = 2\pi j_0\left[\frac{r'^2}{2} - \frac{r'^3}{3R}\right]_0^{R/2} = 2\pi j_0\left(\frac{R^2}{8} - \frac{R^2}{24}\right) = \frac{\pi j_0 R^2}{6}$. Por Ampère en $r = R/2$: $B_c\,2\pi(R/2) = \mu_0\dfrac{\pi j_0 R^2}{6} \implies B_c = \dfrac{\mu_0 j_0 R}{6}$. En $(0,-R/2)$, $\hat\theta = +\hat x$, así que $\vec B_c(P) = +\dfrac{\mu_0 j_0 R}{6}\,\hat x$.</p><p><b>Por qué:</b> con corriente saliente, por debajo del eje $\vec B_c$ apunta hacia la derecha ($+\hat x$).</p></li>
+      <li><span class="rl">Paso 2 · Campo de la lámina gruesa en $P$</span><p class="do"><b>Qué hago:</b> la lámina equivale a una densidad superficial $K = j_{\text{lám}} b$. Un rectángulo amperiano simétrico de ancho $L$ en $x$ que encierra todo el grosor $b$ da $2B_{\text{lám}} L = \mu_0 (j_{\text{lám}} b L) \implies B_{\text{lám}} = \dfrac{\mu_0 j_{\text{lám}} b}{2}$. Por encima de la lámina ($P$), por la mano derecha apunta hacia la izquierda: $\vec B_{\text{lám}}(P) = -\dfrac{\mu_0 j_{\text{lám}} b}{2}\,\hat x$.</p><p><b>Por qué:</b> el campo fuera de una lámina uniforme es independiente de la distancia.</p></li>
+      <li><span class="rl">Paso 3 · Imponer $\vec B_{\text{total}}(P) = \vec 0$</span><p class="do"><b>Qué hago:</b> $\dfrac{\mu_0 j_0 R}{6} - \dfrac{\mu_0 j_{\text{lám}} b}{2} = 0 \implies j_0 = \dfrac{3b}{R}\,j_{\text{lám}}$.</p><p><b>Por qué:</b> ambos campos son colineales en $\pm\hat x$ y se cancelan si sus módulos coinciden.</p></li>
+      <li class="final">$$\boxed{j_0 = \frac{3b}{R}\,j_{\text{lám}}}$$</li>
+      <li class="check"><b>Verificación:</b> unidades $[b/R][j_{\text{lám}}] = (\text{m/m})(\text{A/m}^2) = \text{A/m}^2$. Signo positivo confirma que ambas corrientes van en $+\hat z$. Si $b\to 0$, $j_0\to 0$.</li>
+    </ol>
+    <div class="ctrl"></div>
+  </div>
+
+  <div class="prob" id="u08-p5" data-kind="practica" data-diff="3">
+    <div class="prob-head"><span class="tag">Práctica 5</span><span class="ptitle">Cilindro infinito con cavidad cilíndrica descentrada</span><span class="diff">dificultad 3/3</span></div>
+    <div class="prob-grid">
+      <div>
+        <p class="stmt">(Tipo Examen 2015-2 P15.) Un conductor cilíndrico muy largo de radio $R$ ($\text{m}$), centrado en el origen $O$ a lo largo de $\hat z$, tiene un hueco cilíndrico paralelo de radio $a$ ($\text{m}$) centrado en $\vec d = d\,\hat x$ ($d$ en $\text{m}$, con $d + a \lt R$). Por la parte sólida circula una densidad de corriente uniforme $\vec J = J_0\,\hat z$ ($J_0 \gt 0$ en $\text{A/m}^2$). Demuestra que dentro de la cavidad el campo magnético es <b>uniforme</b>, y calcula su magnitud y dirección.</p>
+        <div class="given"><div><b>Datos</b> cilindro radio $R$ ($\text{m}$) en $O$, hueco radio $a$ ($\text{m}$) en $O' = d\hat x$ ($\text{m}$), $\vec J = J_0\hat z$ ($\text{A/m}^2$)</div><div><b>Piden</b> $\vec B$ dentro de la cavidad</div></div>
+      </div>
+      <figure class="fig" data-fig="u08-cilindro-cavidad"><figcaption>Sección transversal del cilindro con cavidad descentrada; por superposición equivale a un cilindro macizo $+\vec J$ más un cilindro menor $-\vec J$.</figcaption></figure>
+    </div>
+    <div class="predict"><b>Antes de calcular:</b> ¿el campo dentro del hueco depende de la posición dentro del hueco o es constante?</div>
+    <ol class="reveal">
+      <li class="hint">Usa superposición: cilindro sólido de radio $R$ con $+\vec J$ más cilindro sólido de radio $a$ en $O'$ con $-\vec J$. Escribe el campo dentro de un cilindro uniforme como $\vec B(\vec r_\perp) = \frac{1}{2}\mu_0(\vec J\times\vec r_\perp)$.</li>
+      <li><span class="rl">Paso 1 · Forma vectorial dentro de un cilindro uniforme</span><p class="do"><b>Qué hago:</b> dentro de un cilindro con $\vec J = J_0\hat z$, Ampère da $B(r) = \frac{1}{2}\mu_0 J_0 r$ en dirección $\hat\theta$. Como $\hat z\times\hat\rho = \hat\theta$ (con $\vec r_\perp = r\hat\rho$ medido perpendicularmente desde el eje del cilindro), se escribe en forma vectorial independiente de los ejes como $\vec B(\vec r_\perp) = \frac{1}{2}\mu_0 (\vec J\times\vec r_\perp)$.</p><p><b>Por qué:</b> válida para cualquier punto interior relativo al eje del cilindro.</p></li>
+      <li><span class="rl">Paso 2 · Superposición en un punto $\vec r_\perp$ dentro de la cavidad</span><p class="do"><b>Qué hago:</b> un punto dentro de la cavidad tiene posición perpendicular $\vec r_\perp$ respecto a $O$ y $\vec r_\perp\,' = \vec r_\perp - \vec d$ respecto a $O'$. Superponiendo $+\vec J$ en el cilindro grande y $-\vec J$ en el cilindro del hueco:</p>
+      $$\vec B(\vec r_\perp) = \frac{1}{2}\mu_0(\vec J\times\vec r_\perp) + \frac{1}{2}\mu_0\big(-\vec J\times(\vec r_\perp - \vec d)\big) = \frac{1}{2}\mu_0\big(\vec J\times(\vec r_\perp - \vec r_\perp + \vec d)\big) = \frac{1}{2}\mu_0(\vec J\times\vec d)$$
+      <p><b>Por qué:</b> $\vec r_\perp$ se cancela exactamente y solo queda $\vec d$.</p></li>
+      <li><span class="rl">Paso 3 · Evaluar con $\vec J = J_0\hat z$ y $\vec d = d\hat x$</span><p class="do"><b>Qué hago:</b> $\vec B = \frac{1}{2}\mu_0 (J_0\hat z\times d\hat x) = \dfrac{1}{2}\mu_0 J_0 d\,\hat y$.</p><p><b>Por qué:</b> $\hat z\times\hat x = \hat y$; es constante en magnitud y dirección en toda la cavidad.</p></li>
+      <li class="final">$$\boxed{\vec B_{\text{cavidad}} = \frac{1}{2}\mu_0 J_0 d\,\hat y\quad (\text{uniforme en toda la cavidad})}$$</li>
+      <li class="check"><b>Verificación:</b> límite concéntrico ($d = 0$): la cavidad está en el centro y $\vec B = \vec 0$, como exige la simetría circular (Ampère con $I_{\text{enc}} = 0$). Unidades: $(\text{T·m/A})(\text{A/m}^2)\text{m} = \text{T}$.</li>
+    </ol>
+    <div class="ctrl"></div>
+  </div>
+</section>
+
+<section class="sec" id="u08-quiz" data-block="quiz" data-title="Autoevaluación">
+  <h2>Autoevaluación</h2>
+  <div class="quiz" id="u08-quiz-1">
+    <div class="q" data-correct="b">
+      <p class="qt">1. Una carga puntual $+q$ se mueve con velocidad constante $\vec v$. El campo magnético que genera es nulo en:</p>
+      <div class="opts"><button type="button" data-o="a">el plano perpendicular a $\vec v$ que pasa por la carga</button><button type="button" data-o="b">cualquier punto sobre la recta que pasa por la carga en la dirección de $\vec v$</button><button type="button" data-o="c">todo punto detrás de la carga</button></div>
+      <p class="fb" data-o="a">En ese plano $\phi = 90^\circ$ ($\sin\phi = 1$), así que $B$ es máximo para una distancia $r$ dada.</p><p class="fb" data-o="b">Correcto. Sobre la línea de $\vec v$, $\vec v\times\hat r = \vec 0$ porque $\phi = 0^\circ$ o $180^\circ$.</p><p class="fb" data-o="c">Solo en la recta de movimiento detrás y delante es cero; fuera de esa recta detrás de la carga hay campo.</p>
+    </div>
+    <div class="q" data-correct="a">
+      <p class="qt">2. Un circuito tiene tramos rectos que, al prolongarse, pasan exactamente por el punto $P$. Su contribución a $\vec B(P)$ por Biot-Savart es:</p>
+      <div class="opts"><button type="button" data-o="a">cero, porque $d\vec\ell$ y $\hat r$ son colineales y $d\vec\ell\times\hat r = \vec 0$</button><button type="button" data-o="b">$\mu_0 I/(2\pi r)$, igual que un alambre infinito</button><button type="button" data-o="c">no nula si los tramos son muy largos</button></div>
+      <p class="fb" data-o="a">Correcto. Si $\vec r - \vec r\,'$ es paralelo o antiparalelo a $d\vec\ell$, cada elemento aporta exactamente $\vec 0$.</p><p class="fb" data-o="b">$\mu_0 I/(2\pi r)$ es a distancia perpendicular $r \gt 0$; aquí $P$ está sobre la misma recta del tramo.</p><p class="fb" data-o="c">Aunque el tramo sea semi-infinito, si es colineal con $P$ su producto cruz es cero en todo el tramo.</p>
+    </div>
+    <div class="q" data-correct="c">
+      <p class="qt">3. Dos alambres largos y paralelos llevan corrientes en sentidos opuestos. La fuerza magnética entre ellos es:</p>
+      <div class="opts"><button type="button" data-o="a">nula, porque los campos se cancelan entre sí</button><button type="button" data-o="b">atractiva</button><button type="button" data-o="c">repulsiva</button></div>
+      <p class="fb" data-o="a">Cada alambre siente el campo del otro, no el propio; el campo en la posición del alambre 2 no es cero.</p><p class="fb" data-o="b">Corrientes en el mismo sentido se atraen; en sentidos opuestos se repelen.</p><p class="fb" data-o="c">Correcto. Con la mano derecha y $\vec F_2 = I_2\vec\ell\times\vec B_1$, corrientes antiparalelas se repelen.</p>
+    </div>
+    <div class="q" data-correct="b">
+      <p class="qt">4. La ley de Gauss del magnetismo $\oint_S\vec B\cdot d\vec A = 0$ expresa físicamente que:</p>
+      <div class="opts"><button type="button" data-o="a">el campo magnético siempre es uniforme</button><button type="button" data-o="b">no existen monopolos magnéticos y las líneas de $\vec B$ son cerradas</button><button type="button" data-o="c">la circulación de $\vec B$ en cualquier curva cerrada es nula</button></div>
+      <p class="fb" data-o="a">Un campo no uniforme también tiene flujo neto cero a través de toda superficie cerrada.</p><p class="fb" data-o="b">Correcto. Toda línea que entra a la superficie cerrada vuelve a salir.</p><p class="fb" data-o="c">La circulación $\oint\vec B\cdot d\vec\ell$ es $\mu_0 I_{\text{enc}}$ (ley de Ampère), en general distinta de cero.</p>
+    </div>
+    <div class="q" data-correct="c">
+      <p class="qt">5. Una curva amperiana cerrada $C$ encierra dos alambres con $+I$ y $-I$, de modo que $I_{\text{enc}} = 0$. Entonces en los puntos de $C$:</p>
+      <div class="opts"><button type="button" data-o="a">$\vec B = \vec 0$ en todos los puntos de $C$</button><button type="button" data-o="b">solo los alambres exteriores producen $\vec B \neq \vec 0$</button><button type="button" data-o="c">la integral $\oint_C \vec B\cdot d\vec\ell = 0$, pero $\vec B$ puede ser distinto de cero en cada punto</button></div>
+      <p class="fb" data-o="a">$I_{\text{enc}} = 0$ anula la circulación total, no necesariamente el campo punto a punto (salvo que además haya simetría perfecta).</p><p class="fb" data-o="b">Los dos alambres internos, si no coinciden en el mismo punto, también crean campo $\vec B \neq \vec 0$ sobre $C$.</p><p class="fb" data-o="c">Correcto. La circulación mide la integral cerrada; sus aportes positivos y negativos se compensan.</p>
+    </div>
+    <div class="q" data-correct="a">
+      <p class="qt">6. Dentro del núcleo de un toroide ideal ($b \lt r \lt c$) de $N$ vueltas con corriente $I$, el campo magnético:</p>
+      <div class="opts"><button type="button" data-o="a">apunta tangencialmente y decrece como $1/r$</button><button type="button" data-o="b">es uniforme en todo el núcleo, igual a $\mu_0 NI/(2\pi b)$</button><button type="button" data-o="c">vale $\mu_0 NI/(2\pi r)$ también fuera del toroide ($r \gt c$)</button></div>
+      <p class="fb" data-o="a">Correcto. $B(r) = \mu_0 NI/(2\pi r)$ dentro del núcleo, y es cero para $r \lt b$ y $r \gt c$.</p><p class="fb" data-o="b">Solo es aproximadamente uniforme si $c - b \ll b$; en general depende de $1/r$.</p><p class="fb" data-o="c">Para $r \gt c$, cada vuelta entra y sale del disco encerrado, dando $I_{\text{enc}} = 0$ y $B = 0$.</p>
+    </div>
+    <div class="q" data-correct="b">
+      <p class="qt">7. Un cable coaxial muy largo lleva corriente $+I_0$ en el núcleo ($r \lt a$) y $-I_0$ en el cascarón exterior ($b \lt r \lt c$). Fuera del cable ($r \gt c$), el campo magnético es:</p>
+      <div class="opts"><button type="button" data-o="a">$\dfrac{\mu_0 I_0}{2\pi r}\hat\theta$, porque la corriente del núcleo llega hasta el infinito</button><button type="button" data-o="b">cero, porque la corriente neta encerrada es $I_0 - I_0 = 0$</button><button type="button" data-o="c">no nulo solo si la densidad de corriente del núcleo es no uniforme ($\vec J_1 = \alpha r\hat z$)</button></div>
+      <p class="fb" data-o="a">La ley de Ampère usa la corriente <em>neta</em> encerrada por la curva de radio $r \gt c$, no solo la del núcleo.</p><p class="fb" data-o="b">Correcto. Por eso los cables coaxiales blindan el exterior frente a su propio campo magnético.</p><p class="fb" data-o="c">Mientras la corriente total del núcleo siga siendo $+I_0$ y la del cascarón $-I_0$, para $r \gt c$ da siempre cero, sin importar el perfil radial interno.</p>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="u08-formulas" data-block="formulas" data-title="Tarjeta de fórmulas">
+  <h2>Tarjeta de fórmulas</h2>
+  <div class="formulas"><table><thead><tr><th>Fórmula</th><th>Significado</th><th>Válida si</th></tr></thead>
+  <tbody>
+    <tr><td>$\vec B = \dfrac{\mu_0}{4\pi}\dfrac{q\,\vec v\times\hat r}{r^2}$</td><td>Campo de carga puntual $q$ (C) con velocidad $\vec v$ (m/s); $\mu_0 = 4\pi\times10^{-7}\ \text{T·m/A}$</td><td>$\vec v$ constante, $v\ll c$; $\hat r$ va de $q$ a $P$</td></tr>
+    <tr><td>$d\vec B = \dfrac{\mu_0 I}{4\pi}\dfrac{d\vec\ell\times(\vec r-\vec r\,')}{|\vec r-\vec r\,'|^3}$</td><td>Ley de Biot-Savart; $I$ (A), $d\vec\ell$ (m) en el sentido de $I$</td><td>Corrientes estacionarias; segmentos colineales con $P$ dan $0$</td></tr>
+    <tr><td>$B = \dfrac{\mu_0 I}{4\pi R}(\sin\theta_2 - \sin\theta_1)$</td><td>Alambre recto finito a distancia perpendicular $R$ (m)</td><td>$\theta_1, \theta_2$ medidos desde la perpendicular a $P$</td></tr>
+    <tr><td>$\vec B = \dfrac{\mu_0 I}{2\pi r}\,\hat\theta$</td><td>Alambre recto infinito (o fuera de un cilindro de radio $R$, $r\gt R$)</td><td>Cable recto muy largo; sentido por mano derecha</td></tr>
+    <tr><td>$\dfrac{F}{L} = \dfrac{\mu_0 I_1 I_2}{2\pi d}$</td><td>Fuerza por metro (N/m) entre alambres paralelos a distancia $d$ (m)</td><td>Alambres largos paralelos; mismo sentido atrae, opuesto repele</td></tr>
+    <tr><td>$\vec B_{\text{eje}} = \dfrac{\mu_0 I R^2}{2(R^2+z^2)^{3/2}}\,\hat z$</td><td>Campo en el eje $z$ de espira de radio $R$ (m); en el centro ($z=0$): $\dfrac{\mu_0 I}{2R}$</td><td>Espira circular plana; $\times N$ para $N$ vueltas</td></tr>
+    <tr><td>$B_{\text{arco}} = \dfrac{\mu_0 I\phi}{4\pi R}$</td><td>Campo en el centro de curvatura de un arco de ángulo $\phi$ (rad)</td><td>Solo en el centro de curvatura; semicírculo ($\phi=\pi$): $\dfrac{\mu_0 I}{4R}$</td></tr>
+    <tr><td>$\vec\mu = NIA\,\hat n$; $\ B_{\text{lej}} \approx \dfrac{\mu_0}{2\pi}\dfrac{\mu}{|z|^3}$</td><td>Momento dipolar magnético ($\text{A·m}^2$) y campo axial lejano</td><td>Espira plana de área $A$ ($\text{m}^2$); $|z|\gg R$ para el campo dipolar</td></tr>
+    <tr><td>$\displaystyle\oint\vec B\cdot d\vec A = 0$; $\ \nabla\cdot\vec B = 0$</td><td>Ley de Gauss del magnetismo (sin monopolos)</td><td>Siempre</td></tr>
+    <tr><td>$\displaystyle\oint_C\vec B\cdot d\vec\ell = \mu_0 I_{\text{enc}}$; $\ \nabla\times\vec B = \mu_0\vec J$</td><td>Ley de Ampère; $I_{\text{enc}} = \displaystyle\int_S\vec J\cdot d\vec A$ (con $dA = r\,dr\,d\theta$ en polares)</td><td>Corrientes estacionarias; permite despejar $\vec B$ solo con alta simetría</td></tr>
+    <tr><td>$B(r\lt R) = \dfrac{\mu_0 I r}{2\pi R^2}$</td><td>Interior de alambre cilíndrico de radio $R$ con $\vec J$ uniforme</td><td>Cilindro infinito; con $\vec J(r)$ variable, integra $I_{\text{enc}}(r)$</td></tr>
+    <tr><td>$B_{\text{sol}} = \mu_0 nI = \dfrac{\mu_0 NI}{\ell}$</td><td>Interior de solenoide con $n = N/\ell$ vueltas/m ($\text{m}^{-1}$)</td><td>Solenoide ideal (largo $\gg$ radio); $B\approx 0$ afuera</td></tr>
+    <tr><td>$B_{\text{tor}} = \dfrac{\mu_0 NI}{2\pi r}$</td><td>Interior del núcleo de un toroide ($b \lt r \lt c$)</td><td>Toroide ideal de $N$ vueltas juntas; $B = 0$ para $r\lt b$ y $r\gt c$</td></tr>
+    <tr><td>$B_{\text{lám}} = \dfrac{\mu_0 K}{2}$</td><td>Lámina plana infinita con corriente superficial $K$ (A/m)</td><td>Lámina uniforme infinita; sentidos opuestos a cada lado</td></tr>
+  </tbody></table></div>
+</section>
+</section>

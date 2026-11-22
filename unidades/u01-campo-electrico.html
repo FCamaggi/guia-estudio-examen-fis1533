@@ -1,0 +1,514 @@
+<!-- U1 Carga, Coulomb y campo eléctrico. Contract: SPEC-PEDAGOGICO.md. Gate: python3 scripts/check_unit.py unidades/u01-campo-electrico.html -->
+<section class="unit" id="u01" data-num="U1" data-title="Carga, Coulomb y campo eléctrico">
+  <header class="unit-head"><span class="unit-num">U1</span><h1>Carga, Coulomb y campo eléctrico</h1><span class="unit-weight">13 problemas en exámenes · 1 en los 4 recientes</span></header>
+
+<section class="sec" id="u01-mapa" data-block="mapa" data-title="Mapa de la unidad">
+  <h2>Mapa de la unidad</h2>
+  <div class="key"><b>Idea central.</b> La carga eléctrica es cuantizada y se conserva; entre cargas puntuales en reposo actúa la ley de Coulomb, y toda distribución genera un campo eléctrico $\vec E$ que media la interacción ($\vec F = q\vec E$). Para sistemas discretos o continuos, el campo se halla por superposición vectorial: sumando aportes puntuales o integrando elementos $dq$ usando la simetría para cancelar componentes.</div>
+  <div class="goals"><div class="goals-t">Al terminar deberías poder</div><ul>
+    <li>Explicar la cuantización y conservación de la carga, distinguir conductores de aislantes y describir la carga por inducción.</li>
+    <li>Aplicar la ley de Coulomb en forma vectorial y el principio de superposición en 2D y 3D (incluyendo argumentos de simetría y carga faltante).</li>
+    <li>Trazar e interpretar líneas de campo y encontrar puntos donde $\vec E = \vec 0$ descartando raíces espurias.</li>
+    <li>Calcular $\vec E$ de distribuciones continuas (barra finita, anillo, disco y casquete) con $dq$ y densidades $\lambda, \sigma, \rho$, y recuperar los límites de línea infinita, plano infinito y carga puntual.</li>
+    <li>Calcular el campo lejano, el torque $\vec\tau = \vec p\times\vec E$ y la energía $U = -\vec p\cdot\vec E$ de un dipolo eléctrico.</li>
+    <li>Describir el movimiento parabólico de una partícula cargada en un campo eléctrico uniforme y resolver problemas de oscilación pequeña en torno al equilibrio.</li>
+  </ul></div>
+  <div class="exam-map"><h4>Qué pregunta el examen</h4><ul>
+    <li><b>Superposición en geometrías simétricas y carga faltante</b> (2014-1 P1/P2, 2026-1 P1A): fuerza neta nula por simetría, vector $\vec E$ cuando falta una carga ($\vec E = -\vec E_{\text{faltante}}$), trabajo desde el infinito y flujo eléctrico con ley de Gauss.</li>
+    <li><b>Distribuciones continuas y movimiento en su eje</b> (2017-2 P1, 2022-2 P8, 2024-1 P3): derivar $\vec E$ de un anillo o disco por integración de $dq$, combinarlo con fuerza elástica o gravedad y obtener frecuencia de pequeñas oscilaciones ($z\ll R_0$).</li>
+    <li><b>Punto donde $\vec E = \vec 0$ y movimiento entre placas</b> (2011-1 P17, 2014-1 P7, 2018-2 P1/P3, 2023-1 P6): elegir la raíz física fuera o entre cargas y analizar trayectorias con aceleración constante $\vec a = q\vec E/m$.</li>
+    <li>Formato reciente: problemas de desarrollo de 6 puntos sin calculadora ni formulario. Por eso aquí privilegiamos resultados simbólicos, números calculables a mano y verificaciones por límites.</li>
+  </ul></div>
+  <details class="prereq"><summary>Repaso exprés: vectores, unitarios, componentes y argumentos de simetría</summary>
+    <p>El vector que apunta <b>desde</b> la carga fuente en $\vec r\,' = (x', y', z')$ (en m) <b>hacia</b> el punto de observación en $\vec r = (x, y, z)$ (en m) es $\vec R = \vec r - \vec r\,'$, de magnitud $R = |\vec r - \vec r\,'| = \sqrt{(x-x')^2 + (y-y')^2 + (z-z')^2}$ (en m). Su vector unitario adimensional es</p>
+    $$\hat R = \frac{\vec r - \vec r\,'}{|\vec r - \vec r\,'|} \qquad\Longrightarrow\qquad \frac{\hat R}{R^2} = \frac{\vec r - \vec r\,'}{|\vec r - \vec r\,'|^3}$$
+    <p>En 3D, la distancia desde el centro de un cubo de arista $a$ (m) a cualquier vértice $(\pm a/2, \pm a/2, \pm a/2)$ es la semidiagonal espacial: $r = \sqrt{(a/2)^2 + (a/2)^2 + (a/2)^2} = \dfrac{\sqrt{3}}{2}a$.</p>
+    <p><b>Simetría por pares:</b> si dos cargas iguales están en posiciones opuestas $+\vec r_0$ y $-\vec r_0$ respecto al origen, sus vectores unitarios hacia el origen son opuestos y sus aportes se anulan. Si una distribución es simétrica respecto a un eje (como un anillo o un disco en el plano $xy$), cada elemento en $(r', \phi)$ tiene uno idéntico en $(r', \phi + \pi)$ que cancela su componente transversal: solo sobrevive la componente sobre el eje.</p>
+  </details>
+  <details class="prereq"><summary>Repaso exprés: integrales por sustitución y aproximación binomial</summary>
+    <p><b>1. Sustitución simple</b> ($u = z^2 + r^2$, $du = 2r\,dr$): aparece al integrar sobre discos y en componentes paralelas:</p>
+    $$\int \frac{r\,dr}{(z^2+r^2)^{3/2}} = \frac{1}{2}\int u^{-3/2}\,du = -u^{-1/2} = -\frac{1}{\sqrt{z^2+r^2}}$$
+    <p>Si el numerador tiene $r^3\,dr = r^2(r\,dr)$, reemplaza $r^2 = u - z^2$ y queda $\frac{1}{2}\int(u^{-1/2} - z^2 u^{-3/2})\,du$.</p>
+    <p><b>2. Sustitución trigonométrica</b> ($y = x\tan\theta$, $dy = x\sec^2\theta\,d\theta$, $\sqrt{x^2+y^2} = x\sec\theta$ para $x\gt 0$): aparece en barras rectas:</p>
+    $$\int \frac{dy}{(x^2+y^2)^{3/2}} = \int \frac{x\sec^2\theta\,d\theta}{x^3\sec^3\theta} = \frac{1}{x^2}\int\cos\theta\,d\theta = \frac{\sin\theta}{x^2} = \frac{y}{x^2\sqrt{x^2+y^2}}$$
+    <p><b>3. Elemento de área en polares:</b> sobre un disco, un anillo de radio $r$ y ancho $dr$ tiene área $dA = 2\pi r\,dr$ (o $dA = r\,dr\,d\theta$ en coordenadas polares completas). En una esfera de radio $a$ ($\theta$ ángulo polar desde $+z$, $\phi$ azimutal), el elemento de área es $dA = a^2\sin\theta\,d\theta\,d\phi$.</p>
+    <p><b>4. Aproximación binomial para límites lejanos:</b> cuando $|\epsilon| \ll 1$ y $n\in\mathbb{R}$,</p>
+    $$(1 + \epsilon)^n \approx 1 + n\epsilon + \frac{n(n-1)}{2}\epsilon^2$$
+    <p><b>Mini ejemplo:</b> para $z \gg R$, $(z^2 + R^2)^{-1/2} = z^{-1}(1 + R^2/z^2)^{-1/2} \approx \frac{1}{z}\left(1 - \frac{R^2}{2z^2}\right)$.</p>
+  </details>
+  <details class="prereq"><summary>Repaso exprés: potencial de cargas puntuales, flujo de Gauss y oscilador armónico</summary>
+    <p>Para resolver íntegramente los arquetipos de esta unidad sin salir de ella, ten presentes tres herramientas que se profundizan en otras unidades:</p>
+    <p><b>1. Potencial eléctrico y trabajo:</b> una carga puntual $q_i$ (en C) genera a distancia $r_i$ (en m) un potencial escalar $V_i = k\dfrac{q_i}{r_i}$ (en volt, $1\ \text{V} = 1\ \text{J/C}$, tomando $V(\infty) = 0$). El potencial total es la suma algebraica $V = \sum_i k\dfrac{q_i}{r_i}$. El trabajo que realiza un <b>agente externo</b> para llevar cuasiestáticamente una carga $q$ desde $V_i$ hasta $V_f$ es $W_{\text{ext}} = q(V_f - V_i)$ (en J; el campo realiza $W_{\text{eléc}} = -q\Delta V$). Si parte del infinito ($V_i = 0$), $W_{\text{ext}} = qV_f$.</p>
+    <p><b>2. Flujo eléctrico y ley de Gauss:</b> el flujo de $\vec E$ (en $\text{N·m}^2/\text{C}$) a través de una superficie $S$ es $\Phi_E = \int_S \vec E\cdot d\vec A$ (para campo uniforme y superficie plana de área $A$ en $\text{m}^2$ con normal $\hat n$, $\Phi_E = EA\cos\varphi$). Para cualquier <b>superficie cerrada</b>, la ley de Gauss establece</p>
+    $$\Phi_E = \oint_S \vec E\cdot d\vec A = \frac{Q_{\text{enc}}}{\varepsilon_0}$$
+    <p>donde $Q_{\text{enc}}$ es la carga neta encerrada (C) y $\varepsilon_0 \approx 8{,}854\times10^{-12}\ \text{C}^2/(\text{N·m}^2)$. No importa la forma o tamaño de la superficie cerrada, ni las cargas exteriores. <b>Truco de simetría en un cubo:</b> si una carga $q$ está en el <em>centro</em> de un cubo, por simetría cada una de las 6 caras recibe $\Phi_{\text{cara}} = q/(6\varepsilon_0)$. Si está en una <em>esquina</em> de un cubo de lado $a$, se imagina un cubo mayor de lado $2a$ formado por 8 cubos pequeños centrados en la carga: el flujo por las 3 caras que tocan la esquina es cero ($\vec E$ es paralelo a ellas) y las 3 caras opuestas forman $3/24 = 1/8$ del cubo grande, así que cada cara opuesta recibe $\Phi_{\text{cara opuesta}} = q/(24\varepsilon_0)$. Además, $\Phi_E = 0$ no implica $\vec E = \vec 0$ en la superficie: basta que el flujo entrante iguale al saliente (como en un dipolo encerrado).</p>
+    <p><b>3. Resorte ideal y oscilador armónico simple (MAS):</b> un resorte de constante elástica $k_0$ (en N/m; usamos $k_0$ para no confundir con la constante de Coulomb $k$) estirado una distancia $z$ (en m) desde su largo natural ejerce la fuerza restauradora $F_{\text{elást}} = -k_0 z$. Si una masa $m$ (en kg) satisface la ecuación $m\dfrac{d^2 z}{dt^2} + k_{\text{eff}}\,z = 0$ (con $t$ en s), realiza un movimiento armónico simple con frecuencia angular $\omega = \sqrt{\dfrac{k_{\text{eff}}}{m}}$ (en rad/s) y frecuencia ordinaria $f = \dfrac{\omega}{2\pi} = \dfrac{1}{2\pi}\sqrt{\dfrac{k_{\text{eff}}}{m}}$ (en Hz).</p>
+  </details>
+</section>
+
+<section class="sec" id="u01-s1" data-block="teoria" data-title="Carga eléctrica, conductores, aislantes e inducción">
+  <h2>Carga eléctrica, conductores, aislantes e inducción</h2>
+  <p><b>El problema físico.</b> Al frotar una varilla de vidrio con seda y acercarla a una de caucho frotada con piel, se atraen; dos de vidrio se repelen. ¿Qué propiedad de la materia produce estas fuerzas y cómo se redistribuye en distintos materiales?</p>
+  <p><b>Intuición y propiedades.</b> Existen dos tipos de carga eléctrica (positiva y negativa, convención de Franklin): cargas del mismo signo se repelen y de signo opuesto se atraen. Un cuerpo neutro tiene igual cantidad de ambas. La carga es <b>aditiva</b> y cumple dos leyes fundamentales:</p>
+  <div class="eq key"><div class="lbl">Cuantización y conservación de la carga</div>$$q = n\,e\quad (n\in\mathbb{Z}),\qquad \sum_i q_i = \text{constante (sistema aislado)}$$<div class="note">$q$: carga eléctrica en coulomb ($\text{C}$). Carga elemental: $e = 1{,}602\times10^{-19}\ \text{C}$ (medida por Millikan). En la materia ordinaria, el electrón tiene carga $-e$ ($m_e = 9{,}11\times10^{-31}\ \text{kg}$), el protón $+e$ ($m_p = 1{,}673\times10^{-27}\ \text{kg}$) y el neutrón $0$.</div></div>
+  <p><b>Conductores, semiconductores y aislantes.</b> En los <b>conductores</b> (metales como el cobre), los electrones más externos están débilmente ligados y se mueven libremente por todo el sólido (sus bandas de valencia y conducción se traslapan). En los <b>aislantes</b> (vidrio, plásticos, aire seco), todos los electrones permanecen ligados a sus átomos (brecha energética superior a unos $4{,}0\ \text{eV}$ aproximadamente, $E_g \gt 4{,}0\ \text{eV}$, donde $1\ \text{eV} = 1{,}602\times10^{-19}\ \text{J}$; en semiconductores el umbral aproximado es $E_g \le 4{,}0\ \text{eV}$).</p>
+  <figure class="fig" data-fig="u01-induccion"><figcaption>Carga por inducción sin contacto: al acercar una varilla negativa, la esfera conductora se polariza; al conectar a tierra escapan electrones; tras cortar la tierra y retirar la varilla queda con carga neta positiva.</figcaption></figure>
+  <p><b>Carga por inducción y polarización.</b> Al acercar una varilla cargada (sin tocar) a una esfera conductora neutra aislada, los electrones libres se reacomodan dejando un lado positivo y otro negativo (<b>polarización</b>). Si se conecta el lado lejano a tierra, el exceso de electrones fluye a tierra; al desconectar la tierra antes de retirar la varilla, el conductor queda con carga neta de <b>signo opuesto</b> al de la varilla. En un aislante no hay flujo libre, pero cada molécula se polariza localmente (por eso un peine cargado atrae papelitos neutros: la carga opuesta inducida queda más cerca que la del mismo signo).</p>
+  <div class="why"><b>Cuándo se usa / cuándo NO:</b> la conservación de la carga vale en cualquier sistema aislado. Al analizar inducción, fíjate en el orden de los pasos: si retiras la varilla <em>antes</em> de cortar la conexión a tierra, las cargas vuelven de tierra y el conductor queda neutro.</div>
+</section>
+
+<section class="sec" id="u01-s2" data-block="teoria" data-title="Ley de Coulomb en forma vectorial y superposición">
+  <h2>Ley de Coulomb en forma vectorial y superposición</h2>
+  <p><b>El problema físico.</b> Necesitamos predecir con exactitud la magnitud y dirección de la fuerza eléctrica entre cargas puntuales (cuerpos cargados cuyo tamaño es despreciable frente a la distancia entre ellos) en el espacio 2D o 3D.</p>
+  <figure class="fig" data-fig="u01-coulomb"><figcaption>Ley de Coulomb vectorial: para cargas del mismo signo $\vec F_{12}$ apunta en $+\hat r_{12}$ (repulsión); para signos opuestos apunta en $-\hat r_{12}$ (atracción). Siempre $\vec F_{21} = -\vec F_{12}$.</figcaption></figure>
+  <div class="eq key"><div class="lbl">Ley de Coulomb y principio de superposición</div>$$\vec F_{12} = k\,\frac{q_1 q_2}{r^2}\,\hat r_{12} = k\,q_1 q_2\,\frac{\vec r_2 - \vec r_1}{|\vec r_2 - \vec r_1|^3},\qquad \vec F_{\text{neta}} = \sum_{i=1}^{N}\vec F_i$$<div class="note">$\vec F_{12}$: fuerza que ejerce $q_1$ sobre $q_2$ (en $\text{N}$); $q_1, q_2$: cargas con signo ($\text{C}$); $r = |\vec r_2 - \vec r_1|$: separación ($\text{m}$); $\hat r_{12}$: unitario dirigido <b>de $q_1$ hacia $q_2$</b>. Constante de Coulomb en el SI: $k = \dfrac{1}{4\pi\varepsilon_0} = 8{,}99\times10^9\ \text{N·m}^2/\text{C}^2 \approx 9\times10^9\ \text{N·m}^2/\text{C}^2$ (también escrita $k_e$, o $K$ en algunos exámenes), con $\varepsilon_0 = 8{,}854\times10^{-12}\ \text{C}^2/(\text{N·m}^2)$.</div></div>
+  <p><b>Cómo trabajar en el examen sin equivocarse de signo:</b> tienes dos caminos equivalentes; no los mezcles. <b>Camino vectorial puro:</b> usa $q_1 q_2$ <em>con su signo</em> y el vector $\vec r_2 - \vec r_1$ desde la fuente hasta la carga que siente la fuerza. <b>Camino geométrico (recomendado en 2D):</b> (1) dibuja el sentido de cada fuerza usando repulsión/atracción; (2) calcula la magnitud con valores absolutos $k|q_1||q_2|/r^2$; (3) proyecta en componentes $(x, y)$ con el signo del dibujo; (4) suma componentes.</p>
+  <div class="why"><b>Cuándo se usa / cuándo NO:</b> la ley de Coulomb vale para cargas puntuales en reposo (o mucho más lentas que la luz) en el vacío, y también fuera de distribuciones esféricas simétricas tratadas como cargas en su centro. No la apliques directamente entre cuerpos extensos no esféricos sin dividirlos primero en elementos $dq$ e integrar.</div>
+</section>
+
+<section class="sec" id="u01-s3" data-block="teoria" data-title="Campo eléctrico, líneas de campo y punto de campo nulo">
+  <h2>Campo eléctrico, líneas de campo y punto de campo nulo</h2>
+  <p><b>El problema físico.</b> ¿Cómo actúa una carga sobre otra a distancia sin contacto? El enfoque de campo separa el problema en dos etapas: las cargas fuente crean un campo eléctrico $\vec E$ en todo el espacio, y ese campo empuja a cualquier carga colocada allí.</p>
+  <div class="eq key"><div class="lbl">Campo eléctrico y superposición discreta</div>$$\vec E = \frac{\vec F_e}{q_0}\ \ [\text{N/C}],\qquad \vec F = q\,\vec E,\qquad \vec E(\vec r) = k\sum_i \frac{q_i}{r_i^2}\,\hat r_i = k\sum_i q_i\,\frac{\vec r - \vec r_i}{|\vec r - \vec r_i|^3}$$<div class="note">$q_0$: carga de prueba positiva suficientemente pequeña para no perturbar las fuentes ($\text{C}$); $\vec E$: campo eléctrico ($\text{N/C} = \text{V/m}$); $r_i = |\vec r - \vec r_i|$ ($\text{m}$); $\hat r_i$: unitario desde la carga fuente $q_i$ hacia el punto de evaluación $\vec r$. Si $q \gt 0$, $\vec F$ apunta igual que $\vec E$; si $q \lt 0$, en sentido opuesto.</div></div>
+  <figure class="fig" data-fig="u01-lineas-campo"><figcaption>Líneas de campo: salen de $+$ y entran a $-$. En cargas iguales aparece un punto intermedio con $\vec E = \vec 0$ donde no hay líneas.</figcaption></figure>
+  <p><b>Reglas de las líneas de campo:</b> (1) en cada punto son tangentes a $\vec E$; (2) su densidad es proporcional a $|\vec E|$; (3) nacen en cargas positivas y mueren en negativas (o en el infinito si hay carga neta); (4) el número de líneas que sale o entra es proporcional a $|q|$; (5) nunca se cruzan, porque $\vec E$ tiene dirección única en cada punto.</p>
+  <h3>Punto donde $\vec E = \vec 0$ entre o fuera de cargas</h3>
+  <figure class="fig" data-fig="u01-campo-nulo"><figcaption>Para cargas de distinto signo ($+9q$ y $-q$), entre ellas los campos apuntan en el mismo sentido; la anulación ocurre fuera, del lado de la carga de menor magnitud.</figcaption></figure>
+  <p>Al buscar dónde $\vec E = \vec 0$ sobre la recta que une dos cargas $q_1$ y $q_2$, igualar magnitudes $k|q_1|/r_1^2 = k|q_2|/r_2^2$ produce una ecuación cuadrática con <b>dos raíces</b>, pero solo una tiene campos de sentidos opuestos:</p>
+  <ul>
+    <li><b>Cargas de igual signo:</b> los campos son opuestos <em>entre</em> las cargas y se refuerzan afuera. La raíz válida está entre ellas, más cerca de la de menor $|q|$.</li>
+    <li><b>Cargas de signo opuesto</b> (con $|q_1| \neq |q_2|$): entre ellas ambos campos apuntan en el mismo sentido (de $+$ hacia $-$), así que nunca se anulan ahí. La raíz válida está <em>afuera</em>, al lado de la carga de menor $|q|$. Si $|q_1| = |q_2|$, no existe punto finito con $\vec E = \vec 0$.</li>
+  </ul>
+  <div class="why"><b>Cuándo se usa / cuándo NO:</b> $\vec E = k q\hat r/r^2$ vale solo para cargas puntuales (o fuera de esferas simétricas). Antes de aceptar una raíz algebraica de $E_1 = E_2$, dibuja las flechas $\vec E_1$ y $\vec E_2$ en cada zona de la recta.</div>
+</section>
+
+<section class="sec" id="u01-s4" data-block="teoria" data-title="Distribuciones continuas de carga">
+  <h2>Distribuciones continuas de carga</h2>
+  <p><b>El problema físico.</b> Cuando una carga $Q$ se reparte sobre una barra, un anillo, un disco o un volumen, no podemos sumar cargas individuales una por una. Dividimos el cuerpo en elementos diferenciales $dq$ que actúan como cargas puntuales e integramos vectorialmente.</p>
+  <table>
+    <thead><tr><th>Geometría</th><th>Densidad (no uniforme)</th><th>Uniforme</th><th>Unidad SI</th><th>Elemento de carga $dq$</th></tr></thead>
+    <tbody>
+      <tr><td>Línea de largo $L$ ($\text{m}$), carga $Q$ ($\text{C}$)</td><td>$\lambda = dQ/d\ell$</td><td>$\lambda = Q/L$</td><td>$\text{C/m}$</td><td>$dq = \lambda\,d\ell$</td></tr>
+      <tr><td>Superficie de área $A$ ($\text{m}^2$)</td><td>$\sigma = dQ/dA$</td><td>$\sigma = Q/A$</td><td>$\text{C/m}^2$</td><td>$dq = \sigma\,dA$</td></tr>
+      <tr><td>Volumen $V$ ($\text{m}^3$)</td><td>$\rho = dQ/dV$</td><td>$\rho = Q/V$</td><td>$\text{C/m}^3$</td><td>$dq = \rho\,dV$</td></tr>
+    </tbody>
+  </table>
+  <div class="eq key"><div class="lbl">Campo eléctrico de una distribución continua</div>$$\vec E(\vec r) = k\int \frac{dq}{r^2}\,\hat r = k\int \frac{\vec r - \vec r\,'}{|\vec r - \vec r\,'|^3}\,dq$$<div class="note">$\vec r\,'$: posición del elemento $dq$ ($\text{m}$); $\vec r$: punto de observación ($\text{m}$); $r = |\vec r - \vec r\,'|$. En la práctica se descompone $d\vec E$ en componentes cartesianas, se usa la simetría para anular las componentes transversales y se integra solo la sobreviviente.</div></div>
+  <figure class="fig" data-fig="u01-barra-mediatriz"><figcaption>Barra cargada sobre el eje $y$ entre $-a$ y $+a$: elementos simétricos en $+y$ y $-y$ cancelan sus componentes verticales $dE_y$, quedando solo $dE_x = dE\cos\alpha$.</figcaption></figure>
+  <details class="deriv" open><summary>Derivación paso a paso: barra finita (en su eje y en su mediatriz)</summary>
+    <p><b>Caso A · Punto en el eje de la barra.</b> Barra uniforme de largo $L$ ($\text{m}$) y carga $Q$ ($\text{C}$), $\lambda = Q/L$, ubicada en el eje $x$ desde $x = a$ hasta $x = a + L$ ($a \gt 0$), y punto $P$ en el origen. Un elemento $dx$ en $x$ tiene $dq = \lambda\,dx$ a distancia $r = x$, con $\hat r = -\hat x$ (para $\lambda \gt 0$ apunta hacia $-x$):</p>
+    $$\vec E = k\lambda(-\hat x)\int_a^{a+L}\frac{dx}{x^2} = -k\lambda\left[-\frac{1}{x}\right]_a^{a+L}\hat x = -k\lambda\left(\frac{1}{a} - \frac{1}{a+L}\right)\hat x = -\frac{kQ}{a(a+L)}\,\hat x$$
+    <p><b>Límite lejano ($a \gg L$):</b> $a(a+L)\approx a^2$, dando $\vec E \approx -\dfrac{kQ}{a^2}\hat x$ (carga puntual).</p>
+    <p><b>Caso B · Punto en la mediatriz.</b> Barra uniforme de largo $2a$ sobre el eje $y$ ($y\in[-a, a]$), $\lambda = Q/(2a)$, y punto $P$ en $(x, 0)$ con $x \gt 0$. El elemento $dq = \lambda\,dy$ en $y$ está a distancia $r = \sqrt{x^2+y^2}$. Por simetría, el elemento en $-y$ cancela $dE_y$. Con $\cos\alpha = \dfrac{x}{\sqrt{x^2+y^2}}$:</p>
+    $$E_x = k\lambda\int_{-a}^{a}\frac{x\,dy}{(x^2+y^2)^{3/2}} = k\lambda x\left[\frac{y}{x^2\sqrt{x^2+y^2}}\right]_{-a}^{a} = k\lambda x\cdot\frac{2a}{x^2\sqrt{x^2+a^2}} = \frac{kQ}{x\sqrt{x^2+a^2}}$$
+    <p><b>Límite lejano ($x \gg a$):</b> $\sqrt{x^2+a^2}\approx x \implies E_x \approx \dfrac{kQ}{x^2}$. <b>Límite de línea infinita ($a \gg x$):</b> $\sqrt{x^2+a^2}\approx a$ y $Q = 2a\lambda$, luego $E_x \approx \dfrac{k(2a\lambda)}{xa} = \dfrac{2k\lambda}{x} = \dfrac{\lambda}{2\pi\varepsilon_0 x}$ (radial respecto al alambre).</p>
+  </details>
+  <figure class="fig" data-fig="u01-anillo-disco"><figcaption>Izquierda: anillo de radio $R$ y carga $Q$, todo $dq$ está a la misma distancia $\sqrt{z^2+R^2}$ de $P$. Derecha: disco de radio $R$ y densidad $\sigma$ descompuesto en anillos concéntricos de radio $r$ y ancho $dr$.</figcaption></figure>
+  <details class="deriv" open><summary>Derivación paso a paso: anillo y disco uniformes en su eje</summary>
+    <p><b>1. Anillo uniforme en su eje.</b> Anillo de radio $R$ ($\text{m}$) y carga $Q$ ($\text{C}$) en el plano $xy$, punto $P$ en $(0, 0, z)$ (con $z$ en $\text{m}$). Todos los elementos $dq$ están a igual distancia $r = \sqrt{z^2+R^2}$ de $P$, y por simetría diametral las componentes en $xy$ se anulan. Con $\cos\theta = \dfrac{z}{\sqrt{z^2+R^2}}$:</p>
+    $$dE_z = k\frac{dq}{z^2+R^2}\cdot\frac{z}{\sqrt{z^2+R^2}} = k\frac{z\,dq}{(z^2+R^2)^{3/2}} \implies \vec E_{\text{anillo}}(z) = \frac{kQz}{(z^2+R^2)^{3/2}}\,\hat z$$
+    <p>Para $z = 0$: $\vec E = \vec 0$. Para $|z| \gg R$: $E_z \approx kQ/z^2$. Derivando respecto a $z$ e igualando a cero: $\dfrac{dE_z}{dz} = kQ\,\dfrac{(z^2+R^2)^{3/2} - 3z^2(z^2+R^2)^{1/2}}{(z^2+R^2)^3} = kQ\,\dfrac{R^2 - 2z^2}{(z^2+R^2)^{5/2}} = 0$, así que $E_z$ es máximo en $|z| = R/\sqrt{2}$.</p>
+    <p><b>2. Disco uniforme en su eje ($z \gt 0$).</b> Disco de radio $R$ y densidad uniforme $\sigma$ ($\text{C/m}^2$) en el plano $xy$. Dividimos el disco en anillos de radio $r\in[0, R]$ ($\text{m}$), ancho $dr$, área $dA = 2\pi r\,dr$ y carga $dq = 2\pi\sigma r\,dr$. Usando el campo del anillo con $R\to r$ y $k = \dfrac{1}{4\pi\varepsilon_0}$:</p>
+    $$E_z = \frac{1}{4\pi\varepsilon_0}\int_0^R \frac{z\,(2\pi\sigma r\,dr)}{(z^2+r^2)^{3/2}} = \frac{\sigma z}{2\varepsilon_0}\int_0^R \frac{r\,dr}{(z^2+r^2)^{3/2}} = \frac{\sigma z}{2\varepsilon_0}\left[-\frac{1}{\sqrt{z^2+r^2}}\right]_0^R = \frac{\sigma z}{2\varepsilon_0}\left(\frac{1}{z} - \frac{1}{\sqrt{z^2+R^2}}\right) = \frac{\sigma}{2\varepsilon_0}\left(1 - \frac{z}{\sqrt{z^2+R^2}}\right)$$
+    <p>Para cualquier $z\neq 0$ (incluyendo $z \lt 0$): $\vec E_{\text{disco}}(z) = \dfrac{\sigma}{2\varepsilon_0}\left(1 - \dfrac{|z|}{\sqrt{z^2+R^2}}\right)\operatorname{sgn}(z)\,\hat z$ (equivale a $2\pi k\sigma(\dots)$). <b>Límite de plano infinito ($R \gg |z|$):</b> $\dfrac{|z|}{\sqrt{z^2+R^2}} \to 0 \implies E_{\text{plano}} = \dfrac{\sigma}{2\varepsilon_0}$, independiente de la distancia. Para dos planos paralelos infinitos con $+\sigma$ y $-\sigma$, entre ellos los campos se suman ($E_{\text{entre}} = \sigma/\varepsilon_0$) y afuera se cancelan ($E_{\text{fuera}} = 0$). <b>Límite lejano ($z \gg R$):</b> $(1+R^2/z^2)^{-1/2}\approx 1 - \dfrac{R^2}{2z^2}$, dando $E_z \approx \dfrac{\sigma}{2\varepsilon_0}\dfrac{R^2}{2z^2} = \dfrac{1}{4\pi\varepsilon_0}\dfrac{\sigma\pi R^2}{z^2} = \dfrac{kQ}{z^2}$.</p>
+  </details>
+  <div class="why"><b>Cuándo se usa / cuándo NO:</b> las fórmulas cerradas anteriores valen <em>solo</em> sobre el eje o mediatriz indicados y con densidad uniforme. Si la densidad depende de la posición (p. ej., $\lambda(x)$ o $\sigma(r)$) o el punto está fuera del eje, debes plantear $\vec E = k\int dq\,(\vec r - \vec r\,')/|\vec r - \vec r\,'|^3$ desde cero.</div>
+</section>
+
+<section class="sec" id="u01-s5" data-block="teoria" data-title="Dipolo eléctrico: campo lejano, torque y energía">
+  <h2>Dipolo eléctrico: campo lejano, torque y energía</h2>
+  <p><b>El problema físico.</b> Muchas moléculas (como $\text{H}_2\text{O}$) son neutras, pero tienen centros de carga positiva y negativa ligeramente separados. ¿Qué campo producen lejos y cómo responden a un campo eléctrico externo uniforme?</p>
+  <figure class="fig" data-fig="u01-dipolo"><figcaption>Izquierda: dipolo de cargas $+q, -q$ separadas por $d$ y campo en la bisectriz. Derecha: dipolo en $\vec E$ uniforme; las fuerzas $\pm q\vec E$ forman un par que tiende a alinear $\vec p$ con $\vec E$.</figcaption></figure>
+  <div class="eq key"><div class="lbl">Momento dipolar, campo lejano, torque y energía</div>$$\vec p = q\vec d\ \ [\text{C·m}],\qquad \vec E_{\text{ec}} \approx -\frac{k\vec p}{x^3}\ (x\gg d),\qquad \vec E_{\text{eje}} \approx +\frac{2k\vec p}{z^3}\ (z\gg d)$$ $$\vec\tau = \vec p\times\vec E\ \ [\text{N·m}],\qquad U = -\vec p\cdot\vec E = -pE\cos\phi\ \ [\text{J}]$$<div class="note">$\vec d$: vector separación dirigido <b>de $-q$ hacia $+q$</b> ($\text{m}$); $\phi$: ángulo entre $\vec p$ y $\vec E$. En campo uniforme, $\vec F_{\text{neta}} = \vec 0$. Energía mínima ($U = -pE$, equilibrio <b>estable</b>) en $\phi = 0$; máxima ($U = +pE$, equilibrio <b>inestable</b>) en $\phi = 180^\circ$ (referencia $U = 0$ en $\phi = 90^\circ$).</div></div>
+  <details class="deriv" open><summary>Derivación paso a paso: campo lejano del dipolo, torque y energía</summary>
+    <p><b>1. Bisectriz perpendicular:</b> $+q$ en $(0, +d/2)$, $-q$ en $(0, -d/2)$ ($\vec p = qd\,\hat y$), punto $P$ en $(x, 0)$ a distancia $r = \sqrt{x^2 + (d/2)^2}$ de cada carga. Las componentes horizontales se cancelan ($\pm E\cos\alpha$) y las verticales suman en $-\hat y$ con $\sin\alpha = (d/2)/r$:</p>
+    $$\vec E(x,0) = -2\,k\frac{q}{r^2}\frac{d/2}{r}\,\hat y = -\frac{kqd}{(x^2 + d^2/4)^{3/2}}\,\hat y = -\frac{k\vec p}{(x^2 + d^2/4)^{3/2}} \xrightarrow{\ x\gg d\ } -\frac{k\vec p}{x^3}$$
+    <p><b>2. Eje del dipolo ($z \gg d$):</b> con cargas en $\pm d/2$ sobre $z$ y $P$ en $(0, 0, z)$ ($z \gt d/2$): $E_z = kq\left[\dfrac{1}{(z - d/2)^2} - \dfrac{1}{(z + d/2)^2}\right] = \dfrac{kq}{z^2}\left[(1 - d/2z)^{-2} - (1 + d/2z)^{-2}\right]$. Con $(1\mp\epsilon)^{-2} \approx 1 \pm 2\epsilon$ resulta $E_z \approx \dfrac{kq}{z^2}\left[(1 + d/z) - (1 - d/z)\right] = \dfrac{2kqd}{z^3} = \dfrac{2kp}{z^3}$ en $+\hat z$, paralelo a $\vec p$.</p>
+    <p><b>3. Torque y energía en $\vec E$ uniforme:</b> respecto al punto medio, cada fuerza $\pm q\vec E$ tiene brazo $(d/2)\sin\phi$ y giran en el mismo sentido para reducir $\phi$: $\tau = 2(qE)(d/2)\sin\phi = pE\sin\phi$, que en forma vectorial es $\vec\tau = \vec p\times\vec E$. El trabajo externo para girar cuasiestáticamente de $\phi_0 = 90^\circ$ a $\phi$ es $U(\phi) = \int_{\pi/2}^\phi \tau\,d\phi' = \int_{\pi/2}^\phi pE\sin\phi'\,d\phi' = -pE\cos\phi = -\vec p\cdot\vec E$.</p>
+  </details>
+  <div class="why"><b>Cuándo se usa / cuándo NO:</b> las aproximaciones $1/r^3$ solo valen lejos del dipolo ($r\gg d$). Si el campo externo <em>no</em> es uniforme, el dipolo siente además una fuerza neta $\vec F = (\vec p\cdot\nabla)\vec E$ hacia las zonas de mayor intensidad de campo.</div>
+</section>
+
+<section class="sec" id="u01-s6" data-block="teoria" data-title="Movimiento de una carga en un campo eléctrico uniforme">
+  <h2>Movimiento de una carga en un campo eléctrico uniforme</h2>
+  <p><b>El problema físico.</b> ¿Cómo se desvía un haz de electrones al atravesar dos placas paralelas cargadas (como en un osciloscopio o en el experimento de Thomson)?</p>
+  <figure class="fig" data-fig="u01-proyectil"><figcaption>Electrón ($-e$) que entra horizontalmente con velocidad $\vec v_0$ entre placas paralelas de largo $L$ con campo $\vec E$ hacia abajo: su aceleración es constante hacia arriba y describe una parábola.</figcaption></figure>
+  <div class="eq key"><div class="lbl">Cinemática en campo uniforme</div>$$\vec a = \frac{q\,\vec E}{m} = \text{cte},\qquad \vec v(t) = \vec v_0 + \vec a\,t,\qquad \vec r(t) = \vec r_0 + \vec v_0\,t + \tfrac12\vec a\,t^2$$<div class="note">$q$: carga con signo ($\text{C}$); $m$: masa ($\text{kg}$); $\vec a$: aceleración ($\text{m/s}^2$). Si $\vec v_0\perp\vec E$ ($v_0$ en $\text{m/s}$) a lo largo de un largo $L$ ($\text{m}$), el tiempo de tránsito es $t = L/v_0$ ($\text{s}$) y la deflexión transversal es $\Delta y = \dfrac{q E L^2}{2 m v_0^2}$ ($\text{m}$, con signo según $q$ y $\vec E$).</div></div>
+  <p>Para electrones y protones en campos típicos ($E \sim 10^2\text{--}10^5\ \text{N/C}$), la aceleración eléctrica supera $10^{10}\ \text{m/s}^2$, por lo que la gravedad ($g \approx 9{,}8\ \text{m/s}^2$) es completamente despreciable. En cambio, para gotas macroscópicas (Millikan) o masas cargadas grandes, sí debes incluir $m\vec g$ en la segunda ley de Newton.</p>
+  <div class="why"><b>Cuándo se usa / cuándo NO:</b> las ecuaciones de aceleración constante solo sirven si $\vec E$ es uniforme en la región. Si la partícula sale de las placas (donde $\vec E = \vec 0$), sigue en línea recta con la velocidad final $\vec v$ que tenía al salir.</div>
+</section>
+
+<section class="sec" id="u01-ejemplos" data-block="ejemplos" data-title="Ejemplos resueltos">
+  <h2>Ejemplos resueltos</h2>
+
+  <div class="prob" id="u01-e1" data-kind="ejemplo" data-diff="1">
+    <div class="prob-head"><span class="tag">Ejemplo 1</span><span class="ptitle">Punto donde $\vec E = \vec 0$ con dos cargas de signo opuesto</span><span class="diff">dificultad 1/3</span></div>
+    <div class="prob-grid">
+      <div>
+        <p class="stmt">Sobre el eje $x$ hay una carga $q_1 = +9q$ en $x = 0$ y una carga $q_2 = -q$ en $x = d$ (con $q \gt 0$ en $\text{C}$ y $d \gt 0$ en $\text{m}$). Encuentra todos los puntos del plano donde el campo eléctrico neto es cero.</p>
+        <div class="given"><div><b>Datos</b> $q_1 = +9q$ en $(0,0)$, $q_2 = -q$ en $(d,0)$</div><div><b>Piden</b> posición $(x_0, y_0)$ donde $\vec E = \vec 0$</div></div>
+      </div>
+      <figure class="fig" data-fig="u01-campo-nulo"><figcaption>Análisis por regiones de las direcciones de $\vec E_1$ y $\vec E_2$ sobre el eje $x$.</figcaption></figure>
+    </div>
+    <div class="predict"><b>Antes de calcular:</b> ¿el punto nulo estará entre $0$ y $d$, a la izquierda de $+9q$ o a la derecha de $-q$?</div>
+    <ol class="reveal">
+      <li class="hint">Solo sobre el eje $x$ ($y = 0$) los campos $\vec E_1$ y $\vec E_2$ son colineales y pueden cancelarse.</li>
+      <li><span class="rl">Paso 1 · Descartar fuera del eje $x$ y elegir región</span><p class="do"><b>Qué hago:</b> si $y \neq 0$, $\vec E_1$ y $\vec E_2$ no son paralelos, así que su suma nunca es cero. Sobre el eje $x$: para $0 \lt x \lt d$, $\vec E_1$ apunta en $+\hat x$ (aleja de $+9q$) y $\vec E_2$ también en $+\hat x$ (hacia $-q$), imposible anularse. Para $x \lt 0$, se está siempre más cerca de la carga mayor $+9q$, luego $|\vec E_1| \gt |\vec E_2|$ siempre. Solo puede anularse para $x \gt d$.</p><p><b>Por qué:</b> para cancelar dos vectores hacen falta igual magnitud y sentidos opuestos.</p></li>
+      <li><span class="rl">Paso 2 · Igualar magnitudes para $x \gt d$</span><p class="do"><b>Qué hago:</b> en $x \gt d$, $\vec E_1 = \dfrac{k(9q)}{x^2}\hat x$ y $\vec E_2 = -\dfrac{kq}{(x-d)^2}\hat x$. Igualando $E_x = 0$:</p>
+      $$\frac{9}{x^2} = \frac{1}{(x-d)^2} \implies \frac{3}{|x|} = \frac{1}{|x-d|}$$
+      <p>Con $x \gt d$, $|x| = x$ y $|x-d| = x - d$: $3(x - d) = x \implies 2x = 3d \implies x_0 = \dfrac{3}{2}d$.</p><p><b>Por qué:</b> la raíz que da $3(d - x) = x \implies x = \frac{3}{4}d$ pertenece a $0 \lt x \lt d$, donde ambos campos apuntan en $+\hat x$ y en realidad se suman.</p></li>
+      <li class="final">$$\boxed{(x_0, y_0) = \left(\frac{3}{2}d,\ 0\right)}$$</li>
+      <li class="check"><b>Verificación:</b> en $x = \frac{3}{2}d$, la distancia a $+9q$ es $r_1 = \frac{3}{2}d$ y a $-q$ es $r_2 = \frac{1}{2}d = r_1/3$. Como $q_1 = 9 q_2$ y $(r_1/r_2)^2 = 3^2 = 9$, las magnitudes coinciden exactamente y los sentidos son opuestos ($+\hat x$ vs $-\hat x$).</li>
+    </ol>
+    <div class="ctrl"></div>
+  </div>
+
+  <div class="prob" id="u01-e2" data-kind="ejemplo" data-diff="2">
+    <div class="prob-head"><span class="tag">Ejemplo 2</span><span class="ptitle">Desviación parabólica de un electrón entre placas paralelas</span><span class="diff">dificultad 2/3</span></div>
+    <div class="prob-grid">
+      <div>
+        <p class="stmt">Un electrón ($q = -1{,}6\times10^{-19}\ \text{C}$, $m_e = 9{,}1\times10^{-31}\ \text{kg}$) entra horizontalmente con rapidez $v_0 = 1{,}2\times10^6\ \text{m/s}$ en el centro del espacio entre dos placas paralelas de largo $L = 6{,}0\ \text{cm}$, donde existe un campo eléctrico uniforme vertical hacia abajo de magnitud $E = 182\ \text{N/C}$. Suponiendo que no choca con las placas, calcula a mano: a) su aceleración $\vec a$; b) su desviación vertical $\Delta y$ al salir; c) la rapidez $v$ al salir de las placas.</p>
+        <div class="given"><div><b>Datos</b> $q = -1{,}6\times10^{-19}\ \text{C}$, $m_e = 9{,}1\times10^{-31}\ \text{kg}$, $v_0 = 1{,}2\times10^6\ \text{m/s}\ \hat x$, $L = 0{,}060\ \text{m}$, $\vec E = -182\,\hat y\ \text{N/C}$</div><div><b>Piden</b> $\vec a$, $\Delta y$, $v$ de salida</div></div>
+      </div>
+      <figure class="fig" data-fig="u01-proyectil"><figcaption>El electrón ($-e$) siente fuerza hacia arriba ($+\hat y$), opuesta a $\vec E$, y sale con rapidez mayor.</figcaption></figure>
+    </div>
+    <div class="predict"><b>Antes de calcular:</b> como el electrón tiene carga negativa y $\vec E$ apunta hacia abajo, ¿se desvía hacia arriba o hacia abajo?</div>
+    <ol class="reveal">
+      <li class="hint">Nota que $182/9{,}1 = 20$. El tiempo en las placas es $t = L/v_0$.</li>
+      <li><span class="rl">Paso 1 · Aceleración</span><p class="do"><b>Qué hago:</b> $\vec F = q\vec E = (-1{,}6\times10^{-19})(-182\,\hat y) = +1{,}6\times182\times10^{-19}\,\hat y\ \text{N}$. Dividiendo por $m_e$:</p>
+      $$a_y = \frac{1{,}6\times10^{-19}\times 182}{9{,}1\times10^{-31}} = 1{,}6\times 20\times 10^{12} = 3{,}2\times10^{13}\ \text{m/s}^2 \implies \vec a = 3{,}2\times10^{13}\,\hat y\ \text{m/s}^2$$
+      <p><b>Por qué:</b> $a_y \gg g$, así que el peso es despreciable.</p></li>
+      <li><span class="rl">Paso 2 · Tiempo de tránsito y desviación</span><p class="do"><b>Qué hago:</b> en $x$ no hay fuerza ($a_x = 0$), luego $t = \dfrac{L}{v_0} = \dfrac{6{,}0\times10^{-2}}{1{,}2\times10^6} = 5{,}0\times10^{-8}\ \text{s}$. Con $v_{0y} = 0$:</p>
+      $$\Delta y = \tfrac12 a_y t^2 = \tfrac12(3{,}2\times10^{13})(5{,}0\times10^{-8})^2 = (1{,}6\times10^{13})(25\times10^{-16}) = 4{,}0\times10^{-2}\ \text{m} = 4{,}0\ \text{cm}$$
+      <p><b>Por qué:</b> movimiento uniformemente acelerado en $y$.</p></li>
+      <li><span class="rl">Paso 3 · Rapidez de salida</span><p class="do"><b>Qué hago:</b> $v_x = v_0 = 1{,}2\times10^6\ \text{m/s}$ y $v_y = a_y t = (3{,}2\times10^{13})(5{,}0\times10^{-8}) = 1{,}6\times10^6\ \text{m/s}$. Por Pitágoras (triángulo 3–4–5):</p>
+      $$v = \sqrt{v_x^2 + v_y^2} = 10^6\sqrt{1{,}2^2 + 1{,}6^2} = 10^6\sqrt{1{,}44 + 2{,}56} = 2{,}0\times10^6\ \text{m/s}$$
+      <p><b>Por qué:</b> $1{,}2 = 0{,}4\times 3$, $1{,}6 = 0{,}4\times 4$, luego la hipotenusa es $0{,}4\times 5 = 2{,}0$.</p></li>
+      <li class="final">$$\boxed{\vec a = 3{,}2\times10^{13}\,\hat y\ \text{m/s}^2,\qquad \Delta y = +4{,}0\ \text{cm}\ (\text{hacia arriba}),\qquad v = 2{,}0\times10^6\ \text{m/s}}$$</li>
+      <li class="check"><b>Verificación:</b> unidades $[qE/m] = \text{C·(N/C)/kg} = \text{m/s}^2$. Balance energético: el trabajo del campo es $W = |q|E\Delta y = (1{,}6\times10^{-19})(182)(0{,}040) = 1{,}1648\times10^{-18}\ \text{J}$, que iguala a $\Delta K = \tfrac12 m_e(v^2 - v_0^2) = \tfrac12(9{,}1\times10^{-31})(4{,}0 - 1{,}44)\times10^{12} = 1{,}1648\times10^{-18}\ \text{J}$. Exacto.</li>
+    </ol>
+    <div class="ctrl"></div>
+  </div>
+
+  <div class="prob" id="u01-e3" data-kind="ejemplo" data-diff="2">
+    <div class="prob-head"><span class="tag">Ejemplo 3</span><span class="ptitle">Dipolo eléctrico: torque, energía y campo lejano</span><span class="diff">dificultad 2/3</span></div>
+    <div class="prob-grid">
+      <div>
+        <p class="stmt">Un dipolo eléctrico consta de cargas $\pm q$ con $q = 2{,}0\ \text{nC}$ separadas por $d = 4{,}0\ \text{mm}$. Se coloca en un campo eléctrico uniforme $E = 5{,}0\times10^4\ \text{N/C}$ formando un ángulo $\phi = 30^\circ$ con $\vec E$. Calcula a mano (usando $k \approx 9\times10^9\ \text{N·m}^2/\text{C}^2$): a) la magnitud del momento dipolar $p$; b) la magnitud del torque $\tau$ y la energía potencial $U$ en esa orientación; c) el trabajo mínimo que debe hacer un agente externo para rotar el dipolo desde su equilibrio estable ($\phi = 0^\circ$) hasta $\phi = 180^\circ$; d) la magnitud del campo del propio dipolo sobre su eje a $z = 1{,}0\ \text{m}$ del centro.</p>
+        <div class="given"><div><b>Datos</b> $q = 2{,}0\times10^{-9}\ \text{C}$, $d = 4{,}0\times10^{-3}\ \text{m}$, $E = 5{,}0\times10^4\ \text{N/C}$, $\phi = 30^\circ$, $z = 1{,}0\ \text{m}$</div><div><b>Piden</b> $p$, $\tau$, $U$, $W_{\text{ext}}$, $E_{\text{eje}}(1{,}0\ \text{m})$</div></div>
+      </div>
+      <figure class="fig" data-fig="u01-dipolo"><figcaption>Derecha: dipolo orientado en ángulo $\phi$ respecto al campo uniforme $\vec E$.</figcaption></figure>
+    </div>
+    <div class="predict"><b>Antes de calcular:</b> ¿el trabajo para llevar el dipolo de $\phi = 0^\circ$ a $180^\circ$ es positivo o negativo? ¿Cuál orientación tiene menor energía?</div>
+    <ol class="reveal">
+      <li class="hint">Recuerda $\sin 30^\circ = \tfrac12$, $\cos 30^\circ = \tfrac{\sqrt 3}{2} \approx 0{,}87$ y $W_{\text{ext}} = U_f - U_i$.</li>
+      <li><span class="rl">Paso 1 · Momento dipolar</span><p class="do"><b>Qué hago:</b> $p = qd = (2{,}0\times10^{-9}\ \text{C})(4{,}0\times10^{-3}\ \text{m}) = 8{,}0\times10^{-12}\ \text{C·m}$.</p><p><b>Por qué:</b> definición de momento dipolar ($\vec p$ apunta de $-q$ a $+q$).</p></li>
+      <li><span class="rl">Paso 2 · Torque y energía en $\phi = 30^\circ$</span><p class="do"><b>Qué hago:</b> $\tau = pE\sin 30^\circ = (8{,}0\times10^{-12})(5{,}0\times10^4)(\tfrac12) = 2{,}0\times10^{-7}\ \text{N·m}$. Para la energía: $U = -pE\cos 30^\circ = -(4{,}0\times10^{-7})\dfrac{\sqrt{3}}{2} = -2\sqrt{3}\times10^{-7}\ \text{J} \approx -3{,}5\times10^{-7}\ \text{J}$.</p><p><b>Por qué:</b> $|\vec p\times\vec E| = pE\sin\phi$ y $U = -\vec p\cdot\vec E$.</p></li>
+      <li><span class="rl">Paso 3 · Trabajo para invertir el dipolo</span><p class="do"><b>Qué hago:</b> en $\phi_i = 0^\circ$, $U_i = -pE$; en $\phi_f = 180^\circ$, $U_f = +pE$. Luego $W_{\text{ext}} = U_f - U_i = 2pE = 2(8{,}0\times10^{-12})(5{,}0\times10^4) = 8{,}0\times10^{-7}\ \text{J}$.</p><p><b>Por qué:</b> hay que vencer al torque eléctrico restaurador en todo el giro.</p></li>
+      <li><span class="rl">Paso 4 · Campo lejano sobre el eje</span><p class="do"><b>Qué hago:</b> como $z = 1{,}0\ \text{m} \gg d = 4{,}0\ \text{mm}$, $E_{\text{eje}} \approx \dfrac{2kp}{z^3} = \dfrac{2(9\times10^9)(8{,}0\times10^{-12})}{(1{,}0)^3} = 0{,}144\ \text{N/C}$ (en el sentido de $\vec p$).</p><p><b>Por qué:</b> fórmula asintótica del dipolo sobre su eje.</p></li>
+      <li class="final">$$\boxed{p = 8{,}0\times10^{-12}\ \text{C·m},\quad \tau = 2{,}0\times10^{-7}\ \text{N·m},\quad U = -2\sqrt{3}\times10^{-7}\ \text{J}}$$ $$\boxed{W_{\text{ext}} = 8{,}0\times10^{-7}\ \text{J},\qquad E_{\text{eje}}(1{,}0\ \text{m}) \approx 0{,}144\ \text{N/C}}$$</li>
+      <li class="check"><b>Verificación:</b> unidades $[pE] = (\text{C·m})(\text{N/C}) = \text{N·m} = \text{J}$ y $[kp/z^3] = \text{N/C}$. Si $E = 0$, tanto $\tau$ como $U$ y $W_{\text{ext}}$ se anulan; en $\phi = 0^\circ$ la energía es mínima (estable).</li>
+    </ol>
+    <div class="ctrl"></div>
+  </div>
+
+  <div class="prob" id="u01-e4" data-kind="ejemplo" data-diff="3">
+    <div class="prob-head"><span class="tag">Ejemplo 4</span><span class="ptitle">Barra con densidad lineal no uniforme $\lambda(x) = \alpha x$</span><span class="diff">dificultad 3/3</span></div>
+    <div class="prob-grid">
+      <div>
+        <p class="stmt">Una barra aislante delgada de largo $L$ ($\text{m}$) está sobre el eje $x$ entre $x = 0$ y $x = L$, con densidad lineal de carga $\lambda(x) = \alpha x$, donde $\alpha \gt 0$ es una constante en $\text{C/m}^2$. Calcula el vector campo eléctrico $\vec E$ en un punto $P$ del eje $x$ en $x = d \gt L$ ($\text{m}$), y evalúalo para $d = 2L$.</p>
+        <div class="given"><div><b>Datos</b> barra en $x\in[0, L]$, $\lambda(x) = \alpha x$ ($\alpha\gt 0$), $P$ en $(d, 0)$ con $d \gt L$</div><div><b>Piden</b> $\vec E(d)$ y $\vec E(2L)$</div></div>
+      </div>
+      <figure class="fig" data-fig="u01-barra-mediatriz"><figcaption>Referencia de integración continua con elemento $dq = \lambda\,d\ell$; aquí la barra y $P$ son colineales sobre el eje $x$.</figcaption></figure>
+    </div>
+    <div class="predict"><b>Antes de calcular:</b> como toda la carga es positiva ($\alpha \gt 0$) y está a la izquierda de $P$, ¿hacia dónde apunta $\vec E$? Cuando $d \gg L$, ¿a qué debe tender?</div>
+    <ol class="reveal">
+      <li class="hint">Escribe $dq = \alpha x'\,dx'$ con $x'\in[0, L]$, distancia $r = d - x'$, y usa la sustitución $u = d - x'$.</li>
+      <li><span class="rl">Paso 1 · Elemento diferencial</span><p class="do"><b>Qué hago:</b> un tramo $dx'$ en la coordenada $x'\in[0, L]$ tiene carga $dq = \lambda(x')\,dx' = \alpha x'\,dx'$. El vector hacia $P$ en $(d, 0)$ es $\vec r - \vec r\,' = (d - x')\,\hat x$ (con $d - x' \gt 0$), así que $\hat r = +\hat x$ y $r = d - x'$:</p>
+      $$d\vec E = k\,\frac{\alpha x'\,dx'}{(d - x')^2}\,\hat x$$
+      <p><b>Por qué:</b> no saques $\lambda$ fuera de la integral porque depende de $x'$.</p></li>
+      <li><span class="rl">Paso 2 · Integrar por sustitución</span><p class="do"><b>Qué hago:</b> con $u = d - x'$, tenemos $x' = d - u$, $dx' = -du$, y los límites van de $u(0) = d$ a $u(L) = d - L$:</p>
+      $$E_x = k\alpha\int_0^L \frac{x'\,dx'}{(d - x')^2} = k\alpha\int_{d-L}^{d}\frac{d - u}{u^2}\,du = k\alpha\left[-\frac{d}{u} - \ln u\right]_{d-L}^{d} = k\alpha\left(-1 - \ln d + \frac{d}{d-L} + \ln(d-L)\right)$$
+      <p>Agrupando $\dfrac{d}{d-L} - 1 = \dfrac{L}{d-L}$ y $\ln(d-L) - \ln d = -\ln\!\left(\dfrac{d}{d-L}\right)$:</p>
+      $$\vec E(d) = k\alpha\left[\frac{L}{d-L} - \ln\!\left(\frac{d}{d-L}\right)\right]\hat x$$
+      <p><b>Por qué:</b> cambiar el signo de $dx' = -du$ invierte los límites de integración.</p></li>
+      <li><span class="rl">Paso 3 · Evaluar en $d = 2L$</span><p class="do"><b>Qué hago:</b> sustituimos $d = 2L$: $\dfrac{L}{2L - L} = 1$ y $\dfrac{2L}{2L - L} = 2$:</p>
+      $$\vec E(2L) = k\alpha\left(1 - \ln 2\right)\hat x$$
+      <p><b>Por qué:</b> $\ln 2 \approx 0{,}693$, así que $1 - \ln 2 \approx 0{,}307 \gt 0$ (en $+\hat x$).</p></li>
+      <li class="final">$$\boxed{\vec E(d) = k\alpha\left[\frac{L}{d-L} - \ln\!\left(\frac{d}{d-L}\right)\right]\hat x,\qquad \vec E(2L) = k\alpha\left(1 - \ln 2\right)\hat x}$$</li>
+      <li class="check"><b>Verificación:</b> unidades $[k\alpha] = (\text{N·m}^2/\text{C}^2)(\text{C/m}^2) = \text{N/C}$. Límite lejano ($d \gg L$, $\epsilon = L/d \ll 1$): $\frac{\epsilon}{1-\epsilon} + \ln(1-\epsilon) \approx (\epsilon + \epsilon^2) + (-\epsilon - \frac{1}{2}\epsilon^2) = \frac{1}{2}\epsilon^2 = \frac{L^2}{2d^2}$, luego $E_x \approx k\frac{\alpha L^2/2}{d^2} = \frac{kQ}{d^2}$, pues la carga total es $Q = \int_0^L \alpha x\,dx = \frac{1}{2}\alpha L^2$. Exacto.</li>
+    </ol>
+    <div class="ctrl"></div>
+  </div>
+</section>
+
+<section class="sec" id="u01-examen" data-block="arquetipos" data-title="Arquetipos de examen">
+  <h2>Arquetipos de examen</h2>
+  <p>Problemas reales de exámenes anteriores, transcritos fielmente y con el desglose de puntaje de la pauta oficial. Intenta resolverlos en papel en unos 25 minutos antes de desplegar los pasos.</p>
+
+  <div class="prob" id="u01-x1" data-kind="arquetipo" data-diff="2">
+    <div class="prob-head"><span class="tag">Arquetipo de examen 1</span><span class="ptitle">Ocho cargas en un cubo: fuerza, trabajo, campo sin $Q_8$ y flujo</span><span class="diff">dificultad 2/3</span><span class="src">Examen 2026-1 · P1A</span></div>
+    <div class="prob-grid">
+      <div>
+        <p class="stmt">Ocho cargas puntuales se ubican en los vértices de un cubo de arista $a$ ($\text{m}$), con el origen $O$ del sistema de referencia en el centro del cubo (ejes $\hat\imath$ saliendo hacia adelante-izquierda, $\hat\jmath$ a la derecha y $\hat k$ hacia arriba; vértices inferiores en $z = -a/2$: $Q_1$ en $(-a/2,-a/2,-a/2)$, $Q_2$ en $(+a/2,-a/2,-a/2)$, $Q_3$ en $(+a/2,+a/2,-a/2)$, $Q_4$ en $(-a/2,+a/2,-a/2)$; vértices superiores en $z = +a/2$: $Q_5$ sobre $Q_1$, $Q_6$ sobre $Q_2$, $Q_7$ sobre $Q_3$ y $Q_8$ sobre $Q_4$ en $(-a/2,+a/2,+a/2)$).
+        <br>a) <b>(1 pto.)</b> Determine la fuerza eléctrica sobre una carga de prueba $q$ ($\text{C}$) situada en el centro del cubo en el caso en que todas las cargas de los vértices son iguales a $Q$ ($\text{C}$).
+        <br>Considere ahora que la arista del cubo es $a = 400\,\mu\text{m} = 400\times10^{-6}\,\text{m}$ y la constante de Coulomb puede aproximarse como $k \approx 9\times10^9\ \text{N·m}^2/\text{C}^2$ (denotada $K$ en el examen original).
+        <br>b) <b>(1 pto.)</b> Determine el trabajo necesario para traer una carga $q = 1\,\mu\text{C}$ desde el infinito hasta el centro del cubo cuando todas las cargas de los vértices son $Q_i = \sqrt{3}\,\mu\text{C}$ con $i = 1,\dots,8$.
+        <br>c) <b>(2 pts.)</b> Si la carga $Q_8$ ahora es tal que $Q_8 = 0$, determine el vector campo eléctrico en el centro del cubo debido solo a las cargas ubicadas en los vértices del cubo.
+        <br>d) <b>(2 pts.)</b> Para la configuración original de cargas iguales $Q$ en los vértices [inciso a), sin la carga de prueba $q$ en el centro], considere tres superficies cerradas: $S_1$, una esfera centrada en el centro del cubo con radio $R \gt \sqrt{3}a/2$ ($\text{m}$); $S_2$, un cubo más grande que el original (arista mayor a $a$), también centrado en $O$, que encierra las 8 cargas; $S_3$, un cilindro centrado en el eje vertical del cubo cuya base está en el plano $x$-$y$, se extiende en el semiespacio $z \ge 0$ encerrando la cara superior y su radio basal es $R \gt \sqrt{3}a/2$ ($\text{m}$). Para cada caso: i) Determine el flujo eléctrico neto a través de la superficie. ii) ¿Es posible que el flujo eléctrico neto a través de una superficie cerrada sea cero aun cuando el campo eléctrico no sea nulo en la superficie? Explique.</p>
+        <div class="given"><div><b>Datos</b> cubo de arista $a = 400\,\mu\text{m}$, $Q_i = Q = \sqrt{3}\,\mu\text{C}$, $q = 1\,\mu\text{C}$, $k \approx 9\times10^9\ \text{N·m}^2/\text{C}^2$</div><div><b>Piden</b> $\vec F$ en $O$, $W_{\text{ext}}$, $\vec E$ sin $Q_8$, flujos $\Phi_{S_1},\Phi_{S_2},\Phi_{S_3}$ y explicación</div></div>
+      </div>
+      <figure class="fig" data-fig="u01-cubo-cargas"><figcaption>Cubo de arista $a$ centrado en $O$; los ejes $(x, y, z)$ corresponden a $(\hat\imath, \hat\jmath, \hat k)$.</figcaption></figure>
+    </div>
+    <div class="predict"><b>Antes de calcular:</b> si retiras $Q_8$ (en $(-a/2, +a/2, +a/2)$) y las otras siete son positivas, ¿hacia dónde empuja el campo resultante en el centro $O$?</div>
+    <ol class="reveal">
+      <li class="hint">Usa simetría por pares opuestos en a); potencial escalar $V = \sum kQ/r$ en b); principio de superposición $\vec E_{\text{7 cargas}} = -\vec E_8$ en c); y ley de Gauss $\Phi_E = Q_{\text{enc}}/\varepsilon_0$ en d).</li>
+      <li><span class="rl">Paso 1 · Fuerza en el centro (parte a, 1,0 pto.)</span><p class="do"><b>Qué hago:</b> cada carga en un vértice $\vec r_i$ tiene una carga idéntica en el vértice diametralmente opuesto $-\vec r_i$ ($Q_1$ con $Q_7$, $Q_2$ con $Q_8$, $Q_3$ con $Q_5$, $Q_4$ con $Q_6$), a la misma distancia del centro. Sus fuerzas sobre $q$ son iguales en módulo y opuestas en dirección, así que $\vec F = \vec 0$.</p><p><b>Por qué:</b> simetría de inversión respecto al origen y superposición vectorial.</p></li>
+      <li><span class="rl">Paso 2 · Potencial y trabajo (parte b: 0,25 + 0,25 + 0,25 + 0,25 = 1,0 pto.)</span><p class="do"><b>Qué hago:</b> (0,25) potencial en el centro: $V = \displaystyle\sum_{i=1}^{8} k\dfrac{Q}{r} = 8k\dfrac{Q}{r}$. (0,25) distancia centro–vértice: $r = \sqrt{(a/2)^2+(a/2)^2+(a/2)^2} = \dfrac{\sqrt{3}}{2}a$. (0,25) sustituyendo $r$: $V = \dfrac{16kQ}{\sqrt{3}\,a}$. Con $Q = \sqrt{3}\times10^{-6}\ \text{C}$, $a = 400\times10^{-6}\ \text{m}$ y $k = 9\times10^9\ \text{N·m}^2/\text{C}^2$:</p>
+      $$V = \frac{16(9\times10^9)(\sqrt{3}\times10^{-6})}{\sqrt{3}(400\times10^{-6})} = 3{,}6\times10^8\ \text{V}$$
+      <p>(0,25) Con $q = 10^{-6}\ \text{C}$ y $V(\infty) = 0$: $W = qV = (10^{-6}\ \text{C})(3{,}6\times10^8\ \text{V}) = 360\ \text{J}$.</p><p><b>Por qué:</b> el potencial es escalar (no se cancela por simetría). <em>Nota de pauta:</em> la pauta oficial escribe $V = \frac{16K}{a}\,\mu\text{C}$ usando el símbolo $\mu\text{C}$ como si fuera el número $Q/\sqrt{3}$; aquí se mantiene $Q$ simbólico hasta reemplazar números para no mezclar unidades en fórmulas.</p></li>
+      <li><span class="rl">Paso 3 · Campo sin $Q_8$ (parte c: 0,25 + 0,25 + 0,25 + 0,5 + 0,25 + 0,5 = 2,0 pts.)</span><p class="do"><b>Qué hago:</b> (0,25) con las 8 cargas, $\vec E_{\text{7 cargas}} + \vec E_8 = \vec 0 \implies \vec E = -\vec E_8$. (0,25) campo de $Q_8$ en el origen: $\vec E_8 = k\dfrac{Q}{r^2}\,\hat r_8$. (0,25) $r = \dfrac{\sqrt{3}}{2}a$, luego $r^2 = \dfrac{3}{4}a^2$. (0,5) $Q_8$ está en $\vec r_{Q_8} = \frac{a}{2}(-\hat\imath + \hat\jmath + \hat k)$, así que el unitario hacia el origen es $\hat r_8 = -\dfrac{1}{\sqrt{3}}(-\hat\imath + \hat\jmath + \hat k)$. (0,25) por tanto:</p>
+      $$\vec E = -\vec E_8 = k\frac{Q}{\frac{3}{4}a^2}\frac{(-\hat\imath + \hat\jmath + \hat k)}{\sqrt{3}} = \frac{4kQ}{3\sqrt{3}\,a^2}(-\hat\imath + \hat\jmath + \hat k)$$
+      <p>(0,5) Reemplazando $Q = \sqrt{3}\times10^{-6}\ \text{C}$, $a = 400\times10^{-6}\ \text{m}$ y $k = 9\times10^9$: $\dfrac{4(9\times10^9)(10^{-6})}{3(16\times10^{-8})} = \dfrac{3{,}6\times10^4}{4{,}8\times10^{-7}} = 75\times10^9\ \text{N/C}$, luego $\vec E = 75\times10^9(-\hat\imath + \hat\jmath + \hat k)\ \text{N/C}$.</p><p><b>Por qué:</b> superposición; al faltar $Q_8$, una carga de prueba positiva en $O$ es empujada hacia el vértice vacío $Q_8$.</p></li>
+      <li><span class="rl">Paso 4 · Flujo por $S_1, S_2, S_3$ (parte d-i: 0,25 + 0,25 + 0,25 + 0,25 = 1,0 pto.)</span><p class="do"><b>Qué hago:</b> (0,25) por ley de Gauss, $\Phi_E = \oint\vec E\cdot d\vec A = Q_{\text{enc}}/\varepsilon_0$. Como la configuración original consta de las 8 cargas iguales $Q$ en los vértices (sin la carga de prueba $q$ en $O$): (0,25 + 0,25) tanto la esfera $S_1$ ($R \gt \sqrt{3}a/2$, mayor que la distancia centro–vértice) como el cubo mayor $S_2$ encierran las 8 cargas ($Q_{\text{enc}} = 8Q$), dando el mismo flujo: $\Phi_{S_1} = \Phi_{S_2} = \dfrac{8Q}{\varepsilon_0}$. (0,25) El cilindro $S_3$ en $z \ge 0$ encierra solo las 4 cargas superiores ($Q_5, Q_6, Q_7, Q_8$), luego $\Phi_{S_3} = \dfrac{4Q}{\varepsilon_0}$. <em>Nota de pauta:</em> la base $z = 0$ de $S_3$ pasa justo por el centro $O$; como $q$ no está presente, no hay ambigüedad de borde, y si en otro supuesto se dejara una carga $q_0 = q$ en $O$, la pauta contempla $\Phi_{S_1} = \Phi_{S_2} = (8Q + q)/\varepsilon_0$ y $\Phi_{S_3} = 4Q/\varepsilon_0$ o $(4Q + q)/\varepsilon_0$ según si $q$ queda justo bajo o sobre la base.</p><p><b>Por qué:</b> el flujo neto cerrado depende únicamente de la carga neta encerrada, no de la forma de la superficie.</p></li>
+      <li><span class="rl">Paso 5 · Flujo nulo con campo no nulo (parte d-ii: 0,5 + 0,5 = 1,0 pto.)</span><p class="do"><b>Qué hago:</b> (0,5) <b>Sí es posible</b> que $\Phi_E = 0$ aun cuando $\vec E \neq \vec 0$ sobre la superficie. (0,5) Ocurre siempre que la carga neta encerrada sea cero ($Q_{\text{enc}} = 0$), porque entonces la misma cantidad de flujo (líneas de campo) que entra a la superficie vuelve a salir de ella (por ejemplo, una superficie que encierra un dipolo eléctrico $+q$ y $-q$, o una superficie vacía cerca de cargas externas).</p><p><b>Por qué:</b> la integral $\oint\vec E\cdot d\vec A$ puede cancelarse entre zonas de flujo entrante y saliente sin que el integrando $\vec E$ sea cero.</p></li>
+      <li class="final">$$\boxed{\text{a) }\vec F = \vec 0;\qquad \text{b) }W = 360\ \text{J};\qquad \text{c) }\vec E = 75\times10^9(-\hat\imath + \hat\jmath + \hat k)\ \text{N/C}}$$ $$\boxed{\text{d-i) }\Phi_{S_1} = \Phi_{S_2} = \frac{8Q}{\varepsilon_0},\ \ \Phi_{S_3} = \frac{4Q}{\varepsilon_0};\qquad \text{d-ii) Sí es posible cuando }Q_{\text{enc}} = 0\text{ (flujo entrante = saliente)}}$$</li>
+      <li class="check"><b>Verificación:</b> unidades $[kQ/a^2] = \text{N/C}$, $[qV] = \text{C·V} = \text{J}$, $[Q/\varepsilon_0] = \text{N·m}^2/\text{C}$. Dirección de $\vec E$ en c): las 7 cargas restantes son positivas y empujan hacia el hueco $Q_8$ en $(-a/2,+a/2,+a/2)$, coincidiendo con $(-\hat\imath+\hat\jmath+\hat k)$.</li>
+    </ol>
+    <div class="ctrl"></div>
+  </div>
+
+  <div class="prob" id="u01-x2" data-kind="arquetipo" data-diff="2">
+    <div class="prob-head"><span class="tag">Arquetipo de examen 2</span><span class="ptitle">Anillo cargado $+Q$ y carga puntual negativa con resorte en el eje</span><span class="diff">dificultad 2/3</span><span class="src">Examen 2024-1 · P3</span></div>
+    <div class="prob-grid">
+      <div>
+        <p class="stmt">Un anillo de radio $R_0$ ($\text{m}$) tiene una carga $Q$ positiva ($\text{C}$), distribuida de manera uniforme sobre el anillo. Considere una carga puntual negativa $q$ ($q \lt 0$, en $\text{C}$) y masa $m$ ($\text{kg}$), depositada sobre el eje central $z$ del anillo cerca de su centro representado por el punto $A$ ($z = 0$). Además, la carga está soldada a un resorte ideal de constante elástica $k_0$ ($\text{N/m}$) y largo natural cero con extremo fijo en el punto $A$.
+        <br>a) <b>(3 pts.)</b> Calcule el campo eléctrico provocado por el anillo cargado en el eje de simetría del mismo.
+        <br>b) <b>(2 pts.)</b> Calcule la fuerza total que siente la carga $q$.
+        <br>c) <b>(1 pto.)</b> Si la carga $q$ se mueve exclusivamente en el eje de simetría, escriba (usando Newton) la ecuación de movimiento que rige su movimiento. Estime la frecuencia de pequeñas oscilaciones ($|z| \ll R_0$) con que se moverá.</p>
+        <div class="given"><div><b>Datos</b> anillo de radio $R_0$ y carga $+Q$; partícula $q = -|q| \lt 0$, masa $m$; resorte $k_0$ fijo en $A$ ($z=0$)</div><div><b>Piden</b> $\vec E(z)$, $\vec F_{\text{total}}(z)$, EDO de movimiento y $\omega$ para $|z|\ll R_0$</div></div>
+      </div>
+      <figure class="fig" data-fig="u01-anillo-resorte"><figcaption>Anillo de radio $R_0$ en el plano perpendicular a $z$, con el resorte fijo en su centro $A$.</figcaption></figure>
+    </div>
+    <div class="predict"><b>Antes de calcular:</b> como $Q \gt 0$ y $q \lt 0$, ¿la fuerza eléctrica sobre $q$ atrae hacia el centro $A$ del anillo o la aleja? ¿Cómo cambia la frecuencia respecto al resorte solo ($\sqrt{k_0/m}$)?</div>
+    <ol class="reveal">
+      <li class="hint">Integra $dq = \lambda\,ds$ sobre el anillo usando simetría; recuerda que $q = -|q| \lt 0$ para el signo de $\vec F_{\text{eléc}} = q\vec E$, y en $|z| \ll R_0$ reemplaza $(z^2+R_0^2)^{3/2} \approx R_0^3$.</li>
+      <li><span class="rl">Paso 1 · Campo eléctrico en el eje del anillo (parte a: 0,5 + 0,5 + 1,0 + 0,5 + 0,5 = 3,0 pts.)</span><p class="do"><b>Qué hago:</b> (0,5) por simetría axial alrededor de $z$, pares diametralmente opuestos de elementos $dq$ cancelan las componentes perpendiculares al eje y solo queda $E_z = \dfrac{1}{4\pi\varepsilon_0}\displaystyle\int \frac{dq}{r^2}\cos\alpha\,\hat z$. (0,5) de la geometría, cada elemento está a distancia $r = \sqrt{R_0^2 + z^2}$ y $\cos\alpha = \dfrac{z}{\sqrt{R_0^2 + z^2}}$. (1,0) con densidad lineal uniforme $\lambda = \dfrac{Q}{2\pi R_0}$ y $dq = \lambda\,ds$, todo el factor geométrico es constante al recorrer el anillo ($s\in[0, 2\pi R_0]$):</p>
+      $$\vec E(z) = \frac{\lambda z}{4\pi\varepsilon_0(R_0^2 + z^2)^{3/2}}\left(\int_0^{2\pi R_0} ds\right)\hat z = \frac{\lambda(2\pi R_0)z}{4\pi\varepsilon_0(R_0^2 + z^2)^{3/2}}\,\hat z$$
+      <p>(0,5 + 0,5) Reemplazando $\lambda(2\pi R_0) = Q$ y $k = \dfrac{1}{4\pi\varepsilon_0}$:</p>
+      $$\vec E(z) = \frac{1}{4\pi\varepsilon_0}\frac{Qz}{(z^2 + R_0^2)^{3/2}}\,\hat z = \frac{kQz}{(z^2 + R_0^2)^{3/2}}\,\hat z$$
+      <p><b>Por qué:</b> <em>nota de pauta:</em> la pauta oficial alterna entre $R$ y $R_0$ para el radio del anillo y trae un error tipográfico en $\lambda = q/s \to Q/(2\pi R)$; aquí usamos $R_0$ y $Q$ de forma consistente.</p></li>
+      <li><span class="rl">Paso 2 · Fuerza total sobre $q$ (parte b: 1,0 + 0,5 + 0,5 = 2,0 pts.)</span><p class="do"><b>Qué hago:</b> (1,0) con $q = -|q| \lt 0$, la fuerza eléctrica es $\vec F_{\text{eléc}} = q\vec E = -\dfrac{|q|Qz}{4\pi\varepsilon_0(z^2 + R_0^2)^{3/2}}\,\hat z$ (atractiva hacia $z = 0$ tanto para $z \gt 0$ como para $z \lt 0$). (0,5) la fuerza del resorte de largo natural cero es $\vec F_{\text{elást}} = -k_0 z\,\hat z$. (0,5) sumando ambas:</p>
+      $$\vec F_{\text{total}} = -\left[k_0 + \frac{|q|Q}{4\pi\varepsilon_0(z^2 + R_0^2)^{3/2}}\right]z\,\hat z$$
+      <p><b>Por qué:</b> ambas fuerzas son restauradoras hacia el centro $A$ ($z = 0$).</p></li>
+      <li><span class="rl">Paso 3 · Ecuación de movimiento y pequeñas oscilaciones (parte c: 0,5 + 0,5 = 1,0 pto.)</span><p class="do"><b>Qué hago:</b> (0,5) por la segunda ley de Newton en $z$, $m\dfrac{d^2 z}{dt^2} = F_{\text{total},z}$:</p>
+      $$\frac{d^2 z}{dt^2} + \left[\frac{k_0}{m} + \frac{|q|Q}{4\pi\varepsilon_0 m (z^2 + R_0^2)^{3/2}}\right]z = 0$$
+      <p>(0,5) Para pequeñas oscilaciones ($|z| \ll R_0$), $(z^2 + R_0^2)^{3/2} \approx R_0^3$, luego $\dfrac{d^2 z}{dt^2} + \omega^2 z = 0$ con</p>
+      $$\omega = \sqrt{\frac{k_0}{m} + \frac{|q|Q}{4\pi\varepsilon_0 m R_0^3}} = \sqrt{\frac{k_0}{m} + \frac{k|q|Q}{m R_0^3}}$$
+      <p><b>Por qué:</b> cerca del centro el campo crece linealmente con $z$, actuando como un segundo resorte en paralelo con $k_{\text{eléc}} = \dfrac{k|q|Q}{R_0^3}$.</p></li>
+      <li class="final">$$\boxed{\vec E(z) = \frac{kQz}{(z^2+R_0^2)^{3/2}}\,\hat z,\qquad \vec F_{\text{total}} = -\left[k_0 + \frac{k|q|Q}{(z^2+R_0^2)^{3/2}}\right]z\,\hat z}$$ $$\boxed{\frac{d^2 z}{dt^2} + \left[\frac{k_0}{m} + \frac{k|q|Q}{m(z^2+R_0^2)^{3/2}}\right]z = 0,\qquad \omega = \sqrt{\frac{k_0}{m} + \frac{k|q|Q}{m R_0^3}}}$$ (con $k = \dfrac{1}{4\pi\varepsilon_0}$ y frecuencia ordinaria $f = \omega/(2\pi)$).</li>
+      <li class="check"><b>Verificación:</b> unidades $[k|q|Q/(mR_0^3)] = (\text{N·m}^2/\text{C}^2)(\text{C}^2)/(\text{kg·m}^3) = \text{N/(kg·m)} = \text{s}^{-2}$, igual que $[k_0/m]$. Límites: si $Q = 0$ (anillo descargado) queda $\omega = \sqrt{k_0/m}$; si $k_0 = 0$ (sin resorte), la atracción eléctrica por sí sola da oscilaciones de frecuencia $\sqrt{k|q|Q/(mR_0^3)}$. Si $q$ fuera positiva, cambiaría el signo del término eléctrico y el centro podría volverse inestable.</li>
+    </ol>
+    <div class="ctrl"></div>
+  </div>
+</section>
+
+<section class="sec" id="u01-errores" data-block="errores" data-title="Errores típicos">
+  <h2>Errores típicos</h2>
+  <div class="trap"><b>Elegir la raíz equivocada al buscar $\vec E = \vec 0$.</b> Igualar $E_1 = E_2$ da dos soluciones, pero una corresponde a campos en el <em>mismo</em> sentido que en realidad se suman (Ejemplo 1: $x = 3d/4$ entre $+9q$ y $-q$). Cómo detectarlo: dibuja las flechas $\vec E_1$ y $\vec E_2$ en los tres intervalos antes de resolver.</div>
+  <div class="trap"><b>Meter el signo de la carga dos veces en Coulomb.</b> Dibujar la flecha por atracción/repulsión y además dejar $q \lt 0$ con signo negativo dentro de $kq/r^2$ invierte la dirección correcta. Cómo detectarlo: o usas magnitudes $|q|$ con dirección del dibujo, o usas $q$ con signo multiplicado por $(\vec r - \vec r\,')/|\vec r - \vec r\,'|^3$; nunca mezcles ambos.</div>
+  <div class="trap"><b>Invertir el vector relativo $\hat r$.</b> En Coulomb y en las integrales de campo, $\hat r$ apunta <em>desde</em> la fuente $\vec r\,'$ <em>hacia</em> el punto de campo $\vec r$, o sea $\vec r - \vec r\,'$ (nunca $\vec r\,' - \vec r$). Cómo detectarlo: comprueba con una fuente positiva que $\vec E$ apunte alejándose de ella.</div>
+  <div class="trap"><b>Sacar $1/r^2$ o $\cos\theta$ fuera de la integral cuando varían.</b> En el anillo sobre su eje la distancia y el ángulo son iguales para todo $dq$, pero en una barra recta o un disco cambian a lo largo de la distribución. Cómo detectarlo: verifica si cada variable depende de la variable de integración antes de sacarla.</div>
+  <div class="trap"><b>Olvidar el jacobiano $r\,dr$ al integrar en un disco.</b> Un anillo de ancho $dr$ tiene área $dA = 2\pi r\,dr$, no $2\pi\,dr$. Cómo detectarlo: comprueba las unidades de $dq = \sigma\,dA$; sin el factor $r$ falta una longitud ($\text{m}$).</div>
+  <div class="trap"><b>Confundir el sentido de $\vec F$ sobre carga negativa o el de $\vec p$.</b> Para $q \lt 0$, $\vec F = q\vec E$ apunta en sentido <em>opuesto</em> a $\vec E$; y el momento dipolar $\vec p = q\vec d$ apunta de $-q$ hacia $+q$ (al revés del campo entre las cargas). Cómo detectarlo: recuerda que un dipolo tiende a alinear $\vec p$ con $\vec E$ porque $+q$ es empujada en $+\vec E$ y $-q$ en $-\vec E$.</div>
+</section>
+
+<section class="sec" id="u01-practica" data-block="practica" data-title="Práctica">
+  <h2>Práctica</h2>
+  <p>Resuelve estos ejercicios completos en papel, sin calculadora, y despliega las soluciones paso a paso solo para comprobar o destrabarte.</p>
+
+  <div class="prob" id="u01-p1" data-kind="practica" data-diff="1">
+    <div class="prob-head"><span class="tag">Práctica 1</span><span class="ptitle">Equilibrio estático en un triángulo equilátero</span><span class="diff">dificultad 1/3</span></div>
+    <div class="prob-grid">
+      <div>
+        <p class="stmt">En los vértices de un triángulo equilátero de lado $L$ ($\text{m}$) se han situado tres cargas negativas $-e$. Si en el centro de gravedad (baricentro) del triángulo se sitúa una carga $Q$, determina el valor y signo de $Q$ para mantener todo el sistema en equilibrio estático. (Ayudantía 01 2026-2, Problema 2.)</p>
+        <div class="given"><div><b>Datos</b> lado $L$, tres cargas $-e$ en los vértices</div><div><b>Piden</b> carga central $Q$ (magnitud y signo)</div></div>
+      </div>
+      <figure class="fig" data-fig="u01-triangulo"><figcaption>Fuerzas sobre la carga $-e$ del vértice superior debidas a los otros dos vértices ($\vec F_1, \vec F_2$) y a la carga central ($\vec F_3$).</figcaption></figure>
+    </div>
+    <div class="predict"><b>Antes de calcular:</b> las cargas de los vértices se repelen entre sí hacia afuera. ¿Qué signo debe tener $Q$ para atraerlas hacia el centro?</div>
+    <ol class="reveal">
+      <li class="hint">La distancia del baricentro a cada vértice es $r = \frac{2}{3}h = L/\sqrt{3}$; impón $\sum F_y = 0$ sobre el vértice superior.</li>
+      <li><span class="rl">Paso 1 · Distancia al centro</span><p class="do"><b>Qué hago:</b> la altura es $h = \dfrac{L\sqrt{3}}{2}$ y el baricentro está a $r = \dfrac{2}{3}h = \dfrac{L}{\sqrt{3}}$ de cada vértice ($r^2 = L^2/3$).</p><p><b>Por qué:</b> geometría del triángulo equilátero.</p></li>
+      <li><span class="rl">Paso 2 · Fuerzas sobre el vértice superior</span><p class="do"><b>Qué hago:</b> los otros dos vértices repelen a $-e$ hacia arriba formando $60^\circ$ con la horizontal: $F_1 = F_2 = \dfrac{ke^2}{L^2}$. Sus componentes $x$ se cancelan y en $y$ suman $2\dfrac{ke^2}{L^2}\sin 60^\circ = \sqrt{3}\dfrac{ke^2}{L^2}\,\hat y$. Para compensarla, $Q$ debe ser <b>positiva</b> y atraer hacia abajo: $F_3 = \dfrac{keQ}{r^2} = \dfrac{3keQ}{L^2}$.</p><p><b>Por qué:</b> superposición de Coulomb.</p></li>
+      <li><span class="rl">Paso 3 · Equilibrio</span><p class="do"><b>Qué hago:</b> $\sum F_y = 0 \implies \sqrt{3}\dfrac{ke^2}{L^2} = \dfrac{3keQ}{L^2} \implies Q = +\dfrac{e}{\sqrt{3}} = +\dfrac{e\sqrt{3}}{3}$.</p><p><b>Por qué:</b> por simetría rotacional de $120^\circ$, también los otros vértices y la carga central quedan en equilibrio.</p></li>
+      <li class="final">$$\boxed{Q = +\frac{e}{\sqrt{3}} = +\frac{e\sqrt{3}}{3}}$$</li>
+      <li class="check"><b>Verificación:</b> unidades de carga ($\text{C}$), independiente de $L$ porque todas las fuerzas escalan como $1/L^2$. En la carga central, tres fuerzas iguales a $120^\circ$ suman $\vec 0$.</li>
+    </ol>
+    <div class="ctrl"></div>
+  </div>
+
+  <div class="prob" id="u01-p2" data-kind="practica" data-diff="2">
+    <div class="prob-head"><span class="tag">Práctica 2</span><span class="ptitle">Péndulo electrostático en equilibrio</span><span class="diff">dificultad 2/3</span></div>
+    <div class="prob-grid">
+      <div>
+        <p class="stmt">Dos pequeñas esferas idénticas de igual masa $m$ ($\text{kg}$) y carga $q \gt 0$ ($\text{C}$) cuelgan de un mismo punto del techo por dos hilos ideales de largo $\ell$ ($\text{m}$) bajo aceleración de gravedad $g$ ($\text{m/s}^2$). En equilibrio estático, cada hilo forma un ángulo $\theta$ ($\text{rad}$) con la vertical. Calcula el valor de $q$. (Ayudantía 01 2026-2, Problema 1.)</p>
+        <div class="given"><div><b>Datos</b> $m$ ($\text{kg}$), $\ell$ ($\text{m}$), $\theta$ ($\text{rad}$), $g$ ($\text{m/s}^2$); ambas cargas iguales a $+q$</div><div><b>Piden</b> $q$</div></div>
+      </div>
+      <figure class="fig" data-fig="u01-pendulo"><figcaption>Cada esfera está en equilibrio bajo la tensión del hilo, su peso $m\vec g$ y la repulsión eléctrica $\vec F_e$.</figcaption></figure>
+    </div>
+    <div class="predict"><b>Antes de calcular:</b> si $\theta\to 0$, ¿a qué debe tender $q$? ¿Y si $\theta\to 90^\circ$?</div>
+    <ol class="reveal">
+      <li class="hint">La distancia entre las esferas es $r = 2\ell\sin\theta$. Divide las ecuaciones de equilibrio horizontal y vertical para eliminar la tensión $T$.</li>
+      <li><span class="rl">Paso 1 · Geometría y DCL de la esfera derecha</span><p class="do"><b>Qué hago:</b> separación entre esferas $r = 2\ell\sin\theta$. Equilibrio vertical: $T\cos\theta = mg$. Equilibrio horizontal: $T\sin\theta = F_e$. Dividiendo ambas: $F_e = mg\tan\theta$.</p><p><b>Por qué:</b> primera ley de Newton ($\sum\vec F = \vec 0$).</p></li>
+      <li><span class="rl">Paso 2 · Igualar con Coulomb</span><p class="do"><b>Qué hago:</b> $\dfrac{q^2}{4\pi\varepsilon_0 r^2} = mg\tan\theta \implies q = r\sqrt{4\pi\varepsilon_0 mg\tan\theta} = 2(2\ell\sin\theta)\sqrt{\pi\varepsilon_0 mg\tan\theta}$.</p><p><b>Por qué:</b> se toma raíz positiva porque $q \gt 0$.</p></li>
+      <li class="final">$$\boxed{q = 4\ell\sin\theta\sqrt{\pi\varepsilon_0\,mg\tan\theta}}$$</li>
+      <li class="check"><b>Verificación:</b> unidades $[\text{m}\sqrt{(\text{C}^2/(\text{N·m}^2))\cdot\text{N}}] = \text{C}$. Límites: si $\theta\to 0$, $q\to 0$; si $\theta\to 90^\circ$, $\tan\theta\to\infty$ y $q\to\infty$ (nunca quedan horizontales con carga finita).</li>
+    </ol>
+    <div class="ctrl"></div>
+  </div>
+
+  <div class="prob" id="u01-p3" data-kind="practica" data-diff="2">
+    <div class="prob-head"><span class="tag">Práctica 3</span><span class="ptitle">Electrón y protón entre placas paralelas</span><span class="diff">dificultad 2/3</span></div>
+    <div class="prob-grid">
+      <div>
+        <p class="stmt">Se lanza un electrón ($e = 1{,}60\times10^{-19}\ \text{C}$, $m_e = 9{,}11\times10^{-31}\ \text{kg}$) horizontalmente con rapidez $v_0 = 1{,}60\times10^6\ \text{m/s}$ en el punto medio entre dos placas paralelas horizontales de largo $L = 2{,}00\ \text{cm}$ y separación $d = 1{,}00\ \text{cm}$, donde hay un campo uniforme vertical hacia abajo ($\vec E = -E\hat y$). a) Si el electrón apenas libra el borde de la placa superior al salir, halla la magnitud $E$. b) Si se sustituye por un protón ($m_p = 1{,}67\times10^{-27}\ \text{kg}$) con la misma $v_0$, ¿golpea alguna placa? Calcula la magnitud y dirección de su desplazamiento vertical al salir. c) Halla la rapidez del electrón al salir del campo. (Ayudantía 02 2026-2, Problema 2.)</p>
+        <div class="given"><div><b>Datos</b> $v_0 = 1{,}60\times10^6\ \text{m/s}$, $L = 2{,}00\ \text{cm}$, $d = 1{,}00\ \text{cm}$, $e = 1{,}60\times10^{-19}\ \text{C}$, $m_e = 9{,}11\times10^{-31}\ \text{kg}$, $m_p = 1{,}67\times10^{-27}\ \text{kg}$</div><div><b>Piden</b> $E$, $\Delta y_p$ y si choca, $v_{\text{salida}}$ del electrón</div></div>
+      </div>
+      <figure class="fig" data-fig="u01-proyectil"><figcaption>El electrón entra en el punto medio ($y=0$) y roza el borde superior en $(L, +d/2)$.</figcaption></figure>
+    </div>
+    <div class="predict"><b>Antes de calcular:</b> como $m_p \approx 1830\,m_e$ y ambos sufren la misma magnitud de fuerza $eE$, ¿cómo es la desviación del protón comparada con la del electrón?</div>
+    <ol class="reveal">
+      <li class="hint">Tiempo de vuelo $t = L/v_0$; como ambos parten con la misma $v_0$, $t$ es igual para el electrón y el protón.</li>
+      <li><span class="rl">Paso 1 · Campo eléctrico $E$ (parte a)</span><p class="do"><b>Qué hago:</b> $t = \dfrac{0{,}0200}{1{,}60\times10^6} = 1{,}25\times10^{-8}\ \text{s}$. Para librar la placa superior necesita $\Delta y_e = \dfrac{d}{2} = 5{,}00\times10^{-3}\ \text{m} = \tfrac12 a_e t^2$:</p>
+      $$a_e = \frac{2(5{,}00\times10^{-3})}{(1{,}25\times10^{-8})^2} = 6{,}40\times10^{13}\ \text{m/s}^2,\qquad E = \frac{m_e a_e}{e} = \frac{(9{,}11\times10^{-31})(6{,}40\times10^{13})}{1{,}60\times10^{-19}} \approx 364\ \text{N/C}$$
+      <p><b>Por qué:</b> $6{,}40/1{,}60 = 4{,}00$, así que $E = 9{,}11\times 40 = 364{,}4\ \text{N/C}$.</p></li>
+      <li><span class="rl">Paso 2 · Caso del protón (parte b)</span><p class="do"><b>Qué hago:</b> $q = +e \gt 0$, luego acelera <b>hacia abajo</b> ($-\hat y$) con $a_p = \dfrac{eE}{m_p} = a_e\dfrac{m_e}{m_p}$. Con $m_p/m_e = \dfrac{1{,}67\times10^{-27}}{9{,}11\times10^{-31}} \approx 1830$ (cálculo a mano: $16{,}7/9{,}11\approx 1{,}83$), y como $t$ es el mismo:</p>
+      $$|\Delta y_p| = \Delta y_e\frac{m_e}{m_p} \approx \frac{5{,}00\ \text{mm}}{1830} \approx 2{,}73\times10^{-3}\ \text{mm} = 2{,}73\times10^{-6}\ \text{m} = 2{,}73\,\mu\text{m}$$
+      <p>Como $2{,}73\,\mu\text{m} \ll 5{,}00\ \text{mm}$, <b>no golpea ninguna placa</b>.</p><p><b>Por qué:</b> misma fuerza $eE$ y mismo tiempo $t$, pero inercia $\approx 1830$ veces mayor.</p></li>
+      <li><span class="rl">Paso 3 · Rapidez de salida del electrón (parte c)</span><p class="do"><b>Qué hago:</b> $v_y = a_e t = (6{,}40\times10^{13})(1{,}25\times10^{-8}) = 0{,}80\times10^6\ \text{m/s}$. Factorizando $0{,}80\times10^6$:</p>
+      $$v = \sqrt{v_0^2 + v_y^2} = 10^6\sqrt{1{,}60^2 + 0{,}80^2} = 0{,}80\sqrt{2^2 + 1^2}\times10^6 = 0{,}80\sqrt{5}\times10^6\ \text{m/s} \approx 1{,}79\times10^6\ \text{m/s}$$
+      <p><b>Por qué:</b> $v_x = v_0$ es constante y a mano $\sqrt{5}\approx 2{,}24$, luego $0{,}80\times 2{,}24 \approx 1{,}79$.</p></li>
+      <li class="final">$$\boxed{E \approx 364\ \text{N/C},\qquad \text{Protón: no choca, }\Delta y_p \approx -2{,}73\,\mu\text{m}\ (\text{hacia abajo}),\qquad v \approx 1{,}79\times10^6\ \text{m/s}}$$</li>
+      <li class="check"><b>Verificación:</b> trabajo-energía para el electrón: $eE\Delta y_e = (1{,}60\times10^{-19})(364{,}4)(5{,}00\times10^{-3}) \approx 2{,}92\times10^{-19}\ \text{J}$, igual a $\tfrac12 m_e v_y^2 = \tfrac12(9{,}11\times10^{-31})(0{,}80\times10^6)^2 \approx 2{,}92\times10^{-19}\ \text{J}$.</li>
+    </ol>
+    <div class="ctrl"></div>
+  </div>
+
+  <div class="prob" id="u01-p4" data-kind="practica" data-diff="2">
+    <div class="prob-head"><span class="tag">Práctica 4</span><span class="ptitle">Alambre infinito doblado en horquilla</span><span class="diff">dificultad 2/3</span></div>
+    <div class="prob-grid">
+      <div>
+        <p class="stmt">Un alambre infinito con densidad lineal uniforme de carga $\lambda \gt 0$ ($\text{C/m}$) se dobla en forma de horquilla en el plano $xy$: una rama recta vertical semi-infinita sobre $x = -R$ desde $y = 0$ hasta $y\to+\infty$; un cuarto de circunferencia de radio $R$ ($\text{m}$) centrado en el origen $O$ que une $(-R, 0)$ con $(0, -R)$ en el tercer cuadrante; y una rama recta horizontal semi-infinita sobre $y = -R$ desde $x = 0$ hasta $x\to+\infty$. Determina el campo eléctrico en $O(0,0)$ generado por: a) las porciones rectas vertical y horizontal; b) el cuarto de circunferencia; c) el alambre completo y su magnitud. (Ayudantía 03 2026-2, Problema 1.)</p>
+        <div class="given"><div><b>Datos</b> $\lambda \gt 0$, radio $R$, geometría en el plano $xy$</div><div><b>Piden</b> $\vec E_{\text{vert}}, \vec E_{\text{horiz}}$, $\vec E_{\text{curva}}$, $\vec E_T$ y $|\vec E_T|$</div></div>
+      </div>
+      <figure class="fig" data-fig="u01-horquilla"><figcaption>Horquilla cargada en el plano $xy$ y punto de evaluación en el origen $O$.</figcaption></figure>
+    </div>
+    <div class="predict"><b>Antes de calcular:</b> ¿qué ocurre al sumar las dos ramas rectas perpendiculares entre sí? ¿Hacia qué cuadrante apunta $\vec E_T$?</div>
+    <ol class="reveal">
+      <li class="hint">Usa $\vec r - \vec r\,'$ en cada tramo y las integrales del repaso exprés; para el arco parametriza $\theta\in[\pi, 3\pi/2]$.</li>
+      <li><span class="rl">Paso 1 · Ramas rectas (parte a)</span><p class="do"><b>Qué hago:</b> en la rama vertical, $\vec r\,' = -R\hat x + y\hat y$ ($y\in[0,\infty)$), $\vec r - \vec r\,' = R\hat x - y\hat y$:</p>
+      $$\vec E_{\text{vert}} = k\lambda\int_0^\infty\frac{R\hat x - y\hat y}{(R^2+y^2)^{3/2}}\,dy = k\lambda\left(R\cdot\frac{1}{R^2}\,\hat x - \left[-\frac{1}{\sqrt{R^2+y^2}}\right]_0^\infty\hat y\right) = \frac{k\lambda}{R}(\hat x - \hat y)$$
+      <p>Para la rama horizontal, $\vec r\,' = x\hat x - R\hat y$ ($x\in[0,\infty)$), $\vec r - \vec r\,' = -x\hat x + R\hat y$, dando por simetría $\vec E_{\text{horiz}} = \dfrac{k\lambda}{R}(-\hat x + \hat y)$. Nótese que $\vec E_{\text{vert}} + \vec E_{\text{horiz}} = \vec 0$.</p><p><b>Por qué:</b> las dos semirrectas generan campos iguales y opuestos en $O$.</p></li>
+      <li><span class="rl">Paso 2 · Cuarto de circunferencia (parte b)</span><p class="do"><b>Qué hago:</b> $dq = \lambda R\,d\theta$, $\vec r - \vec r\,' = -R(\cos\theta\,\hat x + \sin\theta\,\hat y)$ con $\theta\in[\pi, 3\pi/2]$:</p>
+      $$\vec E_{\text{curva}} = -\frac{k\lambda}{R}\int_\pi^{3\pi/2}(\cos\theta\,\hat x + \sin\theta\,\hat y)\,d\theta = -\frac{k\lambda}{R}\Big([\sin\theta]_\pi^{3\pi/2}\hat x + [-\cos\theta]_\pi^{3\pi/2}\hat y\Big) = \frac{k\lambda}{R}(\hat x + \hat y)$$
+      <p><b>Por qué:</b> el arco está en el tercer cuadrante, así que repele hacia el primero ($+\hat x + \hat y$).</p></li>
+      <li><span class="rl">Paso 3 · Campo total (parte c)</span><p class="do"><b>Qué hago:</b> $\vec E_T = \vec E_{\text{vert}} + \vec E_{\text{horiz}} + \vec E_{\text{curva}} = \dfrac{k\lambda}{R}(\hat x + \hat y)$ y $|\vec E_T| = \dfrac{\sqrt{2}\,k\lambda}{R}$ (con $k = \frac{1}{4\pi\varepsilon_0}$).</p><p><b>Por qué:</b> superposición de los tres tramos.</p></li>
+      <li class="final">$$\boxed{\vec E_{\text{vert}} = \frac{k\lambda}{R}(\hat x - \hat y),\quad \vec E_{\text{horiz}} = \frac{k\lambda}{R}(-\hat x + \hat y),\quad \vec E_{\text{curva}} = \frac{k\lambda}{R}(\hat x + \hat y),\quad \vec E_T = \frac{k\lambda}{R}(\hat x + \hat y),\quad |\vec E_T| = \frac{\sqrt{2}\,k\lambda}{R}}$$ (donde $\vec E_T = \vec E_{\text{curva}}$ únicamente porque las dos ramas rectas se cancelan entre sí: $\vec E_{\text{vert}} + \vec E_{\text{horiz}} = \vec 0$).</li>
+      <li class="check"><b>Verificación:</b> unidades $[k\lambda/R] = \text{N/C}$. La dirección a $45^\circ$ coincide con la bisectriz del arco en el tercer cuadrante.</li>
+    </ol>
+    <div class="ctrl"></div>
+  </div>
+
+  <div class="prob" id="u01-p5" data-kind="practica" data-diff="3">
+    <div class="prob-head"><span class="tag">Práctica 5</span><span class="ptitle">Disco con densidad no uniforme $\sigma(r) = \sigma_0(1 - r^2/R^2)$</span><span class="diff">dificultad 3/3</span></div>
+    <div class="prob-grid">
+      <div>
+        <p class="stmt">Considere un disco sólido de radio $R$ ($\text{m}$), infinitamente delgado, con una densidad de carga superficial dependiente del radio dada por $\sigma(r) = \sigma_0\left(1 - \dfrac{r^2}{R^2}\right)$ para $0 \le r \le R$, donde $\sigma_0 \gt 0$ ($\text{C/m}^2$) es constante. a) Calcule el campo eléctrico generado por el disco en un punto arbitrario del eje $z$, con $z \gt 0$. b) Si situamos una carga $q = -e$ a una altura $h \gt 0$ ($\text{m}$) del centro del disco sobre el eje $z$, calcule la fuerza ejercida sobre esta. (I1 2026-2, Problema 2.)</p>
+        <div class="given"><div><b>Datos</b> radio $R$, $\sigma(r) = \sigma_0(1 - r^2/R^2)$, $q = -e$ en $z = h$</div><div><b>Piden</b> $\vec E(z)$ ($z\gt 0$), $\vec F$ en $z = h$</div></div>
+      </div>
+      <figure class="fig" data-fig="u01-anillo-disco"><figcaption>Derecha: descomposición del disco en anillos concéntricos de radio $r$, ancho $dr$ y carga $dq = \sigma(r)\,2\pi r\,dr$.</figcaption></figure>
+    </div>
+    <div class="predict"><b>Antes de calcular:</b> cuando $z\to 0^+$ (muy cerca del centro, donde $\sigma(0) = \sigma_0$), ¿a qué campo conocido debe tender $E_z$?</div>
+    <ol class="reveal">
+      <li class="hint">Usa el anillo elemental $dq = 2\pi r\sigma(r)\,dr$, separa en dos integrales y evalúa con $u = z^2 + r^2$ ($r^2 = u - z^2$, $r\,dr = du/2$).</li>
+      <li><span class="rl">Paso 1 · Planteo en anillos (parte a)</span><p class="do"><b>Qué hago:</b> por simetría azimutal solo sobrevive $\hat z$. Un anillo de radio $r$ tiene $dq = \sigma(r)\,2\pi r\,dr$ y aporta $dE_z = k\dfrac{z\,dq}{(z^2+r^2)^{3/2}}$:</p>
+      $$E_z(z) = 2\pi k\sigma_0 z\int_0^R \frac{r\,dr}{(z^2+r^2)^{3/2}} - \frac{2\pi k\sigma_0 z}{R^2}\int_0^R \frac{r^3\,dr}{(z^2+r^2)^{3/2}}$$
+      <p><b>Por qué:</b> superposición continua de anillos elementales.</p></li>
+      <li><span class="rl">Paso 2 · Evaluar las integrales con $u = z^2 + r^2$</span><p class="do"><b>Qué hago:</b> con $u\in[z^2, z^2+R^2]$ y $r\,dr = du/2$: la primera da $\left[-u^{-1/2}\right]_{z^2}^{z^2+R^2} = \dfrac{1}{z} - \dfrac{1}{\sqrt{z^2+R^2}}$. En la segunda ($r^2 = u - z^2$):</p>
+      $$\int_0^R\frac{r^3\,dr}{(z^2+r^2)^{3/2}} = \frac{1}{2}\int_{z^2}^{z^2+R^2}\left(u^{-1/2} - z^2 u^{-3/2}\right)du = \left[\sqrt{u} + \frac{z^2}{\sqrt{u}}\right]_{z^2}^{z^2+R^2} = \sqrt{z^2+R^2} + \frac{z^2}{\sqrt{z^2+R^2}} - 2z = \frac{R^2 + 2z^2}{\sqrt{z^2+R^2}} - 2z$$
+      <p>Reemplazando ambas integrales en $E_z(z)$:</p>
+      $$E_z(z) = 2\pi k\sigma_0\left[z\left(\frac{1}{z} - \frac{1}{\sqrt{z^2+R^2}}\right) - \frac{z}{R^2}\left(\frac{R^2 + 2z^2}{\sqrt{z^2+R^2}} - 2z\right)\right]$$
+      <p>Distribuyendo $z$ y agrupando los términos con $\dfrac{z}{\sqrt{z^2+R^2}}$ (como $1 + \dfrac{R^2+2z^2}{R^2} = 2 + \dfrac{2z^2}{R^2}$):</p>
+      $$\vec E(z) = 2\pi k\sigma_0\left\{1 + \frac{2z^2}{R^2} - \frac{z}{\sqrt{z^2+R^2}}\left(2 + \frac{2z^2}{R^2}\right)\right\}\hat z$$
+      <p><b>Por qué:</b> simplificación algebraica de los términos en $z/\sqrt{z^2+R^2}$.</p></li>
+      <li><span class="rl">Paso 3 · Fuerza en $z = h$ (parte b)</span><p class="do"><b>Qué hago:</b> $\vec F = q\vec E(h)$ con $q = -e$:</p>
+      $$\vec F = -2\pi e k\sigma_0\left\{1 + \frac{2h^2}{R^2} - \frac{h}{\sqrt{h^2+R^2}}\left(2 + \frac{2h^2}{R^2}\right)\right\}\hat z$$
+      <p><b>Por qué:</b> carga negativa siente fuerza opuesta al campo $\vec E(h)$ (hacia el disco).</p></li>
+      <li class="final">$$\boxed{\vec E(z) = 2\pi k\sigma_0\left\{1 + \frac{2z^2}{R^2} - \frac{z}{\sqrt{z^2+R^2}}\left(2 + \frac{2z^2}{R^2}\right)\right\}\hat z,\quad \vec F = -2\pi e k\sigma_0\left\{1 + \frac{2h^2}{R^2} - \frac{h}{\sqrt{h^2+R^2}}\left(2 + \frac{2h^2}{R^2}\right)\right\}\hat z}$$</li>
+      <li class="check"><b>Verificación:</b> para $z\to 0^+$, $\vec E \to 2\pi k\sigma_0\hat z = \frac{\sigma_0}{2\varepsilon_0}\hat z$ (plano infinito con la densidad del centro). Para $z \gg R$, expandiendo $(1+R^2/z^2)^{-1/2}\approx 1 - \frac{R^2}{2z^2} + \frac{3R^4}{8z^4}$, la llave vale $\frac{R^2}{4z^2}$ y $E_z \approx \frac{k(\frac{1}{2}\pi R^2\sigma_0)}{z^2} = \frac{kQ_{\text{disco}}}{z^2}$.</li>
+    </ol>
+    <div class="ctrl"></div>
+  </div>
+</section>
+
+<section class="sec" id="u01-quiz" data-block="quiz" data-title="Autoevaluación">
+  <h2>Autoevaluación</h2>
+  <div class="quiz" id="u01-quiz-1">
+    <div class="q" data-correct="b">
+      <p class="qt">1. Acercas una varilla cargada positivamente (sin tocar) a una esfera conductora neutra aislada, conectas la esfera brevemente a tierra, desconectas la tierra y finalmente retiras la varilla. La esfera queda con carga:</p>
+      <div class="opts"><button type="button" data-o="a">positiva</button><button type="button" data-o="b">negativa</button><button type="button" data-o="c">neutra</button></div>
+      <p class="fb" data-o="a">La varilla positiva atrae electrones desde tierra hacia la esfera, no los expulsa.</p><p class="fb" data-o="b">Correcto. Con la varilla positiva cerca, suben electrones desde tierra; al cortar la tierra primero, quedan atrapados y la carga neta es negativa.</p><p class="fb" data-o="c">Quedaría neutra solo si retiraras la varilla <em>antes</em> de desconectar la tierra.</p>
+    </div>
+    <div class="q" data-correct="c">
+      <p class="qt">2. Se ubican $+4q$ en $x = 0$ y $-q$ en $x = L$ ($q \gt 0, L \gt 0$). El único punto del espacio donde $\vec E = \vec 0$ está en:</p>
+      <div class="opts"><button type="button" data-o="a">$0 \lt x \lt L$</button><button type="button" data-o="b">$x \lt 0$</button><button type="button" data-o="c">$x \gt L$</button></div>
+      <p class="fb" data-o="a">Entre ambas cargas los dos campos apuntan hacia $+\hat x$: se suman y nunca se anulan.</p><p class="fb" data-o="b">Para $x \lt 0$ estás más cerca de la carga mayor $+4q$, así que su campo siempre gana.</p><p class="fb" data-o="c">Correcto. Afuera y al lado de la carga menor ($x = 2L$) los campos son opuestos y sus magnitudes se igualan.</p>
+    </div>
+    <div class="q" data-correct="a">
+      <p class="qt">3. En un punto $P$, el campo eléctrico apunta hacia el norte ($+\hat y$). Si colocas allí un electrón ($q = -e$), la fuerza eléctrica sobre él apunta hacia:</p>
+      <div class="opts"><button type="button" data-o="a">el sur ($-\hat y$)</button><button type="button" data-o="b">el norte ($+\hat y$)</button><button type="button" data-o="c">el este ($+\hat x$)</button></div>
+      <p class="fb" data-o="a">Correcto. $\vec F = q\vec E = -e\vec E$: al ser $q \lt 0$, la fuerza tiene sentido contrario al campo.</p><p class="fb" data-o="b">Eso ocurre para una carga positiva, no para un electrón.</p><p class="fb" data-o="c">La fuerza eléctrica es siempre colineal con $\vec E$, nunca perpendicular.</p>
+    </div>
+    <div class="q" data-correct="b">
+      <p class="qt">4. De una carga $q_1$ salen 18 líneas de campo y a una carga $q_2$ entran 6 líneas. La relación $q_1/q_2$ es:</p>
+      <div class="opts"><button type="button" data-o="a">$+3$</button><button type="button" data-o="b">$-3$</button><button type="button" data-o="c">$-1/3$</button></div>
+      <p class="fb" data-o="a">Si salen de $q_1$ ($q_1 \gt 0$) y entran a $q_2$ ($q_2 \lt 0$), tienen signos opuestos.</p><p class="fb" data-o="b">Correcto. El número de líneas es proporcional a $|q|$, luego $|q_1|/|q_2| = 18/6 = 3$, con $q_1 \gt 0$ y $q_2 \lt 0$.</p><p class="fb" data-o="c">$q_1$ tiene más líneas que $q_2$, así que $|q_1| \gt |q_2|$.</p>
+    </div>
+    <div class="q" data-correct="c">
+      <p class="qt">5. Duplicas la distancia $z$ desde un plano infinito uniformemente cargado ($\sigma$ constante) hasta el punto de observación. La magnitud de $\vec E$:</p>
+      <div class="opts"><button type="button" data-o="a">se reduce a la cuarta parte</button><button type="button" data-o="b">se reduce a la mitad</button><button type="button" data-o="c">no cambia</button></div>
+      <p class="fb" data-o="a">Eso vale para una carga puntual ($1/r^2$), no para un plano infinito.</p><p class="fb" data-o="b">Eso vale para una línea infinita ($1/r$), no para un plano infinito.</p><p class="fb" data-o="c">Correcto. Para un plano infinito $E = \sigma/(2\varepsilon_0)$, independiente de la distancia al plano.</p>
+    </div>
+    <div class="q" data-correct="a">
+      <p class="qt">6. Un dipolo eléctrico $\vec p$ está en un campo uniforme $\vec E$. Comparando la orientación paralela ($\phi = 0^\circ$) con la antiparalela ($\phi = 180^\circ$), en ambas $\vec\tau = \vec 0$, pero:</p>
+      <div class="opts"><button type="button" data-o="a">$\phi = 0^\circ$ es equilibrio estable ($U = -pE$) y $\phi = 180^\circ$ es inestable ($U = +pE$)</button><button type="button" data-o="b">ambas orientaciones tienen igual energía potencial $U = 0$</button><button type="button" data-o="c">$\phi = 180^\circ$ es estable porque $U$ es máxima</button></div>
+      <p class="fb" data-o="a">Correcto. Cualquier desvío desde $0^\circ$ genera un torque restaurador hacia $\vec E$; desde $180^\circ$ el torque lo voltea.</p><p class="fb" data-o="b">$U = -\vec p\cdot\vec E = 0$ ocurre en $\phi = 90^\circ$, donde el torque es máximo.</p><p class="fb" data-o="c">El equilibrio estable corresponde al mínimo de energía potencial, no al máximo.</p>
+    </div>
+    <div class="q" data-correct="b">
+      <p class="qt">7. Un electrón y un protón entran horizontalmente con la misma rapidez $v_0$ a la misma región entre placas paralelas con $\vec E$ vertical uniforme (sin chocar). Al salir, la magnitud de la desviación vertical del protón comparada con la del electrón es:</p>
+      <div class="opts"><button type="button" data-o="a">igual, porque tienen igual magnitud de carga $e$</button><button type="button" data-o="b">menor en un factor $m_e/m_p$, y en sentido opuesto</button><button type="button" data-o="c">mayor en un factor $m_p/m_e$</button></div>
+      <p class="fb" data-o="a">La fuerza $|q|E$ y el tiempo $L/v_0$ son iguales, pero la aceleración $eE/m$ depende de la masa.</p><p class="fb" data-o="b">Correcto. $\Delta y = \frac{q E L^2}{2 m v_0^2}$: signos opuestos y razón inversamente proporcional a la masa.</p><p class="fb" data-o="c">Mayor masa implica menor aceleración, no mayor desviación.</p>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="u01-formulas" data-block="formulas" data-title="Tarjeta de fórmulas">
+  <h2>Tarjeta de fórmulas</h2>
+  <div class="formulas"><table><thead><tr><th>Fórmula</th><th>Significado</th><th>Válida si</th></tr></thead>
+  <tbody>
+    <tr><td>$q = ne$, $\ \sum q_i = \text{cte}$</td><td>Carga (C), $e = 1{,}602\times10^{-19}\ \text{C}$, $n\in\mathbb{Z}$</td><td>Siempre; la suma en sistemas aislados</td></tr>
+    <tr><td>$\vec F_{12} = k\dfrac{q_1 q_2}{r^2}\hat r_{12} = kq_1 q_2\dfrac{\vec r_2 - \vec r_1}{|\vec r_2 - \vec r_1|^3}$</td><td>Fuerza de Coulomb (N); $k = \dfrac{1}{4\pi\varepsilon_0} \approx 8{,}99\times10^9\ \text{N·m}^2/\text{C}^2$</td><td>Cargas puntuales en reposo en el vacío; $\hat r_{12}$ de $q_1$ a $q_2$</td></tr>
+    <tr><td>$\vec E = \dfrac{\vec F_e}{q_0}$, $\ \vec F = q\vec E$, $\ \vec E = k\displaystyle\sum_i \dfrac{q_i}{r_i^2}\hat r_i$</td><td>Campo eléctrico (N/C = V/m), superposición discreta</td><td>Cargas fuente puntuales (o fuera de esferas simétricas)</td></tr>
+    <tr><td>$\vec E = k\displaystyle\int \dfrac{\vec r - \vec r\,'}{|\vec r - \vec r\,'|^3}\,dq$</td><td>Campo de distribución continua; $dq = \lambda\,d\ell,\ \sigma\,dA,\ \rho\,dV$ ($\lambda$ C/m, $\sigma$ C/m², $\rho$ C/m³)</td><td>Siempre en electrostática</td></tr>
+    <tr><td>$E_{\text{barra, eje}} = \dfrac{kQ}{a(a+L)}$</td><td>Campo en el eje a distancia $a$ del extremo cercano de barra de largo $L$</td><td>Densidad uniforme $\lambda = Q/L$</td></tr>
+    <tr><td>$E_{\text{barra, med}} = \dfrac{kQ}{x\sqrt{x^2+a^2}}$; $\ E_{\text{línea}} = \dfrac{2k\lambda}{x} = \dfrac{\lambda}{2\pi\varepsilon_0 x}$</td><td>Mediatriz de barra de largo $2a$; límite de línea infinita ($a\gg x$)</td><td>Densidad uniforme; $x$ distancia perpendicular</td></tr>
+    <tr><td>$\vec E_{\text{anillo}}(z) = \dfrac{kQz}{(z^2+R^2)^{3/2}}\,\hat z$</td><td>Campo sobre el eje de anillo de radio $R$ y carga $Q$</td><td>Densidad uniforme; eje de simetría</td></tr>
+    <tr><td>$E_{\text{disco}} = \dfrac{\sigma}{2\varepsilon_0}\!\left(1 - \dfrac{z}{\sqrt{z^2+R^2}}\right)$; $\ E_{\text{plano}} = \dfrac{\sigma}{2\varepsilon_0}$</td><td>Disco uniforme ($z \gt 0$); límite de plano infinito ($R\gg z$); dos planos $\pm\sigma$: $E_{\text{entre}} = \sigma/\varepsilon_0$</td><td>Densidad $\sigma$ uniforme; eje de simetría</td></tr>
+    <tr><td>$\vec p = q\vec d$; $\ \vec E_{\text{ec}} \approx -\dfrac{k\vec p}{x^3}$, $\ \vec E_{\text{eje}} \approx \dfrac{2k\vec p}{z^3}$</td><td>Momento dipolar (C·m, de $-q$ a $+q$) y campo lejano</td><td>$x, z \gg d$</td></tr>
+    <tr><td>$\vec\tau = \vec p\times\vec E$, $\ U = -\vec p\cdot\vec E = -pE\cos\phi$</td><td>Torque (N·m) y energía potencial (J) de dipolo</td><td>$\vec E$ uniforme ($U=0$ en $\phi=90^\circ$)</td></tr>
+    <tr><td>$\vec a = \dfrac{q\vec E}{m}$, $\ \Delta y = \dfrac{qEL^2}{2mv_0^2}$</td><td>Aceleración ($\text{m/s}^2$) y deflexión transversal en placas de largo $L$</td><td>$\vec E$ uniforme, $\vec v_0\perp\vec E$, gravedad despreciable</td></tr>
+    <tr><td>$\Phi_E = \displaystyle\oint\vec E\cdot d\vec A = \dfrac{Q_{\text{enc}}}{\varepsilon_0}$; $\ V = k\displaystyle\sum_i\dfrac{q_i}{r_i}$, $\ W_{\text{ext}} = q\Delta V$</td><td>Herramientas de apoyo: ley de Gauss ($\Phi_E$ en $\text{N·m}^2/\text{C}$) y potencial ($V$ en V, $V(\infty)=0$)</td><td>Gauss en cualquier superficie cerrada; $V$ para cargas puntuales</td></tr>
+  </tbody></table></div>
+</section>
+</section>

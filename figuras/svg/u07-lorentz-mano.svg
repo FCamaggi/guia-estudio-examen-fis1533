@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 460 250" style="max-width:621px" role="img" aria-label="Fuerza magnética sobre cargas positiva y negativa y convención de campo">
+<style>
+  :root {
+    --surface: #ffffff; --ink: #142030; --muted: #566273; --line: #d8dee7;
+    --accent: #1f4fd1; --accent-soft: #e7edfc; --copper: #a85a18; --copper-soft: #f8eee4;
+    --font-body: "Source Sans 3", "Segoe UI", Roboto, sans-serif;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --surface: #151c26; --ink: #e5eaf1; --muted: #9aa6b6; --line: #29323f;
+      --accent: #84a6ff; --accent-soft: #1b2640; --copper: #e2a26b; --copper-soft: #2a2119;
+    }
+  }
+  svg { background: var(--surface); font-family: var(--font-body); }
+  .w { stroke: var(--ink); stroke-width: 1.8; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+  .wk { stroke: var(--ink); stroke-width: 3.2; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+  .m { stroke: var(--muted); stroke-width: 1.2; fill: none; }
+  .md { stroke: var(--muted); stroke-width: 1.3; stroke-dasharray: 4 4; fill: none; }
+  .a { stroke: var(--accent); stroke-width: 2.2; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+  .ad { stroke: var(--accent); stroke-width: 1.6; stroke-dasharray: 5 4; fill: none; }
+  .c { stroke: var(--copper); stroke-width: 2.2; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+  .cd { stroke: var(--copper); stroke-width: 1.4; stroke-dasharray: 4 3; fill: none; }
+  .fld { stroke: var(--muted); stroke-width: 1.3; opacity: .38; }
+  .fldl { stroke: var(--muted); stroke-width: 1.4; opacity: .6; fill: none; }
+  .af { fill: var(--accent); } .cf { fill: var(--copper); } .wf, .inkf, .wkf { fill: var(--ink); }
+  .mf, .mdf { fill: var(--muted); } .fldlf { fill: var(--muted); opacity: .6; }
+  .adf { fill: var(--accent); } .cdf { fill: var(--copper); }
+  .soft { fill: var(--accent-soft); } .csoft { fill: var(--copper-soft); } .paperf { fill: var(--surface); }
+  .nostroke { stroke: none; } .nofill { fill: none; }
+  .s, .sa, .sc { font: italic 17px "Times New Roman", "STIX Two Text", serif; fill: var(--ink); }
+  .sa { fill: var(--accent); } .sc { fill: var(--copper); }
+  .t { font: 12.5px var(--font-body); fill: var(--muted); }
+  .tb { font: 600 14px var(--font-body); fill: var(--ink); }
+  .tc { font: 600 13px var(--font-body); fill: var(--copper); }
+  .ta { font: 600 13px var(--font-body); fill: var(--accent); }
+  .tw { font: 700 13px var(--font-body); fill: var(--surface); }
+  .gl-ink, .gl-acc, .gl-cop, .gl-mut, .gl-srf { fill: none; stroke-width: 1.2; stroke-linecap: round; }
+  .gl-ink { stroke: var(--ink); } .gl-acc { stroke: var(--accent); } .gl-cop { stroke: var(--copper); }
+  .gl-mut { stroke: var(--muted); } .gl-srf { stroke: var(--surface); }
+  .glf-ink { fill: var(--ink); } .glf-acc { fill: var(--accent); } .glf-cop { fill: var(--copper); }
+  .glf-mut { fill: var(--muted); } .glf-srf { fill: var(--surface); }
+  .sb { font-size: 72%; }
+</style>
+<polygon class="soft nostroke" opacity="0.45" points="55,168 225,168 260,124 90,124"/><rect class="paperf m" x="288" y="28" width="154" height="175" rx="8"/><circle class="csoft c" cx="130" cy="142" r="8"/><line class="a" x1="138" y1="142" x2="222.0" y2="142.0"/><polygon class="af" points="230,142 222.0,146.0 222.0,138.0"/><line class="c" x1="130" y1="142" x2="191.5" y2="97.3"/><polygon class="cf" points="197.957,92.626 193.8,100.6 189.1,94.1"/><path class="m" d="M 166.0 142.0 A 36 36 0 0 0 159.1 120.8"/><line class="c" x1="130" y1="134" x2="130.0" y2="52.0"/><polygon class="cf" points="130,44 134.0,52.0 126.0,52.0"/><line class="a" x1="130" y1="150" x2="130.0" y2="202.0"/><polygon class="af" points="130,210 126.0,202.0 134.0,202.0"/><circle class="c nofill" cx="326" cy="95" r="12"/><line class="c" x1="319.4" y1="88.4" x2="332.6" y2="101.6"/><line class="c" x1="319.4" y1="101.6" x2="332.6" y2="88.4"/><circle class="c nofill" cx="326" cy="158" r="12"/><circle class="cf" cx="326" cy="158" r="2.88"/><text class="tc" x="130" y="146.5" text-anchor="middle">+</text><text class="s" x="114" y="147" text-anchor="end">+q</text><g><text class="sa" x="184.0" y="163" text-anchor="middle">v</text><line class="gl-acc" x1="182.0" y1="148.4" x2="188.4" y2="148.4"/><polygon class="glf-acc" points="189.9,148.4 184.5,145.8 184.5,150.9"/></g><g><text class="sc" x="164.0" y="107.3" text-anchor="middle">B</text><line class="gl-cop" x1="162.0" y1="92.7" x2="168.4" y2="92.7"/><polygon class="glf-cop" points="169.9,92.7 164.5,90.1 164.5,95.2"/></g><text class="s" x="176.602" y="131.858" text-anchor="middle">θ</text><g><text class="sc" x="82.3" y="94" text-anchor="middle">F</text><line class="gl-cop" x1="80.2" y1="79.4" x2="86.7" y2="79.4"/><polygon class="glf-cop" points="88.2,79.4 82.8,76.8 82.8,81.9"/><text class="sc" x="86.7" y="94" text-anchor="start"> (+q)</text></g><g><text class="sa" x="144.4" y="206" text-anchor="middle">F</text><line class="gl-acc" x1="142.4" y1="191.4" x2="148.9" y2="191.4"/><polygon class="glf-acc" points="150.4,191.4 144.9,188.8 144.9,193.9"/><text class="sa" x="148.8" y="206" text-anchor="start"> (−q)</text></g><g><text class="t" x="44.0" y="236" text-anchor="middle">F</text><line class="gl-mut" x1="41.3" y1="222.9" x2="45.6" y2="222.9"/><polygon class="glf-mut" points="47.1,222.9 41.7,220.3 41.7,225.4"/><text class="t" x="47.2" y="236" text-anchor="start"> = q (</text><text class="t" x="78.0" y="236" text-anchor="middle">v</text><line class="gl-mut" x1="75.3" y1="222.9" x2="79.6" y2="222.9"/><polygon class="glf-mut" points="81.1,222.9 75.7,220.3 75.7,225.4"/><text class="t" x="81.2" y="236" text-anchor="start"> × </text><text class="t" x="98.0" y="236" text-anchor="middle">B</text><line class="gl-mut" x1="95.3" y1="222.9" x2="99.6" y2="222.9"/><polygon class="glf-mut" points="101.1,222.9 95.7,220.3 95.7,225.4"/><text class="t" x="101.2" y="236" text-anchor="start">)  perpendicular al plano</text></g><text class="tb" x="365" y="50" text-anchor="middle">Convención 3D</text><g><text class="sc" x="354.4" y="93" text-anchor="middle">B</text><line class="gl-cop" x1="352.4" y1="78.4" x2="358.9" y2="78.4"/><polygon class="glf-cop" points="360.4,78.4 354.9,75.8 354.9,80.9"/><text class="sc" x="358.8" y="93" text-anchor="start"> </text><circle class="gl-cop" cx="371.7" cy="87.4" r="6.1"/><line class="gl-cop" x1="367.3" y1="83.1" x2="376.0" y2="91.7"/><line class="gl-cop" x1="367.3" y1="91.7" x2="376.0" y2="83.1"/></g><text class="t" x="350" y="110" text-anchor="start">entra a la hoja</text><g><text class="sc" x="354.4" y="156" text-anchor="middle">B</text><line class="gl-cop" x1="352.4" y1="141.4" x2="358.9" y2="141.4"/><polygon class="glf-cop" points="360.4,141.4 354.9,138.8 354.9,143.9"/><text class="sc" x="358.8" y="156" text-anchor="start"> </text><circle class="gl-cop" cx="371.7" cy="150.4" r="6.1"/><circle class="glf-cop" cx="371.7" cy="150.4" r="1.7"/></g><text class="t" x="350" y="173" text-anchor="start">sale de la hoja</text></svg>

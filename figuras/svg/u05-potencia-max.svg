@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 460 235" style="max-width:621px" role="img" aria-label="Potencia entregada a la carga R en función de la razón R/r">
+<style>
+  :root {
+    --surface: #ffffff; --ink: #142030; --muted: #566273; --line: #d8dee7;
+    --accent: #1f4fd1; --accent-soft: #e7edfc; --copper: #a85a18; --copper-soft: #f8eee4;
+    --font-body: "Source Sans 3", "Segoe UI", Roboto, sans-serif;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --surface: #151c26; --ink: #e5eaf1; --muted: #9aa6b6; --line: #29323f;
+      --accent: #84a6ff; --accent-soft: #1b2640; --copper: #e2a26b; --copper-soft: #2a2119;
+    }
+  }
+  svg { background: var(--surface); font-family: var(--font-body); }
+  .w { stroke: var(--ink); stroke-width: 1.8; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+  .wk { stroke: var(--ink); stroke-width: 3.2; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+  .m { stroke: var(--muted); stroke-width: 1.2; fill: none; }
+  .md { stroke: var(--muted); stroke-width: 1.3; stroke-dasharray: 4 4; fill: none; }
+  .a { stroke: var(--accent); stroke-width: 2.2; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+  .ad { stroke: var(--accent); stroke-width: 1.6; stroke-dasharray: 5 4; fill: none; }
+  .c { stroke: var(--copper); stroke-width: 2.2; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+  .cd { stroke: var(--copper); stroke-width: 1.4; stroke-dasharray: 4 3; fill: none; }
+  .fld { stroke: var(--muted); stroke-width: 1.3; opacity: .38; }
+  .fldl { stroke: var(--muted); stroke-width: 1.4; opacity: .6; fill: none; }
+  .af { fill: var(--accent); } .cf { fill: var(--copper); } .wf, .inkf, .wkf { fill: var(--ink); }
+  .mf, .mdf { fill: var(--muted); } .fldlf { fill: var(--muted); opacity: .6; }
+  .adf { fill: var(--accent); } .cdf { fill: var(--copper); }
+  .soft { fill: var(--accent-soft); } .csoft { fill: var(--copper-soft); } .paperf { fill: var(--surface); }
+  .nostroke { stroke: none; } .nofill { fill: none; }
+  .s, .sa, .sc { font: italic 17px "Times New Roman", "STIX Two Text", serif; fill: var(--ink); }
+  .sa { fill: var(--accent); } .sc { fill: var(--copper); }
+  .t { font: 12.5px var(--font-body); fill: var(--muted); }
+  .tb { font: 600 14px var(--font-body); fill: var(--ink); }
+  .tc { font: 600 13px var(--font-body); fill: var(--copper); }
+  .ta { font: 600 13px var(--font-body); fill: var(--accent); }
+  .tw { font: 700 13px var(--font-body); fill: var(--surface); }
+  .gl-ink, .gl-acc, .gl-cop, .gl-mut, .gl-srf { fill: none; stroke-width: 1.2; stroke-linecap: round; }
+  .gl-ink { stroke: var(--ink); } .gl-acc { stroke: var(--accent); } .gl-cop { stroke: var(--copper); }
+  .gl-mut { stroke: var(--muted); } .gl-srf { stroke: var(--surface); }
+  .glf-ink { fill: var(--ink); } .glf-acc { fill: var(--accent); } .glf-cop { fill: var(--copper); }
+  .glf-mut { fill: var(--muted); } .glf-srf { fill: var(--surface); }
+  .sb { font-size: 72%; }
+</style>
+<line class="w" x1="78" y1="178" x2="346.0" y2="178.0"/><polygon class="inkf" points="352,178 346.0,181.0 346.0,175.0"/><line class="w" x1="78" y1="178" x2="78.0" y2="28.0"/><polygon class="inkf" points="78,22 81.0,28.0 75.0,28.0"/><line class="md" x1="143" y1="36" x2="143" y2="178"/><line class="md" x1="78" y1="54.5217" x2="338" y2="54.5217"/><polyline class="a" points="78,178 81.2,155.6 84.5,137.2 87.8,122 91,109.4 94.2,99 97.5,90.3 100.8,83.1 104,77.2 107.2,72.3 110.5,68.2 113.8,64.9 117,62.2 120.2,60.1 123.5,58.4 126.8,57 130,56 133.2,55.3 136.5,54.9 139.8,54.6 143,54.5 146.2,54.6 149.5,54.8 152.8,55.1 156,55.5 159.2,56 162.5,56.6 165.8,57.3 169,58 172.2,58.7 175.5,59.5 178.8,60.3 182,61.1 185.2,62 188.5,62.8 191.8,63.7 195,64.6 198.2,65.5 201.5,66.4 204.8,67.3 208,68.2 211.3,69.2 214.5,70.1 217.8,71 221,71.9 224.2,72.8 227.5,73.7 230.8,74.6 234,75.5 237.2,76.3 240.5,77.2 243.8,78.1 247,78.9 250.3,79.8 253.5,80.6 256.8,81.4 260,82.2 263.2,83 266.5,83.8 269.8,84.6 273,85.4 276.2,86.2 279.5,86.9 282.8,87.7 286,88.4 289.2,89.1 292.5,89.8 295.8,90.6 299,91.3 302.2,92 305.5,92.6 308.8,93.3 312,94 315.2,94.6 318.5,95.3 321.8,95.9 325,96.5 328.2,97.2 331.5,97.8 334.8,98.4 338,99"/><text class="s" x="356" y="183" text-anchor="start">R / r</text><text class="s" x="72" y="20" text-anchor="end">P / Pₘₐₓ</text><text class="s" x="143" y="194" text-anchor="middle">R = r</text><text class="s" x="70" y="58.5217" text-anchor="end">Pₘₐₓ</text><text class="sa" x="350" y="74" text-anchor="start">Pₘₐₓ = ε² / (4r)</text><text class="t" x="350" y="98" text-anchor="start">en R = r (η = 50 %)</text><text class="t" x="350" y="134" text-anchor="start">si R ≫ r: P baja,</text><text class="t" x="350" y="152" text-anchor="start">pero η → 100 %</text></svg>

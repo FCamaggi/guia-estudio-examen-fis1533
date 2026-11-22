@@ -1,0 +1,249 @@
+<!-- TEMPLATE UNIT. Copy to unidades/uNN-slug.html, replace "u00" with the unit id everywhere,
+     fill every [bracket]. Contract: SPEC-PEDAGOGICO.md. Gate: python3 scripts/check_unit.py <file> -->
+<section class="unit" id="u00" data-num="U0" data-title="[Título de la unidad]">
+  <header class="unit-head"><span class="unit-num">U0</span><h1>[Título de la unidad]</h1><span class="unit-weight">[N problemas en exámenes · M en los 4 recientes]</span></header>
+
+<section class="sec" id="u00-mapa" data-block="mapa" data-title="Mapa de la unidad">
+  <h2>Mapa de la unidad</h2>
+  <div class="key"><b>Idea central.</b> [Dos líneas.]</div>
+  <div class="goals"><div class="goals-t">Al terminar deberías poder</div><ul><li>[verbo evaluable]</li><li>[verbo evaluable]</li><li>[verbo evaluable]</li><li>[verbo evaluable]</li></ul></div>
+  <div class="exam-map"><h4>Qué pregunta el examen</h4><ul><li>[Arquetipo · exámenes donde aparece · qué sub-preguntas]</li></ul></div>
+  <details class="prereq"><summary>[Herramienta previa]</summary><p>[Lo mínimo para usarla aquí, con un mini ejemplo.]</p></details>
+</section>
+
+<section class="sec" id="u00-s1" data-block="teoria" data-title="[Subtema 1]">
+  <h2>[Subtema 1]</h2>
+  <p>[Problema físico que motiva → intuición.]</p>
+  <figure class="fig" data-fig="plantilla-rieles"><figcaption>[Qué muestra la figura.]</figcaption></figure>
+  <div class="eq key"><div class="lbl">[Nombre de la ley]</div>$$\varepsilon = -\frac{d\Phi_B}{dt}$$<div class="note">[Significado de cada símbolo, unidades y validez.]</div></div>
+  <details class="deriv" open><summary>Derivación paso a paso</summary><p>[Sin saltos.]</p></details>
+  <div class="why"><b>Cuándo se usa / cuándo NO:</b> [criterio]</div>
+</section>
+
+<section class="sec" id="u00-ejemplos" data-block="ejemplos" data-title="Ejemplos resueltos">
+  <h2>Ejemplos resueltos</h2>
+  <div class="prob" id="u00-e1" data-kind="ejemplo" data-diff="1">
+    <div class="prob-head"><span class="tag">Ejemplo 1</span><span class="ptitle">[Título corto del problema]</span><span class="diff">dificultad 1/3</span></div>
+    <div class="prob-grid">
+      <div>
+        <p class="stmt">[Enunciado completo, con todos los datos.]</p>
+        <div class="given"><div><b>Datos</b> [$R$, $\ell$, $v$, $B$]</div><div><b>Piden</b> [$\varepsilon$, $I$]</div></div>
+      </div>
+      <figure class="fig" data-fig="plantilla-rieles"><figcaption>[Pie de figura con $\LaTeX$ si hace falta.]</figcaption></figure>
+    </div>
+    <div class="predict"><b>Antes de calcular:</b> [pregunta de intuición: signo, orden de magnitud o límite]</div>
+    <ol class="reveal">
+      <li class="hint">[Pista inicial]</li>
+      <li><span class="rl">Paso 1 · [Título]</span><p class="do"><b>Qué hago:</b> [acción]</p><p><b>Por qué:</b> [ley o argumento físico]</p></li>
+      <li><span class="rl">Paso 2 · [Título]</span><p class="do"><b>Qué hago:</b> [acción]</p><p><b>Por qué:</b> [justificación]</p></li>
+      <li class="final">$$\boxed{\varepsilon = B\ell v}$$</li>
+      <li class="check"><b>Verificación:</b> [unidades: T·m·m/s = V; límite: si $v\to 0$, $\varepsilon\to 0$]</li>
+    </ol>
+    <div class="ctrl"></div>
+  </div>
+  <div class="prob" id="u00-e2" data-kind="ejemplo" data-diff="2">
+    <div class="prob-head"><span class="tag">Ejemplo 2</span><span class="ptitle">[Título corto del problema]</span><span class="diff">dificultad 2/3</span></div>
+    <div class="prob-grid">
+      <div>
+        <p class="stmt">[Enunciado completo, con todos los datos.]</p>
+        <div class="given"><div><b>Datos</b> [$R$, $\ell$, $v$, $B$]</div><div><b>Piden</b> [$\varepsilon$, $I$]</div></div>
+      </div>
+      <figure class="fig" data-fig="plantilla-rieles"><figcaption>[Pie de figura con $\LaTeX$ si hace falta.]</figcaption></figure>
+    </div>
+    <div class="predict"><b>Antes de calcular:</b> [pregunta de intuición: signo, orden de magnitud o límite]</div>
+    <ol class="reveal">
+      <li class="hint">[Pista inicial]</li>
+      <li><span class="rl">Paso 1 · [Título]</span><p class="do"><b>Qué hago:</b> [acción]</p><p><b>Por qué:</b> [ley o argumento físico]</p></li>
+      <li><span class="rl">Paso 2 · [Título]</span><p class="do"><b>Qué hago:</b> [acción]</p><p><b>Por qué:</b> [justificación]</p></li>
+      <li class="final">$$\boxed{\varepsilon = B\ell v}$$</li>
+      <li class="check"><b>Verificación:</b> [unidades: T·m·m/s = V; límite: si $v\to 0$, $\varepsilon\to 0$]</li>
+    </ol>
+    <div class="ctrl"></div>
+  </div>
+  <div class="prob" id="u00-e3" data-kind="ejemplo" data-diff="3">
+    <div class="prob-head"><span class="tag">Ejemplo 3</span><span class="ptitle">[Título corto del problema]</span><span class="diff">dificultad 3/3</span></div>
+    <div class="prob-grid">
+      <div>
+        <p class="stmt">[Enunciado completo, con todos los datos.]</p>
+        <div class="given"><div><b>Datos</b> [$R$, $\ell$, $v$, $B$]</div><div><b>Piden</b> [$\varepsilon$, $I$]</div></div>
+      </div>
+      <figure class="fig" data-fig="plantilla-rieles"><figcaption>[Pie de figura con $\LaTeX$ si hace falta.]</figcaption></figure>
+    </div>
+    <div class="predict"><b>Antes de calcular:</b> [pregunta de intuición: signo, orden de magnitud o límite]</div>
+    <ol class="reveal">
+      <li class="hint">[Pista inicial]</li>
+      <li><span class="rl">Paso 1 · [Título]</span><p class="do"><b>Qué hago:</b> [acción]</p><p><b>Por qué:</b> [ley o argumento físico]</p></li>
+      <li><span class="rl">Paso 2 · [Título]</span><p class="do"><b>Qué hago:</b> [acción]</p><p><b>Por qué:</b> [justificación]</p></li>
+      <li class="final">$$\boxed{\varepsilon = B\ell v}$$</li>
+      <li class="check"><b>Verificación:</b> [unidades: T·m·m/s = V; límite: si $v\to 0$, $\varepsilon\to 0$]</li>
+    </ol>
+    <div class="ctrl"></div>
+  </div>
+</section>
+
+<section class="sec" id="u00-examen" data-block="arquetipos" data-title="Arquetipos de examen">
+  <h2>Arquetipos de examen</h2>
+  <div class="prob" id="u00-x1" data-kind="arquetipo" data-diff="2">
+    <div class="prob-head"><span class="tag">Arquetipo de examen 1</span><span class="ptitle">[Título corto del problema]</span><span class="diff">dificultad 2/3</span><span class="src">Examen 20XX-X · P1</span></div>
+    <div class="prob-grid">
+      <div>
+        <p class="stmt">[Enunciado completo, con todos los datos.]</p>
+        <div class="given"><div><b>Datos</b> [$R$, $\ell$, $v$, $B$]</div><div><b>Piden</b> [$\varepsilon$, $I$]</div></div>
+      </div>
+      <figure class="fig" data-fig="plantilla-rieles"><figcaption>[Pie de figura con $\LaTeX$ si hace falta.]</figcaption></figure>
+    </div>
+    <div class="predict"><b>Antes de calcular:</b> [pregunta de intuición: signo, orden de magnitud o límite]</div>
+    <ol class="reveal">
+      <li class="hint">[Pista inicial]</li>
+      <li><span class="rl">Paso 1 · [Título]</span><p class="do"><b>Qué hago:</b> [acción]</p><p><b>Por qué:</b> [ley o argumento físico]</p></li>
+      <li><span class="rl">Paso 2 · [Título]</span><p class="do"><b>Qué hago:</b> [acción]</p><p><b>Por qué:</b> [justificación]</p></li>
+      <li class="final">$$\boxed{\varepsilon = B\ell v}$$</li>
+      <li class="check"><b>Verificación:</b> [unidades: T·m·m/s = V; límite: si $v\to 0$, $\varepsilon\to 0$]</li>
+    </ol>
+    <div class="ctrl"></div>
+  </div>
+  <div class="prob" id="u00-x2" data-kind="arquetipo" data-diff="3">
+    <div class="prob-head"><span class="tag">Arquetipo de examen 2</span><span class="ptitle">[Título corto del problema]</span><span class="diff">dificultad 3/3</span><span class="src">Examen 20XX-X · P2</span></div>
+    <div class="prob-grid">
+      <div>
+        <p class="stmt">[Enunciado completo, con todos los datos.]</p>
+        <div class="given"><div><b>Datos</b> [$R$, $\ell$, $v$, $B$]</div><div><b>Piden</b> [$\varepsilon$, $I$]</div></div>
+      </div>
+      <figure class="fig" data-fig="plantilla-rieles"><figcaption>[Pie de figura con $\LaTeX$ si hace falta.]</figcaption></figure>
+    </div>
+    <div class="predict"><b>Antes de calcular:</b> [pregunta de intuición: signo, orden de magnitud o límite]</div>
+    <ol class="reveal">
+      <li class="hint">[Pista inicial]</li>
+      <li><span class="rl">Paso 1 · [Título]</span><p class="do"><b>Qué hago:</b> [acción]</p><p><b>Por qué:</b> [ley o argumento físico]</p></li>
+      <li><span class="rl">Paso 2 · [Título]</span><p class="do"><b>Qué hago:</b> [acción]</p><p><b>Por qué:</b> [justificación]</p></li>
+      <li class="final">$$\boxed{\varepsilon = B\ell v}$$</li>
+      <li class="check"><b>Verificación:</b> [unidades: T·m·m/s = V; límite: si $v\to 0$, $\varepsilon\to 0$]</li>
+    </ol>
+    <div class="ctrl"></div>
+  </div>
+</section>
+
+<section class="sec" id="u00-errores" data-block="errores" data-title="Errores típicos">
+  <h2>Errores típicos</h2>
+  <div class="trap"><b>[Error típico].</b> [Qué se hace mal, por qué está mal y cómo detectarlo.]</div>
+  <div class="trap"><b>[Error típico].</b> [Qué se hace mal, por qué está mal y cómo detectarlo.]</div>
+  <div class="trap"><b>[Error típico].</b> [Qué se hace mal, por qué está mal y cómo detectarlo.]</div>
+</section>
+
+<section class="sec" id="u00-practica" data-block="practica" data-title="Práctica">
+  <h2>Práctica</h2>
+  <div class="prob" id="u00-p1" data-kind="practica" data-diff="1">
+    <div class="prob-head"><span class="tag">Práctica 1</span><span class="ptitle">[Título corto del problema]</span><span class="diff">dificultad 1/3</span></div>
+    <div class="prob-grid">
+      <div>
+        <p class="stmt">[Enunciado completo, con todos los datos.]</p>
+        <div class="given"><div><b>Datos</b> [$R$, $\ell$, $v$, $B$]</div><div><b>Piden</b> [$\varepsilon$, $I$]</div></div>
+      </div>
+      <figure class="fig" data-fig="plantilla-rieles"><figcaption>[Pie de figura con $\LaTeX$ si hace falta.]</figcaption></figure>
+    </div>
+    <div class="predict"><b>Antes de calcular:</b> [pregunta de intuición: signo, orden de magnitud o límite]</div>
+    <ol class="reveal">
+      <li class="hint">[Pista inicial]</li>
+      <li><span class="rl">Paso 1 · [Título]</span><p class="do"><b>Qué hago:</b> [acción]</p><p><b>Por qué:</b> [ley o argumento físico]</p></li>
+      <li><span class="rl">Paso 2 · [Título]</span><p class="do"><b>Qué hago:</b> [acción]</p><p><b>Por qué:</b> [justificación]</p></li>
+      <li class="final">$$\boxed{\varepsilon = B\ell v}$$</li>
+      <li class="check"><b>Verificación:</b> [unidades: T·m·m/s = V; límite: si $v\to 0$, $\varepsilon\to 0$]</li>
+    </ol>
+    <div class="ctrl"></div>
+  </div>
+  <div class="prob" id="u00-p2" data-kind="practica" data-diff="2">
+    <div class="prob-head"><span class="tag">Práctica 2</span><span class="ptitle">[Título corto del problema]</span><span class="diff">dificultad 2/3</span></div>
+    <div class="prob-grid">
+      <div>
+        <p class="stmt">[Enunciado completo, con todos los datos.]</p>
+        <div class="given"><div><b>Datos</b> [$R$, $\ell$, $v$, $B$]</div><div><b>Piden</b> [$\varepsilon$, $I$]</div></div>
+      </div>
+      <figure class="fig" data-fig="plantilla-rieles"><figcaption>[Pie de figura con $\LaTeX$ si hace falta.]</figcaption></figure>
+    </div>
+    <div class="predict"><b>Antes de calcular:</b> [pregunta de intuición: signo, orden de magnitud o límite]</div>
+    <ol class="reveal">
+      <li class="hint">[Pista inicial]</li>
+      <li><span class="rl">Paso 1 · [Título]</span><p class="do"><b>Qué hago:</b> [acción]</p><p><b>Por qué:</b> [ley o argumento físico]</p></li>
+      <li><span class="rl">Paso 2 · [Título]</span><p class="do"><b>Qué hago:</b> [acción]</p><p><b>Por qué:</b> [justificación]</p></li>
+      <li class="final">$$\boxed{\varepsilon = B\ell v}$$</li>
+      <li class="check"><b>Verificación:</b> [unidades: T·m·m/s = V; límite: si $v\to 0$, $\varepsilon\to 0$]</li>
+    </ol>
+    <div class="ctrl"></div>
+  </div>
+  <div class="prob" id="u00-p3" data-kind="practica" data-diff="2">
+    <div class="prob-head"><span class="tag">Práctica 3</span><span class="ptitle">[Título corto del problema]</span><span class="diff">dificultad 2/3</span></div>
+    <div class="prob-grid">
+      <div>
+        <p class="stmt">[Enunciado completo, con todos los datos.]</p>
+        <div class="given"><div><b>Datos</b> [$R$, $\ell$, $v$, $B$]</div><div><b>Piden</b> [$\varepsilon$, $I$]</div></div>
+      </div>
+      <figure class="fig" data-fig="plantilla-rieles"><figcaption>[Pie de figura con $\LaTeX$ si hace falta.]</figcaption></figure>
+    </div>
+    <div class="predict"><b>Antes de calcular:</b> [pregunta de intuición: signo, orden de magnitud o límite]</div>
+    <ol class="reveal">
+      <li class="hint">[Pista inicial]</li>
+      <li><span class="rl">Paso 1 · [Título]</span><p class="do"><b>Qué hago:</b> [acción]</p><p><b>Por qué:</b> [ley o argumento físico]</p></li>
+      <li><span class="rl">Paso 2 · [Título]</span><p class="do"><b>Qué hago:</b> [acción]</p><p><b>Por qué:</b> [justificación]</p></li>
+      <li class="final">$$\boxed{\varepsilon = B\ell v}$$</li>
+      <li class="check"><b>Verificación:</b> [unidades: T·m·m/s = V; límite: si $v\to 0$, $\varepsilon\to 0$]</li>
+    </ol>
+    <div class="ctrl"></div>
+  </div>
+  <div class="prob" id="u00-p4" data-kind="practica" data-diff="3">
+    <div class="prob-head"><span class="tag">Práctica 4</span><span class="ptitle">[Título corto del problema]</span><span class="diff">dificultad 3/3</span></div>
+    <div class="prob-grid">
+      <div>
+        <p class="stmt">[Enunciado completo, con todos los datos.]</p>
+        <div class="given"><div><b>Datos</b> [$R$, $\ell$, $v$, $B$]</div><div><b>Piden</b> [$\varepsilon$, $I$]</div></div>
+      </div>
+      <figure class="fig" data-fig="plantilla-rieles"><figcaption>[Pie de figura con $\LaTeX$ si hace falta.]</figcaption></figure>
+    </div>
+    <div class="predict"><b>Antes de calcular:</b> [pregunta de intuición: signo, orden de magnitud o límite]</div>
+    <ol class="reveal">
+      <li class="hint">[Pista inicial]</li>
+      <li><span class="rl">Paso 1 · [Título]</span><p class="do"><b>Qué hago:</b> [acción]</p><p><b>Por qué:</b> [ley o argumento físico]</p></li>
+      <li><span class="rl">Paso 2 · [Título]</span><p class="do"><b>Qué hago:</b> [acción]</p><p><b>Por qué:</b> [justificación]</p></li>
+      <li class="final">$$\boxed{\varepsilon = B\ell v}$$</li>
+      <li class="check"><b>Verificación:</b> [unidades: T·m·m/s = V; límite: si $v\to 0$, $\varepsilon\to 0$]</li>
+    </ol>
+    <div class="ctrl"></div>
+  </div>
+</section>
+
+<section class="sec" id="u00-quiz" data-block="quiz" data-title="Autoevaluación">
+  <h2>Autoevaluación</h2>
+  <div class="quiz" id="u00-quiz-1">
+    <div class="q" data-correct="b">
+      <p class="qt">1. [Pregunta conceptual]</p>
+      <div class="opts"><button type="button" data-o="a">[A]</button><button type="button" data-o="b">[B]</button><button type="button" data-o="c">[C]</button></div>
+      <p class="fb" data-o="a">[Por qué A es incorrecta]</p><p class="fb" data-o="b">[Por qué B es correcta]</p><p class="fb" data-o="c">[Por qué C es incorrecta]</p>
+    </div>
+    <div class="q" data-correct="b">
+      <p class="qt">2. [Pregunta conceptual]</p>
+      <div class="opts"><button type="button" data-o="a">[A]</button><button type="button" data-o="b">[B]</button><button type="button" data-o="c">[C]</button></div>
+      <p class="fb" data-o="a">[Por qué A es incorrecta]</p><p class="fb" data-o="b">[Por qué B es correcta]</p><p class="fb" data-o="c">[Por qué C es incorrecta]</p>
+    </div>
+    <div class="q" data-correct="b">
+      <p class="qt">3. [Pregunta conceptual]</p>
+      <div class="opts"><button type="button" data-o="a">[A]</button><button type="button" data-o="b">[B]</button><button type="button" data-o="c">[C]</button></div>
+      <p class="fb" data-o="a">[Por qué A es incorrecta]</p><p class="fb" data-o="b">[Por qué B es correcta]</p><p class="fb" data-o="c">[Por qué C es incorrecta]</p>
+    </div>
+    <div class="q" data-correct="b">
+      <p class="qt">4. [Pregunta conceptual]</p>
+      <div class="opts"><button type="button" data-o="a">[A]</button><button type="button" data-o="b">[B]</button><button type="button" data-o="c">[C]</button></div>
+      <p class="fb" data-o="a">[Por qué A es incorrecta]</p><p class="fb" data-o="b">[Por qué B es correcta]</p><p class="fb" data-o="c">[Por qué C es incorrecta]</p>
+    </div>
+    <div class="q" data-correct="b">
+      <p class="qt">5. [Pregunta conceptual]</p>
+      <div class="opts"><button type="button" data-o="a">[A]</button><button type="button" data-o="b">[B]</button><button type="button" data-o="c">[C]</button></div>
+      <p class="fb" data-o="a">[Por qué A es incorrecta]</p><p class="fb" data-o="b">[Por qué B es correcta]</p><p class="fb" data-o="c">[Por qué C es incorrecta]</p>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="u00-formulas" data-block="formulas" data-title="Tarjeta de fórmulas">
+  <h2>Tarjeta de fórmulas</h2>
+  <div class="formulas"><table><thead><tr><th>Fórmula</th><th>Significado</th><th>Válida si</th></tr></thead>
+  <tbody><tr><td>$\varepsilon = B\ell v$</td><td>[símbolos y unidades]</td><td>[condiciones]</td></tr></tbody></table></div>
+</section>
+</section>

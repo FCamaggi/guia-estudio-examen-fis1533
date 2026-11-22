@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 495 250" style="max-width:668px" role="img" aria-label="Simetría planar: losa infinita de espesor 2a con densidad ρ y pastillero gaussiano">
+<style>
+  :root {
+    --surface: #ffffff; --ink: #142030; --muted: #566273; --line: #d8dee7;
+    --accent: #1f4fd1; --accent-soft: #e7edfc; --copper: #a85a18; --copper-soft: #f8eee4;
+    --font-body: "Source Sans 3", "Segoe UI", Roboto, sans-serif;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --surface: #151c26; --ink: #e5eaf1; --muted: #9aa6b6; --line: #29323f;
+      --accent: #84a6ff; --accent-soft: #1b2640; --copper: #e2a26b; --copper-soft: #2a2119;
+    }
+  }
+  svg { background: var(--surface); font-family: var(--font-body); }
+  .w { stroke: var(--ink); stroke-width: 1.8; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+  .wk { stroke: var(--ink); stroke-width: 3.2; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+  .m { stroke: var(--muted); stroke-width: 1.2; fill: none; }
+  .md { stroke: var(--muted); stroke-width: 1.3; stroke-dasharray: 4 4; fill: none; }
+  .a { stroke: var(--accent); stroke-width: 2.2; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+  .ad { stroke: var(--accent); stroke-width: 1.6; stroke-dasharray: 5 4; fill: none; }
+  .c { stroke: var(--copper); stroke-width: 2.2; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+  .cd { stroke: var(--copper); stroke-width: 1.4; stroke-dasharray: 4 3; fill: none; }
+  .fld { stroke: var(--muted); stroke-width: 1.3; opacity: .38; }
+  .fldl { stroke: var(--muted); stroke-width: 1.4; opacity: .6; fill: none; }
+  .af { fill: var(--accent); } .cf { fill: var(--copper); } .wf, .inkf, .wkf { fill: var(--ink); }
+  .mf, .mdf { fill: var(--muted); } .fldlf { fill: var(--muted); opacity: .6; }
+  .adf { fill: var(--accent); } .cdf { fill: var(--copper); }
+  .soft { fill: var(--accent-soft); } .csoft { fill: var(--copper-soft); } .paperf { fill: var(--surface); }
+  .nostroke { stroke: none; } .nofill { fill: none; }
+  .s, .sa, .sc { font: italic 17px "Times New Roman", "STIX Two Text", serif; fill: var(--ink); }
+  .sa { fill: var(--accent); } .sc { fill: var(--copper); }
+  .t { font: 12.5px var(--font-body); fill: var(--muted); }
+  .tb { font: 600 14px var(--font-body); fill: var(--ink); }
+  .tc { font: 600 13px var(--font-body); fill: var(--copper); }
+  .ta { font: 600 13px var(--font-body); fill: var(--accent); }
+  .tw { font: 700 13px var(--font-body); fill: var(--surface); }
+  .gl-ink, .gl-acc, .gl-cop, .gl-mut, .gl-srf { fill: none; stroke-width: 1.2; stroke-linecap: round; }
+  .gl-ink { stroke: var(--ink); } .gl-acc { stroke: var(--accent); } .gl-cop { stroke: var(--copper); }
+  .gl-mut { stroke: var(--muted); } .gl-srf { stroke: var(--surface); }
+  .glf-ink { fill: var(--ink); } .glf-acc { fill: var(--accent); } .glf-cop { fill: var(--copper); }
+  .glf-mut { fill: var(--muted); } .glf-srf { fill: var(--surface); }
+  .sb { font-size: 72%; }
+</style>
+<rect class="csoft w" x="162" y="25" width="76" height="175"/><line class="md" x1="200" y1="20" x2="200" y2="208"/><rect class="ad nofill" x="100" y="76" width="200" height="82"/><ellipse class="ad nofill" cx="100" cy="118" rx="10" ry="41.0"/><ellipse class="ad nofill" cx="300" cy="118" rx="10" ry="41.0"/><line class="a" x1="310" y1="108" x2="344.0" y2="108.0"/><polygon class="af" points="352,108 344.0,112.0 344.0,104.0"/><line class="a" x1="90" y1="118" x2="56.0" y2="118.0"/><polygon class="af" points="48,118 56.0,114.0 56.0,122.0"/><line class="c" x1="310" y1="134" x2="334.0" y2="134.0"/><polygon class="cf" points="342,134 334.0,138.0 334.0,130.0"/><line class="m" x1="60" y1="222" x2="342.0" y2="222.0"/><polygon class="mf" points="350,222 342.0,226.0 342.0,218.0"/><text class="sc" x="208" y="42" text-anchor="start">ρ</text><text class="sa" x="286" y="94" text-anchor="middle">A</text><g><text class="sa" x="331.0" y="100" text-anchor="middle">E</text><line class="gl-acc" x1="329.0" y1="85.4" x2="335.4" y2="85.4"/><polygon class="glf-acc" points="336.9,85.4 331.5,82.8 331.5,87.9"/></g><g><text class="sa" x="69.0" y="110" text-anchor="middle">E</text><line class="gl-acc" x1="67.0" y1="95.4" x2="73.4" y2="95.4"/><polygon class="glf-acc" points="74.9,95.4 69.5,92.8 69.5,97.9"/></g><g><text class="sc" x="317.2" y="152" text-anchor="start">d</text><text class="sc" x="330.4" y="152" text-anchor="middle">A</text><line class="gl-cop" x1="328.4" y1="137.4" x2="334.9" y2="137.4"/><polygon class="glf-cop" points="336.4,137.4 330.9,134.8 330.9,139.9"/></g><text class="s" x="358" y="227" text-anchor="start">z</text><text class="s" x="162" y="238" text-anchor="middle">−a</text><text class="s" x="200" y="238" text-anchor="middle">0</text><text class="s" x="238" y="238" text-anchor="middle">+a</text><text class="tb" x="372" y="74" text-anchor="start">2 tapas:</text><text class="s" x="372" y="94" text-anchor="start">Φ = 2EA</text><text class="tb" x="372" y="126" text-anchor="start">manto:</text><g><text class="s" x="376.4" y="146" text-anchor="middle">E</text><line class="gl-ink" x1="374.4" y1="131.4" x2="380.9" y2="131.4"/><polygon class="glf-ink" points="382.4,131.4 376.9,128.8 376.9,133.9"/><text class="s" x="380.8" y="146" text-anchor="start"> ⊥ n̂ ⇒ Φ = 0</text></g></svg>

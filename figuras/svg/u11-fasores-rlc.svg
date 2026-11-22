@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 470 238" style="max-width:634px" role="img" aria-label="Diagramas fasoriales de R, L, C individuales y circuito RLC en serie">
+<style>
+  :root {
+    --surface: #ffffff; --ink: #142030; --muted: #566273; --line: #d8dee7;
+    --accent: #1f4fd1; --accent-soft: #e7edfc; --copper: #a85a18; --copper-soft: #f8eee4;
+    --font-body: "Source Sans 3", "Segoe UI", Roboto, sans-serif;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --surface: #151c26; --ink: #e5eaf1; --muted: #9aa6b6; --line: #29323f;
+      --accent: #84a6ff; --accent-soft: #1b2640; --copper: #e2a26b; --copper-soft: #2a2119;
+    }
+  }
+  svg { background: var(--surface); font-family: var(--font-body); }
+  .w { stroke: var(--ink); stroke-width: 1.8; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+  .wk { stroke: var(--ink); stroke-width: 3.2; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+  .m { stroke: var(--muted); stroke-width: 1.2; fill: none; }
+  .md { stroke: var(--muted); stroke-width: 1.3; stroke-dasharray: 4 4; fill: none; }
+  .a { stroke: var(--accent); stroke-width: 2.2; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+  .ad { stroke: var(--accent); stroke-width: 1.6; stroke-dasharray: 5 4; fill: none; }
+  .c { stroke: var(--copper); stroke-width: 2.2; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+  .cd { stroke: var(--copper); stroke-width: 1.4; stroke-dasharray: 4 3; fill: none; }
+  .fld { stroke: var(--muted); stroke-width: 1.3; opacity: .38; }
+  .fldl { stroke: var(--muted); stroke-width: 1.4; opacity: .6; fill: none; }
+  .af { fill: var(--accent); } .cf { fill: var(--copper); } .wf, .inkf, .wkf { fill: var(--ink); }
+  .mf, .mdf { fill: var(--muted); } .fldlf { fill: var(--muted); opacity: .6; }
+  .adf { fill: var(--accent); } .cdf { fill: var(--copper); }
+  .soft { fill: var(--accent-soft); } .csoft { fill: var(--copper-soft); } .paperf { fill: var(--surface); }
+  .nostroke { stroke: none; } .nofill { fill: none; }
+  .s, .sa, .sc { font: italic 17px "Times New Roman", "STIX Two Text", serif; fill: var(--ink); }
+  .sa { fill: var(--accent); } .sc { fill: var(--copper); }
+  .t { font: 12.5px var(--font-body); fill: var(--muted); }
+  .tb { font: 600 14px var(--font-body); fill: var(--ink); }
+  .tc { font: 600 13px var(--font-body); fill: var(--copper); }
+  .ta { font: 600 13px var(--font-body); fill: var(--accent); }
+  .tw { font: 700 13px var(--font-body); fill: var(--surface); }
+  .gl-ink, .gl-acc, .gl-cop, .gl-mut, .gl-srf { fill: none; stroke-width: 1.2; stroke-linecap: round; }
+  .gl-ink { stroke: var(--ink); } .gl-acc { stroke: var(--accent); } .gl-cop { stroke: var(--copper); }
+  .gl-mut { stroke: var(--muted); } .gl-srf { stroke: var(--surface); }
+  .glf-ink { fill: var(--ink); } .glf-acc { fill: var(--accent); } .glf-cop { fill: var(--copper); }
+  .glf-mut { fill: var(--muted); } .glf-srf { fill: var(--surface); }
+  .sb { font-size: 72%; }
+</style>
+<line class="m" x1="60" y1="118" x2="112" y2="118"/><line class="m" x1="112" y1="194" x2="112" y2="118"/><line class="m" x1="284" y1="118" x2="322" y2="118"/><line class="m" x1="322" y1="194" x2="322" y2="118"/><line class="m" x1="112" y1="118" x2="198.0" y2="118.0"/><polygon class="mf" points="204,118 198.0,121.0 198.0,115.0"/><line class="m" x1="112" y1="118" x2="112.0" y2="42.0"/><polygon class="mf" points="112,36 115.0,42.0 109.0,42.0"/><line class="a" x1="112" y1="118" x2="178.0" y2="118.0"/><polygon class="af" points="186,118 178.0,122.0 178.0,114.0"/><line class="w" x1="112" y1="119" x2="148.0" y2="119.0"/><polygon class="inkf" points="156,119 148.0,123.0 148.0,115.0"/><line class="c" x1="112" y1="118" x2="112.0" y2="60.0"/><polygon class="cf" points="112,52 116.0,60.0 108.0,60.0"/><line class="c" x1="112" y1="118" x2="112.0" y2="156.0"/><polygon class="cf" points="112,164 108.0,156.0 116.0,156.0"/><line class="m" x1="322" y1="118" x2="404.0" y2="118.0"/><polygon class="mf" points="410,118 404.0,121.0 404.0,115.0"/><line class="m" x1="322" y1="118" x2="322.0" y2="42.0"/><polygon class="mf" points="322,36 325.0,42.0 319.0,42.0"/><line class="a" x1="322" y1="118" x2="372.0" y2="118.0"/><polygon class="af" points="380,118 372.0,122.0 372.0,114.0"/><line class="c" x1="380" y1="118" x2="380.0" y2="78.0"/><polygon class="cf" points="380,70 384.0,78.0 376.0,78.0"/><line class="w" x1="322" y1="118" x2="373.8" y2="75.1"/><polygon class="inkf" points="380,70 376.4,78.2 371.3,72.0"/><path class="m" d="M 350.0 118.0 A 28 28 0 0 0 343.6 100.1"/><text class="s" x="214" y="123" text-anchor="middle">Re</text><text class="s" x="112" y="28" text-anchor="middle">Im</text><text class="sa" x="188" y="108" text-anchor="start">Î</text><text class="s" x="146" y="138" text-anchor="middle">V̂<tspan class="sb" dy="3.5">R</tspan></text><text class="sc" x="100" y="62" text-anchor="end">V̂<tspan class="sb" dy="3.5">L</tspan></text><text class="sc" x="100" y="162" text-anchor="end">V̂<tspan class="sb" dy="3.5">C</tspan></text><text class="t" x="112" y="224" text-anchor="middle">Elementos: +90° (L), 0° (R), −90° (C)</text><text class="s" x="420" y="123" text-anchor="middle">Re</text><text class="s" x="322" y="28" text-anchor="middle">Im</text><text class="sa" x="351" y="138" text-anchor="middle">V̂<tspan class="sb" dy="3.5">R</tspan></text><text class="sc" x="388" y="95.6" text-anchor="start">V<tspan class="sb" dy="3.5">L</tspan></text><text class="sc" x="404" y="95.6" text-anchor="start">−</text><text class="sc" x="417" y="95.6" text-anchor="start">V<tspan class="sb" dy="3.5">C</tspan></text><text class="s" x="346.36" y="85.36" text-anchor="end">V̂</text><text class="s" x="360.575" y="109.108" text-anchor="middle">φ</text><text class="t" x="335" y="224" text-anchor="middle">Suma fasorial (caso XL &gt; XC)</text></svg>

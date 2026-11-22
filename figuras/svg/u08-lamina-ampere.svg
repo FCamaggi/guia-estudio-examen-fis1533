@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 450 235" style="max-width:608px" role="img" aria-label="Lámina infinita con corriente superficial K y lazo amperiano rectangular">
+<style>
+  :root {
+    --surface: #ffffff; --ink: #142030; --muted: #566273; --line: #d8dee7;
+    --accent: #1f4fd1; --accent-soft: #e7edfc; --copper: #a85a18; --copper-soft: #f8eee4;
+    --font-body: "Source Sans 3", "Segoe UI", Roboto, sans-serif;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --surface: #151c26; --ink: #e5eaf1; --muted: #9aa6b6; --line: #29323f;
+      --accent: #84a6ff; --accent-soft: #1b2640; --copper: #e2a26b; --copper-soft: #2a2119;
+    }
+  }
+  svg { background: var(--surface); font-family: var(--font-body); }
+  .w { stroke: var(--ink); stroke-width: 1.8; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+  .wk { stroke: var(--ink); stroke-width: 3.2; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+  .m { stroke: var(--muted); stroke-width: 1.2; fill: none; }
+  .md { stroke: var(--muted); stroke-width: 1.3; stroke-dasharray: 4 4; fill: none; }
+  .a { stroke: var(--accent); stroke-width: 2.2; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+  .ad { stroke: var(--accent); stroke-width: 1.6; stroke-dasharray: 5 4; fill: none; }
+  .c { stroke: var(--copper); stroke-width: 2.2; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+  .cd { stroke: var(--copper); stroke-width: 1.4; stroke-dasharray: 4 3; fill: none; }
+  .fld { stroke: var(--muted); stroke-width: 1.3; opacity: .38; }
+  .fldl { stroke: var(--muted); stroke-width: 1.4; opacity: .6; fill: none; }
+  .af { fill: var(--accent); } .cf { fill: var(--copper); } .wf, .inkf, .wkf { fill: var(--ink); }
+  .mf, .mdf { fill: var(--muted); } .fldlf { fill: var(--muted); opacity: .6; }
+  .adf { fill: var(--accent); } .cdf { fill: var(--copper); }
+  .soft { fill: var(--accent-soft); } .csoft { fill: var(--copper-soft); } .paperf { fill: var(--surface); }
+  .nostroke { stroke: none; } .nofill { fill: none; }
+  .s, .sa, .sc { font: italic 17px "Times New Roman", "STIX Two Text", serif; fill: var(--ink); }
+  .sa { fill: var(--accent); } .sc { fill: var(--copper); }
+  .t { font: 12.5px var(--font-body); fill: var(--muted); }
+  .tb { font: 600 14px var(--font-body); fill: var(--ink); }
+  .tc { font: 600 13px var(--font-body); fill: var(--copper); }
+  .ta { font: 600 13px var(--font-body); fill: var(--accent); }
+  .tw { font: 700 13px var(--font-body); fill: var(--surface); }
+  .gl-ink, .gl-acc, .gl-cop, .gl-mut, .gl-srf { fill: none; stroke-width: 1.2; stroke-linecap: round; }
+  .gl-ink { stroke: var(--ink); } .gl-acc { stroke: var(--accent); } .gl-cop { stroke: var(--copper); }
+  .gl-mut { stroke: var(--muted); } .gl-srf { stroke: var(--surface); }
+  .glf-ink { fill: var(--ink); } .glf-acc { fill: var(--accent); } .glf-cop { fill: var(--copper); }
+  .glf-mut { fill: var(--muted); } .glf-srf { fill: var(--surface); }
+  .sb { font-size: 72%; }
+</style>
+<line class="m" x1="215" y1="18" x2="215" y2="215"/><line class="m" x1="304" y1="62" x2="304" y2="170"/><line class="m" x1="308" y1="62" x2="300" y2="62"/><line class="m" x1="308" y1="170" x2="300" y2="170"/><circle class="a nofill" cx="215" cy="35" r="5.5"/><circle class="af" cx="215" cy="35" r="1.32"/><circle class="a nofill" cx="215" cy="59" r="5.5"/><circle class="af" cx="215" cy="59" r="1.32"/><circle class="a nofill" cx="215" cy="83" r="5.5"/><circle class="af" cx="215" cy="83" r="1.32"/><circle class="a nofill" cx="215" cy="107" r="5.5"/><circle class="af" cx="215" cy="107" r="1.32"/><circle class="a nofill" cx="215" cy="131" r="5.5"/><circle class="af" cx="215" cy="131" r="1.32"/><circle class="a nofill" cx="215" cy="155" r="5.5"/><circle class="af" cx="215" cy="155" r="1.32"/><circle class="a nofill" cx="215" cy="179" r="5.5"/><circle class="af" cx="215" cy="179" r="1.32"/><circle class="a nofill" cx="215" cy="203" r="5.5"/><circle class="af" cx="215" cy="203" r="1.32"/><rect class="cd nofill" x="140" y="62" width="150" height="108"/><line class="c" x1="290" y1="135" x2="290.0" y2="103.0"/><polygon class="cf" points="290,95 294.0,103.0 286.0,103.0"/><line class="c" x1="140" y1="95" x2="140.0" y2="127.0"/><polygon class="cf" points="140,135 136.0,127.0 144.0,127.0"/><line class="c" x1="100" y1="150" x2="100.0" y2="88.0"/><polygon class="cf" points="100,80 104.0,88.0 96.0,88.0"/><line class="c" x1="340" y1="80" x2="340.0" y2="142.0"/><polygon class="cf" points="340,150 336.0,142.0 344.0,142.0"/><g><text class="sa" x="233.4" y="26" text-anchor="middle">K</text><line class="gl-acc" x1="231.4" y1="11.4" x2="237.9" y2="11.4"/><polygon class="glf-acc" points="239.4,11.4 233.9,8.8 233.9,13.9"/><text class="sa" x="237.8" y="26" text-anchor="start"> (saliente)</text></g><text class="s" x="312" y="121" text-anchor="start">L</text><g><text class="sc" x="85.6" y="120" text-anchor="middle">B</text><line class="gl-cop" x1="83.6" y1="105.4" x2="90.0" y2="105.4"/><polygon class="glf-cop" points="91.5,105.4 86.1,102.8 86.1,107.9"/></g><g><text class="sc" x="354.4" y="120" text-anchor="middle">B</text><line class="gl-cop" x1="352.4" y1="105.4" x2="358.9" y2="105.4"/><polygon class="glf-cop" points="360.4,105.4 354.9,102.8 354.9,107.9"/></g></svg>

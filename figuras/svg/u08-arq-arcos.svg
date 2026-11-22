@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 440 255" style="max-width:594px" role="img" aria-label="Espira de dos semicircunferencias concéntricas en P de radios b &gt; a (Examen 2024-2 P2)">
+<style>
+  :root {
+    --surface: #ffffff; --ink: #142030; --muted: #566273; --line: #d8dee7;
+    --accent: #1f4fd1; --accent-soft: #e7edfc; --copper: #a85a18; --copper-soft: #f8eee4;
+    --font-body: "Source Sans 3", "Segoe UI", Roboto, sans-serif;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --surface: #151c26; --ink: #e5eaf1; --muted: #9aa6b6; --line: #29323f;
+      --accent: #84a6ff; --accent-soft: #1b2640; --copper: #e2a26b; --copper-soft: #2a2119;
+    }
+  }
+  svg { background: var(--surface); font-family: var(--font-body); }
+  .w { stroke: var(--ink); stroke-width: 1.8; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+  .wk { stroke: var(--ink); stroke-width: 3.2; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+  .m { stroke: var(--muted); stroke-width: 1.2; fill: none; }
+  .md { stroke: var(--muted); stroke-width: 1.3; stroke-dasharray: 4 4; fill: none; }
+  .a { stroke: var(--accent); stroke-width: 2.2; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+  .ad { stroke: var(--accent); stroke-width: 1.6; stroke-dasharray: 5 4; fill: none; }
+  .c { stroke: var(--copper); stroke-width: 2.2; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+  .cd { stroke: var(--copper); stroke-width: 1.4; stroke-dasharray: 4 3; fill: none; }
+  .fld { stroke: var(--muted); stroke-width: 1.3; opacity: .38; }
+  .fldl { stroke: var(--muted); stroke-width: 1.4; opacity: .6; fill: none; }
+  .af { fill: var(--accent); } .cf { fill: var(--copper); } .wf, .inkf, .wkf { fill: var(--ink); }
+  .mf, .mdf { fill: var(--muted); } .fldlf { fill: var(--muted); opacity: .6; }
+  .adf { fill: var(--accent); } .cdf { fill: var(--copper); }
+  .soft { fill: var(--accent-soft); } .csoft { fill: var(--copper-soft); } .paperf { fill: var(--surface); }
+  .nostroke { stroke: none; } .nofill { fill: none; }
+  .s, .sa, .sc { font: italic 17px "Times New Roman", "STIX Two Text", serif; fill: var(--ink); }
+  .sa { fill: var(--accent); } .sc { fill: var(--copper); }
+  .t { font: 12.5px var(--font-body); fill: var(--muted); }
+  .tb { font: 600 14px var(--font-body); fill: var(--ink); }
+  .tc { font: 600 13px var(--font-body); fill: var(--copper); }
+  .ta { font: 600 13px var(--font-body); fill: var(--accent); }
+  .tw { font: 700 13px var(--font-body); fill: var(--surface); }
+  .gl-ink, .gl-acc, .gl-cop, .gl-mut, .gl-srf { fill: none; stroke-width: 1.2; stroke-linecap: round; }
+  .gl-ink { stroke: var(--ink); } .gl-acc { stroke: var(--accent); } .gl-cop { stroke: var(--copper); }
+  .gl-mut { stroke: var(--muted); } .gl-srf { stroke: var(--surface); }
+  .glf-ink { fill: var(--ink); } .glf-acc { fill: var(--accent); } .glf-cop { fill: var(--copper); }
+  .glf-mut { fill: var(--muted); } .glf-srf { fill: var(--surface); }
+  .sb { font-size: 72%; }
+</style>
+<line class="m" x1="75" y1="130" x2="220" y2="130"/><line class="m" x1="220" y1="230" x2="220" y2="130"/><path class="wk" d="M 312.0 130.0 A 92 92 0 0 0 128.0 130.0"/><path class="wk" d="M 172.0 130.0 A 48 48 0 0 0 268.0 130.0"/><polyline class="wk" points="312,130 268,130"/><polyline class="wk" points="172,130 128,130"/><line class="m" x1="220" y1="130" x2="359.0" y2="130.0"/><polygon class="mf" points="365,130 359.0,133.0 359.0,127.0"/><line class="m" x1="220" y1="130" x2="220.0" y2="22.0"/><polygon class="mf" points="220,16 223.0,22.0 217.0,22.0"/><path class="a" d="M 269.3 37.3 A 105 105 0 0 1 309.0 74.4"/><polygon class="af" points="309.0,74.4 301.4,69.7 308.2,65.5"/><path class="a" d="M 239.2 189.0 A 62 62 0 0 1 208.4 191.4"/><polygon class="af" points="200.8,189.0 209.7,187.6 207.2,195.2"/><line class="a" x1="306" y1="120" x2="282.0" y2="120.0"/><polygon class="af" points="274,120 282.0,116.0 282.0,124.0"/><line class="a" x1="166" y1="140" x2="142.0" y2="140.0"/><polygon class="af" points="134,140 142.0,136.0 142.0,144.0"/><circle class="inkf" cx="220" cy="130" r="3.6"/><text class="s" x="375" y="135" text-anchor="middle">x</text><text class="s" x="220" y="8" text-anchor="middle">y</text><text class="sa" x="300.476" y="43.7003" text-anchor="middle">I</text><text class="sa" x="196" y="202" text-anchor="middle">I</text><text class="s" x="220" y="120" text-anchor="middle">P</text><text class="s" x="278" y="148" text-anchor="middle">a</text><text class="s" x="322" y="148" text-anchor="middle">b</text></svg>

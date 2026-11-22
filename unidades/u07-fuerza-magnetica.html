@@ -1,0 +1,508 @@
+<!-- U7 Fuerza magnética. Contract: SPEC-PEDAGOGICO.md. Gate: python3 scripts/check_unit.py unidades/u07-fuerza-magnetica.html -->
+<section class="unit" id="u07" data-num="U7" data-title="Fuerza magnética">
+  <header class="unit-head"><span class="unit-num">U7</span><h1>Fuerza magnética</h1><span class="unit-weight">21 problemas en exámenes · 5 en los 4 recientes</span></header>
+
+<section class="sec" id="u07-mapa" data-block="mapa" data-title="Mapa de la unidad">
+  <h2>Mapa de la unidad</h2>
+  <div class="key"><b>Idea central.</b> Toda fuerza magnética nace de cargas en movimiento ($\vec F_B = q\,\vec v\times\vec B$): sobre partículas libres curva la trayectoria sin realizar trabajo; sobre corrientes en conductores produce fuerzas ($d\vec F = I\,d\vec\ell\times\vec B$) y torques ($\vec\tau = \vec\mu\times\vec B$) que orientan espiras y motores.</div>
+  <div class="goals"><div class="goals-t">Al terminar deberías poder</div><ul>
+    <li>Calcular la fuerza de Lorentz $\vec F = q(\vec E + \vec v\times\vec B)$ en componentes y con la regla de la mano derecha, distinguiéndola de la fuerza puramente eléctrica.</li>
+    <li>Definir el flujo magnético $\Phi_B$ y justificar mediante la ley de Gauss magnética ($\oint\vec B\cdot d\vec A = 0$) que las líneas de $\vec B$ son siempre cerradas.</li>
+    <li>Analizar órbitas circulares y helicoidales en un $\vec B$ uniforme (radio $R$, periodo $T$, frecuencia ciclotrón $\omega_c$ y paso $p$), y resolver selectores de velocidades y espectrómetros de masas.</li>
+    <li>Determinar el signo de una carga eléctrica a partir de la curvatura de su trayectoria en $\vec B$.</li>
+    <li>Calcular la fuerza magnética sobre conductores rectos y curvos ($d\vec F = I\,d\vec\ell\times\vec B$), la fuerza neta sobre una espira coplanar frente a un alambre infinito, y demostrar que sobre una espira cerrada en $\vec B$ uniforme es nula.</li>
+    <li>Calcular el momento dipolar magnético $\vec\mu = NIA\,\hat n$, el torque $\vec\tau = \vec\mu\times\vec B$ y la energía potencial $U = -\vec\mu\cdot\vec B$ de una bobina, identificando sus equilibrios estable e inestable.</li>
+  </ul></div>
+  <div class="exam-map"><h4>Qué pregunta el examen</h4><ul>
+    <li><b>Partícula cargada en $\vec B$ uniforme y selector de velocidades</b> (2011-1 P2/P20, 2014-1 P11, 2018-2 P3, 2022-2 P9, 2023-2 Ej 1.2, 2025-1 P2): radio ciclotrón $R = mv/(|q|B)$, razón $q/m$ (cuidado con diámetro $d = 2r$), aceleración previa con $q\Delta V = \tfrac12 mv^2$, signo de $q$ por regla de la mano derecha y condición $\vec E + \vec v\times\vec B = \vec 0$.</li>
+    <li><b>Fuerza magnética entre alambre infinito y espira coplanar</b> (2021-2 Ej 4, 2022-2 P6, 2023-2 Ej 3, 2024-2 P1): $\vec B(s)$ del alambre por Ampère y suma de $\int I\,d\vec\ell\times\vec B$ en los cuatro lados (cancelación de los lados perpendiculares al alambre y fuerza neta entre paralelos).</li>
+    <li><b>Torque magnético y momento dipolar $\vec\mu = NIA\,\hat n$</b> (2014-1 P12, 2015-2 P3, 2022-2 P3, 2024-2 P2): equilibrio de torques (peso o resorte de torsión vs. $\vec\mu\times\vec B$) y cálculo de $\vec\mu$ con regla de la mano derecha.</li>
+    <li>Formato reciente: problema de 6 puntos en 2 a 4 partes, sin calculadora ni formulario; se privilegian resultados simbólicos o valores numéricos exactos a mano.</li>
+  </ul></div>
+  <details class="prereq"><summary>Repaso exprés: producto cruz, regla de la mano derecha y vectores unitarios</summary>
+    <p>Para la base cartesiana derecha $(\hat x,\hat y,\hat z)$ (equivalente a $(\hat\imath,\hat\jmath,\hat k)$): $\hat x\times\hat y = \hat z$, $\hat y\times\hat z = \hat x$, $\hat z\times\hat x = \hat y$, y cualquier producto de un vector consigo mismo es cero ($\hat x\times\hat x = \vec 0$). Al invertir el orden cambia el signo: $\vec b\times\vec a = -\vec a\times\vec b$.</p>
+    <p>La magnitud es $|\vec a\times\vec b| = ab\sin\theta$, donde $\theta$ es el menor ángulo entre $\vec a$ y $\vec b$. La dirección sale de la <b>regla de la mano derecha</b>: apunta los dedos desde el primer vector ($\vec a$) y ciérralos hacia el segundo ($\vec b$); el pulgar indica $\vec a\times\vec b$.</p>
+    <p><b>Convención 3D en el plano de la hoja:</b> $\otimes$ indica un vector que <b>entra</b> a la hoja ($-\hat z$ si $+\hat x$ va a la derecha y $+\hat y$ arriba) y $\odot$ indica un vector que <b>sale</b> de la hoja ($+\hat z$).</p>
+    <p><b>Mini ejemplo:</b> si una carga $q$ (C) se mueve con $\vec v = v\hat x$ (m/s) en un campo $\vec B = B\hat z$ (T, saliente), entonces $\vec v\times\vec B = vB(\hat x\times\hat z) = -vB\hat y$ (hacia abajo). Si la carga es negativa ($q \lt 0$), la fuerza $q\,\vec v\times\vec B$ apunta en $+\hat y$ (hacia arriba).</p>
+  </details>
+  <details class="prereq"><summary>Repaso exprés: movimiento circular uniforme, trabajo-energía, torque mecánico y condensador plano</summary>
+    <p><b>Dinámica circular:</b> una partícula de masa $m$ (kg) que describe una circunferencia de radio $R$ (m) con rapidez constante $v$ (m/s) tiene aceleración centrípeta $a_c = \dfrac{v^2}{R} = \omega^2 R$ ($\text{m/s}^2$) hacia el centro. Su rapidez angular es $\omega = \dfrac{v}{R}$ (rad/s), el periodo es $T = \dfrac{2\pi R}{v} = \dfrac{2\pi}{\omega}$ (s) y la frecuencia es $f = \dfrac{1}{T}$ (Hz).</p>
+    <p><b>Trabajo y energía:</b> el trabajo de una fuerza $\vec F$ (N) a lo largo de una trayectoria es $W = \int \vec F\cdot d\vec\ell = \Delta K = K_f - K_i$ (J), con $K = \tfrac12 mv^2$ (J) y elemento de línea $d\vec\ell$ (m; equivalente a $d\vec s$ o $d\vec l$). Cuando una carga $q$ (C) parte del reposo y es acelerada por una diferencia de potencial eléctrico de magnitud $\Delta V$ (V = J/C, con $\Delta V = V_b - V_a = -\int_a^b \vec E\cdot d\vec\ell$), la conservación de la energía da $|q|\Delta V = \tfrac12 mv^2$.</p>
+    <p><b>Torque y equilibrio rotacional:</b> el torque de una fuerza $\vec F$ (N) aplicada en $\vec r$ (m) respecto a un eje es $\vec\tau = \vec r\times\vec F$ ($\text{N·m}$), con magnitud $rF\sin\alpha$. En equilibrio estático se cumple $\sum\vec\tau = \vec 0$. El trabajo de un torque externo $\tau_{\text{ext}}$ ($\text{N·m}$) para girar un ángulo $d\varphi'$ (rad) es $dW = \tau_{\text{ext}}\,d\varphi'$ (J).</p>
+    <p><b>Condensador plano:</b> entre dos placas paralelas grandes con densidades de carga opuestas $\pm\sigma$ ($\text{C/m}^2$), el campo eléctrico es uniforme, apunta de la placa positiva a la negativa y vale $E = \dfrac{|\sigma|}{\varepsilon_0}$ (V/m), con $\varepsilon_0 = 8{,}85\times10^{-12}\ \text{C}^2/(\text{N·m}^2)$.</p>
+  </details>
+  <details class="prereq"><summary>Repaso exprés: campo magnético de un alambre infinito (ley de Ampère)</summary>
+    <p>La ley de Ampère dice $\oint\vec B\cdot d\vec\ell = \mu_0 I_{\text{enc}}$, con $\mu_0 = 4\pi\times10^{-7}\ \text{T·m/A}$. Para un alambre recto infinito con corriente $I$ (A), por simetría $\vec B$ es tangente a circunferencias centradas en el alambre y tiene magnitud constante a distancia $s$ (m):</p>
+    $$B(s) = \frac{\mu_0 I}{2\pi s}$$
+    <p><b>Dirección:</b> con el pulgar derecho en el sentido de $I$, los dedos rodean el alambre en el sentido azimutal $\hat\phi$ de $\vec B$. Si el alambre está sobre el eje $x$ con $I$ hacia $+\hat x$, en el semiplano $y \gt 0, z = 0$ el campo apunta saliendo de la hoja ($+\hat z$, $\odot$).</p>
+  </details>
+</section>
+
+<section class="sec" id="u07-s1" data-block="teoria" data-title="Campo magnético y fuerza de Lorentz">
+  <h2>Campo magnético y fuerza de Lorentz</h2>
+  <p><b>El problema físico.</b> En 1819 Oersted observó que una corriente desvía la aguja de una brújula; hoy sabemos que toda interacción magnética proviene de cargas en movimiento. A diferencia del campo eléctrico, que empuja a cualquier carga esté quieta o no, un campo magnético $\vec B$ solo actúa sobre cargas que se mueven y no las empuja en la dirección del propio campo, sino de lado.</p>
+  <p><b>Intuición.</b> Si lanzas un protón paralelo a $\vec B$, sigue recto sin sentir fuerza. Si lo lanzas cruzando las líneas de $\vec B$, aparece una fuerza perpendicular tanto a su velocidad $\vec v$ como a $\vec B$. Una carga negativa siente la fuerza exactamente opuesta.</p>
+  <figure class="fig" data-fig="u07-lorentz-mano"><figcaption>Izquierda: regla de la mano derecha para $\vec F_B = q\,\vec v\times\vec B$; el signo de $q$ invierte el sentido de la fuerza. Derecha: convención $\otimes$ (entrante) y $\odot$ (saliente).</figcaption></figure>
+  <div class="eq key"><div class="lbl">Fuerza magnética y fuerza de Lorentz</div>$$\vec F_B = q\,\vec v\times\vec B \quad\ (F_B = |q|\,v\,B\sin\theta), \qquad\qquad \vec F = q\left(\vec E + \vec v\times\vec B\right)$$<div class="note">$\vec F_B$: fuerza magnética (N); $\vec F$: fuerza de Lorentz total (N); $q$: carga eléctrica (C); $\vec v$: velocidad (m/s); $\vec B$: campo magnético (T, tesla); $\vec E$: campo eléctrico (V/m o N/C); $\theta$: ángulo menor entre $\vec v$ y $\vec B$. Unidad SI: $1\ \text{T} = 1\ \dfrac{\text{N}}{\text{C·(m/s)}} = 1\ \dfrac{\text{N}}{\text{A·m}}$. Equivalencia cgs: $1\ \text{T} = 10^4\ \text{G}$ (gauss; el campo terrestre es $\sim 0{,}5\ \text{G} = 5\times10^{-5}\ \text{T}$).</div></div>
+  <details class="deriv" open><summary>Consecuencia clave: la fuerza magnética no realiza trabajo</summary>
+    <p>El trabajo infinitesimal en un desplazamiento $d\vec\ell = \vec v\,dt$ es</p>
+    $$dW_B = \vec F_B\cdot d\vec\ell = q\left(\vec v\times\vec B\right)\cdot\vec v\,dt = 0$$
+    <p>porque $\vec v\times\vec B$ es estrictamente perpendicular a $\vec v$. Por el teorema de trabajo y energía ($W = \Delta K$), la fuerza magnética pura <b>nunca cambia la rapidez</b> $v$ ni la energía cinética $K$ de una partícula: solo cambia la dirección de $\vec v$.</p>
+  </details>
+  <table>
+    <thead><tr><th>Propiedad</th><th>Fuerza eléctrica $q\vec E$</th><th>Fuerza magnética $q\,\vec v\times\vec B$</th></tr></thead>
+    <tbody>
+      <tr><td>Dirección</td><td>Paralela (o antiparalela) a $\vec E$</td><td>Perpendicular tanto a $\vec v$ como a $\vec B$</td></tr>
+      <tr><td>Carga en reposo ($v = 0$)</td><td>Actúa</td><td>Es nula</td></tr>
+      <tr><td>Trabajo y rapidez</td><td>Puede realizar trabajo y cambiar $v$</td><td>Nunca realiza trabajo ($W_B = 0$); $v$ es constante</td></tr>
+    </tbody>
+  </table>
+  <div class="why"><b>Cuándo se usa / cuándo NO:</b> usa $\vec F = q(\vec E + \vec v\times\vec B)$ siempre que haya cargas puntuales en presencia de campos $\vec E$ y $\vec B$. Recuerda que si $\vec v\parallel\vec B$ ($\theta = 0$ o $180^\circ$), la fuerza magnética es cero. Y si $q \lt 0$, invierte siempre el sentido dado por el pulgar de la mano derecha.</div>
+</section>
+
+<section class="sec" id="u07-s2" data-block="teoria" data-title="Líneas de campo y ley de Gauss magnética">
+  <h2>Líneas de campo y ley de Gauss magnética</h2>
+  <p><b>El problema físico.</b> Las líneas de campo eléctrico nacen en cargas positivas y terminan en negativas. ¿Existen "cargas magnéticas" aisladas (monopolos) donde nazcan o mueran las líneas de $\vec B$? Si partes un imán por la mitad, no obtienes un polo N aislado y un polo S aislado: obtienes dos imanes completos, cada uno con polo N y polo S.</p>
+  <p><b>Intuición.</b> Como no hay monopolos magnéticos, las líneas de $\vec B$ no tienen principio ni fin: forman curvas cerradas. Fuera de un imán van de N a S, y por dentro continúan de S a N. Por eso, si rodeas cualquier región con una superficie cerrada $S$, cada línea que entra vuelve a salir.</p>
+  <figure class="fig" data-fig="u07-lineas-gauss"><figcaption>Líneas cerradas de $\vec B$ en un imán de barra y superficie cerrada $S$: el flujo magnético neto que atraviesa $S$ es siempre cero.</figcaption></figure>
+  <div class="eq key"><div class="lbl">Flujo magnético y ley de Gauss para el magnetismo</div>$$\Phi_B = \int_S \vec B\cdot d\vec A, \qquad\qquad \oint_S \vec B\cdot d\vec A = 0 \quad\Longleftrightarrow\quad \nabla\cdot\vec B = 0$$<div class="note">$\Phi_B$: flujo magnético (Wb, weber; $1\ \text{Wb} = 1\ \text{T·m}^2$); $d\vec A = \hat n\,dA$: elemento de área ($\text{m}^2$) con normal unitaria $\hat n$. Para superficie plana y $\vec B$ uniforme, $\Phi_B = BA\cos\varphi$ ($\varphi$ ángulo entre $\vec B$ y $\hat n$).</div></div>
+  <details class="deriv"><summary>Por qué $\oint\vec B\cdot d\vec A = 0$ equivale a $\nabla\cdot\vec B = 0$</summary>
+    <p>Por el teorema de la divergencia, $\oint_S \vec B\cdot d\vec A = \int_{\mathcal{V}} (\nabla\cdot\vec B)\,d\mathcal{V} = 0$ para cualquier volumen $\mathcal{V}$ ($\text{m}^3$). Como vale para toda región arbitraria, el integrando debe anularse punto a punto: $\nabla\cdot\vec B = 0$. En electrostática $\nabla\cdot\vec E = \rho/\varepsilon_0$ (con densidad de carga $\rho$ en $\text{C/m}^3$); aquí la "densidad de carga magnética" es idénticamente cero.</p>
+  </details>
+  <div class="why"><b>Cuándo se usa / cuándo NO:</b> usa $\oint\vec B\cdot d\vec A = 0$ para comprobar que el flujo neto por una superficie cerrada es nulo o para justificar que el flujo por dos superficies abiertas con el mismo borde es igual. A diferencia de la ley de Gauss eléctrica, <em>no</em> sirve para despejar $\vec B$ de un alambre: para calcular $\vec B$ se usa Biot-Savart o la ley de Ampère.</div>
+</section>
+
+<section class="sec" id="u07-s3" data-block="teoria" data-title="Movimiento de cargas en campo magnético uniforme">
+  <h2>Movimiento de cargas en campo magnético uniforme</h2>
+  <p><b>El problema físico.</b> ¿Qué trayectoria describe una partícula cargada lanzada dentro de un campo magnético uniforme $\vec B$, si no hay campo eléctrico ni gravedad? Como la fuerza magnética no cambia su rapidez, solo curva continuamente su velocidad.</p>
+  <p><b>Intuición.</b> Si la velocidad es perpendicular a $\vec B$, una fuerza de módulo constante siempre perpendicular a $\vec v$ actúa como fuerza centrípeta pura: la partícula gira en una circunferencia. Si además tiene una componente paralela a $\vec B$, esa componente no siente fuerza y avanza a velocidad constante mientras gira: la combinación es una hélice.</p>
+  <figure class="fig" data-fig="u07-orbita-helice"><figcaption>Izquierda: órbita circular para $\vec v\perp\vec B$; la fuerza $\vec F$ apunta siempre al centro. Derecha: si existe $v_\parallel \neq 0$, la trayectoria es una hélice de paso $p = v_\parallel T$.</figcaption></figure>
+  <div class="eq key"><div class="lbl">Órbita circular, frecuencia ciclotrón y paso de la hélice</div>$$R = \frac{mv_\perp}{|q|B}, \qquad \omega_c = \frac{|q|B}{m}, \qquad T = \frac{2\pi m}{|q|B}, \qquad f = \frac{\omega_c}{2\pi} = \frac{|q|B}{2\pi m}, \qquad p = v_\parallel T = \frac{2\pi m v_\parallel}{|q|B}$$<div class="note">$R$: radio de giro o de Larmor (m); $m$: masa (kg); $v_\perp$ y $v_\parallel$: componentes de $\vec v$ perpendicular y paralela a $\vec B$ (m/s); $\omega_c$: frecuencia angular de ciclotrón (rad/s); $T$: periodo (s); $f$: frecuencia (Hz); $p$: paso o avance de la hélice por vuelta (m). Válidas en $\vec B$ uniforme (T) y régimen no relativista.</div></div>
+  <details class="deriv" open><summary>Derivación paso a paso: radio, periodo y movimiento helicoidal</summary>
+    <p><b>Paso 1 · Descomponer la velocidad.</b> Escribe $\vec v = \vec v_\parallel + \vec v_\perp$ respecto de la dirección de $\vec B$. Como $\vec v_\parallel\times\vec B = \vec 0$, la fuerza magnética depende solo de $\vec v_\perp$: $\vec F_B = q\,\vec v_\perp\times\vec B$.</p>
+    <p><b>Paso 2 · Eje paralelo a $\vec B$.</b> No hay fuerza a lo largo de $\vec B$, así que $a_\parallel = 0$ y $v_\parallel$ es constante.</p>
+    <p><b>Paso 3 · Plano perpendicular a $\vec B$.</b> $\vec F_B$ está en el plano perpendicular, tiene magnitud constante $|q|v_\perp B$ y es siempre perpendicular a $\vec v_\perp$. Por la segunda ley de Newton, igualamos a la fuerza centrípeta:</p>
+    $$|q|\,v_\perp B = m\frac{v_\perp^2}{R} \quad\Longrightarrow\quad R = \frac{mv_\perp}{|q|B}$$
+    <p><b>Paso 4 · Frecuencia y periodo.</b> Con $v_\perp = \omega_c R$, se obtiene $\omega_c = \dfrac{v_\perp}{R} = \dfrac{|q|B}{m}$ y $T = \dfrac{2\pi}{\omega_c} = \dfrac{2\pi m}{|q|B}$. En una vuelta completa ($t = T$), la partícula avanza $p = v_\parallel T$ a lo largo de $\vec B$.</p>
+    <p><b>Observación clave:</b> ni $\omega_c$ ni $T$ dependen de la rapidez ni del radio. Una partícula más rápida describe una circunferencia más grande ($R\propto v_\perp$), pero tarda exactamente el mismo tiempo en dar una vuelta. Ese principio permite que un <b>ciclotrón</b> acelere partículas con un campo eléctrico alterno de frecuencia fija $f = \omega_c/(2\pi)$, y explica el magnetrón de los microondas.</p>
+  </details>
+  <p><b>Caso no uniforme (botella magnética).</b> Si $\vec B$ es más intenso en dos extremos que en el centro, las líneas convergen y $\vec F_B$ tiene una componente que frena y refleja las cargas hacia el centro, confinándolas (como en los cinturones de Van Allen que producen las auroras).</p>
+  <div class="why"><b>Cuándo se usa / cuándo NO:</b> usa $R$, $\omega_c$ y $T$ cuando la única fuerza en el plano perpendicular es la magnética y $\vec B$ es uniforme. Si hay además $\vec E$ perpendicular a $\vec B$, o un campo no uniforme, resuelve la segunda ley de Newton $\sum\vec F = m\vec a$ por componentes.</div>
+</section>
+
+<section class="sec" id="u07-s4" data-block="teoria" data-title="Selector de velocidades y espectrómetro de masas">
+  <h2>Selector de velocidades y espectrómetro de masas</h2>
+  <p><b>El problema físico.</b> Las fuentes térmicas o radiactivas emiten iones con velocidades distintas. ¿Cómo filtrar solo los que tienen una rapidez exacta $v$, y cómo medir su masa $m$ o su razón carga/masa $q/m$?</p>
+  <p><b>Intuición.</b> En el <b>selector de velocidades</b> se cruzan $\vec E$ y $\vec B$ perpendiculares entre sí y a $\vec v$: las fuerzas $q\vec E$ y $q\,\vec v\times\vec B$ tiran en sentidos opuestos. Solo una rapidez precisa logra que se cancelen y el ion cruce en línea recta por la rendija. Luego, en una cámara solo con campo magnético $\vec B_0$, los iones más pesados tienen mayor inercia y describen un semicírculo de radio mayor, impactando más lejos en el detector.</p>
+  <figure class="fig" data-fig="u07-espectrometro"><figcaption>Esquema de un selector de velocidades ($\vec E$ y $\vec B$ cruzados) seguido de la cámara deflectora ($\vec B_0$) de un espectrómetro de masas. El detector mide el diámetro $d = 2R$.</figcaption></figure>
+  <div class="eq key"><div class="lbl">Selector de velocidades y espectrómetro de masas</div>$$v = \frac{E}{B} \quad\text{(selector)}, \qquad\qquad m = \frac{|q|\,B\,B_0\,R}{E} = \frac{|q|\,B_0^2\,R^2}{2\,\Delta V} \quad\text{(espectrómetro)}$$<div class="note">$E$ (V/m) y $B$ (T): campos cruzados en el selector; $B_0$ (T): campo en la cámara de deflexión; $R$ (m): radio de la órbita circular (la distancia en el detector suele ser el diámetro $d = 2R$ en m); $\Delta V$ (V): magnitud de la diferencia de potencial aceleradora previa (cuando la hay).</div></div>
+  <details class="deriv" open><summary>Derivación paso a paso: las tres etapas y la identificación del signo de $q$</summary>
+    <p><b>Etapa 1 (opcional) · Aceleración desde el reposo.</b> Si el ion parte del reposo y atraviesa una caída de potencial de magnitud $\Delta V$, la conservación de la energía da $|q|\Delta V = \tfrac12 mv^2 \implies v = \sqrt{\dfrac{2|q|\Delta V}{m}}$.</p>
+    <p><b>Etapa 2 · Selector de velocidades.</b> Exigimos aceleración nula ($\vec F = \vec 0$): $q(\vec E + \vec v\times\vec B) = \vec 0 \implies \vec E = -\vec v\times\vec B$. Con $\vec v = v\hat x$ y $\vec B = -B\hat z$ (entrante), $\vec v\times\vec B = vB\,\hat y$, así que $\vec E = -E\hat y$ (hacia abajo) equilibra la fuerza magnética cuando $E = vB$, o sea:</p>
+    $$v = \frac{E}{B}$$
+    <p>La rapidez seleccionada <b>no depende de $q$ ni de $m$</b>: incluso el signo de $q$ cancela en $q\vec E + q\,\vec v\times\vec B = \vec 0$ (si $q \lt 0$, se invierten ambas fuerzas a la vez). Si $v \gt E/B$, domina la fuerza magnética; si $v \lt E/B$, domina la eléctrica.</p>
+    <p><b>Etapa 3 · Cámara deflectora y signo de $q$.</b> Con rapidez $v$ conocida entrando perpendicularmente a $\vec B_0$, el ion describe una semicircunferencia de radio $R = \dfrac{mv}{|q|B_0}$ e impacta a distancia $d = 2R$. Despejando $m$ con $v = E/B$ se obtiene $m = \dfrac{|q|BB_0R}{E}$; si la rapidez vino de $\Delta V$, se sustituye $v = \sqrt{2|q|\Delta V/m}$, dando $R^2 = \dfrac{2m\Delta V}{|q|B_0^2} \implies m = \dfrac{|q|B_0^2 R^2}{2\Delta V}$.</p>
+    <p><b>Cómo hallar el signo de $q$:</b> aplica la regla de la mano derecha a $\vec v\times\vec B_0$ en el punto de entrada. Si la trayectoria se curva <em>hacia</em> $\vec v\times\vec B_0$, entonces $q \gt 0$; si se curva en el sentido opuesto, $q \lt 0$.</p>
+  </details>
+  <div class="why"><b>Cuándo se usa / cuándo NO:</b> $v = E/B$ solo vale cuando $\vec E \perp \vec B \perp \vec v$ y sus sentidos están configurados para oponerse. En la cámara deflectora, lee con cuidado si el dato geométrico es el radio $R$ o el diámetro $d = 2R$ hasta el detector.</div>
+</section>
+
+<section class="sec" id="u07-s5" data-block="teoria" data-title="Fuerza magnética sobre un conductor con corriente">
+  <h2>Fuerza magnética sobre un conductor con corriente</h2>
+  <p><b>El problema físico.</b> Una corriente eléctrica estacionaria $I$ en un cable es un flujo continuo de cargas en movimiento. Si ponemos el cable dentro de un campo magnético, los portadores sienten la fuerza de Lorentz y la transmiten a la red cristalina del metal: el cable entero experimenta una fuerza macroscópica.</p>
+  <p><b>Intuición.</b> Un tramo recto corto siente $\vec F = I\,\vec L\times\vec B$. Si el cable es curvo o el campo cambia de lugar en lugar, se corta el cable en pequeños elementos $d\vec\ell$ y se suma (integra) la fuerza sobre cada uno. En un campo uniforme, los desvíos curvos se compensan y solo importa la recta que une los extremos.</p>
+  <figure class="fig" data-fig="u07-conductor-curvo"><figcaption>En $\vec B$ uniforme: un cable curvo de $a$ a $b$ siente la misma fuerza que el segmento recto $\vec L'$ de $a$ a $b$; una espira cerrada cualquiera siente fuerza neta nula.</figcaption></figure>
+  <div class="eq key"><div class="lbl">Fuerza magnética sobre conductores con corriente</div>$$d\vec F_B = I\,d\vec\ell\times\vec B, \qquad \vec F_B = I\int_a^b d\vec\ell\times\vec B \qquad\xrightarrow{\ \text{tramo recto, }\vec B\text{ uniforme}\ }\qquad \vec F_B = I\,\vec L\times\vec B$$<div class="note">$d\vec F_B$, $\vec F_B$: fuerza magnética sobre el elemento o tramo (N); $I$: intensidad de corriente (A); $d\vec\ell$: elemento de longitud del conductor en el sentido de $I$ (m; equivalente a $d\vec s$ o $d\vec l$); $\vec L$: vector de largo $L$ (m) en el sentido de $I$. Módulo en tramo recto: $F_B = ILB\sin\theta$.</div></div>
+  <details class="deriv" open><summary>Derivación paso a paso: de $q\vec v\times\vec B$ a $I\,\vec L\times\vec B$ y los dos casos en $\vec B$ uniforme</summary>
+    <p><b>Paso 1 · Suma sobre los portadores.</b> Considera un alambre recto de sección $A$ ($\text{m}^2$) y largo $L$ (m) con $n$ portadores por unidad de volumen ($\text{m}^{-3}$), cada uno con carga $q$ y velocidad de deriva $\vec v_d$ (m/s). Hay $N = nAL$ portadores en el tramo, así que la fuerza total es:</p>
+    $$\vec F_B = (nAL)\,q\left(\vec v_d\times\vec B\right)$$
+    <p>Como la corriente es $I = n|q|v_d A$, el vector $nqA\vec v_d\,L$ equivale a $I\vec L$ (donde $\vec L$ apunta en el sentido de la corriente convencional, coincidente con $\vec v_d$ si $q \gt 0$ y opuesto si $q \lt 0$, lo que cancela el signo de $q$). Así resulta $\vec F_B = I\,\vec L\times\vec B$. Para un cable arbitrario y campo variable, cada elemento $d\vec\ell$ aporta $d\vec F_B = I\,d\vec\ell\times\vec B$.</p>
+    <p><b>Paso 2 · Cable curvo abierto en $\vec B$ uniforme.</b> Como $\vec B$ es constante, sale de la integral:</p>
+    $$\vec F_B = I\left(\int_a^b d\vec\ell\right)\times\vec B = I\,\vec L'\times\vec B$$
+    <p>donde $\vec L' = \int_a^b d\vec\ell$ es el vector desplazamiento recto desde el extremo inicial $a$ hasta el extremo final $b$.</p>
+    <p><b>Paso 3 · Espira cerrada en $\vec B$ uniforme.</b> Si el cable forma un circuito cerrado, el extremo final coincide con el inicial: $\oint d\vec\ell = \vec 0$, de modo que:</p>
+    $$\vec F_B = I\left(\oint d\vec\ell\right)\times\vec B = \vec 0$$
+    <p>La fuerza magnética neta sobre <b>cualquier</b> espira cerrada de forma arbitraria en un $\vec B$ uniforme es exactamente cero.</p>
+  </details>
+  <div class="why"><b>Cuándo se usa / cuándo NO:</b> usa $\vec F_B = I\,\vec L\times\vec B$ solo si el tramo es recto (o si reemplazas un cable curvo abierto por $\vec L'$) y $\vec B$ es uniforme a lo largo de él. Si $\vec B$ varía con la posición (como cerca de un alambre infinito), debes integrar $I\int d\vec\ell\times\vec B$ tramo por tramo.</div>
+</section>
+
+<section class="sec" id="u07-s6" data-block="teoria" data-title="Torque sobre una espira y momento dipolar magnético">
+  <h2>Torque sobre una espira y momento dipolar magnético</h2>
+  <p><b>El problema físico.</b> Si la fuerza neta sobre una espira cerrada en un campo uniforme es cero, ¿cómo funciona un motor eléctrico? Aunque las fuerzas sobre lados opuestos suman cero, actúan en rectas distintas y forman un par que hace girar la espira.</p>
+  <p><b>Intuición.</b> Si pones una espira rectangular con corriente inclinada dentro de $\vec B$, los dos lados paralelos al eje de giro sienten fuerzas iguales y opuestas que tiran hacia afuera o adentro en líneas de acción paralelas, generando un torque que tiende a alinear la normal de la espira con $\vec B$, igual que una brújula se alinea con el campo terrestre.</p>
+  <figure class="fig" data-fig="u07-torque-espira"><figcaption>Vista lateral de una espira rectangular con corriente en $\vec B$ uniforme. Las fuerzas $\vec F$ y $-\vec F$ sobre los lados perpendiculares al plano del dibujo producen el torque $\tau = \mu B\sin\varphi$.</figcaption></figure>
+  <div class="eq key"><div class="lbl">Momento dipolar magnético, torque y energía potencial</div>$$\vec\mu = N I A\,\hat n, \qquad\qquad \vec\tau = \vec\mu\times\vec B \quad(\tau = \mu B\sin\varphi), \qquad\qquad U = -\vec\mu\cdot\vec B = -\mu B\cos\varphi$$<div class="note">$\vec\mu$: momento dipolar magnético ($\text{A·m}^2$; en el texto de Cádiz se denota $\vec m = IA\,\hat n$); $N$: número de vueltas; $I$: corriente (A); $A$: área de cada vuelta ($\text{m}^2$); $\hat n$: normal unitaria dada por la mano derecha (dedos según $I$, pulgar indica $\hat n$); $\varphi$: ángulo entre $\vec\mu$ y $\vec B$; $\vec\tau$: torque ($\text{N·m}$); $U$: energía potencial (J), con cero elegido en $\varphi = 90^\circ$.</div></div>
+  <details class="deriv" open><summary>Derivación paso a paso: torque en la espira rectangular, energía y equilibrios</summary>
+    <p><b>Paso 1 · Fuerzas sobre los 4 lados.</b> Considera una espira rectangular de ancho $b$ (m, en el plano de la figura) y largo $a$ (m, perpendicular al dibujo, entrando/saliendo), con corriente $I$ y una vuelta ($N = 1$), en $\vec B$ uniforme vertical hacia abajo. Los dos lados de largo $b$ sufren fuerzas colineales opuestas que no producen torque respecto del centro. Los dos lados de largo $a$ son perpendiculares a $\vec B$, así que cada uno recibe una fuerza horizontal de módulo $F = IaB$, en sentidos opuestos.</p>
+    <p><b>Paso 2 · Brazo de palanca.</b> Si $\hat n$ forma el ángulo $\varphi$ con $\vec B$, el plano de la espira forma el ángulo $\varphi$ con la horizontal y la distancia vertical de cada lado al centro es $\tfrac{b}{2}\sin\varphi$. Los dos torques giran en el mismo sentido y se suman:</p>
+    $$\tau = 2\left(F\,\frac{b}{2}\sin\varphi\right) = (IaB)(b\sin\varphi) = I(ab)B\sin\varphi = IAB\sin\varphi$$
+    <p>Con $N$ vueltas apretadas el área efectiva se multiplica por $N$, y definiendo $\vec\mu = NIA\,\hat n$ queda $\vec\tau = \vec\mu\times\vec B$. Como la fuerza neta sobre la espira es cero, el torque es independiente del punto de referencia elegido.</p>
+    <p><b>Paso 3 · Energía potencial y equilibrios.</b> El trabajo que realiza un agente externo para girar el dipolo cuasiestáticamente de $\varphi_0 = 90^\circ$ a $\varphi$ contra el torque magnético restaurador ($\tau_{\text{ext}} = \mu B\sin\varphi'$) es:</p>
+    $$U(\varphi) = \int_{90^\circ}^\varphi \mu B\sin\varphi'\,d\varphi' = \Big[-\mu B\cos\varphi'\Big]_{90^\circ}^\varphi = -\mu B\left(\cos\varphi - \cos 90^\circ\right) = -\mu B\cos\varphi = -\vec\mu\cdot\vec B$$
+    <ul>
+      <li><b>Equilibrio estable ($\varphi = 0^\circ$, $\vec\mu\parallel\vec B$):</b> $\tau = 0$ y $U = -\mu B$ (mínima). Si se desvía un poco, el torque la devuelve.</li>
+      <li><b>Equilibrio inestable ($\varphi = 180^\circ$, $\vec\mu$ antiparalelo a $\vec B$):</b> $\tau = 0$ y $U = +\mu B$ (máxima). Cualquier perturbación la hace girar hacia $\varphi = 0^\circ$.</li>
+      <li><b>Torque máximo ($\varphi = 90^\circ$, $\vec B$ en el plano de la espira):</b> $\tau_{\text{máx}} = \mu B = NIAB$ y $U = 0$.</li>
+    </ul>
+  </details>
+  <div class="why"><b>Cuándo se usa / cuándo NO:</b> $\vec\tau = \vec\mu\times\vec B$ vale para <em>cualquier</em> espira plana (cuadrada, circular, irregular) en un campo $\vec B$ <b>uniforme</b>. En un campo no uniforme, además del torque aparece una fuerza neta $\vec F = \nabla(\vec\mu\cdot\vec B)$ (para un dipolo pequeño). Recuerda que $\varphi$ se mide entre $\vec\mu$ ($\hat n$) y $\vec B$, no respecto al plano de la espira.</div>
+</section>
+
+<section class="sec" id="u07-s7" data-block="teoria" data-title="Fuerza de un alambre infinito sobre una espira coplanar">
+  <h2>Fuerza de un alambre infinito sobre una espira coplanar</h2>
+  <p><b>El problema físico.</b> Ya demostramos que en un campo uniforme la fuerza neta sobre una espira cerrada es cero. ¿Qué ocurre cuando la espira está junto a un alambre largo con corriente, cuyo campo decae como $1/y$? Como el campo ya no es uniforme, la fuerza neta <b>no</b> se anula: este es uno de los problemas clásicos del examen.</p>
+  <p><b>Intuición.</b> El lado de la espira más cercano al alambre está en un campo más intenso que el lado lejano. Los dos lados perpendiculares al alambre sienten fuerzas iguales y opuestas porque recorren las mismas distancias al alambre. Por lo tanto, gana la fuerza sobre el lado cercano: si su corriente va en el mismo sentido que la del alambre, la espira es atraída; si va en sentido contrario, es repelida.</p>
+  <figure class="fig" data-fig="u07-alambre-espira"><figcaption>Alambre infinito sobre $y = 0$ con corriente $I_1$ en $+\hat x$ y espira rectangular coplanar $a\times b$ con corriente horaria $I_2$. $\vec B_1$ sale de la hoja en $y \gt 0$; domina la repulsión sobre el lado inferior en $y = h$.</figcaption></figure>
+  <div class="eq key"><div class="lbl">Fuerza neta entre alambre infinito y espira rectangular coplanar</div>$$F_{\text{neta}} = \frac{\mu_0 I_1 I_2 a}{2\pi}\left(\frac{1}{h} - \frac{1}{h+b}\right) = \frac{\mu_0 I_1 I_2 a b}{2\pi\,h(h+b)}$$<div class="note">$F_{\text{neta}}$: magnitud de la fuerza magnética neta (N); $I_1$: corriente en el alambre infinito (A); $I_2$: corriente en la espira (A); $a$: largo del lado paralelo al alambre (m); $b$: altura perpendicular al alambre (m); $h$: distancia del lado cercano al alambre (m). Dirección perpendicular al alambre: <b>repulsiva</b> si $I_2$ en el lado cercano es antiparalela a $I_1$, y <b>atractiva</b> si es paralela.</div></div>
+  <details class="deriv" open><summary>Derivación paso a paso: suma sobre los cuatro lados</summary>
+    <p><b>Paso 1 · Campo del alambre infinito.</b> Con el alambre en el eje $x$ llevando $I_1$ en $+\hat x$, en el semiplano $y \gt 0, z = 0$ la ley de Ampère y la mano derecha dan:</p>
+    $$\vec B_1(y) = \frac{\mu_0 I_1}{2\pi y}\,\hat z\quad(\text{saliente, }\odot)$$
+    <p><b>Paso 2 · Lados verticales ($x = 0$ y $x = a$).</b> En ambos tramos el campo varía con $y$, así que se usa $d\vec F = I_2\,d\vec\ell\times\vec B_1(y)$. A una misma altura $y$, el elemento izquierdo sube ($d\vec\ell = dy\,\hat y$) y sufre $d\vec F_{\text{izq}} = I_2 B_1(y)\,dy\,(\hat y\times\hat z) = +I_2 B_1(y)\,dy\,\hat x$, mientras que el elemento derecho baja ($d\vec\ell = -dy\,\hat y$) y sufre $d\vec F_{\text{der}} = -I_2 B_1(y)\,dy\,\hat x$. Sus integrales se cancelan exactamente: $\vec F_{\text{izq}} + \vec F_{\text{der}} = \vec 0$.</p>
+    <p><b>Paso 3 · Lados horizontales ($y = h$ y $y = h+b$).</b> Todo punto de cada lado horizontal está a la misma distancia del alambre, así que $\vec B_1$ es constante sobre cada tramo y basta $I_2\,\vec L\times\vec B_1$. Con $I_2$ horaria:</p>
+    <ul>
+      <li>Lado inferior ($y = h$, corriente hacia $-\hat x$): $\vec F_{\text{inf}} = I_2(-a\hat x)\times \dfrac{\mu_0 I_1}{2\pi h}\hat z = +\dfrac{\mu_0 I_1 I_2 a}{2\pi h}\,\hat y$ (hacia arriba, repulsión).</li>
+      <li>Lado superior ($y = h+b$, corriente hacia $+\hat x$): $\vec F_{\text{sup}} = I_2(+a\hat x)\times \dfrac{\mu_0 I_1}{2\pi(h+b)}\hat z = -\dfrac{\mu_0 I_1 I_2 a}{2\pi(h+b)}\,\hat y$ (hacia abajo, atracción).</li>
+    </ul>
+    <p><b>Paso 4 · Sumar ambos aportes.</b> Como $\hat x\times\hat z = -\hat y$:</p>
+    $$\vec F_{\text{neta}} = \frac{\mu_0 I_1 I_2 a}{2\pi}\left(\frac{1}{h} - \frac{1}{h+b}\right)\hat y = \frac{\mu_0 I_1 I_2 ab}{2\pi\,h(h+b)}\,\hat y$$
+    <p><b>Límite lejano ($b \ll h$):</b> $h+b \approx h$, así que $F_{\text{neta}} \approx \dfrac{\mu_0 I_1 (I_2 ab)}{2\pi h^2} = \mu\left|\dfrac{dB_1}{dy}\right|_{y=h}$, que coincide con la fuerza $\nabla(\vec\mu\cdot\vec B_1)$ sobre un dipolo magnético $\mu = I_2 ab$.</p>
+  </details>
+  <div class="why"><b>Cuándo se usa / cuándo NO:</b> este método (descomponer los 4 lados, cancelar los perpendiculares al alambre y restar los paralelos) funciona para cualquier espira rectangular coplanar con lados paralelos y perpendiculares a un alambre largo. Si la espira está inclinada o es circular, hay que parametrizar e integrar $d\vec F = I\,d\vec\ell\times\vec B$ directamente.</div>
+</section>
+
+<section class="sec" id="u07-ejemplos" data-block="ejemplos" data-title="Ejemplos resueltos">
+  <h2>Ejemplos resueltos</h2>
+
+  <div class="prob" id="u07-e1" data-kind="ejemplo" data-diff="1">
+    <div class="prob-head"><span class="tag">Ejemplo 1</span><span class="ptitle">Fuerza magnética sobre un protón en un campo oblicuo</span><span class="diff">dificultad 1/3</span></div>
+    <div class="prob-grid">
+      <div>
+        <p class="stmt">Un protón ($q = +e = 1{,}6\times10^{-19}\ \text{C}$) se mueve en el eje $x$ con velocidad $\vec v = 5{,}0\times10^6\,\hat x\ \text{m/s}$ dentro de un campo magnético uniforme de magnitud $B = 0{,}40\ \text{T}$ contenido en el plano $xy$ y dirigido a $30^\circ$ respecto de $+\hat x$ (en el primer cuadrante). Calcula: a) la magnitud de la fuerza magnética sobre el protón; b) la expresión vectorial completa $\vec F_B$ (con $\hat z$ saliendo de la hoja).</p>
+        <div class="given"><div><b>Datos</b> $q = 1{,}6\times10^{-19}\ \text{C}$, $\vec v = 5{,}0\times10^6\,\hat x\ \text{m/s}$, $B = 0{,}40\ \text{T}$, $\theta = 30^\circ$ en el plano $xy$</div><div><b>Piden</b> $F_B$ (magnitud) y $\vec F_B$ (vector)</div></div>
+      </div>
+      <figure class="fig" data-fig="u07-ejemplo-lorentz"><figcaption>El protón avanza en $+\hat x$ y $\vec B$ está a $30^\circ$ en el plano $xy$. La fuerza apunta en $+\hat z$.</figcaption></figure>
+    </div>
+    <div class="predict"><b>Antes de calcular:</b> ¿qué componente de $\vec B$ produce fuerza: la paralela a $\vec v$ ($B_x$) o la perpendicular ($B_y$)? Si la partícula fuera un electrón ($q = -e$), ¿qué cambiaría?</div>
+    <ol class="reveal">
+      <li class="hint">Usa $F_B = |q|vB\sin\theta$ para el módulo y descompón $\vec B = B\cos30^\circ\,\hat x + B\sin30^\circ\,\hat y$ para el producto cruz.</li>
+      <li><span class="rl">Paso 1 · Magnitud de la fuerza</span><p class="do"><b>Qué hago:</b> $F_B = |q|\,v\,B\sin30^\circ = (1{,}6\times10^{-19})(5{,}0\times10^6)(0{,}40)\left(\tfrac12\right)$.</p><p><b>Por qué:</b> primero $(1{,}6)(5{,}0) = 8{,}0$, luego $8{,}0\times0{,}40 = 3{,}2$, y $3{,}2\times\tfrac12 = 1{,}6$; las potencias dan $10^{-19+6} = 10^{-13}$. Resulta $F_B = 1{,}6\times10^{-13}\ \text{N}$.</p></li>
+      <li><span class="rl">Paso 2 · Componentes de $\vec B$ y producto cruz</span><p class="do"><b>Qué hago:</b> $\vec B = B\cos30^\circ\,\hat x + B\sin30^\circ\,\hat y$. Entonces $\vec v\times\vec B = (v\hat x)\times(B\cos30^\circ\,\hat x + B\sin30^\circ\,\hat y) = vB\sin30^\circ\,(\hat x\times\hat y) = (5{,}0\times10^6)(0{,}40)(\tfrac12)\,\hat z = 1{,}0\times10^6\,\hat z\ \text{T·m/s}$.</p><p><b>Por qué:</b> $\hat x\times\hat x = \vec 0$ y $\hat x\times\hat y = \hat z$: la componente paralela $B_x$ no contribuye.</p></li>
+      <li><span class="rl">Paso 3 · Multiplicar por la carga $q$</span><p class="do"><b>Qué hago:</b> $\vec F_B = (+1{,}6\times10^{-19}\ \text{C})(1{,}0\times10^6\,\hat z\ \text{T·m/s}) = +1{,}6\times10^{-13}\,\hat z\ \text{N}$.</p><p><b>Por qué:</b> $q \gt 0$, así que $\vec F_B$ tiene el mismo sentido que $\vec v\times\vec B$ (saliente de la hoja). Para un electrón apuntaría en $-\hat z$.</p></li>
+      <li class="final">$$\boxed{F_B = 1{,}6\times10^{-13}\ \text{N},\qquad \vec F_B = 1{,}6\times10^{-13}\,\hat z\ \text{N}\ (\text{saliendo de la hoja})}$$</li>
+      <li class="check"><b>Verificación:</b> unidades $\text{C·(m/s)·T} = \text{C·(m/s)·}\frac{\text{N}}{\text{C·(m/s)}} = \text{N}$. El módulo de $\vec F_B$ coincide con la parte a). Límite: si $\theta = 0^\circ$, $\sin0^\circ = 0$ y $\vec F_B = \vec 0$.</li>
+    </ol>
+    <div class="ctrl"></div>
+  </div>
+
+  <div class="prob" id="u07-e2" data-kind="ejemplo" data-diff="2">
+    <div class="prob-head"><span class="tag">Ejemplo 2</span><span class="ptitle">Movimiento helicoidal de una partícula en $\vec B$ uniforme</span><span class="diff">dificultad 2/3</span></div>
+    <div class="prob-grid">
+      <div>
+        <p class="stmt">Una partícula de razón carga/masa $q/m = +1{,}0\times10^8\ \text{C/kg}$ (aproximadamente un protón) ingresa en $t = 0$ a un campo magnético uniforme $\vec B = 0{,}20\,\hat x\ \text{T}$ con velocidad inicial $\vec v_0 = (3{,}0\,\hat x + 4{,}0\,\hat z)\times10^5\ \text{m/s}$. Despreciando la gravedad, determina: a) la dirección de la aceleración inicial $\vec a(0)$; b) la frecuencia angular ciclotrón $\omega_c$ y el periodo $T$; c) el radio $R$ de la hélice y su paso $p$.</p>
+        <div class="given"><div><b>Datos</b> $q/m = 1{,}0\times10^8\ \text{C/kg}$, $\vec B = 0{,}20\,\hat x\ \text{T}$, $v_x = 3{,}0\times10^5\ \text{m/s}$, $v_z = 4{,}0\times10^5\ \text{m/s}$</div><div><b>Piden</b> dirección de $\vec a(0)$, $\omega_c$, $T$, $R$, $p$</div></div>
+      </div>
+      <figure class="fig" data-fig="u07-orbita-helice"><figcaption>La componente $v_\parallel = v_x$ avanza uniforme a lo largo de $\vec B$, mientras $v_\perp = v_z$ genera el giro circular en el plano $yz$.</figcaption></figure>
+    </div>
+    <div class="predict"><b>Antes de calcular:</b> ¿cambia $v_x$ con el tiempo? Si $v_x$ fuera cero, ¿qué pasaría con $R$ y con $p$?</div>
+    <ol class="reveal">
+      <li class="hint">Separa $\vec v$ en $v_\parallel = v_x$ (constante) y $v_\perp = v_z$ (genera la órbita circular).</li>
+      <li><span class="rl">Paso 1 · Aceleración inicial</span><p class="do"><b>Qué hago:</b> $\vec a(0) = \dfrac{q}{m}(\vec v_0\times\vec B) = \dfrac{q}{m}\big[(v_x\hat x + v_z\hat z)\times B\hat x\big] = \dfrac{q}{m}v_z B\,(\hat z\times\hat x) = +\dfrac{q}{m}v_z B\,\hat y$.</p><p><b>Por qué:</b> $\hat x\times\hat x = \vec 0$ y $\hat z\times\hat x = +\hat y$. En magnitud, $a(0) = (1{,}0\times10^8)(4{,}0\times10^5)(0{,}20) = 8{,}0\times10^{12}\ \text{m/s}^2$ en $+\hat y$.</p></li>
+      <li><span class="rl">Paso 2 · Frecuencia ciclotrón y periodo</span><p class="do"><b>Qué hago:</b> $\omega_c = \dfrac{|q|B}{m} = (1{,}0\times10^8)(0{,}20) = 2{,}0\times10^7\ \text{rad/s}$; $T = \dfrac{2\pi}{\omega_c} = \dfrac{2\pi}{2{,}0\times10^7} = \pi\times10^{-7}\ \text{s}\approx 3{,}14\times10^{-7}\ \text{s}$.</p><p><b>Por qué:</b> $\omega_c$ y $T$ dependen solo de $|q|/m$ y $B$, no de la velocidad.</p></li>
+      <li><span class="rl">Paso 3 · Radio y paso de la hélice</span><p class="do"><b>Qué hago:</b> $R = \dfrac{v_\perp}{\omega_c} = \dfrac{4{,}0\times10^5}{2{,}0\times10^7} = 2{,}0\times10^{-2}\ \text{m} = 2{,}0\ \text{cm}$; $p = v_\parallel T = (3{,}0\times10^5)(\pi\times10^{-7}) = 3{,}0\pi\times10^{-2}\ \text{m} \approx 9{,}4\ \text{cm}$.</p><p><b>Por qué:</b> $v_\perp = v_z$ controla el giro y $v_\parallel = v_x$ permanece constante a lo largo de $+\hat x$.</p></li>
+      <li class="final">$$\boxed{\vec a(0) = 8{,}0\times10^{12}\,\hat y\ \text{m/s}^2,\quad \omega_c = 2{,}0\times10^7\ \text{rad/s},\quad T = \pi\times10^{-7}\ \text{s},\quad R = 2{,}0\ \text{cm},\quad p = 3{,}0\pi\times10^{-2}\ \text{m}}$$</li>
+      <li class="check"><b>Verificación:</b> unidades de $\omega_c$: $(\text{C/kg})\cdot\text{T} = \text{C/kg}\cdot\frac{\text{kg}}{\text{C·s}} = \text{s}^{-1}$. Límite: si $v_x = 0$, $p = 0$ (órbita circular plana de mismo radio $R = 2{,}0\ \text{cm}$); si $v_z = 0$, $R = 0$ y la partícula sigue recta con $v_x$.</li>
+    </ol>
+    <div class="ctrl"></div>
+  </div>
+
+  <div class="prob" id="u07-e3" data-kind="ejemplo" data-diff="2">
+    <div class="prob-head"><span class="tag">Ejemplo 3</span><span class="ptitle">Fuerza sobre una espira semicircular en $\vec B$ uniforme</span><span class="diff">dificultad 2/3</span></div>
+    <div class="prob-grid">
+      <div>
+        <p class="stmt">Un alambre doblado en forma de semicírculo de radio $R$ (m) y su diámetro recto de largo $2R$ forma una espira cerrada en el plano $xy$ (con $\hat z$ saliendo de la hoja) y lleva una corriente $I$ (A): recorre el diámetro sobre el eje $x$ desde $(-R,0)$ hasta $(+R,0)$ y regresa por el arco semicircular superior ($y \ge 0$). Hay un campo magnético uniforme $\vec B = B\,\hat y$ ($B$ en T). Calcula la fuerza magnética sobre el tramo recto ($\vec F_1$), sobre el arco semicircular ($\vec F_2$, verificándola por integración directa) y la fuerza total sobre la espira.</p>
+        <div class="given"><div><b>Datos</b> $R$, $I$ (antihoraria), $\vec B = B\,\hat y$ uniforme</div><div><b>Piden</b> $\vec F_1$, $\vec F_2$ (por integral también), $\sum\vec F$</div></div>
+      </div>
+      <figure class="fig" data-fig="u07-semicirculo"><figcaption>El diámetro y el arco están en el plano $xy$; $\vec B$ apunta en $+\hat y$. Las fuerzas $\vec F_1$ y $\vec F_2$ son opuestas a lo largo de $z$.</figcaption></figure>
+    </div>
+    <div class="predict"><b>Antes de calcular:</b> como la espira es cerrada y $\vec B$ es uniforme, ¿qué debe dar $\vec F_1 + \vec F_2$? ¿Por qué el arco recibe la misma magnitud de fuerza que el diámetro si mide $\pi R \gt 2R$?</div>
+    <ol class="reveal">
+      <li class="hint">Para el arco parametriza $\vec r = R(\cos\theta\,\hat x + \sin\theta\,\hat y)$ con $\theta$ de $0$ a $\pi$, y luego compara con $\vec F_2 = I\,\vec L'\times\vec B$.</li>
+      <li><span class="rl">Paso 1 · Tramo recto ($\vec F_1$)</span><p class="do"><b>Qué hago:</b> $\vec L = 2R\,\hat x$, así que $\vec F_1 = I(2R\,\hat x)\times(B\,\hat y) = 2IRB\,(\hat x\times\hat y) = +2IRB\,\hat z$.</p><p><b>Por qué:</b> tramo recto en campo uniforme: $\vec F = I\,\vec L\times\vec B$.</p></li>
+      <li><span class="rl">Paso 2 · Arco por integración explícita ($\vec F_2$)</span><p class="do"><b>Qué hago:</b> de $\theta = 0$ a $\theta = \pi$, $\vec r(\theta) = R(\cos\theta\,\hat x + \sin\theta\,\hat y)$, luego $d\vec\ell = R(-\sin\theta\,\hat x + \cos\theta\,\hat y)\,d\theta$. Como $\hat y\times\hat y = \vec 0$ y $\hat x\times\hat y = \hat z$: $d\vec\ell\times\vec B = -RB\sin\theta\,d\theta\,\hat z$. Integrando:</p><p class="do">$$\vec F_2 = I\int_0^\pi (-RB\sin\theta)\,d\theta\,\hat z = -IRB\big[-\cos\theta\big]_0^\pi\hat z = -IRB(1 + 1)\,\hat z = -2IRB\,\hat z$$</p><p><b>Por qué:</b> los elementos cerca de $\theta = 0$ y $\pi$ son casi paralelos a $\vec B = B\hat y$ y casi no aportan; la proyección efectiva perpendicular al campo es $2R$.</p></li>
+      <li><span class="rl">Paso 3 · Comprobación por desplazamiento efectivo y suma</span><p class="do"><b>Qué hago:</b> el arco va de $(+R,0)$ a $(-R,0)$, luego $\vec L' = -2R\,\hat x$ y $\vec F_2 = I(-2R\,\hat x)\times(B\,\hat y) = -2IRB\,\hat z$. Sumando: $\sum\vec F = \vec F_1 + \vec F_2 = 2IRB\,\hat z - 2IRB\,\hat z = \vec 0$.</p><p><b>Por qué:</b> $\vec F_B = I(\oint d\vec\ell)\times\vec B = \vec 0$ para toda espira cerrada en $\vec B$ uniforme.</p></li>
+      <li class="final">$$\boxed{\vec F_1 = +2IRB\,\hat z,\qquad \vec F_2 = -2IRB\,\hat z,\qquad \sum\vec F = \vec 0}$$</li>
+      <li class="check"><b>Verificación:</b> unidades $\text{A·m·T} = \text{N}$. Ambos métodos dan $\vec F_2 = -2IRB\,\hat z$ y las fuerzas se anulan. Nota: aunque $\sum\vec F = \vec 0$, como $\vec F_1$ y $\vec F_2$ actúan en rectas distintas hay un torque $\vec\tau = \vec\mu\times\vec B = (I\tfrac12\pi R^2\hat z)\times(B\hat y) = -\tfrac12\pi IR^2B\,\hat x$.</li>
+    </ol>
+    <div class="ctrl"></div>
+  </div>
+
+  <div class="prob" id="u07-e4" data-kind="ejemplo" data-diff="3">
+    <div class="prob-head"><span class="tag">Ejemplo 4</span><span class="ptitle">Equilibrio de una espira pivotada bajo gravedad y campo $\vec B$</span><span class="diff">dificultad 3/3</span></div>
+    <div class="prob-grid">
+      <div>
+        <p class="stmt">Una espira conductora cuadrada rígida, de lado $L$ (m) y masa total $M$ (kg) distribuida uniformemente, está pivotada sin roce en torno a su lado superior horizontal fijo $AA'$ (eje $z$, con $+\hat z$ saliendo de la hoja, $+\hat x$ a la derecha y $+\hat y$ arriba). En la región actúan la gravedad $\vec g = -g\,\hat y$ ($g$ en $\text{m/s}^2$) y un campo magnético uniforme $\vec B = -B\,\hat y$ ($B \gt 0$, en T). La espira se mantiene en equilibrio inclinada un ángulo $\theta$ ($0 \lt \theta \lt 90^\circ$) hacia $+\hat x$ respecto de la vertical descendente cuando circula por ella una corriente $I$ (A). Determina la magnitud de $I$ y su sentido en el lado inferior, y verifica el resultado usando $\vec\tau = \vec\mu\times\vec B$. (Basado en Ayudantía 17, 2026-2.)</p>
+        <div class="given"><div><b>Datos</b> $L$, $M$, $\theta$, $\vec g = -g\,\hat y$, $\vec B = -B\,\hat y$</div><div><b>Piden</b> $I$, sentido en el lado inferior y verificación con $\vec\mu$</div></div>
+      </div>
+      <figure class="fig" data-fig="u07-espira-pivotada"><figcaption>Vista de perfil mirando desde $+\hat z$ hacia el eje $AA'$. Para equilibrar el torque del peso $Mg$, la fuerza magnética en el lado inferior debe apuntar en $+\hat x$.</figcaption></figure>
+    </div>
+    <div class="predict"><b>Antes de calcular:</b> ¿hacia dónde debe empujar $\vec F_{\text{inf}}$ sobre el lado inferior para sostener la espira inclinada a la derecha? ¿Qué pasa con $I$ si $\theta \to 90^\circ$?</div>
+    <ol class="reveal">
+      <li class="hint">Calcula $\vec\tau_g$ y $\vec\tau_B$ respecto al eje $AA'$ usando el vector director $\hat d = \sin\theta\,\hat x - \cos\theta\,\hat y$ desde $AA'$ hacia el lado inferior.</li>
+      <li><span class="rl">Paso 1 · Torque del peso respecto al eje $AA'$</span><p class="do"><b>Qué hago:</b> el centro de masa está en $\vec r_{\text{cm}} = \frac{L}{2}\hat d = \frac{L}{2}(\sin\theta\,\hat x - \cos\theta\,\hat y)$, con $\vec F_g = -Mg\,\hat y$. Entonces:</p><p class="do">$$\vec\tau_g = \vec r_{\text{cm}}\times\vec F_g = \frac{L}{2}(\sin\theta\,\hat x - \cos\theta\,\hat y)\times(-Mg\,\hat y) = -\frac{MgL}{2}\sin\theta\,\hat z$$</p><p><b>Por qué:</b> $\hat x\times\hat y = \hat z$ y $\hat y\times\hat y = \vec 0$; el peso tiende a devolver la espira hacia la vertical.</p></li>
+      <li><span class="rl">Paso 2 · Fuerza y torque magnéticos sobre los cuatro lados</span><p class="do"><b>Qué hago:</b> el lado superior coincide con el eje $AA'$ ($\vec r = \vec 0 \implies \vec\tau_{\text{sup}} = \vec 0$). En los dos lados inclinados, $d\vec\ell \parallel \hat d$ y $\vec B = -B\hat y$, así que las fuerzas apuntan a lo largo de $\pm\hat z$ (paralelas al eje $AA'$, no producen torque alrededor de él y además se cancelan entre sí). En el lado inferior ($\vec r_{\text{inf}} = L\hat d$), para equilibrar $-\hat z$ necesitamos torque en $+\hat z$, luego $\vec F_{\text{inf}}$ debe ir en $+\hat x$:</p><p class="do">$$\vec F_{\text{inf}} = I\,\vec L_{\text{inf}}\times(-B\hat y) = +ILB\,\hat x \quad\Longrightarrow\quad \vec L_{\text{inf}} = +L\,\hat z\ (\text{corriente }+\hat z\text{, saliendo }\odot)$$</p><p class="do">$$\vec\tau_B = (L\hat d)\times(ILB\,\hat x) = L(\sin\theta\,\hat x - \cos\theta\,\hat y)\times(ILB\,\hat x) = +IL^2B\cos\theta\,\hat z$$</p><p><b>Por qué:</b> $\hat z\times(-\hat y) = +\hat x$ y $(-\hat y)\times\hat x = +\hat z$.</p></li>
+      <li><span class="rl">Paso 3 · Equilibrio y despeje de $I$</span><p class="do"><b>Qué hago:</b> $\vec\tau_B + \vec\tau_g = \vec 0 \implies IL^2B\cos\theta = \dfrac{MgL}{2}\sin\theta \implies I = \dfrac{Mg\tan\theta}{2LB}$.</p><p><b>Por qué:</b> en equilibrio estático la suma de torques respecto al eje de giro es cero.</p></li>
+      <li><span class="rl">Paso 4 · Verificación con momento dipolar $\vec\mu$</span><p class="do"><b>Qué hago:</b> la corriente circula en $+\hat z$ en el lado inferior ($\odot$) y en $-\hat z$ en $AA'$ ($\otimes$), recorriendo el plano de la espira en la secuencia $-\hat z \to +\hat d \to +\hat z \to -\hat d$. Por la regla de la mano derecha (dedos siguiendo $\hat d$ y luego $+\hat z$), la normal $\hat n$ resulta $\hat n = \hat d\times\hat z = (\sin\theta\,\hat x - \cos\theta\,\hat y)\times\hat z = -(\cos\theta\,\hat x + \sin\theta\,\hat y)$. Con $\vec\mu = IL^2\hat n$:</p><p class="do">$$\vec\tau_B = \vec\mu\times\vec B = \left[-IL^2(\cos\theta\,\hat x + \sin\theta\,\hat y)\right]\times(-B\hat y) = +IL^2B\cos\theta\,\hat z$$</p><p><b>Por qué:</b> coincide exactamente con el cálculo lado a lado porque la fuerza magnética neta sobre la espira cerrada en $\vec B$ uniforme es nula y el torque no depende del eje.</p></li>
+      <li class="final">$$\boxed{I = \frac{Mg\tan\theta}{2LB},\qquad \text{sentido en el lado inferior: } +\hat z\ (\text{saliendo de la hoja, }\odot)}$$ (Corriente $+\hat z$ en el lado inferior y $-\hat z$ en $AA'$.)</li>
+      <li class="check"><b>Verificación:</b> unidades $\dfrac{\text{kg·(m/s}^2)}{\text{m·T}} = \dfrac{\text{N}}{\text{m·N/(A·m)}} = \text{A}$. Límites: si $\theta \to 0$, $I \to 0$ (vertical no necesita torque); si $\theta \to 90^\circ$, $I \to \infty$ porque en horizontal $\vec F_{\text{inf}}$ es colineal con $\vec r_{\text{inf}}$ y su torque sobre el eje se anula.</li>
+    </ol>
+    <div class="ctrl"></div>
+  </div>
+</section>
+
+<section class="sec" id="u07-examen" data-block="arquetipos" data-title="Arquetipos de examen">
+  <h2>Arquetipos de examen</h2>
+  <p>Problemas reales de exámenes anteriores, transcritos con el puntaje oficial de la pauta. Resuélvelos primero en papel y sin calculadora antes de abrir los pasos.</p>
+
+  <div class="prob" id="u07-x1" data-kind="arquetipo" data-diff="1">
+    <div class="prob-head"><span class="tag">Arquetipo de examen 1</span><span class="ptitle">Rayo de partículas en campo magnético saliente</span><span class="diff">dificultad 1/3</span><span class="src">Examen 2025-1 · P2</span></div>
+    <div class="prob-grid">
+      <div>
+        <p class="stmt">Se realiza un experimento con rayos de partículas cargadas que inciden horizontalmente hacia la derecha ($+\hat x$) en un campo magnético constante $\vec B$ ($B$ en T), en dirección saliente al plano ($+\hat z$) como indica la figura. Las partículas inciden con una rapidez $v = |\vec v|$ (m/s) constante durante todo el recorrido y describen una semicircunferencia en sentido antihorario (curvándose hacia arriba), impactando la pared de entrada a una distancia vertical $d$ (m) por encima del punto de ingreso. Despreciando efectos de gravedad, y considerando la distancia $d$ de la figura: a) <b>(4 pts.)</b> calcular la razón carga/masa de las partículas; b) <b>(2 pts.)</b> determinar si las partículas están cargadas positiva o negativamente.</p>
+        <div class="given"><div><b>Datos</b> $v$ constante, $\vec B$ saliente ($+\hat z$), diámetro de la semicircunferencia $d$</div><div><b>Piden</b> $q/m$ (con signo) y determinar el signo de $q$</div></div>
+      </div>
+      <figure class="fig" data-fig="u07-ex-2025-1-p2"><figcaption>La partícula entra con $\vec v$ hacia la derecha en $\vec B$ saliente ($\odot$), gira en sentido antihorario y choca a distancia $d = 2r$ sobre el punto de entrada.</figcaption></figure>
+    </div>
+    <div class="predict"><b>Antes de calcular:</b> ¿$d$ es el radio $r$ o el diámetro $2r$? Si la carga fuera positiva con $\vec v$ hacia la derecha y $\vec B$ saliente, ¿se curvaría hacia arriba o hacia abajo?</div>
+    <ol class="reveal">
+      <li class="hint">Iguala la fuerza centrípeta $mv^2/r$ al módulo de Lorentz $|q|vB$, sustituye $r = d/2$, y determina el signo de $q$ con $\vec v\times\vec B$.</li>
+      <li><span class="rl">Paso 1 · Dinámica circular (parte a: 1,0 + 0,5 pts.)</span><p class="do"><b>Qué hago:</b> la fuerza magnética actúa como fuerza centrípeta: $\dfrac{mv^2}{r} = |q|\,v\,B$ (1,0 pto.). Simplificando $v$ y despejando $|q|/m$: $\dfrac{mv}{r} = |q|B \implies \dfrac{|q|}{m} = \dfrac{v}{rB}$ (0,5 pts.).</p><p><b>Por qué:</b> $\vec v\perp\vec B$ en todo el recorrido, luego la trayectoria es circular de radio $r$.</p></li>
+      <li><span class="rl">Paso 2 · Usar $r = d/2$ (parte a: 0,5 + 0,5 + 1,5 pts.; completa los 4 pts. de a)</span><p class="do"><b>Qué hago:</b> en la semicircunferencia, la distancia entre entrada y choque es el diámetro: $r = \dfrac{d}{2}$ (0,5 pts.). Reemplazando: $\dfrac{|q|}{m} = \dfrac{2v}{dB}$ (0,5 pts.), así que $\dfrac{q}{m} = \pm\dfrac{2v}{dB}$ (1,5 pts. de la pauta por concluir a antes de fijar el signo en b).</p><p><b>Por qué:</b> trampa clásica del problema: usar $r = d$ en lugar de $r = d/2$ pierde un factor $2$.</p></li>
+      <li><span class="rl">Paso 3 · Signo de la carga (parte b: 0,5 + 1,5 pts.)</span><p class="do"><b>Qué hago:</b> con $\vec v = v\hat x$ y $\vec B = B\hat z$ (saliente), la fuerza de Lorentz es $\vec F = q\,\vec v\times\vec B = qvB(\hat x\times\hat z) = -qvB\,\hat y$ (0,5 pts.): si $q \gt 0$, la fuerza inicial apunta hacia abajo (trayectoria horaria); si $q \lt 0$, apunta hacia arriba (trayectoria antihoraria). Como en la figura la trayectoria es antihoraria, concluimos que $q \lt 0$ (1,5 pts.).</p><p><b>Por qué:</b> regla de la mano derecha: $\hat x\times\hat z = -\hat y$; el giro hacia $+\hat y$ exige $q \lt 0$.</p></li>
+      <li class="final">$$\boxed{\frac{|q|}{m} = \frac{2v}{dB},\qquad q \lt 0\ \text{(carga negativa)},\qquad \frac{q}{m} = -\frac{2v}{dB}}$$</li>
+      <li class="check"><b>Verificación:</b> unidades $\dfrac{\text{m/s}}{\text{m·T}} = \dfrac{1}{\text{s·T}} = \dfrac{\text{C}}{\text{kg}}$. Límite: si $B$ aumenta al doble para la misma rapidez, el diámetro $d = 2mv/(|q|B)$ se reduce a la mitad.</li>
+    </ol>
+    <div class="ctrl"></div>
+  </div>
+
+  <div class="prob" id="u07-x2" data-kind="arquetipo" data-diff="2">
+    <div class="prob-head"><span class="tag">Arquetipo de examen 2</span><span class="ptitle">Alambre infinito y espira rectangular coplanar</span><span class="diff">dificultad 2/3</span><span class="src">Examen 2024-2 · P1</span></div>
+    <div class="prob-grid">
+      <div>
+        <p class="stmt">Considere un alambre infinito sobre el eje $x$ por el que circula una corriente $I_1$ (A) hacia $+\hat x$, y una espira rectangular coplanar (en el primer cuadrante del plano $xy$, con $\hat z$ saliendo de la hoja) de ancho horizontal $a$ (m, paralelo al alambre, de $x = 0$ a $x = a$) y altura $b$ (m, de $y = h$ a $y = h+b$, con $h$ en m). Por la espira circula una corriente $I_2$ (A) en sentido horario. a) <b>(2 pts.)</b> Calcular el vector campo magnético $\vec B_1$ inducido por la corriente $I_1$ en función de la distancia $r$ (m) al eje del alambre infinito. b) <b>(2 pts.)</b> ¿Cuál es la fuerza neta que ejerce la corriente $I_1$ sobre la espira rectangular que conduce la corriente $I_2$? <em>La parte c) original (inductancia mutua, 2 pts.) se trabaja en la unidad U10.</em></p>
+        <div class="given"><div><b>Datos</b> $I_1$ en $+\hat x$ ($y = 0$), espira $a\times b$ entre $y = h$ e $y = h+b$ con $I_2$ horaria</div><div><b>Piden</b> $\vec B_1(r)$, $\vec F_{\text{neta}}$</div></div>
+      </div>
+      <figure class="fig" data-fig="u07-alambre-espira"><figcaption>Alambre en $y = 0$ con $I_1$ hacia $+\hat x$ y espira coplanar con $I_2$ horaria. En $y \gt 0$, $\vec B_1$ sale de la hoja ($\odot$).</figcaption></figure>
+    </div>
+    <div class="predict"><b>Antes de calcular:</b> en el lado más cercano ($y = h$), $I_2$ va hacia $-\hat x$, opuesta a $I_1$. ¿La fuerza neta sobre la espira será hacia el alambre o alejándose de él?</div>
+    <ol class="reveal">
+      <li class="hint">Usa Ampère para $\vec B_1(r)$ (particularizando a $r = y$ en el semiplano $y \gt 0, z = 0$) e integra $I_2\,d\vec\ell\times\vec B_1$ en los cuatro lados cancelando los verticales.</li>
+      <li><span class="rl">Paso 1 · Campo del alambre por Ampère (parte a: 0,5 + 0,5 + 1,0 pts.)</span><p class="do"><b>Qué hago:</b> ley de Ampère $\oint_C \vec B_1\cdot d\vec\ell = \mu_0 I_{\text{enc}}$ (0,5 pts.). Tomamos $C$ circular de radio $r$ concéntrica al alambre (en el plano $yz$), recorrida según la mano derecha respecto a $I_1$ en $+\hat x$, encerrando $I_{\text{enc}} = I_1$ (0,5 pts.): $B_1(r)(2\pi r) = \mu_0 I_1 \implies \vec B_1(r) = \dfrac{\mu_0 I_1}{2\pi r}\,\hat\phi$. En el semiplano $z = 0, y \gt 0$, $r = y$ y $\hat\phi = +\hat z$: $\vec B_1(y) = \dfrac{\mu_0 I_1}{2\pi y}\,\hat z$ (1,0 pto.).</p><p><b>Por qué:</b> simetría cilíndrica alrededor del eje $x$. <em>Nota sobre la pauta oficial:</em> el PDF original escribe $\vec B_1(r) = \frac{\mu_0 I_1}{2\pi y}\hat z$ mezclando $r$ y $y$; lo consistente es $\vec B_1(r) = \frac{\mu_0 I_1}{2\pi r}\hat\phi$ en general y $\vec B_1(y) = \frac{\mu_0 I_1}{2\pi y}\hat z$ en $y \gt 0, z = 0$.</p></li>
+      <li><span class="rl">Paso 2 · Fuerza neta sobre la espira (parte b: 0,5 + 0,5 + 1,0 pts.)</span><p class="do"><b>Qué hago:</b> $\vec F = \oint I_2\,d\vec\ell\times\vec B_1(y)$ (0,5 pts.). Los lados verticales ($x = 0$ y $x = a$) llevan corrientes opuestas a las mismas alturas $y$, así que $\vec F_{\text{izq}} + \vec F_{\text{der}} = \vec 0$. Para los tramos horizontales (0,5 pts.):</p><p class="do">$$\vec F = \int_0^a I_2\,dx\,\hat x\times\vec B_1(h+b) + \int_a^0 I_2\,dx\,\hat x\times\vec B_1(h) = \left[\frac{\mu_0 I_1 I_2 a}{2\pi(h+b)} - \frac{\mu_0 I_1 I_2 a}{2\pi h}\right](-\hat y) = \frac{\mu_0 I_1 I_2 a b}{2\pi\,h(h+b)}\,\hat y\quad(1{,}0\ \text{pto.})$$</p><p><b>Por qué:</b> $\hat x\times\hat z = -\hat y$. <em>Errata de la pauta oficial:</em> dice por lapsus «elemento de corriente del alambre infinito» al referirse a $I_2\,dx\,\hat x$, que en realidad es el elemento de los tramos horizontales de la espira.</p></li>
+      <li class="final">$$\boxed{\vec B_1(r) = \frac{\mu_0 I_1}{2\pi r}\,\hat\phi\ \left(\text{en }z = 0,\ y \gt 0:\ \vec B_1(y) = \frac{\mu_0 I_1}{2\pi y}\,\hat z\right),\qquad \vec F_{\text{neta}} = \frac{\mu_0 I_1 I_2 a b}{2\pi\,h(h+b)}\,\hat y}$$</li>
+      <li class="check"><b>Verificación:</b> el tramo cercano ($y = h$) lleva corriente antiparalela a $I_1$ y sufre repulsión ($+\hat y$) mayor que la atracción ($-\hat y$) del tramo lejano, así que $\vec F_{\text{neta}}$ en $+\hat y$ es consistente. Unidades: $[\vec B_1] = \text{(T·m/A)·A/m} = \text{T}$; $[\vec F_{\text{neta}}] = \frac{\text{T·m/A}\cdot\text{A}^2\cdot\text{m}^2}{\text{m}^2} = \text{N}$. Límite $b \ll h$: $F_{\text{neta}} \approx \frac{\mu_0 I_1 I_2 ab}{2\pi h^2}$.</li>
+    </ol>
+    <div class="ctrl"></div>
+  </div>
+
+  <div class="prob" id="u07-x3" data-kind="arquetipo" data-diff="2">
+    <div class="prob-head"><span class="tag">Arquetipo de examen 3</span><span class="ptitle">Selector de velocidades con placas y apagado de campos</span><span class="diff">dificultad 2/3</span><span class="src">Examen 2018-2 · P3</span></div>
+    <div class="prob-grid">
+      <div>
+        <p class="stmt">Al selector de velocidades mostrado en la figura se aplica un campo magnético constante $\vec B = B\,\hat y$ ($B \gt 0$, en T, entrando a la hoja en el plano $xz$ donde $+\hat x$ va a la derecha y $+\hat z$ hacia arriba). Las placas superior e inferior están separadas una distancia $d$ (m) y se cargan con densidades uniformes $\pm\sigma$ ($\text{C/m}^2$, desconocidas). Una partícula de masa $m$ (kg), carga $q \gt 0$ (C) y velocidad $\vec v_0 = v_0\,\hat x$ ($v_0 \gt 0$, en m/s) entra por el punto medio entre las placas. Despreciando la gravedad, determine: a) <b>(1,5 pts.)</b> el campo eléctrico $\vec E$ (magnitud y dirección) necesario para que siga en línea recta; b) <b>(1 pto.)</b> la magnitud $|\sigma|$ e indique qué placa lleva $+\sigma$ y cuál $-\sigma$; c) <b>(1,5 pts.)</b> si se apaga $\vec E$ ($\vec E = \vec 0$) y se mantiene $\vec B = B\hat y$ (suponiendo placas suficientemente largas), con qué placa choca y con qué rapidez; d) <b>(2 pts.)</b> si ahora se apaga $\vec B$ ($\vec B = \vec 0$) y se mantiene $\vec E = E_z\,\hat z$ ($E_z \lt 0$, en V/m, con placas suficientemente largas), con qué placa choca y con qué rapidez.</p>
+        <div class="given"><div><b>Datos</b> $\vec B = B\hat y$ ($B\gt 0$), separación $d$, $q \gt 0$, $m$, $\vec v_0 = v_0\hat x$ en $z = 0$ (placas en $z = \pm d/2$)</div><div><b>Piden</b> $\vec E$; $\pm\sigma$ en cada placa; placa y $v$ sin $\vec E$; placa y $v$ sin $\vec B$</div></div>
+      </div>
+      <figure class="fig" data-fig="u07-ex-2018-2-p3"><figcaption>Ejes del problema: $+\hat x$ a la derecha, $+\hat z$ arriba y $+\hat y$ entrando a la hoja ($\otimes$). Para que $+q$ siga recto, $\vec E$ debe equilibrar a $\vec v_0\times\vec B = +v_0 B\,\hat z$.</figcaption></figure>
+    </div>
+    <div class="predict"><b>Antes de calcular:</b> con $\hat x\times\hat y = \hat z$, si se apaga $\vec E$, ¿hacia qué placa empuja $\vec F_B$ y qué pasa con la rapidez? Si se apaga $\vec B$, ¿hace trabajo $\vec F_E$?</div>
+    <ol class="reveal">
+      <li class="hint">Verifica la base derecha ($\hat x\times\hat y = \hat z$), usa $E = |\sigma|/\varepsilon_0$ entre placas infinitas, $W_B = 0$ en c) y trabajo-energía $W_E = \Delta K$ sobre la distancia $d/2$ en d).</li>
+      <li><span class="rl">Paso 1 · Campo eléctrico en el selector (parte a: 0,5 + 0,5 + 0,5 pts.)</span><p class="do"><b>Qué hago:</b> para seguir en línea recta la fuerza neta es cero (0,5 pts.): $\vec F = q(\vec E + \vec v_0\times\vec B) = \vec 0$ (0,5 pts.). Luego $\vec E = -\vec v_0\times\vec B = -v_0 B(\hat x\times\hat y) = -v_0 B\,\hat z$ (0,5 pts.).</p><p><b>Por qué:</b> la fuerza eléctrica hacia abajo ($-\hat z$) cancela a la fuerza magnética hacia arriba ($+\hat z$).</p></li>
+      <li><span class="rl">Paso 2 · Densidades de carga $\pm\sigma$ (parte b: 0,5 + 0,5 pts.)</span><p class="do"><b>Qué hago:</b> entre dos placas paralelas con cargas opuestas, $|\vec E| = \dfrac{|\sigma|}{\varepsilon_0} = v_0 B \implies |\sigma| = \varepsilon_0 v_0 B$ (0,5 pts.). Como $\vec E$ apunta en $-\hat z$ (de arriba hacia abajo), la placa superior lleva $+\sigma = +\varepsilon_0 v_0 B$ y la inferior $-\sigma = -\varepsilon_0 v_0 B$ (0,5 pts.).</p><p><b>Por qué:</b> el campo eléctrico nace en la placa positiva y termina en la negativa.</p></li>
+      <li><span class="rl">Paso 3 · Sin campo eléctrico (parte c: 0,5 + 0,2 + 0,5 + 0,3 pts.)</span><p class="do"><b>Qué hago:</b> $\vec F = q\,\vec v_0\times\vec B = +qv_0 B\,\hat z$ (0,5 pts.), hacia arriba: choca con la <b>placa superior</b> (0,2 pts.). Como $\vec F_B\perp\vec v$ en todo instante, la fuerza magnética no realiza trabajo ($W_B = 0$, 0,5 pts.), así que $\Delta K = 0$ y la partícula impacta con la misma rapidez inicial, $v = v_0$ (0,3 pts.).</p><p><b>Por qué:</b> $dW_B = \vec F_B\cdot\vec v\,dt = 0$ (suponiendo radio $R = mv_0/(qB)$ suficiente o placa suficientemente larga para chocar).</p></li>
+      <li><span class="rl">Paso 4 · Sin campo magnético (parte d: 0,5 + 0,5 + 0,5 + 0,5 pts.)</span><p class="do"><b>Qué hago:</b> $\vec F = q\vec E = qE_z\,\hat z$; como $q \gt 0$ y $E_z \lt 0$, la fuerza apunta en $-\hat z$ y la partícula choca con la <b>placa inferior</b> (0,5 pts.). Por trabajo y energía desde $z = 0$ hasta $z = -d/2$ (0,5 pts.):</p><p class="do">$$W = \int_0^{-d/2} qE_z\,dz = q|E_z|\frac{d}{2} = \frac{1}{2}mv^2 - \frac{1}{2}mv_0^2\quad(0{,}5\ \text{pts.}) \quad\Longrightarrow\quad v = \sqrt{v_0^2 + \frac{q\,d\,|E_z|}{m}}\quad(0{,}5\ \text{pts.})$$</p><p><b>Por qué:</b> la energía cinética aumenta en el trabajo positivo $q|E_z|(d/2)$ hecho por $\vec E$. <em>Errata corregida de la pauta oficial:</em> la pauta de 2018-2 omite por error la carga $q$ al despejar y escribe $\sqrt{v_0^2 + d|E_z|/m}$ (dimensionalmente incorrecto), además de escribir $dy$ en lugar de $dz$ en la integral.</p></li>
+      <li class="final">$$\boxed{\text{a) }\vec E = -v_0 B\,\hat z;\quad \text{b) }|\sigma| = \varepsilon_0 v_0 B\ (+\sigma\ \text{sup.},\ -\sigma\ \text{inf.});\quad \text{c) sup., }v = v_0;\quad \text{d) inf., }v = \sqrt{v_0^2 + \frac{qd|E_z|}{m}}}$$</li>
+      <li class="check"><b>Verificación:</b> unidades en d): $\left[\frac{qd|E_z|}{m}\right] = \frac{\text{C·m·(N/C)}}{\text{kg}} = \frac{\text{N·m}}{\text{kg}} = \frac{\text{m}^2}{\text{s}^2}$, que suma bien con $v_0^2$. Límite: si $E_z \to 0$ en d), $v \to v_0$; si $v_0 = 0$, $v = \sqrt{qd|E_z|/m}$ (caída libre eléctrica en distancia $d/2$).</li>
+    </ol>
+    <div class="ctrl"></div>
+  </div>
+</section>
+
+<section class="sec" id="u07-errores" data-block="errores" data-title="Errores típicos">
+  <h2>Errores típicos</h2>
+  <div class="trap"><b>Confundir radio $r$ con diámetro $d = 2r$ en el detector.</b> Al completar una semicircunferencia en $\vec B$, la partícula impacta a una distancia $d = 2r$ del orificio de entrada. Si reemplazas $r = d$ en $r = mv/(|q|B)$, te equivocas en un factor $2$ (Examen 2025-1 P2). Cómo detectarlo: dibuja el centro de la semicircunferencia y traza el diámetro desde la rendija hasta el impacto.</div>
+  <div class="trap"><b>Olvidar invertir el sentido de la fuerza cuando $q \lt 0$.</b> La regla de la mano derecha da la dirección de $\vec v\times\vec B$, no de $q\,\vec v\times\vec B$. Para un electrón o cualquier carga negativa, la fuerza apunta en el sentido opuesto al pulgar. Cómo detectarlo: anota explícitamente el signo de $q$ antes de escribir el vector $\vec F_B$.</div>
+  <div class="trap"><b>Creer que la fuerza magnética cambia la rapidez o hace trabajo.</b> Como $\vec F_B\perp\vec v$, siempre $W_B = 0$ y $|\vec v|$ es constante cuando solo actúa $\vec B$ (2018-2 P3 c, 2011-1 P20). Cómo detectarlo: si en tu balance de energía aparece un término con $B$, revísalo; solo $\vec E$ o fuerzas externas hacen trabajo sobre la carga.</div>
+  <div class="trap"><b>Usar el ángulo con el plano en $\tau = \mu B\sin\varphi$ o $U = -\mu B\cos\varphi$.</b> El ángulo $\varphi$ siempre se mide entre $\vec\mu = NIA\,\hat n$ y $\vec B$. Si el enunciado da el ángulo $\theta$ con el plano de la espira, entonces $\varphi = 90^\circ - \theta$ (luego $\tau = \mu B\cos\theta$). Y no olvides el factor $N$ en bobinas de $N$ vueltas. Cómo detectarlo: con $\vec B$ contenido en el plano de la espira, el torque es máximo ($\mu B$), no cero.</div>
+  <div class="trap"><b>Usar $\vec F = I\vec L\times\vec B$ cuando $\vec B$ no es uniforme o ignorar lados de una espira.</b> Frente a un alambre infinito, $B(y)$ cambia con la distancia: en los lados perpendiculares al alambre la fuerza no es nula individualmente, pero se cancela entre los dos lados opuestos por simetría; en los lados paralelos, el más cercano siente mayor $B$ (2024-2 P1). Cómo detectarlo: si tu fórmula da fuerza neta $\neq 0$ para una espira cerrada en un $\vec B$ uniforme, está mal.</div>
+  <div class="trap"><b>Suponer que el selector de velocidades funciona sin revisar los sentidos de $\vec E$ y $\vec B$.</b> $v = E/B$ solo se cumple cuando $q\vec E$ y $q\,\vec v\times\vec B$ apuntan en sentidos <em>opuestos</em>. Si la partícula entra en sentido contrario ($-\vec v$), ambas fuerzas apuntan igual y ninguna rapidez pasa sin desviarse. Cómo detectarlo: calcula primero $\vec v\times\vec B$ y comprueba que $\vec E$ apunta en contra.</div>
+</section>
+
+<section class="sec" id="u07-practica" data-block="practica" data-title="Práctica">
+  <h2>Práctica</h2>
+  <p>Ejercicios para resolver completos en papel y sin calculadora. Intenta primero antes de abrir la solución.</p>
+
+  <div class="prob" id="u07-p1" data-kind="practica" data-diff="1">
+    <div class="prob-head"><span class="tag">Práctica 1</span><span class="ptitle">Momento dipolar, torque y energía de una bobina inclinada</span><span class="diff">dificultad 1/3</span></div>
+    <div class="prob-grid">
+      <div>
+        <p class="stmt">Una bobina rectangular plana de $N = 20$ vueltas y dimensiones $4{,}0\ \text{cm}\times 5{,}0\ \text{cm}$ lleva una corriente $I = 0{,}50\ \text{A}$ y se coloca en un campo magnético uniforme $B = 0{,}20\ \text{T}$. En un instante dado, el <em>plano</em> de la bobina forma un ángulo $\theta = 30^\circ$ con $\vec B$ (y su normal forma el ángulo agudo $\varphi = 60^\circ$ con $\vec B$). Calcula: a) la magnitud $\mu$ del momento dipolar magnético; b) la magnitud del torque $\tau$; c) la energía potencial $U$ en esa orientación y el trabajo mínimo que debe hacer un agente externo para llevarla al equilibrio inestable.</p>
+        <div class="given"><div><b>Datos</b> $N = 20$, $A = (0{,}040)(0{,}050)\ \text{m}^2$, $I = 0{,}50\ \text{A}$, $B = 0{,}20\ \text{T}$, $\varphi = 60^\circ$</div><div><b>Piden</b> $\mu$, $\tau$, $U$, $W_{\text{ext}}$ hasta equilibrio inestable</div></div>
+      </div>
+      <figure class="fig" data-fig="u07-torque-espira"><figcaption>Ángulo $\varphi$ medido desde $\vec B$ hasta la normal $\vec\mu$ (en este ejercicio $\varphi = 60^\circ$, porque el plano forma $30^\circ$ con $\vec B$).</figcaption></figure>
+    </div>
+    <div class="predict"><b>Antes de calcular:</b> ¿$U$ en $\varphi = 60^\circ$ es positiva o negativa? ¿El trabajo para ir al equilibrio inestable ($\varphi = 180^\circ$) es mayor o menor que $\mu B$?</div>
+    <ol class="reveal">
+      <li class="hint">Usa $\mu = NIA$, $\tau = \mu B\sin\varphi$ y $W_{\text{ext}} = U_f - U_i$ con $U = -\mu B\cos\varphi$.</li>
+      <li><span class="rl">Paso 1 · Momento dipolar magnético</span><p class="do"><b>Qué hago:</b> $A = (4{,}0\times10^{-2})(5{,}0\times10^{-2}) = 2{,}0\times10^{-3}\ \text{m}^2$. Luego $\mu = NIA = (20)(0{,}50)(2{,}0\times10^{-3}) = 2{,}0\times10^{-2}\ \text{A·m}^2$.</p><p><b>Por qué:</b> las $N$ vueltas suman el mismo momento $\vec\mu$.</p></li>
+      <li><span class="rl">Paso 2 · Torque</span><p class="do"><b>Qué hago:</b> $\tau = \mu B\sin60^\circ = (2{,}0\times10^{-2})(0{,}20)\left(\dfrac{\sqrt3}{2}\right) = 2{,}0\sqrt3\times10^{-3}\ \text{N·m} \approx 3{,}5\times10^{-3}\ \text{N·m}$.</p><p><b>Por qué:</b> $\sin60^\circ = \sqrt3/2 \approx 0{,}87$.</p></li>
+      <li><span class="rl">Paso 3 · Energía potencial y trabajo hasta equilibrio inestable</span><p class="do"><b>Qué hago:</b> $U_i = -\mu B\cos60^\circ = -(2{,}0\times10^{-2})(0{,}20)\left(\tfrac12\right) = -2{,}0\times10^{-3}\ \text{J}$. En equilibrio inestable ($\varphi = 180^\circ$), $U_f = +\mu B = +4{,}0\times10^{-3}\ \text{J}$. Por lo tanto, $W_{\text{ext}} = U_f - U_i = 4{,}0\times10^{-3} - (-2{,}0\times10^{-3}) = 6{,}0\times10^{-3}\ \text{J}$.</p><p><b>Por qué:</b> $\cos60^\circ = 1/2$ y $\cos180^\circ = -1$; hay que entregar energía para girar en contra del torque restaurador.</p></li>
+      <li class="final">$$\boxed{\mu = 2{,}0\times10^{-2}\ \text{A·m}^2,\quad \tau = 2{,}0\sqrt3\times10^{-3}\ \text{N·m},\quad U = -2{,}0\times10^{-3}\ \text{J},\quad W_{\text{ext}} = 6{,}0\times10^{-3}\ \text{J}}$$</li>
+      <li class="check"><b>Verificación:</b> unidades $(\text{A·m}^2)\cdot\text{T} = \text{N·m} = \text{J}$. Límite: si $\varphi = 0^\circ$ (equilibrio estable), $\tau = 0$, $U = -4{,}0\times10^{-3}\ \text{J}$ y girarla hasta $180^\circ$ cuesta $2\mu B = 8{,}0\times10^{-3}\ \text{J}$.</li>
+    </ol>
+    <div class="ctrl"></div>
+  </div>
+
+  <div class="prob" id="u07-p2" data-kind="practica" data-diff="2">
+    <div class="prob-head"><span class="tag">Práctica 2</span><span class="ptitle">Partícula acelerada por $\Delta V$ entrando a una cámara magnética</span><span class="diff">dificultad 2/3</span></div>
+    <div class="prob-grid">
+      <div>
+        <p class="stmt">(Estilo Examen 2022-2 P9.) Una partícula de carga $q \gt 0$ (C) y masa $m$ (kg) parte del reposo y es acelerada por una diferencia de potencial de magnitud $\Delta V = 1{,}5\,V_0$ ($V_0 \gt 0$, en V). Luego entra perpendicularmente a una región con campo magnético uniforme $\vec B$ ($B$ en T, entrante a la hoja), describiendo una trayectoria circular. Obtén: a) el radio $R$ de la órbita en términos de $m$, $q$, $V_0$ y $B$; b) el tiempo $t$ que tarda en dar media vuelta (semicircunferencia).</p>
+        <div class="given"><div><b>Datos</b> $q \gt 0$, $m$, $v_i = 0$, $\Delta V = \tfrac32 V_0$, $\vec B$ perpendicular</div><div><b>Piden</b> $R$, tiempo de media vuelta $t$</div></div>
+      </div>
+      <figure class="fig" data-fig="u07-ex-2025-1-p2"><figcaption>En la cámara con campo uniforme perpendicular a $\vec v$, la partícula describe una semicircunferencia de radio $R$ antes de impactar o salir.</figcaption></figure>
+    </div>
+    <div class="predict"><b>Antes de calcular:</b> ¿el tiempo de media vuelta $t$ depende de $V_0$? ¿Por qué?</div>
+    <ol class="reveal">
+      <li class="hint">Calcula $v$ desde $q\Delta V = \tfrac12 mv^2$ y reemplázalo en $R = mv/(qB)$; para media vuelta usa $t = T/2$.</li>
+      <li><span class="rl">Paso 1 · Rapidez tras la aceleración</span><p class="do"><b>Qué hago:</b> $q\Delta V = \tfrac12 mv^2 \implies v = \sqrt{\dfrac{2q(1{,}5\,V_0)}{m}} = \sqrt{\dfrac{3qV_0}{m}}$.</p><p><b>Por qué:</b> conservación de la energía mecánica en el potencial acelerador.</p></li>
+      <li><span class="rl">Paso 2 · Radio de la órbita</span><p class="do"><b>Qué hago:</b> de $qvB = \dfrac{mv^2}{R}$:</p><p class="do">$$R = \frac{mv}{qB} = \frac{m}{qB}\sqrt{\frac{3qV_0}{m}} = \sqrt{\frac{3mV_0}{qB^2}}$$</p><p><b>Por qué:</b> la fuerza magnética suministra la aceleración centrípeta.</p></li>
+      <li><span class="rl">Paso 3 · Tiempo de media vuelta</span><p class="do"><b>Qué hago:</b> $T = \dfrac{2\pi m}{qB}$, así que media vuelta ($\pi\ \text{rad}$) toma $t = \dfrac{T}{2} = \dfrac{\pi m}{qB}$.</p><p><b>Por qué:</b> la velocidad angular ciclotrón $\omega_c = qB/m$ es independiente de la rapidez y del voltaje $V_0$.</p></li>
+      <li class="final">$$\boxed{R = \sqrt{\frac{3mV_0}{qB^2}},\qquad t = \frac{\pi m}{qB}}$$</li>
+      <li class="check"><b>Verificación:</b> unidades de $R$: $\sqrt{\frac{\text{kg·J/C}}{\text{C·T}^2}} = \sqrt{\frac{\text{kg·N·m}}{\text{C}^2\text{T}^2}} = \sqrt{\frac{\text{kg}^2\text{m}^2/\text{s}^2}{\text{kg}^2/\text{s}^2}} = \text{m}$. Límite: si $V_0\to 0$, $R\to 0$, pero $t$ sigue siendo $\pi m/(qB)$.</li>
+    </ol>
+    <div class="ctrl"></div>
+  </div>
+
+  <div class="prob" id="u07-p3" data-kind="practica" data-diff="2">
+    <div class="prob-head"><span class="tag">Práctica 3</span><span class="ptitle">Electrón deflectado hasta el borde de dos placas paralelas</span><span class="diff">dificultad 2/3</span></div>
+    <div class="prob-grid">
+      <div>
+        <p class="stmt">Se lanza un electrón (carga $-e$ en C, masa $m$ en kg) horizontalmente con rapidez $v_0$ (m/s) exactamente por el punto medio entre dos placas horizontales paralelas de largo $\ell$ (m) y separadas una distancia $d$ (m). Entre ellas existe un campo magnético uniforme $\vec B$ ($B$ en T) entrante a la hoja ($-\hat z$). Ignorando la gravedad: a) justifica hacia cuál placa se desvía; b) encuentra la rapidez $v_0$ necesaria para que el electrón choque exactamente con el extremo final de la placa inferior. (Basado en Ayudantía 16, Problema 2, 2026-2.)</p>
+        <div class="given"><div><b>Datos</b> $q = -e$, $m$, largo $\ell$, separación $d$, $\vec B = -B\hat z$</div><div><b>Piden</b> placa de choque y rapidez $v_0$</div></div>
+      </div>
+      <figure class="fig" data-fig="u07-placa-deflexion"><figcaption>El electrón entra en $(0,0)$ con $\vec v_0$ horizontal, describe un arco circular de radio $R$ centrado en $(0,-R)$ y choca en $(\ell, -d/2)$.</figcaption></figure>
+    </div>
+    <div class="predict"><b>Antes de calcular:</b> si $\vec v_0$ va en $+\hat x$ y $\vec B$ en $-\hat z$, ¿hacia dónde apunta $\vec v_0\times\vec B$? Con $q = -e$, ¿sube o baja?</div>
+    <ol class="reveal">
+      <li class="hint">Plantea la ecuación de la circunferencia tangente en $(0,0)$ con centro en $(0,-R)$: $x^2 + (y+R)^2 = R^2$, y evalúa en $(\ell, -d/2)$.</li>
+      <li><span class="rl">Paso 1 · Dirección de deflexión</span><p class="do"><b>Qué hago:</b> $\vec F_B(0) = (-e)(v_0\hat x)\times(-B\hat z) = (-e)v_0 B\,(\hat y) = -ev_0 B\,\hat y$.</p><p><b>Por qué:</b> $\hat x\times(-\hat z) = +\hat y$, pero como $q = -e \lt 0$, la fuerza apunta en $-\hat y$: se desvía hacia la <b>placa inferior</b>.</p></li>
+      <li><span class="rl">Paso 2 · Geometría del arco circular</span><p class="do"><b>Qué hago:</b> ubicando el origen en el ingreso, la velocidad inicial es horizontal, así que el centro del círculo de radio $R$ está directamente abajo, en $(0, -R)$. La ecuación de la órbita es $x^2 + (y + R)^2 = R^2$. Exigiendo que pase por $(\ell, -d/2)$:</p><p class="do">$$\ell^2 + \left(R - \frac{d}{2}\right)^2 = R^2 \quad\Longrightarrow\quad \ell^2 + R^2 - Rd + \frac{d^2}{4} = R^2 \quad\Longrightarrow\quad R = \frac{4\ell^2 + d^2}{4d}$$</p><p><b>Por qué:</b> $\vec F_B$ no cambia la rapidez, así que la trayectoria es un arco de circunferencia de radio constante $R = mv_0/(eB)$.</p></li>
+      <li><span class="rl">Paso 3 · Rapidez de impacto</span><p class="do"><b>Qué hago:</b> $v_0 = \dfrac{eBR}{m} = \dfrac{eB}{m}\left(\dfrac{4\ell^2 + d^2}{4d}\right)$.</p><p><b>Por qué:</b> se sustituye el radio geométrico en la condición dinámica.</p></li>
+      <li class="final">$$\boxed{\text{Choca con la placa inferior},\qquad v_0 = \frac{eB}{m}\left(\frac{4\ell^2 + d^2}{4d}\right)}$$</li>
+      <li class="check"><b>Verificación:</b> unidades: $(eB/m)$ tiene unidades $\text{s}^{-1}$ y $(4\ell^2+d^2)/(4d)$ tiene unidades $\text{m}$, dando $\text{m/s}$. Límite $\ell \gg d$: $R \approx \ell^2/d$ muy grande (la flecha del arco es $d/2 \approx \ell^2/(2R)$), que es el resultado clásico de caída parabólica aproximada.</li>
+    </ol>
+    <div class="ctrl"></div>
+  </div>
+
+  <div class="prob" id="u07-p4" data-kind="practica" data-diff="2">
+    <div class="prob-head"><span class="tag">Práctica 4</span><span class="ptitle">Barrera magnética de ancho $L$: rapidez crítica y ángulo de salida</span><span class="diff">dificultad 2/3</span></div>
+    <div class="prob-grid">
+      <div>
+        <p class="stmt">Una partícula de masa $m$ (kg) y carga $q \gt 0$ (C) ingresa perpendicularmente desde la izquierda (con $\vec v = v\,\hat x$, $v$ en m/s) a una franja vertical de ancho $L$ (m, $0 \le x \le L$) donde existe un campo magnético uniforme $\vec B$ ($B$ en T) entrando a la hoja ($-\hat z$). a) Calcula la rapidez crítica $v_c$ mínima para que la partícula logre cruzar la franja por $x = L$. b) Si entra con $v = 2v_c$, halla el ángulo $\alpha$ respecto de $+\hat x$ con el que sale por $x = L$ y su desplazamiento vertical $y_{\text{sal}}$. c) Si entra con $v \lt v_c$, ¿cuánto tiempo permanece dentro del campo? (Basado en Ayudantía 16, Problema 3, 2026-2.)</p>
+        <div class="given"><div><b>Datos</b> $m$, $q \gt 0$, ancho $L$, $\vec B = -B\hat z$, ingreso en $(0,0)$ con $v\hat x$</div><div><b>Piden</b> $v_c$; $\alpha$ y $y_{\text{sal}}$ para $v = 2v_c$; tiempo $t$ para $v \lt v_c$</div></div>
+      </div>
+      <figure class="fig" data-fig="u07-barrera-campo"><figcaption>Para $v \lt v_c$ ($R \lt L$) la partícula da media vuelta y regresa por $x = 0$; para $v = v_c$ ($R = L$) roza tangencialmente $x = L$; para $v \gt v_c$ cruza $x = L$.</figcaption></figure>
+    </div>
+    <div class="predict"><b>Antes de calcular:</b> con $\vec v$ en $+\hat x$ y $\vec B$ entrante ($-\hat z$), ¿la carga positiva se curva hacia arriba o hacia abajo?</div>
+    <ol class="reveal">
+      <li class="hint">El alcance máximo en $x$ de una órbita circular tangente al eje $y$ en $(0,0)$ es su radio $R$. Usa $\sin\alpha = L/R$ cuando $R \gt L$.</li>
+      <li><span class="rl">Paso 1 · Rapidez crítica $v_c$</span><p class="do"><b>Qué hago:</b> $\vec F(0) = q(v\hat x)\times(-B\hat z) = +qvB\,\hat y$ (hacia arriba). El centro de la circunferencia está en $(0, R)$, así que la máxima penetración en $x$ es $x_{\text{máx}} = R$. Para cruzar $x = L$ se requiere $R \ge L$; la condición límite es $R = L$:</p><p class="do">$$\frac{mv_c}{qB} = L \quad\Longrightarrow\quad v_c = \frac{qBL}{m}$$</p><p><b>Por qué:</b> si $v = v_c$, la trayectoria es un cuarto de circunferencia tangente a $x = L$ en $(L, L)$.</p></li>
+      <li><span class="rl">Paso 2 · Salida con $v = 2v_c$</span><p class="do"><b>Qué hago:</b> como $R \propto v$, ahora $R = 2L$. En el triángulo formado por el centro $(0, R)$, el punto de salida $(L, y_{\text{sal}})$ y $(0, y_{\text{sal}})$, el cateto horizontal mide $L$ y la hipotenusa $R$, así que el ángulo $\alpha$ que gira la velocidad vale:</p><p class="do">$$\sin\alpha = \frac{L}{R} = \frac{1}{2} \quad\Longrightarrow\quad \alpha = 30^\circ, \qquad y_{\text{sal}} = R(1 - \cos30^\circ) = 2L\left(1 - \frac{\sqrt3}{2}\right) = L(2 - \sqrt3)$$</p><p><b>Por qué:</b> al girar un ángulo $\alpha$ desde el inicio vertical del radio, el vector velocidad gira exactamente ese mismo ángulo $\alpha$ desde $+\hat x$.</p></li>
+      <li><span class="rl">Paso 3 · Tiempo de permanencia si $v \lt v_c$</span><p class="do"><b>Qué hago:</b> si $R \lt L$, la partícula recorre una semicircunferencia completa ($\pi\ \text{rad}$) y sale por $x = 0$ en sentido $-\hat x$. El tiempo es medio periodo: $t = \dfrac{T}{2} = \dfrac{\pi m}{qB}$.</p><p><b>Por qué:</b> el periodo ciclotrón no depende de $v$.</p></li>
+      <li class="final">$$\boxed{v_c = \frac{qBL}{m},\qquad \alpha = 30^\circ,\quad y_{\text{sal}} = L(2 - \sqrt3)\ \text{hacia arriba},\qquad t(v\lt v_c) = \frac{\pi m}{qB}}$$</li>
+      <li class="check"><b>Verificación:</b> unidades $[qBL/m] = \text{C·T·m/kg} = \text{m/s}$; $[L(2-\sqrt3)] = \text{m}$. Límites: cuando $v\to v_c^+$, $R\to L$, $\sin\alpha\to 1 \implies \alpha\to 90^\circ$ y $y_{\text{sal}}\to L$; cuando $v\to\infty$, $\alpha\to 0$ y $y_{\text{sal}}\to 0$.</li>
+    </ol>
+    <div class="ctrl"></div>
+  </div>
+
+  <div class="prob" id="u07-p5" data-kind="practica" data-diff="3">
+    <div class="prob-head"><span class="tag">Práctica 5</span><span class="ptitle">Fuerza sobre una espira cuadrada junto a un alambre infinito</span><span class="diff">dificultad 3/3</span></div>
+    <div class="prob-grid">
+      <div>
+        <p class="stmt">(Basado en Examen 2022-2 P6.) Un alambre recto muy largo sobre el eje $x$ lleva una corriente $I$ (A) hacia $+\hat x$. Una espira cuadrada de lado $a$ (m) coplanar con él (en $y \gt 0, z = 0$) tiene su lado inferior paralelo al alambre a distancia $h = a/2$ (en m; llamada $L$ en el examen original), y lleva también una corriente $I$ (A), pero en sentido <b>antihorario</b> (es decir, en el lado inferior $y = h$ la corriente va hacia $+\hat x$, paralela a la del alambre). Calcula la magnitud y dirección de la fuerza magnética neta sobre la espira.</p>
+        <div class="given"><div><b>Datos</b> $I$ en el alambre ($+\hat x$), espira cuadrada de lado $a$ en $y \in [a/2,\, 3a/2]$ ($h = a/2$) con $I$ antihoraria</div><div><b>Piden</b> $\vec F_{\text{neta}}$ sobre la espira</div></div>
+      </div>
+      <figure class="fig" data-fig="u07-alambre-espira"><figcaption>Misma geometría que la figura, pero con corriente $I_2 = I$ <em>antihoraria</em> y dimensiones $b = a$, $h = a/2$, por lo que las fuerzas en los lados horizontales se invierten y domina la atracción.</figcaption></figure>
+    </div>
+    <div class="predict"><b>Antes de calcular:</b> como la corriente en el lado cercano ($y = a/2$) va en el mismo sentido que en el alambre, ¿la espira es atraída o repelida?</div>
+    <ol class="reveal">
+      <li class="hint">Usa $F_{\text{neta}} = \dfrac{\mu_0 I_1 I_2 ab}{2\pi h(h+b)}$ con $I_1 = I_2 = I$, $b = a$ y $h = a/2$, verificando el signo tramo a tramo.</li>
+      <li><span class="rl">Paso 1 · Campo y cancelación de lados verticales</span><p class="do"><b>Qué hago:</b> en $y \gt 0, z = 0$, el alambre produce $\vec B(y) = \dfrac{\mu_0 I}{2\pi y}\,\hat z$ (saliente). Los dos lados verticales ($x = 0$ y $x = a$) recorren el mismo intervalo $y \in [a/2,\, 3a/2]$ en sentidos opuestos, así que $\vec F_{\text{izq}} + \vec F_{\text{der}} = \vec 0$.</p><p><b>Por qué:</b> la magnitud de $\vec B$ solo depende de $y$.</p></li>
+      <li><span class="rl">Paso 2 · Fuerza en los lados horizontales</span><p class="do"><b>Qué hago:</b> en el lado inferior ($y = a/2$, corriente $+\hat x$): $\vec F_{\text{inf}} = Ia(+\hat x)\times\dfrac{\mu_0 I}{2\pi(a/2)}\hat z = -\dfrac{\mu_0 I^2}{\pi}\,\hat y$ (atractiva). En el lado superior ($y = 3a/2$, corriente $-\hat x$): $\vec F_{\text{sup}} = Ia(-\hat x)\times\dfrac{\mu_0 I}{2\pi(3a/2)}\hat z = +\dfrac{\mu_0 I^2}{3\pi}\,\hat y$ (repulsiva).</p><p><b>Por qué:</b> $\hat x\times\hat z = -\hat y$ y corrientes paralelas se atraen.</p></li>
+      <li><span class="rl">Paso 3 · Sumar</span><p class="do"><b>Qué hago:</b> $\vec F_{\text{neta}} = \left(-1 + \dfrac{1}{3}\right)\dfrac{\mu_0 I^2}{\pi}\,\hat y = -\dfrac{2\mu_0 I^2}{3\pi}\,\hat y$.</p><p><b>Por qué:</b> el lado cercano ($y = a/2$) siente un campo tres veces más intenso que el lejano ($y = 3a/2$).</p></li>
+      <li class="final">$$\boxed{\vec F_{\text{neta}} = -\frac{2\mu_0 I^2}{3\pi}\,\hat y\quad\left(|\vec F_{\text{neta}}| = \frac{2\mu_0 I^2}{3\pi},\ \text{atractiva hacia el alambre}\right)}$$</li>
+      <li class="check"><b>Verificación:</b> con la fórmula general $\dfrac{\mu_0 I^2 a^2}{2\pi (a/2)(3a/2)} = \dfrac{\mu_0 I^2}{2\pi(3/4)} = \dfrac{2\mu_0 I^2}{3\pi}$ ✓. Unidades: $(\text{T·m/A})\cdot\text{A}^2 = \text{N}$. El factor $a$ se cancela porque la fuerza crece linealmente con el largo $a$ y cae inversamente con la distancia $h \propto a$.</li>
+    </ol>
+    <div class="ctrl"></div>
+  </div>
+</section>
+
+<section class="sec" id="u07-quiz" data-block="quiz" data-title="Autoevaluación">
+  <h2>Autoevaluación</h2>
+  <div class="quiz" id="u07-quiz-1">
+    <div class="q" data-correct="a">
+      <p class="qt">1. Una partícula cargada entra en una región donde solo hay un campo magnético uniforme $\vec B$ (sin campo eléctrico ni gravedad). Al comparar su energía cinética final con la inicial, siempre se cumple que:</p>
+      <div class="opts"><button type="button" data-o="a">$\Delta K = 0$</button><button type="button" data-o="b">$\Delta K \gt 0$ si $q \gt 0$ y $\Delta K \lt 0$ si $q \lt 0$</button><button type="button" data-o="c">$\Delta K$ depende de si $\vec v$ es perpendicular u oblicua a $\vec B$</button></div>
+      <p class="fb" data-o="a">Correcto. Como $\vec F_B = q\,\vec v\times\vec B \perp \vec v$, la fuerza magnética no realiza trabajo ($W_B = 0$), así que la rapidez y la energía cinética no cambian.</p><p class="fb" data-o="b">El signo de $q$ invierte la dirección de la curvatura, pero $\vec F_B$ sigue siendo perpendicular a $\vec v$, así que $W_B = 0$ para cualquier signo.</p><p class="fb" data-o="c">En movimiento helicoidal ($v_\parallel \neq 0$), $\vec F_B$ sigue siendo perpendicular a $\vec v$ en todo instante y el trabajo neto continúa siendo cero.</p>
+    </div>
+    <div class="q" data-correct="b">
+      <p class="qt">2. Un electrón (carga $-e$) entra con velocidad $\vec v$ en una región donde coexisten campos uniformes paralelos $\vec E \parallel \vec B$. Avanza una distancia $L$ en la dirección de $\vec E$ siguiendo una trayectoria helicoidal de radio $R$. El trabajo $W$ realizado por los campos es:</p>
+      <div class="opts"><button type="button" data-o="a">cero, porque el movimiento helicoidal solo cambia la dirección</button><button type="button" data-o="b">$|W| = eEL$, debido únicamente al campo eléctrico</button><button type="button" data-o="c">$W = (2\pi R)\,evB$</button></div>
+      <p class="fb" data-o="a">Solo la fuerza magnética hace trabajo nulo; la fuerza eléctrica $q\vec E$ sí acelera la componente paralela a $\vec E$.</p><p class="fb" data-o="b">Correcto (cf. Examen 2023-2 Ej 1.2). El campo $\vec B$ no hace trabajo y el trabajo total es el de la fuerza eléctrica $eE$ sobre la proyección $L$ paralela a $\vec E$.</p><p class="fb" data-o="c">La fuerza magnética es perpendicular a la trayectoria circular en todo punto, por lo que no realiza trabajo en ninguna vuelta.</p>
+    </div>
+    <div class="q" data-correct="c">
+      <p class="qt">3. Una partícula gira en una órbita circular perpendicular a un $\vec B$ uniforme. Si se duplica su rapidez de entrada $v$ (manteniendo $q$, $m$ y $B$ iguales), su radio $R$ y su periodo $T$ pasan a ser:</p>
+      <div class="opts"><button type="button" data-o="a">ambos se duplican ($2R$ y $2T$)</button><button type="button" data-o="b">$2R$ y $T/2$</button><button type="button" data-o="c">$2R$ y $T$ (el periodo no cambia)</button></div>
+      <p class="fb" data-o="a">El perímetro se duplica porque $R = mv/(|q|B)$ se duplica, pero como viaja al doble de rapidez recorre esa vuelta en el mismo tiempo.</p><p class="fb" data-o="b">$T = 2\pi m/(|q|B)$ es independiente de $v$; no disminuye al aumentar $v$.</p><p class="fb" data-o="c">Correcto. $R\propto v$ se duplica, mientras que $T = 2\pi m/(|q|B)$ no depende de $v$ ni de $R$.</p>
+    </div>
+    <div class="q" data-correct="a">
+      <p class="qt">4. En un selector de velocidades bien calibrado para rapidez $v_0 = E/B$, entra un ion positivo con rapidez $v \gt v_0$ en la misma dirección. Dentro del selector, el ion:</p>
+      <div class="opts"><button type="button" data-o="a">se desvía en el sentido de la fuerza magnética $q\,\vec v\times\vec B$</button><button type="button" data-o="b">se desvía en el sentido de la fuerza eléctrica $q\vec E$</button><button type="button" data-o="c">sigue recto porque $v = E/B$ solo depende de los campos</button></div>
+      <p class="fb" data-o="a">Correcto. Como $qvB \gt qv_0 B = qE$, la fuerza magnética supera a la eléctrica y desvía la partícula hacia donde apunta $q\,\vec v\times\vec B$.</p><p class="fb" data-o="b">La fuerza eléctrica es $qE$ (independiente de $v$), mientras que la magnética crece con $v$, así que para $v \gt v_0$ domina la magnética.</p><p class="fb" data-o="c">$E/B$ es la rapidez seleccionada, no la rapidez de toda partícula que entra; solo las de rapidez $v_0$ siguen rectas.</p>
+    </div>
+    <div class="q" data-correct="b">
+      <p class="qt">5. Una espira cerrada de forma arbitraria que lleva corriente $I$ está sumergida completamente en un campo magnético <em>uniforme</em> $\vec B$. Siempre se cumple que:</p>
+      <div class="opts"><button type="button" data-o="a">tanto la fuerza neta como el torque neto son cero</button><button type="button" data-o="b">la fuerza neta es cero, pero el torque neto puede ser distinto de cero</button><button type="button" data-o="c">el torque neto es siempre cero, pero la fuerza neta depende de la forma</button></div>
+      <p class="fb" data-o="a">Aunque la fuerza neta es cero, las fuerzas en lados opuestos tienen líneas de acción distintas y producen torque $\vec\tau = \vec\mu\times\vec B$ si $\vec\mu$ no es paralelo a $\vec B$.</p><p class="fb" data-o="b">Correcto. $\vec F = I(\oint d\vec\ell)\times\vec B = \vec 0$, pero $\vec\tau = \vec\mu\times\vec B$ solo se anula cuando $\vec\mu\parallel\vec B$ o antiparalelo.</p><p class="fb" data-o="c">Es exactamente al revés: $\oint d\vec\ell = \vec 0$ garantiza fuerza neta nula independientemente de la forma.</p>
+    </div>
+    <div class="q" data-correct="c">
+      <p class="qt">6. Una espira plana de área $A$ y $N$ vueltas con corriente $I$ está en un $\vec B$ uniforme. El torque sobre ella es máximo cuando el ángulo entre el <em>plano</em> de la espira y $\vec B$ es:</p>
+      <div class="opts"><button type="button" data-o="a">$90^\circ$ (espira de frente a $\vec B$)</button><button type="button" data-o="b">$45^\circ$</button><button type="button" data-o="c">$0^\circ$ (el plano de la espira es paralelo a $\vec B$)</button></div>
+      <p class="fb" data-o="a">Si el plano es perpendicular a $\vec B$, la normal $\hat n$ es paralela a $\vec B$ ($\varphi = 0^\circ$), por lo que $\tau = \mu B\sin0^\circ = 0$.</p><p class="fb" data-o="b">En $45^\circ$ el torque vale $\mu B/\sqrt2$, menor que el máximo.</p><p class="fb" data-o="c">Correcto. Con $\vec B$ en el plano de la espira, la normal $\vec\mu$ es perpendicular a $\vec B$ ($\varphi = 90^\circ$), luego $\tau = \mu B\sin90^\circ = NIAB$ es máximo.</p>
+    </div>
+    <div class="q" data-correct="a">
+      <p class="qt">7. Un alambre infinito pasa cerca (por fuera) de una superficie cúbica cerrada $S$. El flujo magnético neto $\oint_S \vec B\cdot d\vec A$ a través del cubo vale:</p>
+      <div class="opts"><button type="button" data-o="a">cero, cualquiera sea la corriente del alambre o la posición del cubo</button><button type="button" data-o="b">$\mu_0 I$, si el cubo está a distancia menor que $1\ \text{m}$</button><button type="button" data-o="c">depende de cuántas caras mire el alambre</button></div>
+      <p class="fb" data-o="a">Correcto. Por la ley de Gauss para el magnetismo ($\oint_S \vec B\cdot d\vec A = 0$), el flujo neto a través de cualquier superficie cerrada es nulo porque no hay monopolos magnéticos.</p><p class="fb" data-o="b">$\mu_0 I$ es el valor de la circulación $\oint\vec B\cdot d\vec\ell$ alrededor del alambre (ley de Ampère), no el flujo por una superficie cerrada.</p><p class="fb" data-o="c">El flujo por una <em>sola</em> cara puede no ser cero, pero la suma sobre las 6 caras cerradas siempre se cancela.</p>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="u07-formulas" data-block="formulas" data-title="Tarjeta de fórmulas">
+  <h2>Tarjeta de fórmulas</h2>
+  <div class="formulas"><table><thead><tr><th>Fórmula</th><th>Significado</th><th>Válida si</th></tr></thead>
+  <tbody>
+    <tr><td>$\vec F_B = q\,\vec v\times\vec B$; $\ F_B = |q|vB\sin\theta$</td><td>Fuerza magnética (N) sobre carga $q$ (C) con velocidad $\vec v$ (m/s) en campo $\vec B$ (T); $1\ \text{T} = 1\ \text{N/(A·m)} = 10^4\ \text{G}$</td><td>Siempre; $W_B = 0$ en todo caso</td></tr>
+    <tr><td>$\vec F = q(\vec E + \vec v\times\vec B)$</td><td>Fuerza de Lorentz (N); $\vec E$ campo eléctrico (V/m)</td><td>Siempre (partícula puntual)</td></tr>
+    <tr><td>$\Phi_B = \displaystyle\int_S \vec B\cdot d\vec A$; $\ \displaystyle\oint_S \vec B\cdot d\vec A = 0$</td><td>Flujo magnético (Wb = $\text{T·m}^2$) y ley de Gauss magnética ($\nabla\cdot\vec B = 0$)</td><td>Flujo neto nulo en toda superficie cerrada</td></tr>
+    <tr><td>$R = \dfrac{mv_\perp}{|q|B}$, $\ \omega_c = \dfrac{|q|B}{m}$, $\ T = \dfrac{2\pi m}{|q|B}$</td><td>Radio de giro (m), frecuencia ciclotrón (rad/s) y periodo (s)</td><td>$\vec B$ uniforme, sin otras fuerzas en el plano perpendicular</td></tr>
+    <tr><td>$p = v_\parallel T = \dfrac{2\pi m v_\parallel}{|q|B}$</td><td>Paso (avance por vuelta) de una trayectoria helicoidal (m)</td><td>$\vec B$ uniforme con componente paralela $v_\parallel$ constante</td></tr>
+    <tr><td>$v = \dfrac{E}{B}$; $\ m = \dfrac{|q|B_0^2 R^2}{2\Delta V} = \dfrac{|q|BB_0 R}{E}$</td><td>Selector de velocidades y espectrómetro de masas (diámetro $d = 2R$)</td><td>$\vec E \perp \vec B \perp \vec v$ opuestos en el selector; $\vec B_0$ uniforme en la cámara</td></tr>
+    <tr><td>$d\vec F_B = I\,d\vec\ell\times\vec B$; $\ \vec F_B = I\displaystyle\int_a^b d\vec\ell\times\vec B$</td><td>Fuerza (N) sobre corriente $I$ (A); en tramo recto y $\vec B$ uniforme: $\vec F_B = I\vec L\times\vec B$</td><td>Forma integral siempre; en $\vec B$ uniforme, abierta usa $\vec L'$ ($a\to b$) y cerrada da $\vec 0$</td></tr>
+    <tr><td>$\vec\mu = NIA\,\hat n$</td><td>Momento dipolar magnético ($\text{A·m}^2$); $N$ vueltas, área $A$ ($\text{m}^2$), $\hat n$ por mano derecha</td><td>Espira plana (en Cádiz se llama $\vec m$)</td></tr>
+    <tr><td>$\vec\tau = \vec\mu\times\vec B$, $\ U = -\vec\mu\cdot\vec B = -\mu B\cos\varphi$</td><td>Torque ($\text{N·m}$) y energía potencial (J); $\varphi$ entre $\vec\mu$ y $\vec B$</td><td>$\vec B$ uniforme; estable $\varphi = 0^\circ$ ($-\mu B$), inestable $\varphi = 180^\circ$ ($+\mu B$)</td></tr>
+    <tr><td>$F_{\text{neta}} = \dfrac{\mu_0 I_1 I_2 ab}{2\pi\,h(h+b)}$</td><td>Fuerza neta entre alambre infinito ($I_1$) y espira coplanar $a\times b$ ($I_2$)</td><td>Lado $a$ paralelo al alambre, lado cercano a distancia $h$</td></tr>
+  </tbody></table></div>
+</section>
+</section>

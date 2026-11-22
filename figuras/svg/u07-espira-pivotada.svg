@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 440 255" style="max-width:594px" role="img" aria-label="Espira cuadrada pivotada en el eje AA&#x27; en equilibrio bajo gravedad y campo vertical">
+<style>
+  :root {
+    --surface: #ffffff; --ink: #142030; --muted: #566273; --line: #d8dee7;
+    --accent: #1f4fd1; --accent-soft: #e7edfc; --copper: #a85a18; --copper-soft: #f8eee4;
+    --font-body: "Source Sans 3", "Segoe UI", Roboto, sans-serif;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --surface: #151c26; --ink: #e5eaf1; --muted: #9aa6b6; --line: #29323f;
+      --accent: #84a6ff; --accent-soft: #1b2640; --copper: #e2a26b; --copper-soft: #2a2119;
+    }
+  }
+  svg { background: var(--surface); font-family: var(--font-body); }
+  .w { stroke: var(--ink); stroke-width: 1.8; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+  .wk { stroke: var(--ink); stroke-width: 3.2; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+  .m { stroke: var(--muted); stroke-width: 1.2; fill: none; }
+  .md { stroke: var(--muted); stroke-width: 1.3; stroke-dasharray: 4 4; fill: none; }
+  .a { stroke: var(--accent); stroke-width: 2.2; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+  .ad { stroke: var(--accent); stroke-width: 1.6; stroke-dasharray: 5 4; fill: none; }
+  .c { stroke: var(--copper); stroke-width: 2.2; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+  .cd { stroke: var(--copper); stroke-width: 1.4; stroke-dasharray: 4 3; fill: none; }
+  .fld { stroke: var(--muted); stroke-width: 1.3; opacity: .38; }
+  .fldl { stroke: var(--muted); stroke-width: 1.4; opacity: .6; fill: none; }
+  .af { fill: var(--accent); } .cf { fill: var(--copper); } .wf, .inkf, .wkf { fill: var(--ink); }
+  .mf, .mdf { fill: var(--muted); } .fldlf { fill: var(--muted); opacity: .6; }
+  .adf { fill: var(--accent); } .cdf { fill: var(--copper); }
+  .soft { fill: var(--accent-soft); } .csoft { fill: var(--copper-soft); } .paperf { fill: var(--surface); }
+  .nostroke { stroke: none; } .nofill { fill: none; }
+  .s, .sa, .sc { font: italic 17px "Times New Roman", "STIX Two Text", serif; fill: var(--ink); }
+  .sa { fill: var(--accent); } .sc { fill: var(--copper); }
+  .t { font: 12.5px var(--font-body); fill: var(--muted); }
+  .tb { font: 600 14px var(--font-body); fill: var(--ink); }
+  .tc { font: 600 13px var(--font-body); fill: var(--copper); }
+  .ta { font: 600 13px var(--font-body); fill: var(--accent); }
+  .tw { font: 700 13px var(--font-body); fill: var(--surface); }
+  .gl-ink, .gl-acc, .gl-cop, .gl-mut, .gl-srf { fill: none; stroke-width: 1.2; stroke-linecap: round; }
+  .gl-ink { stroke: var(--ink); } .gl-acc { stroke: var(--accent); } .gl-cop { stroke: var(--copper); }
+  .gl-mut { stroke: var(--muted); } .gl-srf { stroke: var(--surface); }
+  .glf-ink { fill: var(--ink); } .glf-acc { fill: var(--accent); } .glf-cop { fill: var(--copper); }
+  .glf-mut { fill: var(--muted); } .glf-srf { fill: var(--surface); }
+  .sb { font-size: 72%; }
+</style>
+<line class="md" x1="185" y1="52" x2="185" y2="225"/><line class="wk" x1="185" y1="52" x2="249.787" y2="173.847"/><line class="m" x1="55" y1="206" x2="97.0" y2="206.0"/><polygon class="mf" points="103,206 97.0,209.0 97.0,203.0"/><line class="m" x1="55" y1="206" x2="55.0" y2="164.0"/><polygon class="mf" points="55,158 58.0,164.0 52.0,164.0"/><circle class="w nofill" cx="55" cy="206" r="5"/><circle class="inkf" cx="55" cy="206" r="1.2"/><circle class="a nofill" cx="185" cy="52" r="7"/><line class="a" x1="181.15" y1="48.15" x2="188.85" y2="55.85"/><line class="a" x1="181.15" y1="55.85" x2="188.85" y2="48.15"/><circle class="a nofill" cx="249.787" cy="173.847" r="7"/><circle class="af" cx="249.787" cy="173.847" r="1.68"/><path class="m" d="M 185.0 94.0 A 42 42 0 0 0 204.7 89.1"/><line class="m" x1="217.394" y1="112.923" x2="217.4" y2="158.9"/><polygon class="mf" points="217.394,166.923 213.4,158.9 221.4,158.9"/><line class="c" x1="249.787" y1="173.847" x2="305.8" y2="173.8"/><polygon class="cf" points="313.787,173.847 305.8,177.8 305.8,169.8"/><line class="c" x1="229.055" y1="134.856" x2="197.3" y2="151.8"/><polygon class="cf" points="190.206,155.513 195.4,148.2 199.1,155.3"/><line class="c" x1="360" y1="58" x2="360.0" y2="144.0"/><polygon class="cf" points="360,152 356.0,144.0 364.0,144.0"/><line class="m" x1="405" y1="58" x2="405.0" y2="120.0"/><polygon class="mf" points="405,128 401.0,120.0 409.0,120.0"/><text class="s" x="113" y="211" text-anchor="middle">x (î)</text><text class="s" x="55" y="150" text-anchor="middle">y (ĵ)</text><g><text class="s" x="5.4" y="228" text-anchor="start">ẑ </text><circle class="gl-ink" cx="35.9" cy="222.4" r="6.1"/><circle class="glf-ink" cx="35.9" cy="222.4" r="1.7"/></g><g><text class="ta" x="131.0" y="56" text-anchor="start">AA&#x27; (</text><circle class="gl-acc" cx="162.7" cy="51.7" r="4.7"/><line class="gl-acc" x1="159.4" y1="48.4" x2="166.0" y2="55.0"/><line class="gl-acc" x1="159.4" y1="55.0" x2="166.0" y2="48.4"/><text class="ta" x="168.8" y="56" text-anchor="start">)</text></g><g><text class="ta" x="163.6" y="193.847" text-anchor="start">lado inf. (</text><circle class="gl-acc" cx="227.5" cy="189.6" r="4.7"/><circle class="glf-acc" cx="227.5" cy="189.6" r="1.3"/><text class="ta" x="233.6" y="193.847" text-anchor="start">)</text></g><text class="s" x="198.306" y="110.366" text-anchor="middle">θ</text><text class="t" x="217.394" y="180.923" text-anchor="middle">Mg</text><g><text class="sc" x="272.2" y="193.847" text-anchor="middle">F</text><line class="gl-cop" x1="270.2" y1="179.2" x2="276.7" y2="179.2"/><polygon class="glf-cop" points="278.2,179.2 272.7,176.7 272.7,181.8"/></g><text class="tc" x="279.787" y="197.847" text-anchor="start">inf</text><g><text class="sc" x="176.1" y="157.513" text-anchor="middle">μ</text><line class="gl-cop" x1="172.6" y1="142.9" x2="182.2" y2="142.9"/><polygon class="glf-cop" points="183.7,142.9 178.2,140.3 178.2,145.4"/></g><g><text class="sc" x="374.4" y="110" text-anchor="middle">B</text><line class="gl-cop" x1="372.4" y1="95.4" x2="378.9" y2="95.4"/><polygon class="glf-cop" points="380.4,95.4 374.9,92.8 374.9,97.9"/></g><g><text class="t" x="416.2" y="98" text-anchor="middle">g</text><line class="gl-mut" x1="413.5" y1="84.9" x2="417.9" y2="84.9"/><polygon class="glf-mut" points="419.4,84.9 413.9,82.3 413.9,87.4"/></g></svg>

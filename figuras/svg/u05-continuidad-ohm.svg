@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 580 230" style="max-width:783px" role="img" aria-label="Continuidad en un conductor que se estrecha y dependencia térmica de la resistividad ρ(T)">
+<style>
+  :root {
+    --surface: #ffffff; --ink: #142030; --muted: #566273; --line: #d8dee7;
+    --accent: #1f4fd1; --accent-soft: #e7edfc; --copper: #a85a18; --copper-soft: #f8eee4;
+    --font-body: "Source Sans 3", "Segoe UI", Roboto, sans-serif;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --surface: #151c26; --ink: #e5eaf1; --muted: #9aa6b6; --line: #29323f;
+      --accent: #84a6ff; --accent-soft: #1b2640; --copper: #e2a26b; --copper-soft: #2a2119;
+    }
+  }
+  svg { background: var(--surface); font-family: var(--font-body); }
+  .w { stroke: var(--ink); stroke-width: 1.8; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+  .wk { stroke: var(--ink); stroke-width: 3.2; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+  .m { stroke: var(--muted); stroke-width: 1.2; fill: none; }
+  .md { stroke: var(--muted); stroke-width: 1.3; stroke-dasharray: 4 4; fill: none; }
+  .a { stroke: var(--accent); stroke-width: 2.2; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+  .ad { stroke: var(--accent); stroke-width: 1.6; stroke-dasharray: 5 4; fill: none; }
+  .c { stroke: var(--copper); stroke-width: 2.2; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+  .cd { stroke: var(--copper); stroke-width: 1.4; stroke-dasharray: 4 3; fill: none; }
+  .fld { stroke: var(--muted); stroke-width: 1.3; opacity: .38; }
+  .fldl { stroke: var(--muted); stroke-width: 1.4; opacity: .6; fill: none; }
+  .af { fill: var(--accent); } .cf { fill: var(--copper); } .wf, .inkf, .wkf { fill: var(--ink); }
+  .mf, .mdf { fill: var(--muted); } .fldlf { fill: var(--muted); opacity: .6; }
+  .adf { fill: var(--accent); } .cdf { fill: var(--copper); }
+  .soft { fill: var(--accent-soft); } .csoft { fill: var(--copper-soft); } .paperf { fill: var(--surface); }
+  .nostroke { stroke: none; } .nofill { fill: none; }
+  .s, .sa, .sc { font: italic 17px "Times New Roman", "STIX Two Text", serif; fill: var(--ink); }
+  .sa { fill: var(--accent); } .sc { fill: var(--copper); }
+  .t { font: 12.5px var(--font-body); fill: var(--muted); }
+  .tb { font: 600 14px var(--font-body); fill: var(--ink); }
+  .tc { font: 600 13px var(--font-body); fill: var(--copper); }
+  .ta { font: 600 13px var(--font-body); fill: var(--accent); }
+  .tw { font: 700 13px var(--font-body); fill: var(--surface); }
+  .gl-ink, .gl-acc, .gl-cop, .gl-mut, .gl-srf { fill: none; stroke-width: 1.2; stroke-linecap: round; }
+  .gl-ink { stroke: var(--ink); } .gl-acc { stroke: var(--accent); } .gl-cop { stroke: var(--copper); }
+  .gl-mut { stroke: var(--muted); } .gl-srf { stroke: var(--surface); }
+  .glf-ink { fill: var(--ink); } .glf-acc { fill: var(--accent); } .glf-cop { fill: var(--copper); }
+  .glf-mut { fill: var(--muted); } .glf-srf { fill: var(--surface); }
+  .sb { font-size: 72%; }
+</style>
+<polygon class="soft w" points="28,62 115,62 155,86 262,86 262,130 155,130 115,154 28,154"/><ellipse class="csoft w" cx="68" cy="108" rx="10" ry="46"/><ellipse class="csoft w" cx="224" cy="108" rx="6" ry="22"/><line class="md" x1="296" y1="20" x2="296" y2="212"/><line class="w" x1="345" y1="167" x2="548.0" y2="167.0"/><polygon class="inkf" points="554,167 548.0,170.0 548.0,164.0"/><line class="w" x1="345" y1="167" x2="345.0" y2="34.0"/><polygon class="inkf" points="345,28 348.0,34.0 342.0,34.0"/><line class="md" x1="423" y1="42" x2="423" y2="167"/><line class="md" x1="345" y1="98.25" x2="540" y2="98.25"/><line class="a" x1="34" y1="92" x2="49.0" y2="92.0"/><polygon class="af" points="56,92 49.0,95.5 49.0,88.5"/><line class="a" x1="34" y1="124" x2="49.0" y2="124.0"/><polygon class="af" points="56,124 49.0,127.5 49.0,120.5"/><line class="a" x1="176" y1="100" x2="207.0" y2="100.0"/><polygon class="af" points="214,100 207.0,103.5 207.0,96.5"/><line class="a" x1="176" y1="116" x2="207.0" y2="116.0"/><polygon class="af" points="214,116 207.0,119.5 207.0,112.5"/><polyline class="c" points="345,123.2 540,60.8"/><polyline class="a" points="345.0,54.5 413.2,89.5 481.5,114.5 540.0,132.0"/><text class="sc" x="68" y="50" text-anchor="middle">A₁</text><text class="sc" x="224" y="76" text-anchor="middle">A₂</text><text class="sa" x="44" y="176" text-anchor="middle">J₁ = I/A₁</text><text class="sa" x="215" y="176" text-anchor="middle">J₂ = I/A₂ &gt; J₁</text><text class="tb" x="112" y="28" text-anchor="middle">Estacionario: I₁ = I₂</text><g><text class="sa" x="181.4" y="28" text-anchor="start">(∇·</text><text class="sa" x="205.5" y="28" text-anchor="middle">J</text><line class="gl-acc" x1="203.5" y1="13.4" x2="210.0" y2="13.4"/><polygon class="glf-acc" points="211.5,13.4 206.0,10.8 206.0,15.9"/><text class="sa" x="210.0" y="28" text-anchor="start"> = 0)</text></g><text class="t" x="145" y="210" text-anchor="middle">(a) Conservación de carga</text><text class="s" x="558" y="172" text-anchor="start">T</text><text class="s" x="339" y="26" text-anchor="end">ρ(T)</text><text class="s" x="423" y="183" text-anchor="middle">T₀</text><text class="s" x="337" y="102.25" text-anchor="end">ρ₀</text><text class="tc" x="530" y="52" text-anchor="end">metal (α &gt; 0)</text><text class="ta" x="535" y="152" text-anchor="end">semicond. (α &lt; 0)</text><text class="t" x="442" y="210" text-anchor="middle">(b) Dependencia térmica</text></svg>

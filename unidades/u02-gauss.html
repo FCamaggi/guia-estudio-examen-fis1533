@@ -1,0 +1,604 @@
+<!-- U2 Ley de Gauss y conductores. Contract: SPEC-PEDAGOGICO.md. Gate: python3 scripts/check_unit.py unidades/u02-gauss.html -->
+<section class="unit" id="u02" data-num="U2" data-title="Ley de Gauss y conductores">
+  <header class="unit-head"><span class="unit-num">U2</span><h1>Ley de Gauss y conductores</h1><span class="unit-weight">15 problemas en exámenes · 2 en los 4 recientes</span></header>
+
+<section class="sec" id="u02-mapa" data-block="mapa" data-title="Mapa de la unidad">
+  <h2>Mapa de la unidad</h2>
+  <div class="key"><b>Idea central.</b> El flujo eléctrico neto que sale de cualquier superficie cerrada es proporcional a la carga encerrada: $\oint_S\vec E\cdot d\vec A = Q_{\text{enc}}/\varepsilon_0$. Cuando la distribución tiene simetría esférica, cilíndrica o planar, esta ley despeja $\vec E$ sin integrales vectoriales; combinada con $\vec E = \vec 0$ dentro de los metales, determina cargas inducidas, campos en cavidades y efectos de conexión a tierra.</div>
+  <div class="goals"><div class="goals-t">Al terminar deberías poder</div><ul>
+    <li>Calcular el flujo eléctrico $\Phi_E$ de campos uniformes y no uniformes, y repartir el flujo por simetría en caras de un cubo.</li>
+    <li>Aplicar la estrategia de Gauss en cuatro pasos (simetría, superficie gaussiana, $Q_{\text{enc}}$ y verificación de continuidad).</li>
+    <li>Integrar densidades de carga no uniformes $\rho(r)$ usando el jacobiano esférico ($r^2\sin\theta\,dr\,d\theta\,d\phi$) y cilíndrico ($r\,dr\,d\theta\,dz$).</li>
+    <li>Calcular $\vec E$ en todas las regiones de sistemas con simetría esférica, cilíndrica o planar (incluidas losas gruesas).</li>
+    <li>Determinar cargas inducidas ($\sigma_{\text{int}}$, $\sigma_{\text{ext}}$), campos y efectos de conexión entre conductores o puesta a tierra en equilibrio electrostático.</li>
+    <li>Resolver cavidades descentradas y cilindros traslapados por superposición, y deducir $\rho(\vec r)$ desde $\vec E$ con $\nabla\cdot\vec E = \rho/\varepsilon_0$.</li>
+  </ul></div>
+  <div class="exam-map"><h4>Qué pregunta el examen</h4><ul>
+    <li><b>Esfera o cilindro con $\rho(r)$ no uniforme y cascarones conductores</b> (2011-1 P14, 2015-2 P5 y P10, 2023-2 Ej. 2, 2025-1 P1): integrar $\rho(r)$ para hallar $Q_{\text{enc}}$, obtener $\sigma_{\text{int}}$ y $\sigma_{\text{ext}}$, calcular $\vec E(r)$ por regiones y analizar conexión a tierra.</li>
+    <li><b>Superposición con cavidades o cilindros paralelos</b> (2015-2 P15, 2021-2 Ej. 2, 2022-2 P11): cavidad esférica descentrada tratada con $+\rho$ y $-\rho$, o suma de campos cilíndricos para anular $\vec E$ en un punto.</li>
+    <li><b>Flujo en cubos por simetría y ley de Gauss inversa</b> (2011-1 P9, 2014-1 P3 y P5, 2026-1 P1A): flujo en una cara con carga central o en un vértice, y $\rho$ desde $\vec E(r)$.</li>
+    <li>Formato reciente: problemas de desarrollo de 6 puntos, sin calculadora ni formulario. Por eso aquí trabajamos con resultados simbólicos o fracciones exactas calculables a mano.</li>
+  </ul></div>
+  <details class="prereq"><summary>Repaso exprés: ley de Coulomb, densidades de carga y geometría básica</summary>
+    <p>El campo eléctrico $\vec E$ (en $\text{N/C} = \text{V/m}$) producido por cargas puntuales $q_i$ (en $\text{C}$) es $\vec E = k\sum_i \dfrac{q_i}{r_i^2}\,\hat r_i$, donde $r_i$ (en $\text{m}$) es la distancia desde $q_i$ al punto de observación, $\hat r_i$ apunta desde la carga hacia el punto, y la constante de Coulomb es</p>
+    $$k = \frac{1}{4\pi\varepsilon_0} \approx 9{,}0\times 10^9\ \text{N·m}^2/\text{C}^2,\qquad \varepsilon_0 \approx 8{,}85\times 10^{-12}\ \text{C}^2/(\text{N·m}^2)$$
+    <p>donde $\varepsilon_0$ es la permitividad del vacío (en los exámenes también se llama $k_e$ a $k$). Para distribuciones continuas se usan tres densidades de carga:</p>
+    <ul>
+      <li><b>Volumétrica</b> $\rho = \dfrac{dQ}{dV}$ ($\text{C/m}^3$), $dq = \rho\,dV$ ($Q$ en $\text{C}$, $V$ en $\text{m}^3$).</li>
+      <li><b>Superficial</b> $\sigma = \dfrac{dQ}{dA}$ ($\text{C/m}^2$), $dq = \sigma\,dA$ ($A$ en $\text{m}^2$).</li>
+      <li><b>Lineal</b> $\lambda = \dfrac{dQ}{dL}$ ($\text{C/m}$), $dq = \lambda\,d\ell$ ($L, \ell$ en $\text{m}$).</li>
+    </ul>
+    <p><b>Áreas y volúmenes clave:</b> esfera de radio $r$ (en $\text{m}$): área $A = 4\pi r^2$, volumen $V = \frac43\pi r^3$. Cilindro de radio $r$ y largo $L$ (en $\text{m}$): área del manto $A = 2\pi r L$, volumen $V = \pi r^2 L$.</p>
+  </details>
+  <details class="prereq"><summary>Repaso exprés: integrales de volumen en coordenadas esféricas y cilíndricas</summary>
+    <p>Cuando la densidad $\rho$ (en $\text{C/m}^3$) varía con la posición, la carga encerrada en un volumen $V$ es $Q_{\text{enc}} = \displaystyle\int_V \rho\,dV$. El elemento de volumen depende del sistema de coordenadas:</p>
+    <p><b>Coordenadas esféricas $(r', \theta, \phi)$:</b> el elemento general es $dV' = {r'}^2\sin\theta\,dr'\,d\theta\,d\phi$ (donde $r'\in[0,r]$ es el radio, $\theta\in[0,\pi]$ el ángulo polar desde $+\hat z$ y $\phi\in[0,2\pi]$ el ángulo azimutal). Si $\rho = \rho(r')$ solo depende de la distancia radial, las integrales angulares dan $\int_0^{2\pi}d\phi\int_0^\pi\sin\theta\,d\theta = (2\pi)(2) = 4\pi$, y el volumen se reduce a cáscaras esféricas de área $4\pi {r'}^2$ y espesor $dr'$:</p>
+    $$dV' = 4\pi {r'}^2\,dr' \quad\Longrightarrow\quad Q_{\text{enc}}(r) = 4\pi\int_0^r \rho(r')\,{r'}^2\,dr'$$
+    <p><b>Mini ejemplo esférico:</b> si $\rho(r') = \beta {r'}^2$ (con $\beta$ en $\text{C/m}^5$) en una esfera de radio $R$ ($\text{m}$), entonces $Q = 4\pi\beta\displaystyle\int_0^R {r'}^4\,dr' = \dfrac{4\pi\beta R^5}{5}$.</p>
+    <p><b>Coordenadas cilíndricas $(r', \theta, z)$:</b> el elemento general es $dV' = r'\,dr'\,d\theta\,dz$, donde el factor $r'$ es el <b>jacobiano</b> polar. Si $\rho = \rho(r')$ solo depende de la distancia $r'$ al eje en un cilindro de altura $L$ ($\text{m}$), integrar $\int_0^{2\pi}d\theta\int_0^L dz = 2\pi L$ da anillos cilíndricos de volumen $dV' = 2\pi r' L\,dr'$:</p>
+    $$Q_{\text{enc}}(r) = 2\pi L\int_0^r \rho(r')\,r'\,dr'$$
+    <p><b>Mini ejemplo cilíndrico:</b> si $\rho(r') = \alpha r'$ ($\alpha$ en $\text{C/m}^4$), entonces $Q_{\text{enc}}(r) = 2\pi L\alpha\displaystyle\int_0^r {r'}^2\,dr' = \dfrac{2\pi\alpha L r^3}{3}$. Olvidar el $r'$ del jacobiano cambia el exponente y da unidades erróneas.</p>
+  </details>
+  <details class="prereq"><summary>Repaso exprés: potencial en conductores, conexión por cable y puesta a tierra</summary>
+    <p>La diferencia de potencial eléctrico (en $\text{V} = \text{J/C}$) entre dos puntos $a$ y $b$ se define como $\Delta V = V_b - V_a = -\displaystyle\int_a^b \vec E\cdot d\vec\ell$, tomando habitualmente la referencia $V(\infty) = 0$. Para una carga puntual $q$ a distancia $r$: $V(r) = \dfrac{q}{4\pi\varepsilon_0 r}$.</p>
+    <p>En un conductor en equilibrio electrostático, $\vec E = \vec 0$ en todo su interior y $\vec E$ es perpendicular a su superficie, de modo que $-\int\vec E\cdot d\vec\ell = 0$ entre cualesquiera dos puntos del metal: <b>todo el conductor es una región equipotencial</b> ($V = \text{cte}$).</p>
+    <ul>
+      <li><b>Conectar dos conductores con un cable:</b> los une en un solo conductor equipotencial ($V_1 = V_2$). Si no hay cargas libres en el espacio que los separa (en simetría esférica o cilíndrica, $-\int_{R_1}^{R_2} E_r\,dr = 0$ con $E_r \propto Q_{\text{enc}}$ de signo fijo exige $Q_{\text{enc}} = 0$), entonces $\vec E = \vec 0$ entre ellos y las cargas enfrentadas se neutralizan.</li>
+      <li><b>Conectar un conductor a tierra:</b> fija su potencial en el potencial de referencia $V(R_{\text{tierra}}) = 0$ (el de la Tierra o el infinito; $R_{\text{tierra}}$ en $\text{m}$), permitiendo que entre o salga carga desde Tierra. Si el conductor conectado a tierra es la <em>capa más externa</em> (radio $R_{\text{ext}}$ en $\text{m}$) de un sistema aislado sin cargas por fuera de él, $V(R_{\text{ext}}) = 0$ obliga a que $E(r \gt R_{\text{ext}}) = 0$, luego la carga neta total del sistema debe ser cero (carga externa $q_{\text{ext}} = 0$ en $\text{C}$). Si el conductor a tierra está <em>rodeado</em> por otros conductores cargados, no necesariamente queda neutro: su carga se ajusta para que $-\int_\infty^{R_{\text{tierra}}} \vec E\cdot d\vec r = 0$.</li>
+    </ul>
+  </details>
+</section>
+
+<section class="sec" id="u02-s1" data-block="teoria" data-title="Flujo eléctrico">
+  <h2>Flujo eléctrico</h2>
+  <p><b>El problema físico.</b> Imagina una caja cerrada cuyo interior no puedes ver. Si mides el campo eléctrico $\vec E$ en todos los puntos de la superficie exterior de la caja, ¿puedes saber cuánta carga eléctrica hay adentro sin abrirla? Sí: contando cuántas líneas de campo salen netamente de la caja. La medida cuantitativa de ese "atravesar" es el <b>flujo eléctrico</b> $\Phi_E$.</p>
+  <p><b>Intuición.</b> Piensa en $\vec E$ como la corriente de un río y en una superficie $S$ de área $A$ ($\text{m}^2$) como un marco sumergido. Pasa más flujo si el campo es intenso, si el marco es grande y si el marco está de frente al flujo. Si está de canto, las líneas resbalan paralelas al marco y el flujo es cero.</p>
+  <figure class="fig" data-fig="u02-flujo-angulo"><figcaption>Superficie plana de área $A$ vista de canto en un campo uniforme $\vec E$. El vector normal unitario $\hat n$ forma un ángulo $\varphi$ con $\vec E$ (y $\theta = 90^\circ - \varphi$ con el plano).</figcaption></figure>
+  <div class="eq key"><div class="lbl">Flujo eléctrico</div>$$\Phi_E = \int_S \vec E\cdot d\vec A = \int_S E\cos\varphi\,dA \qquad\xrightarrow{\ \vec E\text{ uniforme},\ S\text{ plana}\ }\qquad \Phi_E = E A \cos\varphi$$<div class="note">$d\vec A = \hat n\,dA$ es el vector elemento de área ($\text{m}^2$), perpendicular a la superficie; $\vec E$ es el campo eléctrico ($\text{N/C}$); $\varphi$ es el ángulo entre $\vec E$ y la normal $\hat n$. Unidad SI: $1\ \text{N·m}^2/\text{C} = 1\ \text{V·m}$.</div></div>
+  <p><b>Orientación de $d\vec A$:</b> una superficie abierta tiene dos caras, así que debes elegir y declarar cuál de las dos normales $\pm\hat n$ tomas como positiva. Para una <b>superficie cerrada</b>, la convención es única: $d\vec A$ siempre apunta <b>hacia el exterior</b> ($\hat n_{\text{ext}}$), de modo que el flujo saliente es positivo ($\Phi_E \gt 0$) y el entrante es negativo ($\Phi_E \lt 0$).</p>
+  <details class="deriv"><summary>Derivación paso a paso: flujo de un campo no uniforme sobre un cuadrado</summary>
+    <p><b>Situación:</b> un campo $\vec E(y) = E_0\,(y/a)\,\hat\imath$ (con $E_0$ en $\text{N/C}$ y $a$ en $\text{m}$) atraviesa un cuadrado de lado $a$ ubicado en el plano $yz$ ($0 \le y \le a$, $0 \le z \le a$), con normal $\hat n = +\hat\imath$.</p>
+    <p><b>Paso 1 · Por qué no sirve $EA$.</b> Como $E_x$ depende de $y$, no es uniforme sobre el cuadrado: hay que integrar dividiendo en franjas donde $E_x$ sea constante.</p>
+    <p><b>Paso 2 · Franja de área elemental.</b> Tomamos franjas horizontales de ancho $a$ (en $z$) y alto $dy$, con vector área $d\vec A = a\,dy\,\hat\imath$.</p>
+    <p><b>Paso 3 · Integrar.</b></p>
+    $$\Phi_E = \int_0^a \vec E(y)\cdot d\vec A = \int_0^a E_0\frac{y}{a}\,a\,dy = E_0\left[\frac{y^2}{2}\right]_0^a = \frac{1}{2}E_0 a^2$$
+    <p><b>Comprobación:</b> en el borde inferior ($y=0$) el campo vale $0$ y en el superior ($y=a$) vale $E_0$; el promedio es $\tfrac12 E_0$, que multiplicado por el área $a^2$ da $\tfrac12 E_0 a^2$.</p>
+  </details>
+  <h3>Flujo a través de las caras de un cubo por simetría</h3>
+  <figure class="fig" data-fig="u02-cubo-flujo"><figcaption>Izquierda: carga $+q$ en el centro de un cubo; por simetría, las 6 caras reciben el mismo flujo $q/(6\varepsilon_0)$. Derecha: carga $+q$ en un vértice; 8 cubos rodean el vértice y solo las 3 caras opuestas reciben flujo, $q/(24\varepsilon_0)$ cada una.</figcaption></figure>
+  <p>Combinando la ley de Gauss ($\Phi_{\text{cerrada}} = Q_{\text{enc}}/\varepsilon_0$, ver sección siguiente) con simetría cúbica, se calculan flujos por caras planas sin hacer integrales dobles:</p>
+  <ul>
+    <li><b>Carga $q$ en el centro de un cubo</b> (o a distancia $a/2$ frente al centro de un cuadrado de lado $a$): las 6 caras son geométricamente equivalentes, así que cada cara recibe $\Phi_{\text{cara}} = \dfrac{q}{6\varepsilon_0}$.</li>
+    <li><b>Carga $q$ en un vértice de un cubo:</b> si colocamos 8 cubos idénticos tocándose en ese vértice formando un cubo de lado doble, el vértice queda en el centro del cubo grande. Por el cubo grande sale $\dfrac{q}{\varepsilon_0}$, luego por cada uno de los 8 cubos sale $\dfrac{q}{8\varepsilon_0}$. En nuestro cubo, las <b>3 caras adyacentes</b> al vértice contienen a $q$ en su mismo plano ($\vec E\perp d\vec A \implies \Phi = 0$), por lo que el flujo $\dfrac{q}{8\varepsilon_0}$ se reparte en partes iguales entre las <b>3 caras opuestas</b>: cada cara opuesta recibe $\Phi_{\text{opuesta}} = \dfrac{1}{3}\cdot\dfrac{q}{8\varepsilon_0} = \dfrac{q}{24\varepsilon_0}$.</li>
+  </ul>
+  <div class="why"><b>Cuándo se usa / cuándo NO:</b> usa $\Phi_E = EA\cos\varphi$ solo si $\vec E$ es uniforme en magnitud y dirección sobre toda una superficie plana. Si $\vec E$ varía con la posición o la superficie es curva, debes dividir en elementos $d\vec A$ e integrar $\int \vec E\cdot d\vec A$, salvo que puedas cerrar la superficie por simetría para usar la ley de Gauss.</div>
+</section>
+
+<section class="sec" id="u02-s2" data-block="teoria" data-title="Ley de Gauss y estrategia">
+  <h2>Ley de Gauss y estrategia en cuatro pasos</h2>
+  <p><b>El problema físico.</b> Calcular $\vec E$ por la ley de Coulomb requiere sumar vectores en tres dimensiones sobre toda una distribución de carga. ¿Existe una forma directa de obtener $\vec E$ aprovechando la simetría de la fuente?</p>
+  <figure class="fig" data-fig="u02-gauss-superficie"><figcaption>Las superficies $S_1$ (esfera) y $S_2$ (forma arbitraria) encierran la misma carga $+q$, por lo que ambas son atravesadas por el mismo flujo neto $q/\varepsilon_0$. La carga externa $q_0$ envía líneas que entran y salen de $S_2$: su flujo neto es cero.</figcaption></figure>
+  <div class="eq key"><div class="lbl">Ley de Gauss (forma integral)</div>$$\Phi_E = \oint_S \vec E\cdot d\vec A = \frac{Q_{\text{enc}}}{\varepsilon_0}$$<div class="note">$S$ es cualquier superficie cerrada imaginaria (superficie gaussiana), con $d\vec A$ apuntando hacia el exterior; $\vec E$ es el campo eléctrico total sobre $S$ (creado por <em>todas</em> las cargas, internas y externas); $Q_{\text{enc}}$ es la carga neta encerrada dentro de $S$ ($\text{C}$); $\varepsilon_0 = 8{,}85\times 10^{-12}\ \text{C}^2/(\text{N·m}^2)$.</div></div>
+  <details class="deriv"><summary>Justificación a partir de la ley de Coulomb</summary>
+    <p><b>Paso 1 · Esfera centrada en una carga puntual $+q$.</b> A distancia $r$, la ley de Coulomb da $\vec E = \dfrac{q}{4\pi\varepsilon_0 r^2}\,\hat r$. Sobre una esfera concéntrica de radio $r$, $d\vec A = dA\,\hat r$ es paralelo a $\vec E$ y $E(r)$ es constante en toda la esfera:</p>
+    $$\oint_{\text{esfera}} \vec E\cdot d\vec A = E(r)\oint dA = \left(\frac{q}{4\pi\varepsilon_0 r^2}\right)\left(4\pi r^2\right) = \frac{q}{\varepsilon_0}$$
+    <p>El factor $r^2$ del área cancela exactamente el $1/r^2$ del campo: el flujo es independiente del radio.</p>
+    <p><b>Paso 2 · Superficie cerrada cualquiera y varias cargas.</b> Como las líneas de campo de una carga puntual solo nacen en la carga y se extienden al infinito, cualquier otra superficie cerrada que rodee a $q$ es cortada por exactamente las mismas líneas, así que su flujo también vale $q/\varepsilon_0$. Una carga exterior $q_0$ envía líneas que entran y vuelven a salir, aportando cero neto. Por el principio de superposición ($\vec E = \sum \vec E_i$), el flujo total de cualquier conjunto de cargas es $\sum q_{\text{enc},i}/\varepsilon_0 = Q_{\text{enc}}/\varepsilon_0$.</p>
+  </details>
+  <div class="key"><b>Estrategia en 4 pasos para despejar $\vec E$ con la ley de Gauss</b>
+    <br><b>1) Simetría:</b> identifica invariancias (rotaciones, traslaciones, reflexiones) para deducir la dirección de $\vec E$ y de qué única coordenada depende su magnitud.
+    <br><b>2) Superficie gaussiana $S$:</b> elige una superficie cerrada que pase por el punto de interés, tal que en cada cara $\vec E \parallel d\vec A$ con $E$ constante ($\int \vec E\cdot d\vec A = EA$), o $\vec E \perp d\vec A$ ($\vec E\cdot d\vec A = 0$), o $E = 0$.
+    <br><b>3) Carga encerrada $Q_{\text{enc}}$:</b> suma las cargas discretas e integra $\int \rho\,dV$ solo dentro del volumen encerrado por $S$ (si $S$ incluye partes vacías y partes cargadas, integra únicamente hasta el borde de la carga).
+    <br><b>4) Despejar y verificar:</b> iguala $\oint\vec E\cdot d\vec A = Q_{\text{enc}}/\varepsilon_0$, despeja $\vec E$ con su vector unitario y verifica continuidad (sin $\sigma$) o salto $\sigma/\varepsilon_0$ en las fronteras, además del límite lejano.
+  </div>
+  <table>
+    <thead><tr><th>Simetría de la fuente</th><th>Dirección de $\vec E$</th><th>Superficie gaussiana</th><th>Flujo $\oint\vec E\cdot d\vec A$</th></tr></thead>
+    <tbody>
+      <tr><td><b>Esférica</b> ($\rho = \rho(r)$)</td><td>Radial $\hat r$ desde el centro</td><td>Esfera concéntrica de radio $r$</td><td>$E(r)\cdot 4\pi r^2$</td></tr>
+      <tr><td><b>Cilíndrica</b> ($\rho = \rho(r)$, eje $\infty$)</td><td>Radial $\hat r$ perpendicular al eje</td><td>Cilindro coaxial de radio $r$ y largo $L$</td><td>$E(r)\cdot 2\pi r L$ (tapas $= 0$)</td></tr>
+      <tr><td><b>Planar</b> ($\sigma$ o $\rho(z)$ en plano $\infty$)</td><td>Perpendicular al plano ($\pm\hat n$)</td><td>Pastillero cilíndrico simétrico de área de tapa $A$</td><td>$2 E A$ (manto $= 0$)</td></tr>
+    </tbody>
+  </table>
+  <div class="why"><b>Cuándo se usa / cuándo NO:</b> la ley de Gauss es <em>siempre verdadera</em> para cualquier distribución de carga, pero solo sirve para <em>despejar $\vec E$</em> en las tres simetrías de la tabla. Nunca intentes usar Gauss para calcular el campo de un disco finito, un alambre finito, un anillo o un cubo cargado: allí $\vec E$ no es constante sobre ninguna superficie cerrada simple, y debes integrar la ley de Coulomb.</div>
+</section>
+
+<section class="sec" id="u02-s3" data-block="teoria" data-title="Simetría esférica">
+  <h2>Simetría esférica</h2>
+  <p><b>El problema físico.</b> ¿Cuál es el campo dentro y fuera de un planeta, núcleo atómico o esfera aislante cuya densidad solo depende de la distancia al centro? La ley de Gauss resuelve tanto densidades uniformes como funciones $\rho(r)$ no uniformes y cascarones esféricos.</p>
+  <div class="prob-grid">
+    <figure class="fig" data-fig="u02-esfera-gauss"><figcaption>Esfera de radio $R$ con densidad radial $\rho(r)$ y superficies gaussianas esféricas de radios $r_1 \lt R$ y $r_2 \gt R$.</figcaption></figure>
+    <figure class="fig" data-fig="u02-esfera-er"><figcaption>Perfil de $E(r)$ para una esfera maciza uniforme de radio $R$: crece linealmente como $r$ adentro y decae como $1/r^2$ afuera, continuo en $r = R$.</figcaption></figure>
+  </div>
+  <details class="deriv" open><summary>Derivación paso a paso: esfera maciza uniforme, no uniforme y cascarón esférico</summary>
+    <p><b>Paso 1 · Simetría y flujo.</b> Si $\rho = \rho(r)$ solo depende de la distancia al centro $O$, el sistema es invariante ante cualquier rotación alrededor de $O$: $\vec E$ solo puede apuntar radialmente ($\vec E = E(r)\,\hat r$). Sobre una esfera gaussiana concéntrica de radio $r$, $d\vec A = dA\,\hat r$, así que $\oint \vec E\cdot d\vec A = E(r)\,4\pi r^2$.</p>
+    <p><b>Caso A · Esfera maciza uniforme de radio $R$ y carga total $Q$ ($\rho = \dfrac{Q}{\frac43\pi R^3}$):</b></p>
+    <ul>
+      <li><b>Exterior ($r \ge R$):</b> la esfera gaussiana encierra toda la carga, $Q_{\text{enc}} = Q$:
+        $$E(r)\,4\pi r^2 = \frac{Q}{\varepsilon_0} \quad\Longrightarrow\quad \vec E(r) = \frac{Q}{4\pi\varepsilon_0 r^2}\,\hat r$$
+        Afuera se comporta exactamente como una carga puntual $Q$ en el centro.</li>
+      <li><b>Interior ($r \lt R$):</b> la esfera gaussiana de radio $r$ solo encierra la fracción de volumen $(r/R)^3$:
+        $$Q_{\text{enc}}(r) = \rho\left(\frac43\pi r^3\right) = Q\frac{r^3}{R^3} \quad\Longrightarrow\quad E(r)\,4\pi r^2 = \frac{Qr^3}{\varepsilon_0 R^3} \quad\Longrightarrow\quad \vec E(r) = \frac{Qr}{4\pi\varepsilon_0 R^3}\,\hat r = \frac{\rho r}{3\varepsilon_0}\,\hat r$$</li>
+    </ul>
+    <p><b>Caso B · Esfera no uniforme con $\rho(r)$:</b> integramos por cáscaras esféricas $dV' = 4\pi {r'}^2\,dr'$:</p>
+    <ul>
+      <li><b>Interior ($r \lt R$):</b> $Q_{\text{enc}}(r) = 4\pi\displaystyle\int_0^r \rho(r'){r'}^2\,dr'$, luego $\vec E(r) = \dfrac{1}{\varepsilon_0 r^2}\displaystyle\int_0^r \rho(r'){r'}^2\,dr'\,\hat r$.</li>
+      <li><b>Exterior ($r \ge R$):</b> la integral termina en $R$ (pues $\rho = 0$ para $r' \gt R$), dando $Q_{\text{total}} = 4\pi\displaystyle\int_0^R \rho(r'){r'}^2\,dr'$ y $\vec E(r) = \dfrac{Q_{\text{total}}}{4\pi\varepsilon_0 r^2}\,\hat r$.</li>
+    </ul>
+    <p><b>Caso C · Cascarón esférico delgado de radio $R$ y carga $Q$:</b> para $r \lt R$, $Q_{\text{enc}} = 0 \implies \vec E = \vec 0$ en todo el interior del cascarón (teorema del cascarón). Para $r \gt R$, $Q_{\text{enc}} = Q \implies \vec E = \dfrac{Q}{4\pi\varepsilon_0 r^2}\,\hat r$.</p>
+    <p><b>Comprobación:</b> para la esfera uniforme, en $r = R$ ambas fórmulas coinciden en $E_{\text{máx}} = \dfrac{Q}{4\pi\varepsilon_0 R^2} = \dfrac{\rho R}{3\varepsilon_0}$ (continuo porque no hay carga superficial). En el cascarón delgado, el campo salta de $0$ a $\dfrac{Q}{4\pi\varepsilon_0 R^2} = \dfrac{\sigma}{\varepsilon_0}$.</p>
+  </details>
+  <div class="eq key"><div class="lbl">Simetría esférica (resumen)</div>$$\vec E_{\text{esf, int}}(r) = \frac{\rho r}{3\varepsilon_0}\,\hat r = \frac{Q r}{4\pi\varepsilon_0 R^3}\,\hat r \ \ (\rho\text{ cte},\ r\le R),\qquad \vec E_{\text{ext}}(r) = \frac{Q_{\text{total}}}{4\pi\varepsilon_0 r^2}\,\hat r \ \ (r\ge R)$$ $$\vec E(r) = \frac{1}{\varepsilon_0 r^2}\int_0^r \rho(r')\,{r'}^2\,dr'\,\hat r\ \ (\rho(r')\text{ radial general})$$<div class="note">$R$: radio de la esfera ($\text{m}$); $r$: distancia al centro ($\text{m}$); $\hat r$: unitario radial saliente; $Q_{\text{total}}$: carga total encerrada ($\text{C}$). Dentro de un cascarón esférico vacío con $\sigma$ uniforme, $\vec E = \vec 0$.</div></div>
+  <div class="why"><b>Cuándo se usa / cuándo NO:</b> exige simetría esférica perfecta ($\rho$ independiente de $\theta$ y $\phi$). Si la esfera tiene una cavidad descentrada o una densidad que depende del ángulo (como $\rho_0\cos\theta$), no puedes usar directamente una sola esfera gaussiana; para cavidades descentradas con $\rho$ uniforme se usa superposición.</div>
+</section>
+
+<section class="sec" id="u02-s4" data-block="teoria" data-title="Simetría cilíndrica">
+  <h2>Simetría cilíndrica</h2>
+  <p><b>El problema físico.</b> Un alambre muy largo o un cilindro largo con carga distribuida en su volumen producen un campo eléctrico que solo depende de la distancia perpendicular $r$ al eje. ¿Cómo cambia $\vec E(r)$ respecto del caso esférico?</p>
+  <figure class="fig" data-fig="u02-cilindro-gauss"><figcaption>Cilindro infinito de radio $R$ con densidad $\rho$ y superficie gaussiana cilíndrica coaxial de radio $r$ y longitud $L$. En las tapas $\vec E\perp\hat n$ (flujo nulo); en el manto $\vec E\parallel\hat n$.</figcaption></figure>
+  <details class="deriv" open><summary>Derivación paso a paso: línea infinita y cilindro infinito (uniforme y no uniforme)</summary>
+    <p><b>Paso 1 · Simetría y flujo en el cilindro gaussiano.</b> Para un cilindro infinito a lo largo del eje $z$ con densidad $\rho(r)$ independiente de $\theta$ y $z$: la invariancia traslacional en $z$ y rotacional en $\theta$ (más la reflexión $z\to -z$ y $\theta\to-\theta$) obligan a que $\vec E = E(r)\,\hat r$, puramente radial perpendicular al eje. Elegimos un cilindro gaussiano coaxial de radio $r$ y longitud $L$:</p>
+    <ul>
+      <li><b>Tapas superior e inferior:</b> sus normales son $\pm\hat z$, perpendiculares a $\hat r$, así que $\vec E\cdot d\vec A = 0$ en ambas tapas.</li>
+      <li><b>Manto lateral:</b> $\vec E \parallel d\vec A$ y $E(r)$ es constante sobre todo el manto de área $2\pi r L$, luego $\oint\vec E\cdot d\vec A = E(r)\,(2\pi r L)$.</li>
+    </ul>
+    <p><b>Caso A · Línea infinita de densidad lineal $\lambda$ ($\text{C/m}$):</b> $Q_{\text{enc}} = \lambda L$. Igualando $E\,(2\pi r L) = \dfrac{\lambda L}{\varepsilon_0}$, la longitud arbitraria $L$ se cancela:</p>
+    $$\vec E(r) = \frac{\lambda}{2\pi\varepsilon_0 r}\,\hat r = \frac{2k\lambda}{r}\,\hat r$$
+    <p><b>Caso B · Cilindro macizo infinito de radio $R$ con $\rho$ uniforme ($\text{C/m}^3$):</b></p>
+    <ul>
+      <li><b>Interior ($r \le R$):</b> $Q_{\text{enc}} = \rho\,(\pi r^2 L) \implies E\,(2\pi r L) = \dfrac{\rho\pi r^2 L}{\varepsilon_0} \implies \vec E(r) = \dfrac{\rho r}{2\varepsilon_0}\,\hat r$.</li>
+      <li><b>Exterior ($r \gt R$):</b> $Q_{\text{enc}} = \rho\,(\pi R^2 L) \implies E\,(2\pi r L) = \dfrac{\rho\pi R^2 L}{\varepsilon_0} \implies \vec E(r) = \dfrac{\rho R^2}{2\varepsilon_0 r}\,\hat r$.</li>
+    </ul>
+    <p><b>Caso C · Cilindro con densidad no uniforme $\rho(r')$:</b> usando el jacobiano cilíndrico $dV' = r'\,dr'\,d\theta\,dz$, la carga encerrada en longitud $L$ y radio $r$ es $Q_{\text{enc}}(r) = 2\pi L\displaystyle\int_0^r \rho(r')\,r'\,dr'$, de modo que</p>
+    $$E(r)\,(2\pi r L) = \frac{2\pi L}{\varepsilon_0}\int_0^r \rho(r')\,r'\,dr' \quad\Longrightarrow\quad \vec E(r) = \frac{1}{\varepsilon_0 r}\int_0^r \rho(r')\,r'\,dr'\,\hat r$$
+    <p><b>Comprobación:</b> en $r = R$ el cilindro uniforme da $\rho R/(2\varepsilon_0)$ por ambos lados (continuo). Fuera del cilindro, definiendo $\lambda_{\text{ef}} = \rho\pi R^2$, se recupera $\lambda_{\text{ef}}/(2\pi\varepsilon_0 r)$, igual que la línea infinita.</p>
+  </details>
+  <div class="eq key"><div class="lbl">Simetría cilíndrica</div>$$\vec E_{\text{línea}}(r) = \frac{\lambda}{2\pi\varepsilon_0 r}\,\hat r, \qquad \vec E_{\text{cil, int}}(r) = \frac{\rho r}{2\varepsilon_0}\,\hat r\ \ (r\le R), \qquad \vec E_{\text{cil, ext}}(r) = \frac{\rho R^2}{2\varepsilon_0 r}\,\hat r\ \ (r\gt R)$$<div class="note">$r$: distancia perpendicular al eje ($\text{m}$); $\hat r$: unitario radial perpendicular al eje (distinto del $\hat r$ esférico); $\lambda$: carga por metro ($\text{C/m}$); $\rho$: densidad volumétrica uniforme ($\text{C/m}^3$). Fíjate en el factor $2$ (cilindro) frente al $3$ (esfera) en el interior, y el decaimiento $1/r$ (cilindro) frente a $1/r^2$ (esfera) en el exterior.</div></div>
+  <div class="why"><b>Cuándo se usa / cuándo NO:</b> vale para alambres y cilindros cuyo largo $L$ sea mucho mayor que la distancia $r$ al eje ($L\gg r$, lejos de los extremos). Para una barra finita cerca de sus bordes debes integrar Coulomb.</div>
+</section>
+
+<section class="sec" id="u02-s5" data-block="teoria" data-title="Simetría planar">
+  <h2>Simetría planar: planos infinitos y losas gruesas</h2>
+  <p><b>El problema físico.</b> ¿Qué campo crea una lámina cargada muy extensa (como una placa de condensador cerca del centro), o una placa gruesa con densidad volumétrica $\rho$? A diferencia de una carga puntual o una línea, el campo de un plano infinito no decae con la distancia.</p>
+  <figure class="fig" data-fig="u02-plano-losa"><figcaption>Losa infinita de espesor $2a$ ($-a\le z\le a$) con densidad $\rho$ y pastillero gaussiano cilíndrico simétrico de área de tapa $A$. El flujo solo sale por las dos tapas.</figcaption></figure>
+  <details class="deriv" open><summary>Derivación paso a paso: plano delgado y losa gruesa</summary>
+    <p><b>1. Plano infinito delgado ($\sigma$ en $\text{C/m}^2$):</b> situamos el plano en $z = 0$. Por simetría de traslación en $x, y$ y reflexión $z\to -z$, $\vec E$ solo apunta perpendicular al plano: $\vec E(z) = E(|z|)\,\text{sgn}(z)\,\hat k$ (para $\sigma \gt 0$, alejándose a ambos lados). Tomamos un pastillero cilíndrico perpendicular al plano, con tapas de área $A$ ubicadas en $+z$ y $-z$ ($z \gt 0$):</p>
+    <ul>
+      <li><b>Manto lateral:</b> paralelo a $\vec E$, luego $\vec E\cdot d\vec A = 0$.</li>
+      <li><b>Dos tapas:</b> en ambas $\vec E\parallel d\vec A$, aportando $EA + EA = 2EA$.</li>
+      <li><b>Carga encerrada:</b> $Q_{\text{enc}} = \sigma A$.</li>
+    </ul>
+    $$2EA = \frac{\sigma A}{\varepsilon_0} \quad\Longrightarrow\quad \vec E(z) = \begin{cases} +\dfrac{\sigma}{2\varepsilon_0}\,\hat k, & z \gt 0 \\[4pt] -\dfrac{\sigma}{2\varepsilon_0}\,\hat k, & z \lt 0 \end{cases}$$
+    <p><b>Dos placas paralelas con $+\sigma$ y $-\sigma$:</b> por superposición, entre las placas ambos campos apuntan de la placa positiva a la negativa y se suman ($E_{\text{entre}} = \frac{\sigma}{2\varepsilon_0} + \frac{\sigma}{2\varepsilon_0} = \frac{\sigma}{\varepsilon_0}$); fuera de ellas tienen igual magnitud y sentidos opuestos ($E_{\text{fuera}} = 0$).</p>
+    <p><b>2. Losa infinita gruesa ($-a \le z \le a$, densidad uniforme $\rho$ en $\text{C/m}^3$):</b> el plano de simetría sigue siendo $z = 0$, así que usamos el mismo pastillero simétrico con tapas en $-|z|$ y $+|z|$:</p>
+    <ul>
+      <li><b>Interior ($|z| \lt a$):</b> el volumen encerrado mide $A\,(2|z|)$, así que $Q_{\text{enc}} = 2\rho A|z|$. Igualando $2EA = 2\rho A|z|/\varepsilon_0$ y manteniendo el signo según el lado:
+        $$\vec E(z) = \frac{\rho z}{\varepsilon_0}\,\hat k \qquad (-a \le z \le a)$$</li>
+      <li><b>Exterior ($|z| \gt a$):</b> el pastillero encierra todo el espesor $2a$, luego $Q_{\text{enc}} = 2\rho A a$:
+        $$\vec E(z) = \pm\frac{\rho a}{\varepsilon_0}\,\hat k \qquad (z \gt a \text{ signo } +,\ z \lt -a \text{ signo } -)$$</li>
+    </ul>
+    <p><b>Nota si la losa va de $z = 0$ a $z = a$</b> (espesor $a$): su plano medio de simetría está en $z_c = a/2$, por lo que basta desplazar $z \to z - a/2$ y cambiar el semiespesor $a \to a/2$: adentro queda $\vec E(z) = \dfrac{\rho(z - a/2)}{\varepsilon_0}\,\hat k$ y afuera $\pm\dfrac{\rho a}{2\varepsilon_0}\,\hat k$.</p>
+    <p><b>Comprobación:</b> en $z = \pm a$ de la losa centrada, el campo interior y el exterior coinciden en $\pm\rho a/\varepsilon_0$. Si en el plano delgado hacemos $z = 0^+$ vs $z = 0^-$, el salto de la componente normal es $\Delta E_z = \dfrac{\sigma}{2\varepsilon_0} - \left(-\dfrac{\sigma}{2\varepsilon_0}\right) = \dfrac{\sigma}{\varepsilon_0}$.</p>
+  </details>
+  <div class="eq key"><div class="lbl">Simetría planar</div>$$E_{\text{plano}} = \frac{|\sigma|}{2\varepsilon_0},\qquad E_{\text{2 placas }\pm\sigma,\text{ entre}} = \frac{|\sigma|}{\varepsilon_0},\qquad \vec E_{\text{losa}}(z) = \begin{cases}\dfrac{\rho z}{\varepsilon_0}\,\hat k, & |z|\le a\\[4pt]\pm\dfrac{\rho a}{\varepsilon_0}\,\hat k, & |z|\gt a\end{cases}$$<div class="note">$\sigma$: densidad superficial ($\text{C/m}^2$); $\rho$: densidad volumétrica uniforme ($\text{C/m}^3$); $2a$: espesor total de la losa centrada en $z = 0$ ($\text{m}$).</div></div>
+  <div class="why"><b>Cuándo se usa / cuándo NO:</b> es válida cerca del centro de una placa grande cuya extensión lateral sea mucho mayor que la distancia a ella. Cerca de los bordes o lejos de una placa finita de carga $Q$, el campo decae como $kQ/r^2$ y no es constante.</div>
+</section>
+
+<section class="sec" id="u02-s6" data-block="teoria" data-title="Conductores en equilibrio electrostático">
+  <h2>Conductores en equilibrio electrostático, cavidades y puesta a tierra</h2>
+  <p><b>El problema físico.</b> En un metal, los electrones de conducción se mueven libremente ante cualquier campo eléctrico. Cuando dejamos que el sistema alcance el reposo (<b>equilibrio electrostático</b>), las cargas se reacomodan hasta que ninguna fuerza eléctrica actúa sobre ellas. ¿Qué impone esto sobre $\vec E$, sobre dónde reside la carga y sobre qué pasa si el conductor tiene huecos?</p>
+  <figure class="fig" data-fig="u02-conductor-cavidad"><figcaption>Conductor en equilibrio con una cavidad que contiene una carga $+Q$. La superficie gaussiana $S$ dentro del metal encierra carga neta cero, obligando a inducir $-Q$ en la pared interna y $Q_{\text{cond}} + Q$ en la superficie exterior.</figcaption></figure>
+  <div class="eq key"><div class="lbl">Las 4 propiedades de un conductor en equilibrio electrostático</div>
+    <ol>
+      <li><b>$\vec E = \vec 0$ en todo el interior del material conductor.</b> Si no fuera cero, las cargas libres acelerarían y no habría equilibrio.</li>
+      <li><b>Toda carga neta en exceso reside únicamente en la superficie</b> ($\rho_{\text{metal}} = 0$ en el volumen interno). <em>Demostración:</em> toma cualquier superficie gaussiana $S$ completamente dentro del metal; como $\vec E = \vec 0$ en todo punto de $S$, $\Phi_E = 0 \implies Q_{\text{enc}} = 0$. Encogiendo $S$ alrededor de cualquier punto interior, resulta $\rho = 0$ ahí.</li>
+      <li><b>Justo fuera de la superficie del conductor, $\vec E$ es perpendicular a ella y vale $E = \dfrac{\sigma}{\varepsilon_0}$.</b> <em>Demostración:</em> la componente tangencial debe ser nula (si no, movería las cargas superficiales). Con un pastillero gaussiano diminuto que atraviesa la superficie (área $A$ paralela a la pared), la tapa interior está en el metal ($\vec E = \vec 0$) y el manto es paralelo a $\vec E$ afuera, así que solo sale flujo por la tapa exterior: $EA = \dfrac{\sigma A}{\varepsilon_0} \implies \vec E_{\text{sup}} = \dfrac{\sigma}{\varepsilon_0}\,\hat n$.</li>
+      <li><b>Todo el conductor es equipotencial</b> ($V = \text{cte}$ en el volumen y en la superficie).</li>
+    </ol>
+    <div class="note">Nota la diferencia por un factor $2$: una lámina aislante delgada da $E = \sigma/(2\varepsilon_0)$ a ambos lados; justo fuera de la superficie de un conductor (donde de un lado el campo es cero porque está el metal) da $E = \sigma/\varepsilon_0$. En general, al cruzar cualquier superficie con densidad $\sigma$, la componente normal del campo salta en $E_n^+ - E_n^- = \sigma/\varepsilon_0$.</div>
+  </div>
+  <h3>Cavidades dentro de un conductor y apantallamiento</h3>
+  <p>Considera un conductor con carga neta $Q_{\text{cond}}$ que tiene una cavidad interna en cuyo interior (aislada del metal) hay una carga neta $Q_{\text{enc}}$:</p>
+  <ul>
+    <li>Trazamos una superficie gaussiana $S$ totalmente dentro del metal rodeando la cavidad. Como $\vec E = \vec 0$ en el metal, $0 = Q_{\text{enc}} + q_{\text{int}}$, luego la pared de la cavidad adquiere una <b>carga inducida</b> $q_{\text{int}} = -Q_{\text{enc}}$.</li>
+    <li>Si la cavidad está vacía ($Q_{\text{enc}} = 0$), entonces $q_{\text{int}} = 0$ y $\vec E = \vec 0$ en toda la cavidad (jaula de Faraday).</li>
+    <li>Por conservación de la carga del conductor ($q_{\text{int}} + q_{\text{ext}} = Q_{\text{cond}}$), la superficie exterior queda con $q_{\text{ext}} = Q_{\text{cond}} - q_{\text{int}} = Q_{\text{cond}} + Q_{\text{enc}}$.</li>
+    <li>Si la geometría es esférica concéntrica con área interna $A_{\text{int}} = 4\pi r_{\text{int}}^2$ y externa $A_{\text{ext}} = 4\pi r_{\text{ext}}^2$, las densidades superficiales son uniformes: $\sigma_{\text{int}} = \dfrac{-Q_{\text{enc}}}{4\pi r_{\text{int}}^2}$ y $\sigma_{\text{ext}} = \dfrac{Q_{\text{cond}} + Q_{\text{enc}}}{4\pi r_{\text{ext}}^2}$. Si la carga dentro de la cavidad está descentrada, $\sigma_{\text{int}}$ deja de ser uniforme, pero como el metal apantalla el interior, $\sigma_{\text{ext}}$ en una esfera exterior sigue siendo uniforme.</li>
+  </ul>
+  <p><b>Conexión con un cable y puesta a tierra:</b> si conectas dos cascarones concéntricos mediante un cable conductor, pasan a formar un solo conductor equipotencial y $\vec E = \vec 0$ entre ellos, por lo que las cargas de sus caras enfrentadas se anulan ($q_{\text{ext, 1}} = q_{\text{int, 2}} = 0$ si no hay carga aislada entre ambos). Si conectas a tierra ($V(R_{\text{tierra}}) = 0$) la superficie exterior (radio $R_{\text{ext}}$) de un sistema aislado sin cargas afuera, su campo exterior debe anularse ($\vec E_{\text{ext}} = \vec 0$) para que $-\int_\infty^{R_{\text{ext}}} E\,dr = 0$, lo que descarga la superficie exterior ($q_{\text{ext}} = 0$), pero <b>no</b> borra la carga inducida $q_{\text{int}} = -Q_{\text{enc}}$ en la cavidad interna.</p>
+  <div class="why"><b>Cuándo se usa / cuándo NO:</b> las cuatro propiedades valen únicamente en electrostática (cargas en reposo). Si por el conductor circula corriente continua estacionaria o hay un campo magnético variable, $\vec E$ dentro del conductor ya no es cero.</div>
+</section>
+
+<section class="sec" id="u02-s7" data-block="teoria" data-title="Superposición y forma diferencial">
+  <h2>Superposición en cavidades y forma diferencial de Gauss</h2>
+  <p><b>El problema físico.</b> ¿Cómo hallamos $\vec E$ dentro de una esfera o un cilindro con una cavidad descentrada si ya no hay simetría alrededor de un solo centro? Y al revés: si conocemos $\vec E(\vec r)$ en el espacio, ¿cómo recuperamos $\rho(\vec r)$ sin integrar al revés?</p>
+  <figure class="fig" data-fig="u02-superposicion-cavidad"><figcaption>Una esfera uniforme ($+\rho$) centrada en $O$ con una cavidad esférica descentrada en $C = O + \vec a$ equivale a la superposición de la esfera completa ($+\rho$ en $O$) más una esfera del tamaño del hueco con densidad opuesta ($-\rho$ en $C$).</figcaption></figure>
+  <h3>1. Superposición con cavidades esféricas o cilíndricas</h3>
+  <p>En forma vectorial, el campo interior de una esfera maciza uniforme centrada en el origen ($\vec E = \frac{\rho r}{3\varepsilon_0}\hat r$) es $\vec E_{\text{esf}}(\vec r) = \dfrac{\rho}{3\varepsilon_0}\,\vec r$, y el de un cilindro infinito uniforme es $\vec E_{\text{cil}}(\vec r_\perp) = \dfrac{\rho}{2\varepsilon_0}\,\vec r_\perp$ (donde $\vec r_\perp$ en $\text{m}$ es el vector perpendicular desde el eje hasta el punto).</p>
+  <p>Un cuerpo de densidad $+\rho$ con un hueco centrado en $\vec a$ es la suma de dos distribuciones simétricas: el cuerpo completo con $+\rho$ en $\vec 0$, más un cuerpo igual al hueco con densidad $-\rho$ centrado en $\vec a$. Para cualquier punto $\vec r$ dentro de la cavidad vacía, el vector desde el centro del hueco es $\vec r\,' = \vec r - \vec a$, de modo que:</p>
+  <div class="eq key"><div class="lbl">Campo dentro de una cavidad vacía por superposición</div>$$\vec E_{\text{cav, esf}} = \frac{\rho}{3\varepsilon_0}\vec r + \frac{-\rho}{3\varepsilon_0}(\vec r - \vec a) = \frac{\rho}{3\varepsilon_0}\,\vec a, \qquad \vec E_{\text{cav, cil}} = \frac{\rho}{2\varepsilon_0}\vec r_\perp + \frac{-\rho}{2\varepsilon_0}(\vec r_\perp - \vec a_\perp) = \frac{\rho}{2\varepsilon_0}\,\vec a_\perp$$<div class="note">$\vec a$ ($\text{m}$): vector que apunta desde el centro del cuerpo completo hacia el centro de la cavidad. ¡El campo dentro de una cavidad esférica o cilíndrica vacía es perfectamente <b>uniforme</b>! Si además la cavidad se rellena con otro material uniforme de densidad $\rho_Q$ ($\text{C/m}^3$), basta sumar $\vec E_Q = \dfrac{\rho_Q}{3\varepsilon_0}(\vec r - \vec a)$ (esfera) o $\dfrac{\rho_Q}{2\varepsilon_0}(\vec r_\perp - \vec a_\perp)$ (cilindro).</div></div>
+  <h3>2. Ley de Gauss en forma diferencial (primera ecuación de Maxwell)</h3>
+  <p>El teorema de la divergencia relaciona el flujo saliente por la frontera cerrada $\partial\Omega$ de un volumen $\Omega$ con la suma de las "fuentes" locales $\nabla\cdot\vec E$ en su interior: $\oint_{\partial\Omega}\vec E\cdot d\vec A = \int_\Omega (\nabla\cdot\vec E)\,dV$. Igualando con $\frac{1}{\varepsilon_0}\int_\Omega \rho\,dV$ para cualquier volumen $\Omega$, los integrandos deben coincidir punto a punto:</p>
+  <div class="eq key"><div class="lbl">Ley de Gauss diferencial</div>$$\nabla\cdot\vec E = \frac{\rho}{\varepsilon_0} \qquad\text{donde en cartesianas }\ \nabla\cdot\vec E = \frac{\partial E_x}{\partial x} + \frac{\partial E_y}{\partial y} + \frac{\partial E_z}{\partial z}$$<div class="note">$\nabla\cdot\vec E$ tiene unidades SI de $\text{N/(C·m)} = \text{V/m}^2$. Para campos puramente radiales $\vec E = E_r(r)\,\hat r$: en <b>esféricas</b> $\nabla\cdot\vec E = \dfrac{1}{r^2}\dfrac{d(r^2 E_r)}{dr}$; en <b>cilíndricas</b> $\nabla\cdot\vec E = \dfrac{1}{r}\dfrac{d(r E_r)}{dr}$. Donde $\rho = 0$ se cumple $\nabla\cdot\vec E = 0$, aunque $\vec E$ no sea cero (como fuera de una carga puntual).</div></div>
+  <details class="deriv"><summary>Comprobación rápida: $\nabla\cdot\vec E$ dentro y fuera de una esfera uniforme</summary>
+    <p>Dentro ($r \lt R$): $E_r = \dfrac{\rho r}{3\varepsilon_0} \implies \nabla\cdot\vec E = \dfrac{1}{r^2}\dfrac{d}{dr}\left(\dfrac{\rho r^3}{3\varepsilon_0}\right) = \dfrac{1}{r^2}\cdot\dfrac{3\rho r^2}{3\varepsilon_0} = \dfrac{\rho}{\varepsilon_0}$. Fuera ($r \gt R$): $E_r = \dfrac{Q}{4\pi\varepsilon_0 r^2} \implies r^2 E_r = \text{cte} \implies \nabla\cdot\vec E = 0$.</p>
+  </details>
+  <div class="why"><b>Cuándo se usa / cuándo NO:</b> usa superposición siempre que aparezcan cavidades descentradas o cilindros paralelos traslapados con densidades uniformes. Usa $\nabla\cdot\vec E = \rho/\varepsilon_0$ en el "problema inverso": cuando te dan $\vec E(\vec r)$ y te piden hallar $\rho(\vec r)$.</div>
+</section>
+
+<section class="sec" id="u02-ejemplos" data-block="ejemplos" data-title="Ejemplos resueltos">
+  <h2>Ejemplos resueltos</h2>
+
+  <div class="prob" id="u02-e1" data-kind="ejemplo" data-diff="1">
+    <div class="prob-head"><span class="tag">Ejemplo 1</span><span class="ptitle">Flujo por una cara de un cubo: carga central y en el vértice</span><span class="diff">dificultad 1/3</span></div>
+    <div class="prob-grid">
+      <div>
+        <p class="stmt">Se tiene una superficie cuadrada de lado $a$ ($\text{m}$) y una carga puntual $q \gt 0$ ($\text{C}$). a) Si la carga se ubica a distancia $a/2$ perpendicularmente frente al centro del cuadrado (como en la figura izquierda, donde el cuadrado es la cara derecha de un cubo imaginario), determina el flujo eléctrico $\Phi_a$ a través del cuadrado. b) Si en cambio se construye un cubo real de arista $a$ y se coloca la carga $q$ justo en uno de sus vértices (figura derecha), calcula el flujo eléctrico por una cara adyacente al vértice y por una cara opuesta a él. (Basado en Examen 2011-1 P9 y 2014-1 P5.)</p>
+        <div class="given"><div><b>Datos</b> cuadrado de lado $a$, carga $q \gt 0$ en el centro ($a/2$ del cuadrado) o en un vértice del cubo</div><div><b>Piden</b> $\Phi_a$, $\Phi_{\text{adyacente}}$, $\Phi_{\text{opuesta}}$</div></div>
+      </div>
+      <figure class="fig" data-fig="u02-cubo-flujo"><figcaption>Izquierda: completar un cubo de arista $a$ deja a $q$ en el centro. Derecha: con $q$ en el vértice, 8 cubos rodean la carga.</figcaption></figure>
+    </div>
+    <div class="predict"><b>Antes de calcular:</b> en la parte b), ¿atraviesa alguna línea de campo las tres caras que tocan el vértice donde está la carga?</div>
+    <ol class="reveal">
+      <li class="hint">Completa una superficie cerrada simétrica (un cubo en a, ocho cubos en b) para usar la ley de Gauss sin integrar.</li>
+      <li><span class="rl">Paso 1 · Carga frente al centro del cuadrado (parte a)</span><p class="do"><b>Qué hago:</b> rodeamos $q$ con un cubo imaginario de arista $a$ centrado en $q$, de modo que nuestro cuadrado sea una de sus 6 caras. Por la ley de Gauss, el flujo total saliente es $\Phi_{\text{cubo}} = q/\varepsilon_0$. Por simetría, las 6 caras son idénticas: $\Phi_a = \dfrac{q}{6\varepsilon_0}$.</p><p><b>Por qué:</b> todas las caras están a distancia $a/2$ del centro y subtenden el mismo ángulo sólido.</p></li>
+      <li><span class="rl">Paso 2 · Carga en un vértice: caras adyacentes</span><p class="do"><b>Qué hago:</b> si $q$ está en el vértice, para cualquier punto sobre las 3 caras que contienen ese vértice, el vector posición desde $q$ que yace en la cara es perpendicular a $\hat n$ de esa cara: $\vec E\cdot d\vec A = 0 \implies \Phi_{\text{adyacente}} = 0$.</p><p><b>Por qué:</b> las líneas de campo radiales resbalan paralelas a las caras que tocan el vértice sin atravesarlas.</p></li>
+      <li><span class="rl">Paso 3 · Carga en un vértice: caras opuestas</span><p class="do"><b>Qué hago:</b> adosamos 8 cubos de arista $a$ compartiendo el vértice de $q$ para formar un cubo grande de arista $2a$ centrado en $q$. El flujo total por el cubo grande es $q/\varepsilon_0$; cada uno de los 8 cubos recibe la octava parte, $\dfrac{q}{8\varepsilon_0}$. Como las 3 caras adyacentes aportan $0$, ese flujo sale en partes iguales por las 3 caras opuestas: $\Phi_{\text{opuesta}} = \dfrac{1}{3}\cdot\dfrac{q}{8\varepsilon_0} = \dfrac{q}{24\varepsilon_0}$.</p><p><b>Por qué:</b> Gauss sobre el cubo de arista $2a$ + simetría entre los 8 cubos y entre las 3 caras opuestas.</p></li>
+      <li class="final">$$\boxed{\Phi_a = \frac{q}{6\varepsilon_0},\qquad \Phi_{\text{adyacente}} = 0,\qquad \Phi_{\text{opuesta}} = \frac{q}{24\varepsilon_0}}$$</li>
+      <li class="check"><b>Verificación:</b> unidades $[q/\varepsilon_0] = \text{C}/(\text{C}^2/\text{N·m}^2) = \text{N·m}^2/\text{C}$. En el vértice, la suma de las 6 caras de un cubo es $3(0) + 3\left(\frac{q}{24\varepsilon_0}\right) = \frac{q}{8\varepsilon_0}$, un octavo del flujo total. Nota también que $\Phi_a$ no depende de $a$ (siempre que la distancia sea $a/2$, el ángulo sólido es fijo).</li>
+    </ol>
+    <div class="ctrl"></div>
+  </div>
+
+  <div class="prob" id="u02-e2" data-kind="ejemplo" data-diff="2">
+    <div class="prob-head"><span class="tag">Ejemplo 2</span><span class="ptitle">Esfera con densidad radial $\rho(r) = \rho_0(1 - r^2/R^2)$</span><span class="diff">dificultad 2/3</span></div>
+    <div class="prob-grid">
+      <div>
+        <p class="stmt">Una esfera aislante de radio $R$ ($\text{m}$) centrada en el origen posee una densidad volumétrica de carga $\rho(r) = \rho_0\left(1 - \dfrac{r^2}{R^2}\right)$ para $0 \le r \le R$, con $\rho_0 \gt 0$ constante (en $\text{C/m}^3$), y $\rho = 0$ para $r \gt R$. Calcula: a) la carga total $Q$ de la esfera; b) el vector campo eléctrico $\vec E(r)$ en todo el espacio; c) verifica el resultado interior aplicando $\nabla\cdot\vec E = \rho/\varepsilon_0$. (Basado en Ayudantía 04 P1, 2026-2.)</p>
+        <div class="given"><div><b>Datos</b> $R$, $\rho(r) = \rho_0(1 - r^2/R^2)$ en $0 \le r \le R$</div><div><b>Piden</b> $Q$, $\vec E(r)$ para $r \lt R$ y $r \ge R$, verificación diferencial</div></div>
+      </div>
+      <figure class="fig" data-fig="u02-esfera-gauss"><figcaption>Esfera con simetría radial y superficies gaussianas esféricas concéntricas $r_1 \lt R$ y $r_2 \gt R$.</figcaption></figure>
+    </div>
+    <div class="predict"><b>Antes de calcular:</b> como $\rho$ disminuye desde $\rho_0$ en el centro hasta $0$ en la superficie, ¿la carga total $Q$ es mayor o menor que $\frac43\pi R^3\rho_0$?</div>
+    <ol class="reveal">
+      <li class="hint">Usa $dV' = 4\pi {r'}^2\,dr'$ para integrar $\rho(r')$ desde $0$ hasta $R$ (parte a) y hasta $r$ (parte b interior).</li>
+      <li><span class="rl">Paso 1 · Carga total $Q$</span><p class="do"><b>Qué hago:</b> integramos en coordenadas esféricas ($dV' = 4\pi {r'}^2\,dr'$):</p>
+      $$Q = 4\pi\rho_0\int_0^R \left(1 - \frac{{r'}^2}{R^2}\right){r'}^2\,dr' = 4\pi\rho_0\left[\frac{{r'}^3}{3} - \frac{{r'}^5}{5R^2}\right]_0^R = 4\pi\rho_0 R^3\left(\frac13 - \frac15\right) = \frac{8\pi}{15}\rho_0 R^3$$
+      <p><b>Por qué:</b> la densidad depende solo de $r'$, así que las integrales angulares dan $4\pi$.</p></li>
+      <li><span class="rl">Paso 2 · Campo exterior ($r \ge R$)</span><p class="do"><b>Qué hago:</b> por simetría esférica, $\vec E = E(r)\,\hat r$. Con una esfera gaussiana de radio $r \ge R$ ($Q_{\text{enc}} = Q$):</p>
+      $$E(r)\,(4\pi r^2) = \frac{Q}{\varepsilon_0} = \frac{8\pi\rho_0 R^3}{15\varepsilon_0} \quad\Longrightarrow\quad \vec E(r) = \frac{2\rho_0 R^3}{15\varepsilon_0 r^2}\,\hat r$$
+      <p><b>Por qué:</b> fuera de la esfera se encierra toda su carga.</p></li>
+      <li><span class="rl">Paso 3 · Campo interior ($r \lt R$)</span><p class="do"><b>Qué hago:</b> para $r \lt R$, integramos hasta $r$: $Q_{\text{enc}}(r) = 4\pi\rho_0\left(\dfrac{r^3}{3} - \dfrac{r^5}{5R^2}\right)$. Igualando a $\varepsilon_0 E(r)(4\pi r^2)$ y dividiendo por $4\pi r^2$:</p>
+      $$\vec E(r) = \frac{\rho_0}{\varepsilon_0}\left(\frac{r}{3} - \frac{r^3}{5R^2}\right)\hat r$$
+      <p><b>Por qué:</b> solo la carga dentro del radio $r$ contribuye al flujo por la esfera de radio $r$.</p></li>
+      <li><span class="rl">Paso 4 · Verificación con Gauss diferencial</span><p class="do"><b>Qué hago:</b> en esféricas, $\nabla\cdot\vec E = \dfrac{1}{r^2}\dfrac{d}{dr}(r^2 E_r) = \dfrac{1}{r^2}\dfrac{d}{dr}\left[\dfrac{\rho_0}{\varepsilon_0}\left(\dfrac{r^3}{3} - \dfrac{r^5}{5R^2}\right)\right] = \dfrac{\rho_0}{\varepsilon_0 r^2}\left(r^2 - \dfrac{r^4}{R^2}\right) = \dfrac{\rho_0}{\varepsilon_0}\left(1 - \dfrac{r^2}{R^2}\right) = \dfrac{\rho(r)}{\varepsilon_0}$.</p><p><b>Por qué:</b> la forma diferencial recupera la densidad punto a punto.</p></li>
+      <li class="final">$$\boxed{Q = \frac{8\pi}{15}\rho_0 R^3,\qquad \vec E(r) = \begin{cases}\dfrac{\rho_0}{\varepsilon_0}\left(\dfrac{r}{3} - \dfrac{r^3}{5R^2}\right)\hat r, & r \lt R\\[6pt]\dfrac{2\rho_0 R^3}{15\varepsilon_0 r^2}\,\hat r, & r \ge R\end{cases}}$$ y $\nabla\cdot\vec E = \rho(r)/\varepsilon_0$ verificado.</li>
+      <li class="check"><b>Verificación:</b> $Q = \frac{8}{15}\pi\rho_0 R^3 = \frac25\left(\frac43\pi\rho_0 R^3\right)$, menor que la esfera uniforme, como esperábamos. Continuidad en $r = R$: $E(R^-) = \frac{\rho_0 R}{\varepsilon_0}\left(\frac13 - \frac15\right) = \frac{2\rho_0 R}{15\varepsilon_0} = E(R^+)$. Unidades: $[\rho_0 R/\varepsilon_0] = (\text{C/m}^3)(\text{m})/(\text{C}^2/\text{N·m}^2) = \text{N/C}$.</li>
+    </ol>
+    <div class="ctrl"></div>
+  </div>
+
+  <div class="prob" id="u02-e3" data-kind="ejemplo" data-diff="2">
+    <div class="prob-head"><span class="tag">Ejemplo 3</span><span class="ptitle">Plano infinito y losa gruesa superpuestos</span><span class="diff">dificultad 2/3</span></div>
+    <div class="prob-grid">
+      <div>
+        <p class="stmt">El plano $xy$ ($z = 0$) posee una densidad superficial de carga uniforme $\sigma \gt 0$ ($\text{C/m}^2$). Inmediatamente encima, ocupando la región $0 \lt z \lt a$ (con $a \gt 0$ en $\text{m}$), hay una losa infinita paralela al plano $xy$ con densidad volumétrica uniforme $\rho \gt 0$ ($\text{C/m}^3$). Determina el vector campo eléctrico $\vec E(z)$ en las tres regiones: $z \lt 0$, $0 \lt z \lt a$ y $z \gt a$. (Basado en Ayudantía 05 P2, 2026-2.)</p>
+        <div class="given"><div><b>Datos</b> plano en $z = 0$ con $\sigma \gt 0$; losa en $0 \lt z \lt a$ con $\rho \gt 0$</div><div><b>Piden</b> $\vec E(z)$ en $z \lt 0$, $0 \lt z \lt a$ y $z \gt a$</div></div>
+      </div>
+      <figure class="fig" data-fig="u02-plano-losa"><figcaption>Referencia de simetría planar con pastillero gaussiano. Aquí la losa está en $0 \lt z \lt a$ (plano medio en $z = a/2$) y se suma un plano delgado en $z = 0$.</figcaption></figure>
+    </div>
+    <div class="predict"><b>Antes de calcular:</b> ¿esperas que el campo sea continuo en $z = 0$ y en $z = a$, o en cuál de las dos fronteras hay un salto?</div>
+    <ol class="reveal">
+      <li class="hint">Calcula por separado $\vec E_{\text{plano}}$ (simetría respecto de $z=0$) y $\vec E_{\text{losa}}$ (simetría respecto de $z = a/2$), y súmalos vectorialmente.</li>
+      <li><span class="rl">Paso 1 · Campo del plano en $z = 0$</span><p class="do"><b>Qué hago:</b> por simetría planar alrededor de $z = 0$, $\vec E_1(z) = +\dfrac{\sigma}{2\varepsilon_0}\,\hat k$ para $z \gt 0$, y $-\dfrac{\sigma}{2\varepsilon_0}\,\hat k$ para $z \lt 0$.</p><p><b>Por qué:</b> Gauss en pastillero simétrico de dos tapas da $2E_1 A = \sigma A/\varepsilon_0$.</p></li>
+      <li><span class="rl">Paso 2 · Campo de la losa ($0 \lt z \lt a$)</span><p class="do"><b>Qué hago:</b> el plano medio de la losa es $z_c = a/2$. Tomando un pastillero simétrico respecto de $z = a/2$ con tapas a distancia $|z - a/2|$ del centro: afuera ($z \gt a$ o $z \lt 0$) encierra todo el espesor $a$ ($Q_{\text{enc}} = \rho A a$), dando $E_2 = \dfrac{\rho a}{2\varepsilon_0}$ hacia $+\hat k$ para $z \gt a$ y hacia $-\hat k$ para $z \lt 0$. Adentro ($0 \lt z \lt a$) encierra longitud $2|z - a/2|$: $2E_2 A = \dfrac{2\rho A|z - a/2|}{\varepsilon_0}$, y con el signo correcto a cada lado de $a/2$ resulta $\vec E_2(z) = \dfrac{\rho(2z - a)}{2\varepsilon_0}\,\hat k$.</p><p><b>Por qué:</b> para $z \lt a/2$, $\vec E_2$ apunta en $-\hat k$ y $2z - a \lt 0$; para $z \gt a/2$, apunta en $+\hat k$ y $2z - a \gt 0$.</p></li>
+      <li><span class="rl">Paso 3 · Superposición en las tres regiones</span><p class="do"><b>Qué hago:</b> sumamos $\vec E = \vec E_1 + \vec E_2$: para $z \lt 0$, ambas apuntan en $-\hat k$; para $0 \lt z \lt a$, $\vec E_1$ va en $+\hat k$ y se suma a $\vec E_2$; para $z \gt a$, ambas van en $+\hat k$.</p><p><b>Por qué:</b> principio de superposición vectorial.</p></li>
+      <li class="final">$$\boxed{\vec E(z) = \begin{cases}-\dfrac{\sigma + \rho a}{2\varepsilon_0}\,\hat k, & z \lt 0\\[6pt]\dfrac{\sigma + \rho(2z - a)}{2\varepsilon_0}\,\hat k, & 0 \lt z \lt a\\[6pt]\dfrac{\sigma + \rho a}{2\varepsilon_0}\,\hat k, & z \gt a\end{cases}}$$</li>
+      <li class="check"><b>Verificación:</b> en $z = 0$ hay densidad superficial $\sigma$, así que el campo salta en $E_z(0^+) - E_z(0^-) = \frac{\sigma - \rho a}{2\varepsilon_0} - \left(-\frac{\sigma + \rho a}{2\varepsilon_0}\right) = \frac{\sigma}{\varepsilon_0}$. En $z = a$ no hay carga superficial, y $E_z(a^-) = \frac{\sigma + \rho a}{2\varepsilon_0} = E_z(a^+)$ es continuo. Si $a\to 0$ se recupera el plano; si $\sigma\to 0$ se recupera la losa sola.</li>
+    </ol>
+    <div class="ctrl"></div>
+  </div>
+
+  <div class="prob" id="u02-e4" data-kind="ejemplo" data-diff="3">
+    <div class="prob-head"><span class="tag">Ejemplo 4</span><span class="ptitle">Esfera conductora dentro de un cascarón puesto a tierra</span><span class="diff">dificultad 3/3</span></div>
+    <div class="prob-grid">
+      <div>
+        <p class="stmt">Una esfera metálica maciza de radio $R_1$ ($\text{m}$) tiene carga neta $+Q$ ($\text{C}$). Está rodeada concéntricamente por un cascarón esférico conductor de radio interior $R_2 \gt R_1$ y radio exterior $R_3 \gt R_2$ ($\text{m}$), cuya superficie exterior se conecta a tierra ($V = 0$ respecto del infinito). Determina: a) las cargas y densidades superficiales en $R_1$, $R_2$ y $R_3$; b) el vector campo eléctrico $\vec E(r)$ en las cuatro regiones del espacio; c) el potencial eléctrico de la esfera interior respecto de tierra. (Basado en Examen 2015-2 P10.)</p>
+        <div class="given"><div><b>Datos</b> esfera $R_1$ con $+Q$; cascarón $R_2 \lt r \lt R_3$ conectado a tierra ($V(R_3) = 0$)</div><div><b>Piden</b> $q_1, q_2, q_3$ y $\sigma_1, \sigma_2, \sigma_3$; $\vec E(r)$ en 4 regiones; $V(R_1)$</div></div>
+      </div>
+      <figure class="fig" data-fig="u02-conductor-cavidad"><figcaption>Esquema de un conductor con cavidad que encierra $+Q$. Aquí la carga $+Q$ está en la esfera interior de radio $R_1$ y el cascarón exterior ($R_2 \lt r \lt R_3$) se conecta a tierra.</figcaption></figure>
+    </div>
+    <div class="predict"><b>Antes de calcular:</b> al conectar el cascarón exterior a tierra, ¿se descarga la superficie interior $R_2$, la exterior $R_3$, o ambas?</div>
+    <ol class="reveal">
+      <li class="hint">Dentro del metal del cascarón ($R_2 \lt r \lt R_3$) el campo es cero, lo que fija $q_2 = -Q$; afuera ($r \gt R_3$), $V(R_3) = 0$ fija $q_3$.</li>
+      <li><span class="rl">Paso 1 · Cargas en $R_1$ y en la pared interior $R_2$</span><p class="do"><b>Qué hago:</b> toda la carga $+Q$ de la esfera interior está en su superficie $r = R_1$: $q_1 = +Q$, $\sigma_1 = \dfrac{Q}{4\pi R_1^2}$. Para una esfera gaussiana en el metal del cascarón ($R_2 \lt r \lt R_3$), $\vec E = \vec 0 \implies Q_{\text{enc}} = Q + q_2 = 0 \implies q_2 = -Q$ y $\sigma_2 = -\dfrac{Q}{4\pi R_2^2}$.</p><p><b>Por qué:</b> la carga inducida $-Q$ en $R_2$ está "atada" por el campo que entra desde $+Q$ y no escapa a tierra.</p></li>
+      <li><span class="rl">Paso 2 · Efecto de la puesta a tierra en $R_3$</span><p class="do"><b>Qué hago:</b> para $r \gt R_3$, Gauss da $\vec E(r) = \dfrac{Q + q_2 + q_3}{4\pi\varepsilon_0 r^2}\,\hat r = \dfrac{q_3}{4\pi\varepsilon_0 r^2}\,\hat r$. El potencial en $R_3$ respecto de $V(\infty) = 0$ es $V(R_3) = -\displaystyle\int_\infty^{R_3} \dfrac{q_3}{4\pi\varepsilon_0 r^2}\,dr = \dfrac{q_3}{4\pi\varepsilon_0}\left[\dfrac{1}{r}\right]_\infty^{R_3} = \dfrac{q_3}{4\pi\varepsilon_0 R_3}$. Como la tierra fija $V(R_3) = 0$, necesariamente $q_3 = 0$ y $\sigma_3 = 0$.</p><p><b>Por qué:</b> la Tierra suministra carga $-Q$ al cascarón hasta anular la carga externa y hacer $\vec E = \vec 0$ afuera.</p></li>
+      <li><span class="rl">Paso 3 · Campo eléctrico en las 4 regiones</span><p class="do"><b>Qué hago:</b> $r \lt R_1$: $\vec E = \vec 0$ (interior conductor). $R_1 \lt r \lt R_2$: Gauss encierra $+Q \implies \vec E = \dfrac{Q}{4\pi\varepsilon_0 r^2}\,\hat r$. $R_2 \lt r \lt R_3$: $\vec E = \vec 0$ (interior conductor). $r \gt R_3$: $Q_{\text{enc}} = +Q - Q + 0 = 0 \implies \vec E = \vec 0$.</p><p><b>Por qué:</b> el sistema completo es neutro visto desde afuera.</p></li>
+      <li><span class="rl">Paso 4 · Potencial de la esfera interior respecto de tierra</span><p class="do"><b>Qué hago:</b> como $V(R_2) = V(R_3) = 0$ (el cascarón es equipotencial), integramos desde $R_2$ hasta $R_1$: $V(R_1) - V(R_2) = -\displaystyle\int_{R_2}^{R_1} \dfrac{Q}{4\pi\varepsilon_0 r^2}\,dr = \dfrac{Q}{4\pi\varepsilon_0}\left[\dfrac{1}{r}\right]_{R_2}^{R_1} = \dfrac{Q}{4\pi\varepsilon_0}\left(\dfrac{1}{R_1} - \dfrac{1}{R_2}\right)$.</p><p><b>Por qué:</b> definición de diferencia de potencial $\Delta V = -\int\vec E\cdot d\vec r$.</p></li>
+      <li class="final">$$\boxed{\sigma_1 = \frac{Q}{4\pi R_1^2},\quad \sigma_2 = -\frac{Q}{4\pi R_2^2},\quad \sigma_3 = 0;\qquad \vec E(r) = \begin{cases}\dfrac{Q}{4\pi\varepsilon_0 r^2}\,\hat r, & R_1 \lt r \lt R_2\\[4pt]\vec 0, & \text{en el resto}\end{cases};\qquad V(R_1) = \frac{Q}{4\pi\varepsilon_0}\left(\frac{1}{R_1} - \frac{1}{R_2}\right)}$$</li>
+      <li class="check"><b>Verificación:</b> unidades: $[Q/(\varepsilon_0 R_1)] = \text{C}/[(\text{C}^2/(\text{N·m}^2))\cdot\text{m}] = \text{N·m/C} = \text{V}$. Signo: como $R_1 \lt R_2$, $V(R_1) \gt 0$ (consistente con $Q \gt 0$: el campo apunta hacia afuera, hacia menor potencial). Límite $R_2 \to \infty$: $V(R_1) \to \frac{Q}{4\pi\varepsilon_0 R_1}$, el potencial de una esfera conductora aislada. Si escribimos $Q = 4\pi R_1^2\sigma_1$, resulta $V(R_1) = \frac{\sigma_1 R_1}{\varepsilon_0}\left(1 - \frac{R_1}{R_2}\right)$.</li>
+    </ol>
+    <div class="ctrl"></div>
+  </div>
+</section>
+
+<section class="sec" id="u02-examen" data-block="arquetipos" data-title="Arquetipos de examen">
+  <h2>Arquetipos de examen</h2>
+  <p>Problemas reales de exámenes anteriores de FIS1533, resueltos con el puntaje de la pauta oficial (o puntaje asignado por pasos cuando el examen original fue de alternativas) y con las erratas de pauta anotadas.</p>
+
+  <div class="prob" id="u02-x1" data-kind="arquetipo" data-diff="2">
+    <div class="prob-head"><span class="tag">Arquetipo de examen 1</span><span class="ptitle">Esfera no conductora con $\rho = -3\beta r^3$ en cascarón conductor</span><span class="diff">dificultad 2/3</span><span class="src">Examen 2025-1 · P1</span></div>
+    <div class="prob-grid">
+      <div>
+        <p class="stmt">Una configuración de carga eléctrica está formada por una esfera no conductora de radio $R$ ($\text{m}$) centrada en el origen con densidad volumétrica de carga $\rho(r) = -3\beta r^3$ ($\beta \gt 0$ constante en $\text{C/m}^6$), y otra esfera hueca conductora concéntrica con radio interno $2R$ y externo $3R$, cuya carga eléctrica neta es $q_{\text{neta}} = -\beta\pi R^6$ ($\text{C}$). Determina: a) <b>(1 pto.)</b> la carga total, $Q$, en la esfera de radio $R$; b) <b>(2 pts.)</b> las densidades superficiales de carga en la esfera hueca; c) <b>(3 pts.)</b> el vector campo eléctrico en las regiones: 1) $0 \lt r \lt R$; 2) $R \lt r \lt 2R$; 3) $2R \lt r \lt 3R$; 4) $r \gt 3R$.</p>
+        <div class="given"><div><b>Datos</b> esfera $0 \lt r \lt R$ con $\rho = -3\beta r^3$; cascarón conductor $2R \lt r \lt 3R$ con $q_{\text{neta}} = -\beta\pi R^6$</div><div><b>Piden</b> $Q$; $\sigma_{\text{int}}, \sigma_{\text{ext}}$; $\vec E(r)$ en 4 regiones</div></div>
+      </div>
+      <figure class="fig" data-fig="u02-arq1-esfera-cascaron"><figcaption>Corte transversal de las cuatro regiones concéntricas y superficies gaussianas $S_2$ (vacío intermedio) y $S_3$ (dentro del conductor).</figcaption></figure>
+    </div>
+    <div class="predict"><b>Antes de calcular:</b> como $\rho = -3\beta r^3$ es negativa (para $\beta \gt 0$), ¿de qué signo será $q_{\text{int}}$ en $r = 2R$? ¿Y en qué sentido apunta $\vec E$ en $0 \lt r \lt R$?</div>
+    <ol class="reveal">
+      <li class="hint">Integra $Q = \int_0^R (-3\beta r^3)(4\pi r^2\,dr)$; luego usa $\vec E = \vec 0$ en el metal para $q_{\text{int}} = -Q$ y conservación de la carga para $q_{\text{ext}}$.</li>
+      <li><span class="rl">Paso 1 · Carga total $Q$ de la esfera interior (parte a: 0,3 + 0,7 = 1,0 pto.)</span><p class="do"><b>Qué hago:</b> integramos en esféricas ($dV' = {r'}^2\sin\theta\,dr'\,d\theta\,d\phi$):</p>
+      $$Q = \int_0^{2\pi}d\phi\int_0^\pi\sin\theta\,d\theta\int_0^R (-3\beta {r'}^3){r'}^2\,dr' = 4\pi(-3\beta)\int_0^R {r'}^5\,dr' = -12\pi\beta\left[\frac{{r'}^6}{6}\right]_0^R = -2\beta\pi R^6$$
+      <p><b>Por qué:</b> el jacobiano esférico aporta ${r'}^2$ que, multiplicado por ${r'}^3$, da ${r'}^5$.</p></li>
+      <li><span class="rl">Paso 2 · Densidad interna $\sigma_{\text{int}}$ en $r = 2R$ (parte b: 0,5 + 0,5 = 1,0 pto.)</span><p class="do"><b>Qué hago:</b> en la superficie gaussiana $S_3$ dentro del metal ($2R \lt r \lt 3R$), $\vec E = \vec 0 \implies q_{\text{enc}} = Q + q_{\text{int}} = 0 \implies q_{\text{int}} = -Q = +2\beta\pi R^6$. Dividiendo por el área de la esfera de radio $2R$:</p>
+      $$\sigma_{\text{int}} = \frac{q_{\text{int}}}{4\pi(2R)^2} = \frac{2\beta\pi R^6}{16\pi R^2} = \frac{\beta R^4}{8}$$
+      <p><b>Por qué:</b> un conductor en equilibrio anula el campo en su masa interior induciendo $-Q$ en su pared interna. <em>Nota de pauta:</em> la transcripción `Pauta_Ex_FIS1533_2025_1.md` omite el factor numérico $8$ en el resultado simplificado de $\sigma_{\text{int}}$ (y el exponente en $4\pi(2R)^2$); el valor correcto simplificado es $\beta R^4/8$.</p></li>
+      <li><span class="rl">Paso 3 · Densidad externa $\sigma_{\text{ext}}$ en $r = 3R$ (parte b: 0,5 + 0,5 = 1,0 pto.)</span><p class="do"><b>Qué hago:</b> por conservación de la carga en el cascarón conductor, $q_{\text{ext}} = q_{\text{neta}} - q_{\text{int}} = -\beta\pi R^6 - 2\beta\pi R^6 = -3\beta\pi R^6$. Dividiendo por el área $4\pi(3R)^2 = 36\pi R^2$:</p>
+      $$\sigma_{\text{ext}} = \frac{q_{\text{ext}}}{4\pi(3R)^2} = \frac{-3\beta\pi R^6}{36\pi R^2} = -\frac{\beta R^4}{12}$$
+      <p><b>Por qué:</b> la carga neta del conductor se reparte solo entre sus dos superficies. <em>Nota de pauta:</em> la transcripción de la pauta también omite el $12$ del denominador en este resultado final.</p></li>
+      <li><span class="rl">Paso 4 · Campo eléctrico en las 4 regiones (parte c: 0,75 × 4 = 3,0 pts.)</span><p class="do"><b>Qué hago:</b> por simetría esférica, $\oint\vec E\cdot d\vec A = E_r(4\pi r^2) = q_{\text{enc}}(r)/\varepsilon_0$, luego $\vec E = \dfrac{q_{\text{enc}}(r)}{4\pi\varepsilon_0 r^2}\,\hat r$:</p>
+      <ul>
+        <li><b>1) $0 \lt r \lt R$ (0,75 pts.):</b> $q_{\text{enc}}(r) = 4\pi(-3\beta)\displaystyle\int_0^r {r'}^5\,dr' = -2\beta\pi r^6 \implies \vec E_1 = \dfrac{-2\beta\pi r^6}{4\pi\varepsilon_0 r^2}\,\hat r = -\dfrac{\beta r^4}{2\varepsilon_0}\,\hat r$.</li>
+        <li><b>2) $R \lt r \lt 2R$ (0,75 pts.):</b> $q_{\text{enc}} = Q = -2\beta\pi R^6 \implies \vec E_2 = -\dfrac{\beta R^6}{2\varepsilon_0 r^2}\,\hat r$.</li>
+        <li><b>3) $2R \lt r \lt 3R$ (0,75 pts.):</b> interior del conductor $\implies \vec E_3 = \vec 0$.</li>
+        <li><b>4) $r \gt 3R$ (0,75 pts.):</b> $q_{\text{enc}} = Q + q_{\text{neta}} = -2\beta\pi R^6 - \beta\pi R^6 = -3\beta\pi R^6 \implies \vec E_4 = -\dfrac{3\beta R^6}{4\varepsilon_0 r^2}\,\hat r$.</li>
+      </ul>
+      <p><b>Por qué:</b> ley de Gauss región por región (en la transcripción de pauta faltaba el exponente $2$ de $r^2$ en algunos denominadores intermedios; los resultados finales son los aquí mostrados).</p></li>
+      <li class="final">$$\boxed{Q = -2\beta\pi R^6,\qquad \sigma_{\text{int}} = \frac{\beta R^4}{8},\qquad \sigma_{\text{ext}} = -\frac{\beta R^4}{12}}$$ $$\boxed{\vec E_1 = -\frac{\beta r^4}{2\varepsilon_0}\,\hat r\ \ (0\lt r\lt R),\quad \vec E_2 = -\frac{\beta R^6}{2\varepsilon_0 r^2}\,\hat r\ \ (R\lt r\lt 2R),\quad \vec E_3 = \vec 0\ \ (2R\lt r\lt 3R),\quad \vec E_4 = -\frac{3\beta R^6}{4\varepsilon_0 r^2}\,\hat r\ \ (r\gt 3R)}$$</li>
+      <li class="check"><b>Verificación:</b> continuidad en $r = R$: $E_1(R) = -\frac{\beta R^4}{2\varepsilon_0} = E_2(R)$. Salto en $r = 2R$: $E_3(2R) - E_2(2R) = 0 - \left(-\frac{\beta R^6}{2\varepsilon_0 (4R^2)}\right) = +\frac{\beta R^4}{8\varepsilon_0} = \frac{\sigma_{\text{int}}}{\varepsilon_0}$. Salto en $r = 3R$: $E_4(3R) - E_3(3R) = -\frac{3\beta R^6}{4\varepsilon_0 (9R^2)} = -\frac{\beta R^4}{12\varepsilon_0} = \frac{\sigma_{\text{ext}}}{\varepsilon_0}$. Unidades: $[\beta R^4] = (\text{C/m}^6)\text{m}^4 = \text{C/m}^2$ y $[\beta R^4/\varepsilon_0] = \text{N/C}$. Límite: si el cascarón tuviera $q_{\text{neta}} = -Q = +2\beta\pi R^6$ (neutralizando exactamente a la esfera), entonces $\vec E_4 = \vec 0$ para todo $r \gt 3R$.</li>
+    </ol>
+    <div class="ctrl"></div>
+  </div>
+
+  <div class="prob" id="u02-x2" data-kind="arquetipo" data-diff="2">
+    <div class="prob-head"><span class="tag">Arquetipo de examen 2</span><span class="ptitle">Dos cilindros infinitos paralelos con campo nulo en un punto</span><span class="diff">dificultad 2/3</span><span class="src">Examen 2021-2 · Ej. 2</span></div>
+    <div class="prob-grid">
+      <div>
+        <p class="stmt"><b>(6 pts.)</b> Dos cilindros no conductores infinitos y paralelos al eje $z$, ambos de radio $R = 30\ \text{cm}$, tienen sus ejes separados una distancia $D = 90\ \text{cm}$ sobre el eje $x$. El primer cilindro presenta una densidad volumétrica uniforme $\rho_1 = 8\ \mu\text{C/m}^3$. Si no hay campo eléctrico en un punto $P$ situado sobre la línea que une ambos ejes, <em>entre</em> los dos cilindros, a una distancia $d = 9\ \text{cm}$ desde el eje del segundo cilindro (es decir, dentro del segundo cilindro y a distancia $D - d = 81\ \text{cm}$ del eje del primero), ¿cuál es la densidad de carga $\rho_2$ (supuesta uniforme) del segundo cilindro?</p>
+        <div class="given"><div><b>Datos</b> $R = 30\ \text{cm}$, $D = 90\ \text{cm}$, $\rho_1 = 8\ \mu\text{C/m}^3$, $d = 9\ \text{cm} \lt R$ (entre ejes)</div><div><b>Piden</b> $\rho_2$ (magnitud, signo y unidades)</div></div>
+      </div>
+      <figure class="fig" data-fig="u02-arq2-dos-cilindros"><figcaption>Sección transversal: $P$ está dentro del cilindro 2 ($d = 9\ \text{cm} \lt R$) y fuera del cilindro 1 ($D - d = 81\ \text{cm} \gt R$). Para que $\vec E_1 + \vec E_2 = \vec 0$, $\rho_2$ debe ser positiva.</figcaption></figure>
+    </div>
+    <div class="predict"><b>Antes de calcular:</b> como $P$ está entre ambos ejes, $\vec E_1(P)$ apunta hacia la derecha (hacia el cilindro 2). Para cancelarlo, ¿$\rho_2$ debe ser positiva o negativa?</div>
+    <ol class="reveal">
+      <li class="hint">Calcula por Gauss $E_{\text{int}}(r)$ y $E_{\text{ext}}(r)$ de un cilindro infinito; luego aplica superposición en $P$ considerando $r_1 = D - d \gt R$ y $r_2 = d \lt R$.</li>
+      <li><span class="rl">Paso 1 · Planteamiento de Gauss cilíndrico (2,0 pts.)</span><p class="do"><b>Qué hago:</b> por simetría cilíndrica, para un cilindro infinito de radio $R$ y densidad $\rho$, tomamos un cilindro gaussiano coaxial de radio $r$ y largo $L$: el flujo por las tapas es cero y por el manto es $\Phi_E = 2\pi r L\,E(r) = Q_{\text{enc}}/\varepsilon_0$. Si $r \lt R$, $Q_{\text{enc}} = \rho\pi r^2 L$; si $r \gt R$, $Q_{\text{enc}} = \rho\pi R^2 L$.</p><p><b>Por qué:</b> $\vec E$ es radial perpendicular al eje y constante en el manto.</p></li>
+      <li><span class="rl">Paso 2 · Campo interior y exterior (2,0 pts.)</span><p class="do"><b>Qué hago:</b> cancelando $\pi L$ en cada caso:</p>
+      $$\vec E_{\text{int}}(r) = \frac{\rho r}{2\varepsilon_0}\,\hat r \ \ (r \lt R),\qquad \vec E_{\text{ext}}(r) = \frac{\rho R^2}{2\varepsilon_0 r}\,\hat r \ \ (r \gt R)$$
+      <p><b>Por qué:</b> dentro solo encierra la fracción $(r/R)^2$; afuera encierra todo el cilindro.</p></li>
+      <li><span class="rl">Paso 3 · Superposición en $P$ y cálculo de $\rho_2$ (2,0 pts.)</span><p class="do"><b>Qué hago:</b> ponemos el cilindro 1 en $x = 0$, el cilindro 2 en $x = D$ y $P$ en $x = D - d$. Como $D - d = 81\ \text{cm} \gt 30\ \text{cm}$, $P$ está fuera del cilindro 1: $\vec E_1(P) = +\dfrac{\rho_1 R^2}{2\varepsilon_0(D - d)}\,\hat\imath$. Como $d = 9\ \text{cm} \lt 30\ \text{cm}$, $P$ está dentro del cilindro 2, a la izquierda de su eje: el unitario radial saliente desde el eje 2 hacia $P$ es $-\hat\imath$, así que $\vec E_2(P) = -\dfrac{\rho_2 d}{2\varepsilon_0}\,\hat\imath$. Imponiendo $\vec E_1(P) + \vec E_2(P) = \vec 0$:</p>
+      $$\frac{\rho_1 R^2}{2\varepsilon_0(D - d)} = \frac{\rho_2 d}{2\varepsilon_0} \quad\Longrightarrow\quad \rho_2 = \rho_1\,\frac{R^2}{d(D - d)} = (8\ \mu\text{C/m}^3)\,\frac{30^2}{9\cdot(90 - 9)} = 8\cdot\frac{900}{9\cdot 81} = \frac{800}{81}\ \mu\text{C/m}^3 \approx 9{,}88\ \mu\text{C/m}^3$$
+      <p><b>Por qué:</b> $2\varepsilon_0$ se cancela y el factor geométrico $\frac{R^2}{d(D-d)}$ es adimensional (por eso basta usar $\text{cm}$ sin convertir a metros). <em>Erratas de la pauta oficial corregidas:</em> la pauta de `Examen 2021-2.md` escribe por error tipográfico $R$ en lugar de $R^2$ en la fórmula simbólica (aunque en el cálculo numérico sí eleva $R$ al cuadrado), trunca $9{,}8765\dots$ a $9{,}87$ en vez de redondear a $9{,}88$, y omite $/{\text{m}}^3$ escribiendo $\mu\text{C}$ en lugar de $\mu\text{C/m}^3$.</p></li>
+      <li class="final">$$\boxed{\rho_2 = \rho_1\frac{R^2}{d(D - d)} = \frac{800}{81}\ \mu\text{C/m}^3 \approx +9{,}88\ \mu\text{C/m}^3}$$</li>
+      <li class="check"><b>Verificación:</b> unidades: $\frac{R^2}{d(D-d)}$ es adimensional, luego $[\rho_2] = [\rho_1] = \mu\text{C/m}^3$. Límite: si $P$ se acercara al eje del segundo cilindro ($d\to 0$), se necesitaría $\rho_2\to\infty$ para que su campo interior $\propto \rho_2 d$ iguale al campo finito del primer cilindro. Nota: si $P$ hubiera estado del lado <em>exterior</em> del cilindro 2 (en $x = D + d$), ambos unitarios habrían apuntado en $+\hat\imath$ y $\rho_2$ habría resultado negativa.</li>
+    </ol>
+    <div class="ctrl"></div>
+  </div>
+
+  <div class="prob" id="u02-x3" data-kind="arquetipo" data-diff="3">
+    <div class="prob-head"><span class="tag">Arquetipo de examen 3</span><span class="ptitle">Esfera no conductora con cavidad esférica rellena con carga $Q$</span><span class="diff">dificultad 3/3</span><span class="src">Examen 2022-2 · P11</span></div>
+    <div class="prob-grid">
+      <div>
+        <p class="stmt">Una esfera sólida no conductora, centrada en el origen coordenado y de radio $R$ ($\text{m}$), posee una densidad volumétrica de carga constante $\rho$ ($\text{C/m}^3$). Cierta cantidad de material es removida dejando una cavidad esférica de radio $b$ tal que $R = 2b$, centrada en $(b, 0, 0)$ (de modo que la cavidad toca el origen y el borde derecho de la esfera en $x = 2b$). La cavidad es rellenada con un material no conductor uniformemente cargado con carga total $Q$ ($\text{C}$). Calcula el campo eléctrico resultante en el punto $P_1 = (2b, 0, 0)$. <em>(Examen original de selección múltiple sin desglose de puntaje; rúbrica asignada de 6 pts.: 1,5 pts. campo de esfera maciza + 1,5 pts. superposición del hueco $-\rho$ + 1,5 pts. campo del relleno $Q$ + 1,5 pts. evaluación en $P_1$.)</em></p>
+        <div class="given"><div><b>Datos</b> esfera radio $R = 2b$ en $(0,0,0)$ con $\rho$; cavidad radio $b$ en $(b,0,0)$ rellena con $Q$; $P_1 = (2b,0,0)$</div><div><b>Piden</b> $\vec E(P_1)$</div></div>
+      </div>
+      <figure class="fig" data-fig="u02-arq3-cavidad-rellena"><figcaption>Corte en el plano $xy$. La cavidad de radio $b$ está centrada en $(b, 0)$ y el punto de evaluación $P_1$ está en $(2b, 0)$.</figcaption></figure>
+    </div>
+    <div class="predict"><b>Antes de calcular:</b> si $\rho \gt 0$ y $Q \gt 0$, en $P_1 = (2b, 0, 0)$ tanto el resto de la esfera como el relleno de la cavidad quedan a la izquierda de $P_1$: ¿los dos términos se suman o se restan?</div>
+    <ol class="reveal">
+      <li class="hint">Usa superposición con tres esferas: $\vec E = \vec E_{+\rho}(\text{en }0) + \vec E_{-\rho}(\text{en }b\hat\imath) + \vec E_Q(\text{en }b\hat\imath)$.</li>
+      <li><span class="rl">Paso 1 · Campo en el interior de una esfera uniforme (1,5 pts.)</span><p class="do"><b>Qué hago:</b> por Gauss en una esfera uniforme de densidad $\rho$ centrada en el origen, para $r \le R$ el campo es $\vec E(\vec r) = \dfrac{\rho}{3\varepsilon_0}\,\vec r = \dfrac{\rho}{3\varepsilon_0}(x\,\hat\imath + y\,\hat\jmath + z\,\hat k)$.</p><p><b>Por qué:</b> $E(4\pi r^2) = \frac{\rho\frac43\pi r^3}{\varepsilon_0} \implies E = \frac{\rho r}{3\varepsilon_0}$ y $r\,\hat r = \vec r$.</p></li>
+      <li><span class="rl">Paso 2 · Superposición de la esfera con cavidad vacía (1,5 pts.)</span><p class="do"><b>Qué hago:</b> removemos el material de la cavidad sumando una esfera de radio $b$ centrada en $\vec r_c = b\,\hat\imath$ con densidad $-\rho$. Para cualquier punto $\vec r$ dentro de la cavidad (incluido su borde $P_1$), $\vec r - \vec r_c = (x - b)\,\hat\imath + y\,\hat\jmath + z\,\hat k$, luego:</p>
+      $$\vec E_{+\rho} + \vec E_{-\rho} = \frac{\rho}{3\varepsilon_0}\big[(x\,\hat\imath + y\,\hat\jmath + z\,\hat k) - ((x - b)\,\hat\imath + y\,\hat\jmath + z\,\hat k)\big] = \frac{\rho b}{3\varepsilon_0}\,\hat\imath$$
+      <p><b>Por qué:</b> las coordenadas $(x, y, z)$ se cancelan; la cavidad vacía tendría campo uniforme $\frac{\rho b}{3\varepsilon_0}\hat\imath$.</p></li>
+      <li><span class="rl">Paso 3 · Campo del material de relleno con carga $Q$ (1,5 pts.)</span><p class="do"><b>Qué hago:</b> la esfera de relleno tiene radio $b$, centro en $b\,\hat\imath$ y densidad uniforme $\rho_Q = \dfrac{Q}{\frac43\pi b^3}$. En un punto interior o de borde ($|\vec r - b\hat\imath| \le b$), su campo es:</p>
+      $$\vec E_Q(\vec r) = \frac{\rho_Q}{3\varepsilon_0}(\vec r - b\,\hat\imath) = \frac{Q}{4\pi\varepsilon_0 b^3}\big[(x - b)\,\hat\imath + y\,\hat\jmath + z\,\hat k\big]$$
+      <p><b>Por qué:</b> aplicamos de nuevo el campo interior de una esfera uniforme, ahora desplazada al centro $b\,\hat\imath$. <em>Nota de pauta:</em> en `Examen 2022-2.md` ec. (5) faltan los paréntesis que agrupan $((x-b)\hat\imath + y\hat\jmath)$ tras el factor $\frac{Q}{4\pi\varepsilon_0 b^3}$; aquí los incluimos explícitamente.</p></li>
+      <li><span class="rl">Paso 4 · Evaluación en $P_1 = (2b, 0, 0)$ (1,5 pts.)</span><p class="do"><b>Qué hago:</b> sustituimos $x = 2b$, $y = z = 0$ en $\vec E_1 = \vec E_{+\rho} + \vec E_{-\rho} + \vec E_Q$:</p>
+      $$\vec E_1 = \frac{\rho b}{3\varepsilon_0}\,\hat\imath + \frac{Q}{4\pi\varepsilon_0 b^3}(2b - b)\,\hat\imath = \left(\frac{\rho b}{3\varepsilon_0} + \frac{Q}{4\pi\varepsilon_0 b^2}\right)\hat\imath$$
+      <p><b>Por qué:</b> $P_1$ está a distancia $b$ a la derecha del centro de la cavidad, así que $\vec E_Q(P_1)$ apunta en $+\hat\imath$ y se suma al campo uniforme de la cavidad (corresponde a la alternativa c) del examen).</p></li>
+      <li class="final">$$\boxed{\vec E(P_1) = \left(\frac{\rho b}{3\varepsilon_0} + \frac{Q}{4\pi\varepsilon_0 b^2}\right)\hat\imath}$$</li>
+      <li class="check"><b>Verificación:</b> unidades: $[\rho b/\varepsilon_0] = (\text{C/m}^3)(\text{m})/(\text{C}^2/\text{N·m}^2) = \text{N/C}$ y $[Q/(4\pi\varepsilon_0 b^2)] = \text{N/C}$. Límite $Q = 0$: queda $\frac{\rho b}{3\varepsilon_0}\hat\imath$ (cavidad vacía). Límite $Q = \frac43\pi b^3\rho$ (misma densidad $\rho$): reemplazando da $\left(\frac{\rho b}{3\varepsilon_0} + \frac{\rho b}{3\varepsilon_0}\right)\hat\imath = \frac{\rho(2b)}{3\varepsilon_0}\hat\imath = \frac{\rho R}{3\varepsilon_0}\hat\imath$, ¡el campo en el borde de la esfera maciza intacta! Además, en el origen $P_2 = (0,0,0)$ daría $\left(\frac{\rho b}{3\varepsilon_0} - \frac{Q}{4\pi\varepsilon_0 b^2}\right)\hat\imath$ (la alternativa a).</li>
+    </ol>
+    <div class="ctrl"></div>
+  </div>
+</section>
+
+<section class="sec" id="u02-errores" data-block="errores" data-title="Errores típicos">
+  <h2>Errores típicos</h2>
+  <div class="trap"><b>Elegir una superficie gaussiana donde $E$ no es constante ni paralelo a $d\vec A$.</b> La ley $\oint\vec E\cdot d\vec A = Q_{\text{enc}}/\varepsilon_0$ siempre es válida, pero solo puedes sacar $E$ de la integral si es constante sobre las caras donde $\vec E\parallel d\vec A$. Cómo detectarlo: si intentas aplicar Gauss a un disco finito o un segmento finito con una esfera, el campo depende del ángulo y no puede salir de la integral.</div>
+  <div class="trap"><b>Confundir $\sigma/(2\varepsilon_0)$ con $\sigma/\varepsilon_0$.</b> Una lámina infinita aislada crea campo a ambos lados y da $E = \sigma/(2\varepsilon_0)$ a cada lado; justo fuera de un conductor en equilibrio el campo dentro del metal es cero y todo el flujo sale hacia afuera, dando $E = \sigma/\varepsilon_0$. Cómo detectarlo: verifica si hay metal conductor de un lado (factor $1$) o vacío simétrico a ambos lados (factor $1/2$).</div>
+  <div class="trap"><b>Olvidar el jacobiano en integrales de carga encerrada.</b> En esféricas el volumen de una cáscara es $4\pi r^2\,dr$ (no $dr$ ni $4\pi r\,dr$); en cilíndricas, $dV = r\,dr\,d\theta\,dz \implies 2\pi r L\,dr$. Cómo detectarlo: haz análisis dimensional de $Q_{\text{enc}}$ antes de despejar $\vec E$; si falta un factor $r$, las unidades no dan $\text{C}$.</div>
+  <div class="trap"><b>Olvidar la carga inducida $q_{\text{int}} = -Q_{\text{enc}}$ o olvidar sumarla en el exterior.</b> Dentro de un cascarón conductor $\vec E = \vec 0$ exige que la pared interna adquiera $-Q_{\text{enc}}$, y la pared externa queda con $q_{\text{cond}} - q_{\text{int}} = q_{\text{cond}} + Q_{\text{enc}}$. Además, fuera de todo el sistema ($r \gt R_{\text{ext}}$), $Q_{\text{enc}}$ incluye la carga central <em>más</em> la carga neta del cascarón (2025-1 P1). Cómo detectarlo: comprueba el salto $\Delta E_n = \sigma/\varepsilon_0$ en cada superficie conductora.</div>
+  <div class="trap"><b>Aplicar Gauss directamente a un cuerpo con cavidad descentrada.</b> Una esfera o cilindro con un hueco descentrado <em>no</em> tiene simetría radial, así que $\vec E$ no es radial ni constante sobre una esfera centrada. Cómo detectarlo: pregúntate si al rotar el sistema alrededor del centro elegido la distribución queda idéntica; si no, usa superposición ($+\rho$ completo más $-\rho$ en el hueco).</div>
+  <div class="trap"><b>Suponer que conectar un conductor a tierra siempre deja $q = 0$.</b> Conectar a tierra fija el potencial en $V = 0$, no la carga en cero. Si se conecta a tierra un cascarón exterior sin cargas afuera, sí queda $q_{\text{ext}} = 0$, pero su cara interna conserva $q_{\text{int}} = -Q_{\text{enc}}$; y si se conecta a tierra un conductor rodeado por otro cargado, adquiere carga neta inducida. Cómo detectarlo: calcula siempre $V = -\int_\infty^{R_{\text{tierra}}}\vec E\cdot d\vec r = 0$ en lugar de adivinar $q = 0$.</div>
+</section>
+
+<section class="sec" id="u02-practica" data-block="practica" data-title="Práctica">
+  <h2>Práctica</h2>
+  <p>Ejercicios de ayudantías, clases e interrogaciones de FIS1533 (citados) con desarrollo completo para practicar sin calculadora.</p>
+
+  <div class="prob" id="u02-p1" data-kind="practica" data-diff="1">
+    <div class="prob-head"><span class="tag">Práctica 1</span><span class="ptitle">Cilindro infinito con densidad linealmente creciente $\rho(r) = \alpha r$</span><span class="diff">dificultad 1/3</span></div>
+    <div class="prob-grid">
+      <div>
+        <p class="stmt">Un cilindro no conductor infinito de radio $R$ ($\text{m}$) tiene su eje coincidente con el eje $z$ y posee una densidad volumétrica de carga $\rho(r) = \alpha r$ para $0 \le r \le R$, donde $\alpha \gt 0$ es una constante (en $\text{C/m}^4$) y $r$ es la distancia perpendicular al eje $z$. Para $r \gt R$, $\rho = 0$. Calcula: a) la carga $Q_{\text{enc}}$ contenida en un cilindro coaxial de radio $r$ y altura $h$ ($\text{m}$) para $r \le R$ y para $r \gt R$; b) el vector campo eléctrico $\vec E(r)$ en todo el espacio. (Basado en Ayudantía 05 · P1, 2026-2.)</p>
+        <div class="given"><div><b>Datos</b> cilindro infinito radio $R$, $\rho(r) = \alpha r$ ($\alpha \gt 0$ en $\text{C/m}^4$), altura $h$</div><div><b>Piden</b> $Q_{\text{enc}}(r \le R)$, $Q_{\text{enc}}(r \gt R)$, $\vec E(r)$</div></div>
+      </div>
+      <figure class="fig" data-fig="u02-cilindro-gauss"><figcaption>Cilindro gaussiano coaxial de radio $r$ y largo $L = h$ para aprovechar la simetría cilíndrica.</figcaption></figure>
+    </div>
+    <div class="predict"><b>Antes de calcular:</b> como $\rho(r) = \alpha r$, ¿esperas que $E(r)$ dentro del cilindro crezca como $r$ o como $r^2$?</div>
+    <ol class="reveal">
+      <li class="hint">Integra $dV' = r'\,dr'\,d\theta\,dz$ (o $2\pi r' h\,dr'$) hasta $r$ cuando $r \le R$, y hasta $R$ cuando $r \gt R$.</li>
+      <li><span class="rl">Paso 1 · Carga encerrada para $r \le R$ y $r \gt R$</span><p class="do"><b>Qué hago:</b> en cilíndricas, $dV' = r'\,dr'\,d\theta\,dz$ con $\theta\in[0,2\pi]$ y $z\in[0,h]$:</p>
+      $$Q_{\text{enc}}(r \le R) = 2\pi h\alpha\int_0^r {r'}^2\,dr' = \frac{2\pi h\alpha r^3}{3},\qquad Q_{\text{enc}}(r \gt R) = 2\pi h\alpha\int_0^R {r'}^2\,dr' = \frac{2\pi h\alpha R^3}{3}$$
+      <p><b>Por qué:</b> para $r \gt R$ no hay carga fuera de $R$, así que la integral se detiene en $R$.</p></li>
+      <li><span class="rl">Paso 2 · Ley de Gauss en todo el espacio</span><p class="do"><b>Qué hago:</b> por simetría cilíndrica, $\vec E = E(r)\,\hat r$ y el flujo por el cilindro coaxial de radio $r$ y altura $h$ es $E(r)\,(2\pi r h) = Q_{\text{enc}}/\varepsilon_0$. Cancelando $2\pi h$:</p>
+      $$\vec E(r \le R) = \frac{\alpha r^2}{3\varepsilon_0}\,\hat r,\qquad \vec E(r \gt R) = \frac{\alpha R^3}{3\varepsilon_0 r}\,\hat r$$
+      <p><b>Por qué:</b> las tapas no aportan flujo porque $\vec E\perp\hat z$.</p></li>
+      <li class="final">$$\boxed{Q_{\text{enc}} = \begin{cases}\dfrac{2\pi h\alpha r^3}{3}, & r \le R\\[6pt]\dfrac{2\pi h\alpha R^3}{3}, & r \gt R\end{cases},\qquad \vec E(r) = \begin{cases}\dfrac{\alpha r^2}{3\varepsilon_0}\,\hat r, & r \le R\\[6pt]\dfrac{\alpha R^3}{3\varepsilon_0 r}\,\hat r, & r \gt R\end{cases}}$$</li>
+      <li class="check"><b>Verificación:</b> continuidad en $r = R$: ambas dan $\frac{\alpha R^2}{3\varepsilon_0}$. Divergencia dentro: $\frac{1}{r}\frac{d}{dr}(r E_r) = \frac{1}{r}\frac{d}{dr}\left(\frac{\alpha r^3}{3\varepsilon_0}\right) = \frac{\alpha r}{\varepsilon_0} = \frac{\rho(r)}{\varepsilon_0}$. Unidades: $[\alpha r^2/\varepsilon_0] = (\text{C/m}^4)\text{m}^2/(\text{C}^2/\text{N·m}^2) = \text{N/C}$.</li>
+    </ol>
+    <div class="ctrl"></div>
+  </div>
+
+  <div class="prob" id="u02-p2" data-kind="practica" data-diff="2">
+    <div class="prob-head"><span class="tag">Práctica 2</span><span class="ptitle">Esfera de dos capas con densidades opuestas</span><span class="diff">dificultad 2/3</span></div>
+    <div class="prob-grid">
+      <div>
+        <p class="stmt">Considere la siguiente distribución volumétrica de carga con simetría esférica (radios $a \lt b$ en $\text{m}$): $\rho(r) = -n\rho_0$ para $0 \lt r \lt a$, $\rho(r) = +\rho_0$ para $a \le r \le b$, y $\rho(r) = 0$ para $r \gt b$, donde $\rho_0 \gt 0$ es una constante (en $\text{C/m}^3$) y $n \ge 0$ (real). a) Encuentra el vector campo eléctrico $\vec E(r)$ en las tres regiones ($0 \lt r \lt a$, $a \le r \le b$ y $r \gt b$). b) ¿Para qué valor de $n$ se anula el campo eléctrico en todo el exterior ($r \gt b$)? (Basado en Ayudantía 04 · P2, 2026-2.)</p>
+        <div class="given"><div><b>Datos</b> $a \lt b$, $\rho_1 = -n\rho_0$ ($0\lt r\lt a$), $\rho_2 = +\rho_0$ ($a\le r\le b$)</div><div><b>Piden</b> $\vec E(r)$ en 3 regiones, $n$ tal que $\vec E(r \gt b) = \vec 0$</div></div>
+      </div>
+      <figure class="fig" data-fig="u02-esfera-gauss"><figcaption>Simetría esférica por capas: en cada región se aplica Gauss sumando las cargas encerradas dentro del radio $r$.</figcaption></figure>
+    </div>
+    <div class="predict"><b>Antes de calcular:</b> si en el interior $0 \lt r \lt a$ la densidad es negativa, ¿hacia dónde apunta $\vec E$ ahí: hacia afuera o hacia el centro?</div>
+    <ol class="reveal">
+      <li class="hint">En la región intermedia $a \le r \le b$, $Q_{\text{enc}}(r)$ suma la esfera completa de radio $a$ más la cáscara entre $a$ y $r$.</li>
+      <li><span class="rl">Paso 1 · Núcleo ($0 \lt r \lt a$)</span><p class="do"><b>Qué hago:</b> $Q_{\text{enc}}(r) = (-n\rho_0)\frac43\pi r^3$. Por Gauss ($E_r\cdot 4\pi r^2 = Q_{\text{enc}}/\varepsilon_0$): $\vec E(r) = -\dfrac{n\rho_0 r}{3\varepsilon_0}\,\hat r$.</p><p><b>Por qué:</b> esfera uniforme de densidad $-n\rho_0$; apunta hacia adentro ($-\hat r$).</p></li>
+      <li><span class="rl">Paso 2 · Capa intermedia ($a \le r \le b$)</span><p class="do"><b>Qué hago:</b> sumamos el núcleo completo más la cáscara entre $a$ y $r$: $Q_{\text{enc}}(r) = -n\rho_0\frac43\pi a^3 + \rho_0\frac43\pi(r^3 - a^3) = \frac43\pi\rho_0\big[r^3 - (n+1)a^3\big]$. Dividiendo por $4\pi\varepsilon_0 r^2$:</p>
+      $$\vec E(r) = \frac{\rho_0}{3\varepsilon_0}\left(r - \frac{(n+1)a^3}{r^2}\right)\hat r$$
+      <p><b>Por qué:</b> el volumen de la cáscara entre $a$ y $r$ es $\frac43\pi(r^3 - a^3)$.</p></li>
+      <li><span class="rl">Paso 3 · Exterior ($r \gt b$) y condición de campo nulo</span><p class="do"><b>Qué hago:</b> encerramos toda la carga ($r = b$ en el paso anterior): $Q_{\text{total}} = \frac43\pi\rho_0\big[b^3 - (n+1)a^3\big]$, así que $\vec E(r) = \dfrac{\rho_0\big[b^3 - (n+1)a^3\big]}{3\varepsilon_0 r^2}\,\hat r$. Para que $\vec E(r \gt b) = \vec 0$, debe anularse $Q_{\text{total}}$: $b^3 - (n+1)a^3 = 0 \implies n = \left(\dfrac{b}{a}\right)^3 - 1$.</p><p><b>Por qué:</b> si la carga neta total es cero, no hay flujo neto fuera de la esfera. <em>Nota sobre la fuente:</em> en los recuadros finales manuscritos de Ayudantía 04 P2 faltaba $\varepsilon_0$ en el denominador; aquí está corregido.</p></li>
+      <li class="final">$$\boxed{\vec E(r) = \begin{cases}-\dfrac{n\rho_0 r}{3\varepsilon_0}\,\hat r, & 0 \lt r \lt a\\[6pt]\dfrac{\rho_0}{3\varepsilon_0}\left(r - \dfrac{(n+1)a^3}{r^2}\right)\hat r, & a \le r \le b\\[6pt]\dfrac{\rho_0\big[b^3 - (n+1)a^3\big]}{3\varepsilon_0 r^2}\,\hat r, & r \gt b\end{cases},\qquad \vec E(r \gt b) = \vec 0 \iff n = \left(\frac{b}{a}\right)^3 - 1}$$</li>
+      <li class="check"><b>Verificación:</b> unidades: $[\rho_0 a/\varepsilon_0] = (\text{C/m}^3)(\text{m})/(\text{C}^2/\text{N·m}^2) = \text{N/C}$. Continuidad en $r = a$: $\frac{\rho_0}{3\varepsilon_0}(a - (n+1)a) = -\frac{n\rho_0 a}{3\varepsilon_0}$. Continuidad en $r = b$: ambas expresiones dan $\frac{\rho_0[b^3-(n+1)a^3]}{3\varepsilon_0 b^2}$. Si $b = 2a$, da $n = 7$ (entero).</li>
+    </ol>
+    <div class="ctrl"></div>
+  </div>
+
+  <div class="prob" id="u02-p3" data-kind="practica" data-diff="2">
+    <div class="prob-head"><span class="tag">Práctica 3</span><span class="ptitle">Dos cascarones conductores concéntricos conectados por un cable</span><span class="diff">dificultad 2/3</span></div>
+    <div class="prob-grid">
+      <div>
+        <p class="stmt">Dos cascarones esféricos perfectamente conductores y concéntricos rodean a una esfera aislante central de radio $R$ ($\text{m}$), con radios $R \lt a_1 \lt a_2 \lt b_1 \lt b_2$. Inicialmente el conductor interno ($a_1 \lt r \lt a_2$) está descargado y el externo ($b_1 \lt r \lt b_2$) tiene carga neta $+Q$ ($\text{C}$). La esfera aislante central tiene densidad $\rho(r) = \beta r^2$ ($\beta$ en $\text{C/m}^5$) y carga total $+2Q$. a) Determina $\beta$ en función de $Q$ y $R$. b) Calcula las densidades superficiales en $a_1, a_2, b_1, b_2$. c) Halla $\vec E(r)$ en las 6 regiones del espacio. d) Se cierra el interruptor $S$ conectando ambos conductores con un cable. Tras alcanzar el equilibrio, halla las nuevas cargas y densidades en cada superficie y el nuevo campo entre $a_2$ y $b_1$. (Adaptado de I1 2026-2 · P1, incisos a–c y e; el inciso e del original corresponde aquí a la parte d.)</p>
+        <div class="given"><div><b>Datos</b> esfera $R$ con $\rho = \beta r^2$ (carga $2Q$); cascarón interno neutro ($a_1, a_2$); externo con $+Q$ ($b_1, b_2$)</div><div><b>Piden</b> $\beta$; $\sigma_{a_1}, \sigma_{a_2}, \sigma_{b_1}, \sigma_{b_2}$; $\vec E(r)$; redistribución al cerrar $S$</div></div>
+      </div>
+      <figure class="fig" data-fig="u02-practica-dos-cascarones"><figcaption>Corte transversal con la esfera aislante central, los dos cascarones conductores y el interruptor $S$ que une $a_2$ con $b_1$.</figcaption></figure>
+    </div>
+    <div class="predict"><b>Antes de calcular:</b> al cerrar el interruptor $S$, ¿qué pasa con las cargas de $a_2$ y $b_1$, y qué pasa con la carga inducida en $a_1$?</div>
+    <ol class="reveal">
+      <li class="hint">Antes de cerrar $S$, impón $\vec E = \vec 0$ dentro de cada cascarón y conservación de carga en cada uno. Al cerrar $S$, ambos forman un solo conductor equipotencial.</li>
+      <li><span class="rl">Paso 1 · Constante $\beta$ (parte a)</span><p class="do"><b>Qué hago:</b> $2Q = \displaystyle\int_0^R \beta {r'}^2(4\pi {r'}^2\,dr') = 4\pi\beta\left[\frac{{r'}^5}{5}\right]_0^R = \dfrac{4\pi\beta R^5}{5} \implies \beta = \dfrac{5Q}{2\pi R^5}$.</p><p><b>Por qué:</b> integral de volumen en esféricas.</p></li>
+      <li><span class="rl">Paso 2 · Densidades iniciales (parte b)</span><p class="do"><b>Qué hago:</b> en $a_1 \lt r \lt a_2$, $\vec E = \vec 0 \implies q_{a_1} = -2Q \implies \sigma_{a_1} = -\dfrac{Q}{2\pi a_1^2}$. Por neutralidad del conductor interno, $q_{a_2} = +2Q \implies \sigma_{a_2} = \dfrac{Q}{2\pi a_2^2}$. En $b_1 \lt r \lt b_2$, $\vec E = \vec 0 \implies 2Q + 0 + q_{b_1} = 0 \implies q_{b_1} = -2Q \implies \sigma_{b_1} = -\dfrac{Q}{2\pi b_1^2}$. Como el externo tiene carga $+Q$, $q_{b_2} = Q - q_{b_1} = 3Q \implies \sigma_{b_2} = \dfrac{3Q}{4\pi b_2^2}$.</p><p><b>Por qué:</b> Gauss en cada metal + conservación de carga por separado.</p></li>
+      <li><span class="rl">Paso 3 · Campo eléctrico en las 6 regiones (parte c)</span><p class="do"><b>Qué hago:</b> para $r \lt R$: $Q_{\text{enc}}(r) = \frac{4\pi\beta r^5}{5} = 2Q\frac{r^5}{R^5} \implies \vec E_1 = \dfrac{\beta r^3}{5\varepsilon_0}\,\hat r = \dfrac{Q r^3}{2\pi\varepsilon_0 R^5}\,\hat r$. En $R \lt r \lt a_1$ y en $a_2 \lt r \lt b_1$: $Q_{\text{enc}} = 2Q \implies \vec E_2 = \vec E_4 = \dfrac{Q}{2\pi\varepsilon_0 r^2}\,\hat r$. En los dos metales ($a_1 \lt r \lt a_2$ y $b_1 \lt r \lt b_2$): $\vec E_3 = \vec E_5 = \vec 0$. Para $r \gt b_2$: $Q_{\text{enc}} = 2Q + 0 + Q = 3Q \implies \vec E_6 = \dfrac{3Q}{4\pi\varepsilon_0 r^2}\,\hat r$.</p><p><b>Por qué:</b> aplicación directa de Gauss esférico.</p></li>
+      <li><span class="rl">Paso 4 · Al cerrar el interruptor $S$ (parte d)</span><p class="do"><b>Qué hago:</b> los dos cascarones forman un único conductor equipotencial, así que $\vec E(a_2 \lt r \lt b_1) = \vec 0$. Las cargas $+2Q$ de $a_2$ y $-2Q$ de $b_1$ fluyen por el cable y se neutralizan: $q'_{a_2} = q'_{b_1} = 0$ ($\sigma_{a_2} = \sigma_{b_1} = 0$). La carga interna en $a_1$ sigue compensando a la esfera aislante ($q'_{a_1} = -2Q$, $\sigma_{a_1} = -\frac{Q}{2\pi a_1^2}$), y la carga total de ambos cascarones ($0 + Q = +Q$) deja $q'_{b_2} = Q - q'_{a_1} = 3Q$ ($\sigma_{b_2} = \frac{3Q}{4\pi b_2^2}$).</p><p><b>Por qué:</b> no hay carga libre entre $a_2$ y $b_1$; al igualarse el potencial entre ellos el campo intermedio desaparece.</p></li>
+      <li class="final">$$\boxed{\beta = \frac{5Q}{2\pi R^5};\quad \sigma_{a_1} = -\frac{Q}{2\pi a_1^2},\ \sigma_{a_2} = \frac{Q}{2\pi a_2^2},\ \sigma_{b_1} = -\frac{Q}{2\pi b_1^2},\ \sigma_{b_2} = \frac{3Q}{4\pi b_2^2}}$$ $$\boxed{\vec E = \begin{cases}\dfrac{Qr^3}{2\pi\varepsilon_0 R^5}\,\hat r, & r \lt R\\ \dfrac{Q}{2\pi\varepsilon_0 r^2}\,\hat r, & R\lt r\lt a_1\ \text{y}\ a_2\lt r\lt b_1\\ \vec 0, & a_1\lt r\lt a_2\ \text{y}\ b_1\lt r\lt b_2\\ \dfrac{3Q}{4\pi\varepsilon_0 r^2}\,\hat r, & r \gt b_2\end{cases}}$$ Con $S$ cerrado: $q'_{a_1} = -2Q$, $q'_{a_2} = q'_{b_1} = 0$, $q'_{b_2} = 3Q$; $\sigma_{a_2} = \sigma_{b_1} = 0$, $\vec E(a_2 \lt r \lt b_1) = \vec 0$, y $\sigma_{a_1}, \sigma_{b_2}$ no cambian.</li>
+      <li class="check"><b>Verificación:</b> unidades: $[\beta] = \text{C/m}^5$, $[Q/(\varepsilon_0 r^2)] = \text{N/C}$. Continuidad en $r = R$: $\vec E_1(R) = \frac{Q}{2\pi\varepsilon_0 R^2}\hat r = \vec E_2(R)$. Salto en cada frontera conductora: $\Delta E_r = \sigma/\varepsilon_0$ exacto en $a_1, a_2, b_1, b_2$. Al cerrar $S$, el campo exterior ($r \gt b_2$) no cambia porque la carga total encerrada sigue siendo $3Q$. Límite $b_1, b_2 \to \infty$ (sin cascarón externo): para $r \gt a_2$ queda $\vec E = \frac{2Q}{4\pi\varepsilon_0 r^2}\hat r = \frac{Q}{2\pi\varepsilon_0 r^2}\hat r$.</li>
+    </ol>
+    <div class="ctrl"></div>
+  </div>
+
+  <div class="prob" id="u02-p4" data-kind="practica" data-diff="3">
+    <div class="prob-head"><span class="tag">Práctica 4</span><span class="ptitle">Cilindros infinitos traslapados con densidades opuestas</span><span class="diff">dificultad 3/3</span></div>
+    <div class="prob-grid">
+      <div>
+        <p class="stmt">Dos cilindros infinitos no conductores de idéntico radio $R_0$ ($\text{m}$) tienen sus ejes paralelos al eje $z$ pasando por $(-x_0, 0)$ y $(+x_0, 0)$ en el plano $xy$, con $0 \lt x_0 \lt R_0$ (en $\text{m}$) de modo que se traslapan. El cilindro izquierdo (centrado en $-x_0$) tiene densidad volumétrica uniforme $-\rho$ ($\text{C/m}^3$, $\rho \gt 0$) y el cilindro derecho (centrado en $+x_0$) tiene densidad uniforme $+\rho$. Determina el vector campo eléctrico $\vec E$ en cualquier punto $P(x, y)$ de la zona de intersección. (Basado en Ayudantía 05 · P3, 2026-2.)</p>
+        <div class="given"><div><b>Datos</b> radio $R_0$, ejes en $(-x_0,0)$ con $-\rho$ y $(+x_0,0)$ con $+\rho$, $x_0 \lt R_0$</div><div><b>Piden</b> $\vec E(x, y)$ en la región de intersección</div></div>
+      </div>
+      <figure class="fig" data-fig="u02-practica-cilindros-traslapados"><figcaption>Zona de intersección entre ambos cilindros. $\vec r_1$ parte desde $(-x_0, 0)$ y $\vec r_2$ desde $(+x_0, 0)$.</figcaption></figure>
+    </div>
+    <div class="predict"><b>Antes de calcular:</b> en la zona común, ¿en qué sentido empujan a una carga de prueba positiva tanto el cilindro derecho ($+\rho$) como el izquierdo ($-\rho$)?</div>
+    <ol class="reveal">
+      <li class="hint">Usa $\vec E_{\text{int}}(\vec r_\perp) = \dfrac{\rho}{2\varepsilon_0}\vec r_\perp$ para cada cilindro con su propio vector posición relativo $\vec r_1$ y $\vec r_2$.</li>
+      <li><span class="rl">Paso 1 · Campo interior de un cilindro en forma vectorial</span><p class="do"><b>Qué hago:</b> por Gauss cilíndrico, dentro de un cilindro uniforme ($r_\perp \lt R_0$) se cumple $E = \dfrac{\rho r_\perp}{2\varepsilon_0}$, luego vectorialmente $\vec E_{\text{int}}(\vec r_\perp) = \dfrac{\rho}{2\varepsilon_0}\,\vec r_\perp$.</p><p><b>Por qué:</b> $\vec r_\perp = r_\perp\hat r$ apunta radialmente desde el eje del cilindro.</p></li>
+      <li><span class="rl">Paso 2 · Vectores relativos y superposición</span><p class="do"><b>Qué hago:</b> para $P(x, y)$ en la intersección, los vectores desde cada eje hasta $P$ son $\vec r_1 = (x + x_0)\,\hat\imath + y\,\hat\jmath$ y $\vec r_2 = (x - x_0)\,\hat\imath + y\,\hat\jmath$. Sumando:</p>
+      $$\vec E = \frac{-\rho}{2\varepsilon_0}\vec r_1 + \frac{+\rho}{2\varepsilon_0}\vec r_2 = \frac{\rho}{2\varepsilon_0}(\vec r_2 - \vec r_1) = \frac{\rho}{2\varepsilon_0}\big[(x - x_0 - x - x_0)\,\hat\imath + (y - y)\,\hat\jmath\big] = -\frac{\rho x_0}{\varepsilon_0}\,\hat\imath$$
+      <p><b>Por qué:</b> las coordenadas $x$ e $y$ se cancelan exactamente, dejando un campo uniforme.</p></li>
+      <li class="final">$$\boxed{\vec E = -\frac{\rho x_0}{\varepsilon_0}\,\hat\imath\ \text{(campo uniforme en toda la intersección)}}$$</li>
+      <li class="check"><b>Verificación:</b> dirección: en la zona común, el cilindro $+\rho$ está a la derecha y empuja hacia $-\hat\imath$; el cilindro $-\rho$ está a la izquierda y atrae hacia $-\hat\imath$, así que ambos se suman en $-\hat\imath$. Límite $x_0\to 0$: los cilindros coinciden, $+\rho$ y $-\rho$ se anulan y $\vec E = \vec 0$. Unidades: $[\rho x_0/\varepsilon_0] = \text{N/C}$.</li>
+    </ol>
+    <div class="ctrl"></div>
+  </div>
+
+  <div class="prob" id="u02-p5" data-kind="practica" data-diff="2">
+    <div class="prob-head"><span class="tag">Práctica 5</span><span class="ptitle">Ley de Gauss diferencial: campo eléctrico atmosférico</span><span class="diff">dificultad 2/3</span></div>
+    <div class="prob-grid">
+      <div>
+        <p class="stmt">En un día despejado, el campo eléctrico sobre la superficie de la Tierra ($z \gt 0$) se modela como $\vec E(z) = -\left(a e^{-\alpha z} + b e^{-\beta z}\right)\hat k$, donde $z$ es la altura sobre el suelo ($\text{m}$), $a, b \gt 0$ son constantes en $\text{V/m}$, y $\alpha, \beta \gt 0$ son constantes en $\text{m}^{-1}$. a) Usando la forma diferencial de la ley de Gauss, determina la densidad volumétrica de carga $\rho(z)$ en la atmósfera. b) Calcula la carga total $Q$ contenida en una columna vertical de área transversal $A$ ($\text{m}^2$) desde $z = 0$ hasta $z \to \infty$, y comprueba el resultado con la ley de Gauss integral. c) Si dentro de la Tierra ($z \lt 0$, conductora) $\vec E = \vec 0$, ¿qué densidad superficial $\sigma_{\text{Tierra}}$ debe existir en $z = 0$? (Basado en Clase 04 · Ejemplo 1, 2026-2.)</p>
+        <div class="given"><div><b>Datos</b> $\vec E(z) = -(ae^{-\alpha z} + be^{-\beta z})\hat k$ ($z \gt 0$), área $A$</div><div><b>Piden</b> $\rho(z)$, $Q$ en columna $[0,\infty)$, comprobación integral, $\sigma_{\text{Tierra}}$</div></div>
+      </div>
+      <figure class="fig" data-fig="u02-plano-losa"><figcaption>Geometría 1D en $z$: el campo solo tiene componente $z$ y solo depende de $z$, por lo que una columna vertical tiene flujo solo por sus tapas horizontales.</figcaption></figure>
+    </div>
+    <div class="predict"><b>Antes de calcular:</b> como el campo apunta hacia abajo ($-\hat k$) y su magnitud decrece al subir, ¿la carga del aire es positiva o negativa?</div>
+    <ol class="reveal">
+      <li class="hint">Calcula $\nabla\cdot\vec E = \partial E_z/\partial z$; en la columna gaussiana de $z=0$ a $z\to\infty$, la tapa inferior apunta en $-\hat k$ y en la superior $E\to 0$.</li>
+      <li><span class="rl">Paso 1 · Densidad $\rho(z)$ por Gauss diferencial (parte a)</span><p class="do"><b>Qué hago:</b> $E_x = E_y = 0$, luego $\nabla\cdot\vec E = \dfrac{\partial E_z}{\partial z} = -\left(-a\alpha e^{-\alpha z} - b\beta e^{-\beta z}\right) = a\alpha e^{-\alpha z} + b\beta e^{-\beta z}$. Por tanto:</p>
+      $$\rho(z) = \varepsilon_0\,\nabla\cdot\vec E = \varepsilon_0\left(a\alpha e^{-\alpha z} + b\beta e^{-\beta z}\right)$$
+      <p><b>Por qué:</b> primera ecuación de Maxwell en forma diferencial.</p></li>
+      <li><span class="rl">Paso 2 · Carga en la columna y comprobación integral (parte b)</span><p class="do"><b>Qué hago:</b> con $dV = A\,dz$: $Q = \displaystyle\int_0^\infty \rho(z)\,A\,dz = \varepsilon_0 A\int_0^\infty\left(a\alpha e^{-\alpha z} + b\beta e^{-\beta z}\right)dz = \varepsilon_0 A\left[-a e^{-\alpha z} - b e^{-\beta z}\right]_0^\infty = \varepsilon_0 A(a + b)$. Comprobación por Gauss integral en la columna ($z = 0^+$ a $\infty$): manto tangente ($\Phi = 0$); tapa en $z\to\infty$ ($E\to 0$, $\Phi = 0$); tapa inferior en $z = 0^+$ con normal exterior $-\hat k$ y $\vec E(0^+) = -(a+b)\hat k$, así que $\Phi = (-(a+b)\hat k)\cdot(-A\hat k) = (a+b)A$, luego $Q = \varepsilon_0\Phi = \varepsilon_0 A(a+b)$.</p><p><b>Por qué:</b> ambos métodos deben dar exactamente la misma carga encerrada.</p></li>
+      <li><span class="rl">Paso 3 · Densidad superficial en la Tierra (parte c)</span><p class="do"><b>Qué hago:</b> el salto normal en $z = 0$ es $E_z(0^+) - E_z(0^-) = -(a + b) - 0 = \dfrac{\sigma_{\text{Tierra}}}{\varepsilon_0} \implies \sigma_{\text{Tierra}} = -\varepsilon_0(a + b)$.</p><p><b>Por qué:</b> la carga superficial negativa de la Tierra compensa exactamente la carga positiva de la columna atmosférica ($\sigma_{\text{Tierra}} A + Q = 0$).</p></li>
+      <li class="final">$$\boxed{\rho(z) = \varepsilon_0\left(a\alpha e^{-\alpha z} + b\beta e^{-\beta z}\right),\qquad Q = \varepsilon_0 A(a + b),\qquad \sigma_{\text{Tierra}} = -\varepsilon_0(a + b)}$$</li>
+      <li class="check"><b>Verificación:</b> unidades: $[\varepsilon_0 a\alpha] = (\text{C}^2/\text{N·m}^2)(\text{N/C})(1/\text{m}) = \text{C/m}^3$; $[\varepsilon_0 A a] = \text{C}$. Si $b = 0$ y $\alpha\to 0$, $\vec E = -a\hat k$ es uniforme y $\rho = 0$ en el aire (todo se reduce a la placa terrestre con $\sigma = -\varepsilon_0 a$).</li>
+    </ol>
+    <div class="ctrl"></div>
+  </div>
+</section>
+
+<section class="sec" id="u02-quiz" data-block="quiz" data-title="Autoevaluación">
+  <h2>Autoevaluación</h2>
+  <div class="quiz" id="u02-quiz-1">
+    <div class="q" data-correct="b">
+      <p class="qt">1. Una superficie cerrada encierra una carga $+q$, y fuera de ella se coloca una carga muy intensa $+100q$. Al agregar la carga externa:</p>
+      <div class="opts"><button type="button" data-o="a">cambian tanto $\vec E$ en cada punto de la superficie como el flujo neto</button><button type="button" data-o="b">cambia $\vec E$ en cada punto de la superficie, pero el flujo neto sigue siendo $q/\varepsilon_0$</button><button type="button" data-o="c">no cambian ni $\vec E$ sobre la superficie ni el flujo neto</button></div>
+      <p class="fb" data-o="a">El flujo neto por una superficie cerrada depende <em>solo</em> de $Q_{\text{enc}}$; las líneas de $+100q$ entran y vuelven a salir.</p><p class="fb" data-o="b">Correcto. $\vec E$ en la ley de Gauss es el campo total (incluye a $+100q$), pero su contribución neta al flujo cerrado se anula.</p><p class="fb" data-o="c">El campo local sobre la superficie sí cambia porque obedece a superposición de todas las cargas.</p>
+    </div>
+    <div class="q" data-correct="c">
+      <p class="qt">2. Se coloca una carga puntual $q$ exactamente en un vértice de un cubo de arista $a$. El flujo eléctrico a través de una de las caras que <em>no</em> toca ese vértice es:</p>
+      <div class="opts"><button type="button" data-o="a">$\dfrac{q}{6\varepsilon_0}$</button><button type="button" data-o="b">$\dfrac{q}{8\varepsilon_0}$</button><button type="button" data-o="c">$\dfrac{q}{24\varepsilon_0}$</button></div>
+      <p class="fb" data-o="a">$q/(6\varepsilon_0)$ corresponde a una carga en el <em>centro</em> del cubo, no en un vértice.</p><p class="fb" data-o="b">$q/(8\varepsilon_0)$ es el flujo total por todo el cubo (suma de sus 3 caras opuestas), no por una sola cara.</p><p class="fb" data-o="c">Correcto. Ocho cubos rodean el vértice ($q/8\varepsilon_0$ por cubo), las 3 caras adyacentes tienen flujo $0$ y las 3 opuestas se reparten el flujo por igual.</p>
+    </div>
+    <div class="q" data-correct="a">
+      <p class="qt">3. Justo fuera de la superficie de un conductor en equilibrio con densidad superficial $+\sigma$, el campo eléctrico vale $\sigma/\varepsilon_0$, mientras que junto a una lámina aislante infinita con $+\sigma$ vale $\sigma/(2\varepsilon_0)$. La razón física es que:</p>
+      <div class="opts"><button type="button" data-o="a">dentro del conductor $\vec E = \vec 0$, así que todo el flujo del pastillero sale por una sola tapa (la exterior)</button><button type="button" data-o="b">los conductores siempre tienen el doble de carga que los aislantes</button><button type="button" data-o="c">la ley de Gauss no aplica en aislantes</button></div>
+      <p class="fb" data-o="a">Correcto. En la lámina aislante el campo sale por las dos tapas ($2EA = \sigma A/\varepsilon_0$); en el conductor una tapa queda dentro del metal donde $\vec E = \vec 0$ ($EA = \sigma A/\varepsilon_0$).</p><p class="fb" data-o="b">La densidad $\sigma$ es la misma en la comparación; lo que cambia es la simetría de $\vec E$ a un lado y otro.</p><p class="fb" data-o="c">La ley de Gauss es universal y vale tanto en aislantes como en conductores.</p>
+    </div>
+    <div class="q" data-correct="b">
+      <p class="qt">4. Una carga puntual $+q$ está dentro de una cavidad esférica en un conductor esférico neutro aislado. Si movemos $+q$ lejos del centro de la cavidad (sin tocar la pared), entonces:</p>
+      <div class="opts"><button type="button" data-o="a">cambian tanto $\sigma_{\text{int}}$ como $\sigma_{\text{ext}}$ y el campo fuera del conductor</button><button type="button" data-o="b">cambia la distribución $\sigma_{\text{int}}$ en la pared de la cavidad, pero $\sigma_{\text{ext}}$ y el campo exterior siguen uniformes e iguales</button><button type="button" data-o="c">no cambia ni $\sigma_{\text{int}}$ ni $\sigma_{\text{ext}}$</button></div>
+      <p class="fb" data-o="a">El metal en equilibrio ($\vec E = \vec 0$) apantalla completamente la posición interna de $+q$: la superficie exterior esférica solo "sabe" que la carga neta inducida afuera es $+q$.</p><p class="fb" data-o="b">Correcto. La pared interna se reacomoda (manteniendo carga total $-q$) para anular el campo en el metal, dejando a la superficie externa totalmente aislada de la posición interna.</p><p class="fb" data-o="c">Al acercar $+q$ a un lado de la pared interna, atrae más carga negativa hacia ese lado y $\sigma_{\text{int}}$ deja de ser uniforme.</p>
+    </div>
+    <div class="q" data-correct="c">
+      <p class="qt">5. Una esfera conductora con carga $+Q$ está dentro de un cascarón conductor concéntrico. Si conectamos el cascarón exterior a tierra (sin cargas por fuera de él):</p>
+      <div class="opts"><button type="button" data-o="a">la esfera interior pierde su carga $+Q$ hacia la tierra</button><button type="button" data-o="b">las dos superficies del cascarón quedan completamente descargadas ($q_{\text{int}} = q_{\text{ext}} = 0$)</button><button type="button" data-o="c">la superficie exterior del cascarón queda con carga $0$ y $\vec E = \vec 0$ afuera, pero su cara interna conserva $-Q$</button></div>
+      <p class="fb" data-o="a">La esfera interior está aislada del cascarón por el vacío intermedio; su carga $+Q$ no puede cruzar.</p><p class="fb" data-o="b">Si $q_{\text{int}}$ fuera cero, dentro del metal del cascarón habría campo $\neq 0$, violando el equilibrio electrostático.</p><p class="fb" data-o="c">Correcto. $V(R_{\text{ext}}) = 0$ obliga a que $q_{\text{ext}} = 0$ y $\vec E_{\text{ext}} = \vec 0$, mientras $\vec E = \vec 0$ en el metal sigue exigiendo $q_{\text{int}} = -Q$.</p>
+    </div>
+    <div class="q" data-correct="a">
+      <p class="qt">6. Una esfera maciza no conductora con densidad uniforme $+\rho$ tiene una cavidad esférica vacía descentrada cuyo centro está en el vector $\vec a$ respecto del centro de la esfera. El campo eléctrico dentro de la cavidad es:</p>
+      <div class="opts"><button type="button" data-o="a">uniforme e igual a $\dfrac{\rho}{3\varepsilon_0}\vec a$</button><button type="button" data-o="b">nulo en toda la cavidad</button><button type="button" data-o="c">radial desde el centro de la cavidad, proporcional a $|\vec r - \vec a|$</button></div>
+      <p class="fb" data-o="a">Correcto. Por superposición, $\frac{\rho}{3\varepsilon_0}\vec r + \frac{-\rho}{3\varepsilon_0}(\vec r - \vec a) = \frac{\rho}{3\varepsilon_0}\vec a$, independiente de $\vec r$.</p><p class="fb" data-o="b">Solo es nulo si la cavidad es concéntrica ($\vec a = \vec 0$).</p><p class="fb" data-o="c">Eso ocurriría si la cavidad estuviera rellena de carga aislada, no por el campo de la esfera con hueco vacío.</p>
+    </div>
+    <div class="q" data-correct="b">
+      <p class="qt">7. Si en cierta región del espacio se cumple $\nabla\cdot\vec E = 0$, entonces podemos asegurar que en esa región:</p>
+      <div class="opts"><button type="button" data-o="a">necesariamente $\vec E = \vec 0$ en todos sus puntos</button><button type="button" data-o="b">la densidad volumétrica de carga es $\rho = 0$, aunque $\vec E$ puede ser distinto de cero</button><button type="button" data-o="c">no hay ninguna carga en todo el universo</button></div>
+      <p class="fb" data-o="a">Contraejemplo: fuera de una carga puntual ($r \gt 0$), $\vec E = \frac{kq}{r^2}\hat r \neq \vec 0$, pero $\nabla\cdot\vec E = 0$.</p><p class="fb" data-o="b">Correcto. Por $\nabla\cdot\vec E = \rho/\varepsilon_0$, divergencia nula solo indica ausencia de carga local ($\rho = 0$).</p><p class="fb" data-o="c">$\nabla\cdot\vec E$ es una ley local: puede haber cargas fuera de la región que generen $\vec E \neq \vec 0$ dentro de ella.</p>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="u02-formulas" data-block="formulas" data-title="Tarjeta de fórmulas">
+  <h2>Tarjeta de fórmulas</h2>
+  <div class="formulas"><table><thead><tr><th>Fórmula</th><th>Significado y unidades SI</th><th>Válida si</th></tr></thead>
+  <tbody>
+    <tr><td>$\Phi_E = \displaystyle\int_S \vec E\cdot d\vec A$; $\ \Phi_E = EA\cos\varphi$</td><td>Flujo eléctrico ($\text{N·m}^2/\text{C}$); $\vec E$ ($\text{N/C}$), $A, d\vec A$ ($\text{m}^2$), $\varphi$ entre $\vec E$ y $\hat n$</td><td>La forma corta, solo para $\vec E$ uniforme y superficie plana</td></tr>
+    <tr><td>$\Phi_{\text{centro}} = \dfrac{q}{6\varepsilon_0}$, $\ \Phi_{\text{vértice, op}} = \dfrac{q}{24\varepsilon_0}$</td><td>Flujo ($\text{N·m}^2/\text{C}$) por una cara de un cubo con carga $q$ ($\text{C}$)</td><td>Carga en el centro del cubo o en un vértice (caras adyacentes dan $0$)</td></tr>
+    <tr><td>$\displaystyle\oint_S \vec E\cdot d\vec A = \frac{Q_{\text{enc}}}{\varepsilon_0}$</td><td>Ley de Gauss integral; $\vec E$ ($\text{N/C}$), $d\vec A$ ($\text{m}^2$), $Q_{\text{enc}}$ ($\text{C}$), $\varepsilon_0 \approx 8{,}85\times 10^{-12}\ \text{C}^2/(\text{N·m}^2)$</td><td>Siempre (para despejar $\vec E$, requiere simetría esférica, cilíndrica o planar)</td></tr>
+    <tr><td>$dV_{\text{esf}} = 4\pi r^2\,dr$, $\ dV_{\text{cil}} = 2\pi r L\,dr$</td><td>Elementos de volumen ($\text{m}^3$); radio $r$ ($\text{m}$), largo $L$ ($\text{m}$)</td><td>Cuando $\rho = \rho(r)$ depende solo de la coordenada radial $r$</td></tr>
+    <tr><td>$\vec E_{\text{esf}} = \dfrac{\rho r}{3\varepsilon_0}\,\hat r\ (r\le R)$; $\ \dfrac{Q}{4\pi\varepsilon_0 r^2}\,\hat r\ (r\ge R)$</td><td>Campo ($\text{N/C}$) de esfera maciza uniforme; $\rho$ ($\text{C/m}^3$), $Q$ ($\text{C}$), $r, R$ ($\text{m}$)</td><td>Simetría esférica; para cascarón hueco de radio $R$, $E = 0$ si $r \lt R$</td></tr>
+    <tr><td>$\vec E_{\text{cil}} = \dfrac{\rho r}{2\varepsilon_0}\,\hat r\ (r\le R)$; $\ \dfrac{\rho R^2}{2\varepsilon_0 r}\,\hat r\ (r\gt R)$</td><td>Campo ($\text{N/C}$) de cilindro infinito; línea: $\dfrac{\lambda}{2\pi\varepsilon_0 r}\hat r$ ($\lambda$ en $\text{C/m}$, $\rho$ en $\text{C/m}^3$, $r, R$ en $\text{m}$)</td><td>Simetría cilíndrica infinita ($L\gg r$, lejos de bordes)</td></tr>
+    <tr><td>$E_{\text{plano}} = \dfrac{|\sigma|}{2\varepsilon_0}$; $\ E_{\text{losa}} = \dfrac{\rho|z|}{\varepsilon_0}\ (|z|\le a)$</td><td>Campo ($\text{N/C}$); plano ($\sigma$ en $\text{C/m}^2$); losa ($\rho$ en $\text{C/m}^3$, $z, a$ en $\text{m}$)</td><td>Plano o losa infinita de espesor $2a$ centrada en $z = 0$; para $|z|\gt a$, $E = \rho a/\varepsilon_0$</td></tr>
+    <tr><td>$\vec E_{\text{metal}} = \vec 0$, $\ q_{\text{int}} = -Q_{\text{enc}}$, $\ E_{\text{sup}} = \dfrac{\sigma}{\varepsilon_0}$</td><td>Conductor en equilibrio; $q_{\text{int}}, Q_{\text{enc}}, q_{\text{ext}}, Q_{\text{cond}}$ ($\text{C}$), $\sigma$ ($\text{C/m}^2$), $E_{\text{sup}}$ ($\text{N/C}$); $q_{\text{ext}} = Q_{\text{cond}} + Q_{\text{enc}}$</td><td>Electrostática (cargas en reposo); $E_{\text{sup}}$ normal a la superficie</td></tr>
+    <tr><td>Conexión a tierra: $V(R_{\text{tierra}}) = 0$</td><td>Potencial $V$ ($\text{V}$), $R_{\text{tierra}}$ ($\text{m}$); si es la capa exterior aislada: $q_{\text{ext}} = 0$ ($\text{C}$) y $\vec E_{\text{ext}} = \vec 0$</td><td>Referencia $V(\infty) = 0$; $q_{\text{int}} = -Q_{\text{enc}}$ se conserva</td></tr>
+    <tr><td>$\vec E_{\text{cav, esf}} = \dfrac{\rho}{3\varepsilon_0}\vec a$, $\ \vec E_{\text{cav, cil}} = \dfrac{\rho}{2\varepsilon_0}\vec a_\perp$</td><td>Campo ($\text{N/C}$) dentro de cavidad vacía descentrada; $\rho$ ($\text{C/m}^3$), $\vec a, \vec a_\perp$ ($\text{m}$)</td><td>Cuerpo con densidad uniforme $+\rho$ y hueco de la misma forma</td></tr>
+    <tr><td>$\nabla\cdot\vec E = \dfrac{\rho}{\varepsilon_0}$</td><td>Ley de Gauss diferencial; $\nabla\cdot\vec E$ ($\text{V/m}^2$), $\rho$ ($\text{C/m}^3$)</td><td>Siempre; radial esféricas $\frac{1}{r^2}\frac{d(r^2E_r)}{dr}$, cilíndricas $\frac{1}{r}\frac{d(rE_r)}{dr}$</td></tr>
+  </tbody></table></div>
+</section>
+</section>

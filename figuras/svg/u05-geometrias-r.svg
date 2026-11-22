@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 235" style="max-width:810px" role="img" aria-label="Tres estrategias para calcular resistencia: rebanadas en serie, cáscaras radiales y bloques en paralelo">
+<style>
+  :root {
+    --surface: #ffffff; --ink: #142030; --muted: #566273; --line: #d8dee7;
+    --accent: #1f4fd1; --accent-soft: #e7edfc; --copper: #a85a18; --copper-soft: #f8eee4;
+    --font-body: "Source Sans 3", "Segoe UI", Roboto, sans-serif;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --surface: #151c26; --ink: #e5eaf1; --muted: #9aa6b6; --line: #29323f;
+      --accent: #84a6ff; --accent-soft: #1b2640; --copper: #e2a26b; --copper-soft: #2a2119;
+    }
+  }
+  svg { background: var(--surface); font-family: var(--font-body); }
+  .w { stroke: var(--ink); stroke-width: 1.8; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+  .wk { stroke: var(--ink); stroke-width: 3.2; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+  .m { stroke: var(--muted); stroke-width: 1.2; fill: none; }
+  .md { stroke: var(--muted); stroke-width: 1.3; stroke-dasharray: 4 4; fill: none; }
+  .a { stroke: var(--accent); stroke-width: 2.2; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+  .ad { stroke: var(--accent); stroke-width: 1.6; stroke-dasharray: 5 4; fill: none; }
+  .c { stroke: var(--copper); stroke-width: 2.2; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+  .cd { stroke: var(--copper); stroke-width: 1.4; stroke-dasharray: 4 3; fill: none; }
+  .fld { stroke: var(--muted); stroke-width: 1.3; opacity: .38; }
+  .fldl { stroke: var(--muted); stroke-width: 1.4; opacity: .6; fill: none; }
+  .af { fill: var(--accent); } .cf { fill: var(--copper); } .wf, .inkf, .wkf { fill: var(--ink); }
+  .mf, .mdf { fill: var(--muted); } .fldlf { fill: var(--muted); opacity: .6; }
+  .adf { fill: var(--accent); } .cdf { fill: var(--copper); }
+  .soft { fill: var(--accent-soft); } .csoft { fill: var(--copper-soft); } .paperf { fill: var(--surface); }
+  .nostroke { stroke: none; } .nofill { fill: none; }
+  .s, .sa, .sc { font: italic 17px "Times New Roman", "STIX Two Text", serif; fill: var(--ink); }
+  .sa { fill: var(--accent); } .sc { fill: var(--copper); }
+  .t { font: 12.5px var(--font-body); fill: var(--muted); }
+  .tb { font: 600 14px var(--font-body); fill: var(--ink); }
+  .tc { font: 600 13px var(--font-body); fill: var(--copper); }
+  .ta { font: 600 13px var(--font-body); fill: var(--accent); }
+  .tw { font: 700 13px var(--font-body); fill: var(--surface); }
+  .gl-ink, .gl-acc, .gl-cop, .gl-mut, .gl-srf { fill: none; stroke-width: 1.2; stroke-linecap: round; }
+  .gl-ink { stroke: var(--ink); } .gl-acc { stroke: var(--accent); } .gl-cop { stroke: var(--copper); }
+  .gl-mut { stroke: var(--muted); } .gl-srf { stroke: var(--surface); }
+  .glf-ink { fill: var(--ink); } .glf-acc { fill: var(--accent); } .glf-cop { fill: var(--copper); }
+  .glf-mut { fill: var(--muted); } .glf-srf { fill: var(--surface); }
+  .sb { font-size: 72%; }
+</style>
+<polygon class="paperf w" points="28,84 166,56 166,148 28,120"/><circle class="paperf wk" cx="298" cy="102" r="64"/><circle class="csoft w" cx="298" cy="102" r="20"/><rect class="soft w" x="434" y="54" width="128" height="48.0"/><rect class="csoft w" x="434" y="102.0" width="128" height="48.0"/><polygon class="soft a" points="94,70.6 106,68.2 106,135.8 94,133.4"/><line class="md" x1="28" y1="102" x2="166" y2="102"/><line class="m" x1="28" y1="164" x2="166" y2="164"/><line class="m" x1="28" y1="160" x2="28" y2="168"/><line class="m" x1="166" y1="160" x2="166" y2="168"/><line class="m" x1="298" y1="102" x2="313.321" y2="114.856"/><line class="m" x1="298" y1="102" x2="358.868" y2="82.2229"/><rect class="inkf nostroke" x="427" y="54" width="7" height="96"/><rect class="inkf nostroke" x="562" y="54" width="7" height="96"/><line class="a" x1="16" y1="68" x2="37.0" y2="68.0"/><polygon class="af" points="44,68 37.0,71.5 37.0,64.5"/><circle class="ad nofill" cx="298" cy="102" r="42"/><circle class="inkf" cx="298" cy="102" r="2.6"/><line class="a" x1="302.168" y1="78.3646" x2="306.9" y2="51.8"/><polygon class="af" points="308.072,44.8812 310.3,52.4 303.4,51.2"/><line class="a" x1="274.091" y1="99.9083" x2="247.2" y2="97.6"/><polygon class="af" points="240.221,96.945 247.5,94.1 246.9,101.0"/><line class="a" x1="295.908" y1="125.909" x2="293.6" y2="152.8"/><polygon class="af" points="292.945,159.779 290.1,152.5 297.0,153.1"/><line class="a" x1="452" y1="70" x2="481.0" y2="70.0"/><polygon class="af" points="488,70 481.0,73.5 481.0,66.5"/><line class="a" x1="452" y1="134" x2="481.0" y2="134.0"/><polygon class="af" points="488,134 481.0,137.5 481.0,130.5"/><text class="s" x="20" y="106" text-anchor="end">a</text><text class="s" x="174" y="106" text-anchor="start">b</text><text class="sa" x="100" y="58.1739" text-anchor="middle">dx</text><text class="sa" x="28" y="60" text-anchor="middle">I</text><text class="s" x="97" y="179" text-anchor="middle">h</text><text class="t" x="98" y="214" text-anchor="middle">(a) Serie: dR = ρ dx / A(x)</text><text class="s" x="305.7" y="96.4" text-anchor="middle">a</text><text class="s" x="328.4" y="80.1" text-anchor="middle">b</text><text class="sa" x="274.302" y="82.3015" text-anchor="start">r</text><text class="t" x="298" y="214" text-anchor="middle">(b) Radial: A(r) = 2πrL</text><text class="s" x="498" y="83" text-anchor="middle">σ₁</text><text class="s" x="498" y="131" text-anchor="middle">σ₂</text><text class="s" x="420" y="107" text-anchor="end">a</text><text class="s" x="576" y="107" text-anchor="start">b</text><text class="t" x="498" y="214" text-anchor="middle">(c) Paralelo: 1/R = 1/R₁ + 1/R₂</text></svg>

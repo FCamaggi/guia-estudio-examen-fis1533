@@ -1,0 +1,56 @@
+/* Exam guide components layered on top of main.css (shared palette and typography). */
+
+.layout.no-toc { grid-template-columns: minmax(0, 1fr); }
+.layout.no-toc main { max-width: 980px; margin: 0 auto; }
+
+/* Unit header */
+.unit { border-top: 2px solid var(--ink); margin-top: 48px; padding-top: 8px; }
+.unit-head { display: flex; align-items: baseline; gap: 14px; flex-wrap: wrap; margin: 12px 0 4px; }
+.unit-num { font: 700 13px var(--font-mono); color: var(--surface); background: var(--ink); padding: 3px 9px; border-radius: 6px; }
+.unit-head h1 { font-family: var(--font-display); font-weight: 800; font-size: clamp(28px, 4vw, 38px); line-height: 1.1; margin: 0; }
+.unit-weight { font: 600 12px var(--font-mono); color: var(--copper); }
+
+/* Exam map: what the exam asks in this unit */
+.exam-map { border: 1px solid var(--copper); background: var(--copper-soft); border-radius: 10px; padding: 12px 16px; margin: 14px 0; }
+.exam-map h4 { margin: 0 0 6px; font: 700 13px var(--font-mono); text-transform: uppercase; letter-spacing: .04em; color: var(--copper); }
+.exam-map ul { margin: 0; padding-left: 18px; }
+
+/* Embedded prerequisites */
+.prereq { border: 1px dashed var(--muted); border-radius: 10px; padding: 10px 16px; margin: 16px 0; background: var(--paper); }
+.prereq > summary { cursor: pointer; font-weight: 700; color: var(--ink); }
+.prereq > summary::before { content: "Repaso exprés · "; font: 600 12px var(--font-mono); color: var(--muted); }
+
+/* Derivations: full steps, collapsible for review mode */
+.deriv { border-left: 3px solid var(--line); padding: 4px 0 4px 14px; margin: 14px 0; }
+.deriv > summary { cursor: pointer; font-weight: 600; color: var(--accent); }
+
+/* Formula card */
+.formulas table { width: 100%; border-collapse: collapse; }
+.formulas td, .formulas th { border-bottom: 1px solid var(--line); padding: 8px 10px; vertical-align: top; text-align: left; }
+.formulas th { font: 600 12px var(--font-mono); text-transform: uppercase; color: var(--muted); }
+
+/* Problem kind badges */
+.prob[data-kind="arquetipo"] .tag { background: var(--copper); }
+.prob[data-kind="practica"] .tag { background: var(--muted); }
+.diff { font: 600 11px var(--font-mono); color: var(--muted); margin-left: 6px; }
+
+/* Quiz feedback per option */
+.quiz { margin: 18px 0; }
+.q .fb { display: none; font-size: 15px; margin: 6px 0 0; padding: 6px 10px; border-radius: 6px; background: var(--paper); }
+.q .fb.shown { display: block; }
+.quiz-bar { display: flex; gap: 12px; align-items: center; margin-top: 10px; font: 600 13px var(--font-mono); }
+
+/* TOC additions */
+.toc a.sub { padding-left: 34px; font-size: 13px; color: var(--muted); }
+.toc .up { margin-left: auto; font: 600 11px var(--font-mono); color: var(--muted); }
+.toc .pending { display: flex; gap: 8px; padding: 6px 10px; font-size: 14px; color: var(--muted); opacity: .6; }
+.toc .pending .n { font-family: var(--font-mono); font-size: 11px; min-width: 18px; }
+
+.fig-missing { border: 2px dashed var(--bad); color: var(--bad); padding: 18px; text-align: center; border-radius: 8px; font: 600 13px var(--font-mono); }
+
+@media print {
+  .toc, .master, .ctrl, .quiz-bar { display: none !important; }
+  .layout { display: block; }
+  .reveal > li, .try-ans, .q .fb { display: block !important; }
+  details { display: block; }
+}

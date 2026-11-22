@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 540 236" style="max-width:729px" role="img" aria-label="Capacitores en serie (izquierda) y en paralelo (derecha)">
+<style>
+  :root {
+    --surface: #ffffff; --ink: #142030; --muted: #566273; --line: #d8dee7;
+    --accent: #1f4fd1; --accent-soft: #e7edfc; --copper: #a85a18; --copper-soft: #f8eee4;
+    --font-body: "Source Sans 3", "Segoe UI", Roboto, sans-serif;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --surface: #151c26; --ink: #e5eaf1; --muted: #9aa6b6; --line: #29323f;
+      --accent: #84a6ff; --accent-soft: #1b2640; --copper: #e2a26b; --copper-soft: #2a2119;
+    }
+  }
+  svg { background: var(--surface); font-family: var(--font-body); }
+  .w { stroke: var(--ink); stroke-width: 1.8; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+  .wk { stroke: var(--ink); stroke-width: 3.2; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+  .m { stroke: var(--muted); stroke-width: 1.2; fill: none; }
+  .md { stroke: var(--muted); stroke-width: 1.3; stroke-dasharray: 4 4; fill: none; }
+  .a { stroke: var(--accent); stroke-width: 2.2; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+  .ad { stroke: var(--accent); stroke-width: 1.6; stroke-dasharray: 5 4; fill: none; }
+  .c { stroke: var(--copper); stroke-width: 2.2; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+  .cd { stroke: var(--copper); stroke-width: 1.4; stroke-dasharray: 4 3; fill: none; }
+  .fld { stroke: var(--muted); stroke-width: 1.3; opacity: .38; }
+  .fldl { stroke: var(--muted); stroke-width: 1.4; opacity: .6; fill: none; }
+  .af { fill: var(--accent); } .cf { fill: var(--copper); } .wf, .inkf, .wkf { fill: var(--ink); }
+  .mf, .mdf { fill: var(--muted); } .fldlf { fill: var(--muted); opacity: .6; }
+  .adf { fill: var(--accent); } .cdf { fill: var(--copper); }
+  .soft { fill: var(--accent-soft); } .csoft { fill: var(--copper-soft); } .paperf { fill: var(--surface); }
+  .nostroke { stroke: none; } .nofill { fill: none; }
+  .s, .sa, .sc { font: italic 17px "Times New Roman", "STIX Two Text", serif; fill: var(--ink); }
+  .sa { fill: var(--accent); } .sc { fill: var(--copper); }
+  .t { font: 12.5px var(--font-body); fill: var(--muted); }
+  .tb { font: 600 14px var(--font-body); fill: var(--ink); }
+  .tc { font: 600 13px var(--font-body); fill: var(--copper); }
+  .ta { font: 600 13px var(--font-body); fill: var(--accent); }
+  .tw { font: 700 13px var(--font-body); fill: var(--surface); }
+  .gl-ink, .gl-acc, .gl-cop, .gl-mut, .gl-srf { fill: none; stroke-width: 1.2; stroke-linecap: round; }
+  .gl-ink { stroke: var(--ink); } .gl-acc { stroke: var(--accent); } .gl-cop { stroke: var(--copper); }
+  .gl-mut { stroke: var(--muted); } .gl-srf { stroke: var(--surface); }
+  .glf-ink { fill: var(--ink); } .glf-acc { fill: var(--accent); } .glf-cop { fill: var(--copper); }
+  .glf-mut { fill: var(--muted); } .glf-srf { fill: var(--surface); }
+  .sb { font-size: 72%; }
+</style>
+<g transform="translate(40,100) rotate(0)"><line class="w" x1="0" y1="0" x2="42.5" y2="0"/><line class="w" x1="52.5" y1="0" x2="95" y2="0"/><line class="w" x1="42.5" y1="-14" x2="42.5" y2="14"/><line class="w" x1="52.5" y1="-14" x2="52.5" y2="14"/></g><g transform="translate(135,100) rotate(0)"><line class="w" x1="0" y1="0" x2="42.5" y2="0"/><line class="w" x1="52.5" y1="0" x2="95" y2="0"/><line class="w" x1="42.5" y1="-14" x2="42.5" y2="14"/><line class="w" x1="52.5" y1="-14" x2="52.5" y2="14"/></g><line class="md" x1="268" y1="22" x2="268" y2="218"/><polyline class="w" points="300,100 335,100"/><polyline class="w" points="465,100 500,100"/><polyline class="w" points="335,100 335,60 345,60"/><polyline class="w" points="455,60 465,60 465,100"/><g transform="translate(345,60) rotate(0)"><line class="w" x1="0" y1="0" x2="50" y2="0"/><line class="w" x1="60" y1="0" x2="110" y2="0"/><line class="w" x1="50" y1="-14" x2="50" y2="14"/><line class="w" x1="60" y1="-14" x2="60" y2="14"/></g><polyline class="w" points="335,100 335,140 345,140"/><polyline class="w" points="455,140 465,140 465,100"/><g transform="translate(345,140) rotate(0)"><line class="w" x1="0" y1="0" x2="50" y2="0"/><line class="w" x1="60" y1="0" x2="110" y2="0"/><line class="w" x1="50" y1="-14" x2="50" y2="14"/><line class="w" x1="60" y1="-14" x2="60" y2="14"/></g><circle class="inkf" cx="40" cy="100" r="3.6"/><circle class="inkf" cx="230" cy="100" r="3.6"/><circle class="inkf" cx="135" cy="100" r="3.6"/><circle class="inkf" cx="300" cy="100" r="3.6"/><circle class="inkf" cx="500" cy="100" r="3.6"/><circle class="inkf" cx="335" cy="100" r="3.6"/><circle class="inkf" cx="465" cy="100" r="3.6"/><text class="s" x="30" y="105" text-anchor="end">a</text><text class="s" x="240" y="105" text-anchor="start">b</text><text class="s" x="87.5" y="76" text-anchor="middle">C₁</text><text class="s" x="182.5" y="76" text-anchor="middle">C₂</text><text class="tc" x="105" y="76" text-anchor="middle">+</text><text class="ta" x="120" y="76" text-anchor="middle">−</text><text class="tc" x="150" y="76" text-anchor="middle">+</text><text class="ta" x="165" y="76" text-anchor="middle">−</text><text class="t" x="135" y="136" text-anchor="middle">isla aislada (q neta = 0)</text><text class="ta" x="135" y="182" text-anchor="middle">Misma carga Q</text><text class="s" x="135" y="204" text-anchor="middle">V = V₁ + V₂</text><text class="s" x="290" y="105" text-anchor="end">a</text><text class="s" x="510" y="105" text-anchor="start">b</text><text class="s" x="400" y="40" text-anchor="middle">C₁</text><text class="s" x="400" y="169" text-anchor="middle">C₂</text><text class="ta" x="400" y="204" text-anchor="middle">Mismo voltaje V · Q = Q₁ + Q₂</text></svg>
