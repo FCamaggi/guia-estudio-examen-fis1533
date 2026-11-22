@@ -15,7 +15,19 @@
     <li><b>Peso por bloque:</b> en los 4 exámenes más recientes (17 problemas en total), <b>U7–U11</b> concentran 21 apariciones temáticas frente a 7 en <b>U1–U6</b>.</li>
   </ul></div>
 
-  <h3>Peso histórico y reciente por unidad</h3>
+  <h3>¿Qué nota necesitas en el examen?</h3>
+<div class="nota-calc" id="r01-nota">
+  <p>Ponderación: I1 30&nbsp;%, I2 30&nbsp;%, examen 40&nbsp;%. Escribe tus notas (escala 1,0 a 7,0) y la nota final que quieres alcanzar.</p>
+  <div class="nc-inputs">
+    <label>Nota I1 <input type="text" inputmode="decimal" class="nc-i1" placeholder="ej. 4,5" aria-label="Nota de la I1"></label>
+    <label>Nota I2 <input type="text" inputmode="decimal" class="nc-i2" placeholder="ej. 5,0" aria-label="Nota de la I2"></label>
+    <label>Nota final meta <input type="text" inputmode="decimal" class="nc-meta" value="4,0" aria-label="Nota final que quieres alcanzar"></label>
+  </div>
+  <p class="nc-out" aria-live="polite">Ingresa tus notas de la I1 y la I2.</p>
+  <p class="nc-note">Cálculo: $N_{\text{ex}} = \dfrac{N_{\text{meta}} - 0{,}3\,N_{I1} - 0{,}3\,N_{I2}}{0{,}4}$. Revisa en el programa del curso si hay otros requisitos de aprobación.</p>
+</div>
+
+<h3>Peso histórico y reciente por unidad</h3>
   <p>La tabla resume cuántas veces aparece cada unidad en los 14 exámenes analizados (123 problemas; los problemas multiunidad suman en cada unidad involucrada) y en los 4 más recientes (2024-2, 2025-1, 2025-2 y 2026-1; 17 problemas).</p>
   <div class="tbl-wrap"><table>
     <thead><tr><th>Unidad</th><th>Tema principal</th><th>Total (14 exámenes)</th><th>4 recientes</th><th>Prioridad</th></tr></thead>

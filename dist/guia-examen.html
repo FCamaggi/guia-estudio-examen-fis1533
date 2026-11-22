@@ -474,6 +474,15 @@ table.duo tbody th { font-family: var(--font-display); font-size: 14px; color: v
 .simulacro .score-box label { display: flex; gap: 8px; align-items: baseline; font-size: 15px; padding: 2px 0; cursor: pointer; }
 .score-box input.pts { accent-color: var(--ok); }
 
+/* Required exam grade calculator (js/08-nota-necesaria.js) */
+.nota-calc { margin: 10px 0 18px; padding: 12px 16px; border: 1px solid var(--line); border-radius: 10px; background: var(--surface); }
+.nc-inputs { display: flex; flex-wrap: wrap; gap: 10px 18px; margin: 8px 0; }
+.nc-inputs label { display: flex; flex-direction: column; gap: 4px; font: 600 13px var(--font-mono); color: var(--muted); }
+.nc-inputs input { width: 110px; font: 600 16px var(--font-mono); padding: 6px 8px; border: 1px solid var(--line); border-radius: 6px; background: var(--paper); color: var(--ink); }
+.nc-out { font-size: 17px; font-weight: 600; margin: 8px 0 4px; }
+.nc-out.ok { color: var(--ok); } .nc-out.bad { color: var(--bad); }
+.nc-note { font-size: 13.5px; color: var(--muted); margin: 4px 0 0; }
+
 @media print {
   .toc, .master, .ctrl, .quiz-bar, .sim-bar, .score-box { display: none !important; }
   .layout { display: block; }
@@ -699,7 +708,19 @@ window.MathJax = {
     <li><b>Peso por bloque:</b> en los 4 exámenes más recientes (17 problemas en total), <b>U7–U11</b> concentran 21 apariciones temáticas frente a 7 en <b>U1–U6</b>.</li>
   </ul></div>
 
-  <h3>Peso histórico y reciente por unidad</h3>
+  <h3>¿Qué nota necesitas en el examen?</h3>
+<div class="nota-calc" id="r01-nota">
+  <p>Ponderación: I1 30&nbsp;%, I2 30&nbsp;%, examen 40&nbsp;%. Escribe tus notas (escala 1,0 a 7,0) y la nota final que quieres alcanzar.</p>
+  <div class="nc-inputs">
+    <label>Nota I1 <input type="text" inputmode="decimal" class="nc-i1" placeholder="ej. 4,5" aria-label="Nota de la I1"></label>
+    <label>Nota I2 <input type="text" inputmode="decimal" class="nc-i2" placeholder="ej. 5,0" aria-label="Nota de la I2"></label>
+    <label>Nota final meta <input type="text" inputmode="decimal" class="nc-meta" value="4,0" aria-label="Nota final que quieres alcanzar"></label>
+  </div>
+  <p class="nc-out" aria-live="polite">Ingresa tus notas de la I1 y la I2.</p>
+  <p class="nc-note">Cálculo: $N_{\text{ex}} = \dfrac{N_{\text{meta}} - 0{,}3\,N_{I1} - 0{,}3\,N_{I2}}{0{,}4}$. Revisa en el programa del curso si hay otros requisitos de aprobación.</p>
+</div>
+
+<h3>Peso histórico y reciente por unidad</h3>
   <p>La tabla resume cuántas veces aparece cada unidad en los 14 exámenes analizados (123 problemas; los problemas multiunidad suman en cada unidad involucrada) y en los 4 más recientes (2024-2, 2025-1, 2025-2 y 2026-1; 17 problemas).</p>
   <div class="tbl-wrap"><table>
     <thead><tr><th>Unidad</th><th>Tema principal</th><th>Total (14 exámenes)</th><th>4 recientes</th><th>Prioridad</th></tr></thead>
@@ -8854,6 +8875,58 @@ window.MathJax = {
   new MutationObserver(updateAll).observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme"] });
   if (document.fonts && document.fonts.ready) document.fonts.ready.then(updateAll);
   updateAll();
+})();
+
+/* ---------- Required final-exam grade (I1 30 %, I2 30 %, exam 40 %) ---------- */
+(function () {
+  "use strict";
+  var W_I1 = 0.3, W_I2 = 0.3, W_EX = 0.4;
+
+  function parseGrade(text) {
+    var v = parseFloat(String(text).trim().replace(",", "."));
+    return isFinite(v) ? v : NaN;
+  }
+  function fmt(x, digits) {
+    return x.toFixed(digits).replace(".", ",");
+  }
+  function inRange(g) {
+    return g >= 1 && g <= 7;
+  }
+
+  function setup(root) {
+    var i1 = root.querySelector(".nc-i1"), i2 = root.querySelector(".nc-i2");
+    var meta = root.querySelector(".nc-meta"), out = root.querySelector(".nc-out");
+    if (!i1 || !i2 || !meta || !out) return;
+
+    function update() {
+      var a = parseGrade(i1.value), b = parseGrade(i2.value), m = parseGrade(meta.value);
+      out.classList.remove("ok", "bad");
+      if (isNaN(a) || isNaN(b)) { out.textContent = "Ingresa tus notas de la I1 y la I2."; return; }
+      if (!inRange(a) || !inRange(b) || isNaN(m) || !inRange(m)) {
+        out.textContent = "Las notas deben estar entre 1,0 y 7,0.";
+        out.classList.add("bad");
+        return;
+      }
+      var need = (m - W_I1 * a - W_I2 * b) / W_EX;
+      if (need <= 1) {
+        out.textContent = "Ya tienes asegurado un " + fmt(m, 1) + ": incluso con un 1,0 en el examen tu nota final sería " +
+          fmt(W_I1 * a + W_I2 * b + W_EX, 2) + ".";
+        out.classList.add("ok");
+      } else if (need > 7) {
+        out.textContent = "No alcanza: aun con un 7,0 en el examen tu nota final sería " +
+          fmt(W_I1 * a + W_I2 * b + W_EX * 7, 2) + ".";
+        out.classList.add("bad");
+      } else {
+        out.textContent = "Necesitas al menos un " + fmt(need, 2) + " en el examen para llegar a " + fmt(m, 1) + ".";
+      }
+    }
+    [i1, i2, meta].forEach(function (el) { el.addEventListener("input", update); });
+    update();
+  }
+
+  function init() { document.querySelectorAll(".nota-calc").forEach(setup); }
+  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", init);
+  else init();
 })();
 
 </script>
