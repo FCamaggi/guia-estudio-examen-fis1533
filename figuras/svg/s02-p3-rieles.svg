@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 300" style="max-width:972px" role="img" aria-label="Barra que desliza por rieles inclinados en un campo magnético vertical: vista lateral y vista desde arriba">
+<style>
+  :root {
+    --surface: #ffffff; --ink: #142030; --muted: #566273; --line: #d8dee7;
+    --accent: #1f4fd1; --accent-soft: #e7edfc; --copper: #a85a18; --copper-soft: #f8eee4;
+    --font-body: "Source Sans 3", "Segoe UI", Roboto, sans-serif;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --surface: #151c26; --ink: #e5eaf1; --muted: #9aa6b6; --line: #29323f;
+      --accent: #84a6ff; --accent-soft: #1b2640; --copper: #e2a26b; --copper-soft: #2a2119;
+    }
+  }
+  svg { background: var(--surface); font-family: var(--font-body); }
+  .w { stroke: var(--ink); stroke-width: 1.8; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+  .wk { stroke: var(--ink); stroke-width: 3.2; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+  .m { stroke: var(--muted); stroke-width: 1.2; fill: none; }
+  .md { stroke: var(--muted); stroke-width: 1.3; stroke-dasharray: 4 4; fill: none; }
+  .a { stroke: var(--accent); stroke-width: 2.2; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+  .ad { stroke: var(--accent); stroke-width: 1.6; stroke-dasharray: 5 4; fill: none; }
+  .c { stroke: var(--copper); stroke-width: 2.2; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+  .cd { stroke: var(--copper); stroke-width: 1.4; stroke-dasharray: 4 3; fill: none; }
+  .fld { stroke: var(--muted); stroke-width: 1.3; opacity: .38; }
+  .fldl { stroke: var(--muted); stroke-width: 1.4; opacity: .6; fill: none; }
+  .af { fill: var(--accent); } .cf { fill: var(--copper); } .wf, .inkf, .wkf { fill: var(--ink); }
+  .mf, .mdf { fill: var(--muted); } .fldlf { fill: var(--muted); opacity: .6; }
+  .adf { fill: var(--accent); } .cdf { fill: var(--copper); }
+  .soft { fill: var(--accent-soft); } .csoft { fill: var(--copper-soft); } .paperf { fill: var(--surface); }
+  .nostroke { stroke: none; } .nofill { fill: none; }
+  .s, .sa, .sc { font: italic 17px "Times New Roman", "STIX Two Text", serif; fill: var(--ink); }
+  .sa { fill: var(--accent); } .sc { fill: var(--copper); }
+  .t { font: 12.5px var(--font-body); fill: var(--muted); }
+  .tb { font: 600 14px var(--font-body); fill: var(--ink); }
+  .tc { font: 600 13px var(--font-body); fill: var(--copper); }
+  .ta { font: 600 13px var(--font-body); fill: var(--accent); }
+  .tw { font: 700 13px var(--font-body); fill: var(--surface); }
+  .gl-ink, .gl-acc, .gl-cop, .gl-mut, .gl-srf { fill: none; stroke-width: 1.2; stroke-linecap: round; }
+  .gl-ink { stroke: var(--ink); } .gl-acc { stroke: var(--accent); } .gl-cop { stroke: var(--copper); }
+  .gl-mut { stroke: var(--muted); } .gl-srf { stroke: var(--surface); }
+  .glf-ink { fill: var(--ink); } .glf-acc { fill: var(--accent); } .glf-cop { fill: var(--copper); }
+  .glf-mut { fill: var(--muted); } .glf-srf { fill: var(--surface); }
+  .sb { font-size: 72%; }
+</style>
+<polygon class="soft" points="50,60 309.8,210.0 50,210.0"/><circle class="fld nofill" cx="525" cy="122" r="5"/><circle class="mf" cx="525" cy="122" r="1.6"/><circle class="fld nofill" cx="525" cy="158" r="5"/><circle class="mf" cx="525" cy="158" r="1.6"/><circle class="fld nofill" cx="565" cy="122" r="5"/><circle class="mf" cx="565" cy="122" r="1.6"/><circle class="fld nofill" cx="565" cy="158" r="5"/><circle class="mf" cx="565" cy="158" r="1.6"/><circle class="fld nofill" cx="650" cy="122" r="5"/><circle class="mf" cx="650" cy="122" r="1.6"/><circle class="fld nofill" cx="650" cy="158" r="5"/><circle class="mf" cx="650" cy="158" r="1.6"/><circle class="fld nofill" cx="690" cy="122" r="5"/><circle class="mf" cx="690" cy="122" r="1.6"/><circle class="fld nofill" cx="690" cy="158" r="5"/><circle class="mf" cx="690" cy="158" r="1.6"/><line class="m" x1="40" y1="210" x2="359.808" y2="210"/><line class="wk" x1="50" y1="60" x2="309.808" y2="210"/><line class="m" x1="58" y1="73.8564" x2="222.545" y2="168.856"/><line class="m" x1="60" y1="77.3205" x2="56" y2="70.3923"/><line class="m" x1="224.545" y1="172.321" x2="220.545" y2="165.392"/><line class="wk" x1="490" y1="100" x2="700" y2="100"/><line class="wk" x1="490" y1="180" x2="700" y2="180"/><g transform="translate(490,100) rotate(90)"><polyline class="w" points="0,0 18,0 21.7,8 29,-8 36.3,8 43.7,-8 51,8 58.3,-8 62,0 80,0"/></g><line class="wk" x1="605" y1="92" x2="605" y2="188"/><line class="m" x1="462" y1="100" x2="462" y2="180"/><line class="m" x1="466" y1="100" x2="458" y2="100"/><line class="m" x1="466" y1="180" x2="458" y2="180"/><path class="m" d="M 273.4 189.0 A 42 42 0 0 0 267.8 210.0"/><rect class="w paperf" x="43" y="53" width="14" height="14"/><circle class="inkf" cx="210.0" cy="147.2" r="8"/><line class="a" x1="220.901" y1="150.01" x2="257.3" y2="171.0"/><polygon class="af" points="264.203,175.01 255.3,174.5 259.3,167.5"/><line class="c" x1="110" y1="250" x2="110.0" y2="48.0"/><polygon class="cf" points="110,40 114.0,48.0 106.0,48.0"/><line class="c" x1="180" y1="250" x2="180.0" y2="48.0"/><polygon class="cf" points="180,40 184.0,48.0 176.0,48.0"/><line class="c" x1="380" y1="250" x2="380.0" y2="48.0"/><polygon class="cf" points="380,40 384.0,48.0 376.0,48.0"/><line class="m" x1="72" y1="196" x2="72.0" y2="236.0"/><polygon class="mf" points="72,244 68.0,236.0 76.0,236.0"/><line class="m" x1="300" y1="274" x2="326.0" y2="274.0"/><polygon class="mf" points="332,274 326.0,277.0 326.0,271.0"/><line class="m" x1="300" y1="274" x2="300.0" y2="254.0"/><polygon class="mf" points="300,248 303.0,254.0 297.0,254.0"/><line class="a" x1="614" y1="140" x2="638.0" y2="140.0"/><polygon class="af" points="646,140 638.0,144.0 638.0,136.0"/><line class="m" x1="480" y1="262" x2="504.0" y2="262.0"/><polygon class="mf" points="510,262 504.0,265.0 504.0,259.0"/><line class="m" x1="480" y1="262" x2="480.0" y2="238.0"/><polygon class="mf" points="480,232 483.0,238.0 477.0,238.0"/><text class="s" x="256.682" y="200.765" text-anchor="middle">θ</text><text class="s" x="48" y="44" text-anchor="middle">R</text><text class="s" x="202.045" y="133.206" text-anchor="end">m</text><g><text class="sa" x="270.6" y="161.01" text-anchor="middle">v</text><line class="gl-acc" x1="268.6" y1="146.4" x2="275.1" y2="146.4"/><polygon class="glf-acc" points="276.6,146.4 271.1,143.8 271.1,148.9"/></g><text class="s" x="149.272" y="141.945" text-anchor="middle">s</text><g><text class="sc" x="396.4" y="48" text-anchor="middle">B</text><line class="gl-cop" x1="394.4" y1="33.4" x2="400.9" y2="33.4"/><polygon class="glf-cop" points="402.4,33.4 396.9,30.8 396.9,35.9"/></g><g><text class="s" x="84.4" y="238" text-anchor="middle">g</text><line class="gl-ink" x1="82.4" y1="223.4" x2="88.9" y2="223.4"/><polygon class="glf-ink" points="90.4,223.4 84.9,220.8 84.9,225.9"/></g><text class="t" x="150" y="292" text-anchor="middle">vista lateral</text><text class="s" x="342" y="279" text-anchor="middle">x</text><text class="s" x="300" y="240" text-anchor="middle">z</text><g><text class="s" x="260.2" y="280" text-anchor="start">y </text><circle class="gl-ink" cx="281.9" cy="274.4" r="6.1"/><line class="gl-ink" x1="277.6" y1="270.1" x2="286.3" y2="278.7"/><line class="gl-ink" x1="277.6" y1="278.7" x2="286.3" y2="270.1"/></g><text class="s" x="504" y="145" text-anchor="start">R</text><g><text class="sa" x="630.0" y="133" text-anchor="middle">v</text><line class="gl-acc" x1="628.0" y1="118.4" x2="634.4" y2="118.4"/><polygon class="glf-acc" points="635.9,118.4 630.5,115.8 630.5,120.9"/></g><text class="s" x="456" y="145" text-anchor="end">ℓ</text><text class="t" x="700" y="90" text-anchor="end">riel de atrás</text><text class="t" x="700" y="202" text-anchor="end">riel de adelante</text><g><text class="sc" x="574.1" y="236" text-anchor="middle">B</text><line class="gl-cop" x1="572.1" y1="221.4" x2="578.6" y2="221.4"/><polygon class="glf-cop" points="580.1,221.4 574.6,218.8 574.6,223.9"/><text class="sc" x="578.5" y="236" text-anchor="start"> </text><circle class="gl-cop" cx="591.4" cy="230.4" r="6.1"/><circle class="glf-cop" cx="591.4" cy="230.4" r="1.7"/><text class="sc" x="599.5" y="236" text-anchor="start"> (hacia arriba)</text></g><text class="s" x="520" y="267" text-anchor="middle">x</text><text class="s" x="480" y="224" text-anchor="middle">y</text><text class="t" x="600" y="290" text-anchor="middle">vista desde arriba</text></svg>

@@ -48,8 +48,22 @@
 
 .fig-missing { border: 2px dashed var(--bad); color: var(--bad); padding: 18px; text-align: center; border-radius: 8px; font: 600 13px var(--font-mono); }
 
+/* Mock exams (js/06-simulacro.js) */
+.simulacro { margin: 8px 0; }
+.sim-bar { position: sticky; top: 0; z-index: 5; display: flex; flex-wrap: wrap; gap: 14px 24px; align-items: center; justify-content: space-between;
+  padding: 10px 14px; margin: 12px 0 18px; background: var(--surface); border: 1px solid var(--line); border-radius: 10px; }
+.sim-time { display: block; font: 700 24px var(--font-mono); font-variant-numeric: tabular-nums; }
+.sim-time.low { color: var(--bad); }
+.sim-pts { font: 700 18px var(--font-mono); font-variant-numeric: tabular-nums; }
+.sim-nota { font: 600 13px var(--font-mono); color: var(--muted); margin-left: 8px; }
+.sim-nota.ok { color: var(--ok); }
+.simulacro .score-box { display: block; margin: 12px 0 4px; padding: 10px 14px; border: 1px dashed var(--line); border-radius: 8px; background: var(--paper); }
+.simulacro .score-box .sb-head { display: flex; justify-content: space-between; font: 600 13px var(--font-mono); color: var(--muted); margin-bottom: 6px; }
+.simulacro .score-box label { display: flex; gap: 8px; align-items: baseline; font-size: 15px; padding: 2px 0; cursor: pointer; }
+.score-box input.pts { accent-color: var(--ok); }
+
 @media print {
-  .toc, .master, .ctrl, .quiz-bar { display: none !important; }
+  .toc, .master, .ctrl, .quiz-bar, .sim-bar, .score-box { display: none !important; }
   .layout { display: block; }
   .reveal > li, .try-ans, .q .fb { display: block !important; }
   details { display: block; }

@@ -1,0 +1,247 @@
+<!-- S2 Mock exam 2 (original problems, Examen 2024–2026 style). Timer and self-scoring: js/06-simulacro.js. Figures: figuras/src/s02_figuras.py -->
+<section class="unit" id="s02" data-num="S2" data-title="Simulacro de examen 2">
+  <header class="unit-head"><span class="unit-num">S2</span><h1>Simulacro de examen 2</h1><span class="unit-weight">150 min · 18 pts · sin calculadora</span></header>
+  <div class="simulacro" id="s02-sim" data-minutes="150" data-total="18">
+    <div class="sim-bar">
+      <div><span class="eb-lbl">Tiempo</span><span class="sim-time">2:30:00</span></div>
+      <div class="eb-btns"><button type="button" class="primary sim-start">Iniciar</button><button type="button" class="sim-reset">Reiniciar</button></div>
+      <div class="eb-score"><span class="eb-lbl">Puntaje</span><span class="sim-pts">0 / 18</span><span class="sim-nota">nota 1,0</span></div>
+    </div>
+
+<section class="sec" id="s02-instrucciones" data-block="mapa" data-title="Instrucciones">
+  <h2>Instrucciones</h2>
+  <div class="key"><b>Formato del examen 2026-1.</b> Tienes <b>150 minutos</b>. Respondes <b>tres problemas</b> de 6 puntos cada uno (total 18): el <b>Problema 1</b>, eligiendo <b>P1A o P1B</b> (no ambos), y los <b>Problemas 2 y 3</b>, que son obligatorios. La nota es $1 + 6\cdot\dfrac{\text{puntaje}}{18}$; con 9 puntos obtienes un 4,0.</div>
+  <ul>
+    <li><b>Sin calculadora ni formulario.</b> Los datos están elegidos para calcularse a mano. Debes saber de memoria las fórmulas de la tarjeta de cada unidad. Se dan solo los valores que no se memorizan ($\sin 30^\circ = \tfrac12$, $\cos 30^\circ = \tfrac{\sqrt3}{2}$, $\sqrt3\approx1{,}73$, $\sqrt2\approx1{,}41$, $\pi\approx3{,}14$).</li>
+    <li><b>Cómo usar el cronómetro.</b> Pulsa <em>Iniciar</em> al empezar a leer los enunciados. Puedes pausarlo, pero en el examen real no hay pausas. Cuando quedan 10 minutos se pone en rojo.</li>
+    <li><b>Primero en papel.</b> Resuelve los tres problemas en hojas, como en la sala, sin abrir la pauta. Escribe cada paso con la ley que usas, define tus ejes y normales y recuadra cada resultado con sus unidades.</li>
+    <li><b>Después, autocorrección honesta.</b> Abre la pauta de cada problema, compara paso a paso y marca en la caja de puntaje <b>solo los criterios que realmente cumpliste</b> (resultado correcto <em>y</em> justificado; un resultado correcto sin el argumento no suma el criterio). Si resolviste P1A y P1B, el marcador cuenta solo el mejor de los dos.</li>
+    <li><b>Tiempo sugerido:</b> unos 45 minutos por problema y 15 minutos para revisar signos, unidades y límites.</li>
+  </ul>
+  <div class="trap"><b>Error típico en simulacros:</b> abrir la pauta "solo para ver la primera pista". En el examen no hay pistas: si te trabas, salta a otra parte del problema (las partes suelen poder resolverse por separado) y vuelve después.</div>
+</section>
+
+<section class="sec" id="s02-enunciados" data-block="arquetipos" data-title="Enunciados">
+  <h2>Enunciados</h2>
+  <p>Constantes: $k = \dfrac{1}{4\pi\varepsilon_0}$ (en N·m²/C²), $\mu_0 = 4\pi\times10^{-7}\ \text{T·m/A}$, $g = 10\ \text{m/s}^2$.</p>
+
+  <div class="prob" id="s02-e1a">
+    <div class="prob-head"><span class="tag">Problema 1A</span><span class="ptitle">Anillo cargado con una carga negativa en su centro</span><span class="diff">6 pts</span><span class="src">Problema original · estilo Examen 2024–2026</span></div>
+    <div class="prob-grid">
+      <div>
+        <p class="stmt">Un anillo delgado de radio $a$ (en m) tiene una carga total $+Q$ (en C, con $Q \gt 0$) distribuida uniformemente. Está en el plano $z = 0$, centrado en el origen $O$. En $O$ hay una carga puntual fija $-Q/8$. Toma $V = 0$ en el infinito y desprecia la gravedad.</p>
+        <p class="stmt">a) <b>(2,0 pts.)</b> Integrando sobre el anillo, calcula el campo eléctrico que produce <em>solo el anillo</em> en un punto $P$ del eje $z$, a distancia $z \gt 0$ de $O$. Luego escribe el campo total $\vec E$ (anillo y carga central) en ese punto.</p>
+        <p class="stmt">b) <b>(1,5 pts.)</b> Encuentra el punto $z_0 \gt 0$ del eje donde el campo total es nulo. Si una carga de prueba positiva se coloca en $z_0$ y se desplaza levemente a lo largo del eje, ¿vuelve a $z_0$ o se aleja? Justifica.</p>
+        <p class="stmt">c) <b>(1,0 pt.)</b> Calcula el potencial eléctrico $V(z_0)$.</p>
+        <p class="stmt">d) <b>(1,5 pts.)</b> Una partícula de masa $m$ (en kg) y carga $q_0 \gt 0$ (en C) se deja en $z_0$ y recibe un empujón despreciable hacia $+z$. Calcula el trabajo que hace el campo eléctrico sobre ella hasta que está muy lejos, y su rapidez final.</p>
+      </div>
+      <figure class="fig" data-fig="s02-p1a-anillo"><figcaption>Anillo de radio $a$ con carga $+Q$ en el plano $z = 0$ y carga puntual $-Q/8$ en su centro $O$. $P$ está en el eje, a distancia $z$ de $O$.</figcaption></figure>
+    </div>
+  </div>
+
+  <div class="prob" id="s02-e1b">
+    <div class="prob-head"><span class="tag">Problema 1B</span><span class="ptitle">Circuito RC con dos baterías y apertura de una rama</span><span class="diff">6 pts</span><span class="src">Problema original · estilo Examen 2024–2026</span></div>
+    <div class="prob-grid">
+      <div>
+        <p class="stmt">Tres ramas unen el nodo superior $a$ con el nodo inferior $b$. Rama izquierda: batería ideal $\varepsilon_1 = 12\ \text{V}$, resistencia $R_1 = 2\ \Omega$ e interruptor $S_1$. Rama central: interruptor $S$, resistencia $R_3 = 2\ \Omega$ y condensador $C = 3\ \mu\text{F}$, inicialmente descargado. Rama derecha: batería ideal $\varepsilon_2 = 6\ \text{V}$ y resistencia $R_2 = 4\ \Omega$. Ambas baterías tienen su borne positivo hacia el nodo $a$. Hace mucho tiempo que $S_1$ está cerrado y $S$ abierto; en $t = 0$ se cierra $S$.</p>
+        <p class="stmt">a) <b>(1,5 pts.)</b> Calcula la corriente (magnitud y sentido) en cada una de las tres ramas en $t = 0^+$.</p>
+        <p class="stmt">b) <b>(1,5 pts.)</b> Calcula las corrientes de las tres ramas cuando $t\to\infty$, la carga final $Q_f$ del condensador y la energía $U_f$ que almacena.</p>
+        <p class="stmt">c) <b>(1,0 pt.)</b> Calcula la constante de tiempo $\tau$ de la carga, justificando qué resistencia equivalente "ve" el condensador, y escribe la carga $q(t)$ y la corriente $i_C(t)$ del condensador para $t \gt 0$.</p>
+        <p class="stmt">d) <b>(2,0 pts.)</b> Con el condensador ya completamente cargado, se abre $S_1$. Midiendo el tiempo $t'$ desde ese instante, encuentra el voltaje del condensador $v_C(t')$ y la nueva constante de tiempo $\tau'$, y calcula la energía total que se disipa en las resistencias desde que se abre $S_1$ hasta el nuevo estado estacionario.</p>
+      </div>
+      <figure class="fig" data-fig="s02-p1b-circuito"><figcaption>Estado para $t \lt 0$: $S_1$ cerrado y $S$ abierto. Ambas baterías tienen su borne positivo (placa larga) hacia el nodo $a$.</figcaption></figure>
+    </div>
+  </div>
+
+  <div class="prob" id="s02-e2">
+    <div class="prob-head"><span class="tag">Problema 2</span><span class="ptitle">Espira de semicircunferencia y tramos rectos: campo, momento y torque</span><span class="diff">6 pts</span><span class="src">Problema original · estilo Examen 2024–2026</span></div>
+    <div class="prob-grid">
+      <div>
+        <p class="stmt">Una espira está en el plano $xy$ ($\hat z$ sale de la hoja) y lleva una corriente $I \gt 0$ (en A) en sentido <b>antihorario</b> visto desde $+z$. Está formada por una semicircunferencia de radio $a$ (en m) centrada en el origen $O$, que une $(0, a)$ con $(0, -a)$ pasando por $(-a, 0)$, y por tres tramos rectos: de $(0, -a)$ a $(a, -a)$, de $(a, -a)$ a $(a, a)$ y de $(a, a)$ a $(0, a)$.</p>
+        <p class="stmt">a) <b>(2,5 pts.)</b> Usando la ley de Biot-Savart, calcula el campo magnético en $O$ producido por la semicircunferencia y por cada uno de los tres tramos rectos. Para los tramos rectos, plantea y evalúa la integral.</p>
+        <p class="stmt">b) <b>(1,0 pt.)</b> Da el campo magnético total en $O$ (magnitud y dirección).</p>
+        <p class="stmt">c) <b>(1,5 pts.)</b> Calcula el momento dipolar magnético $\vec\mu$ de la espira (magnitud y dirección).</p>
+        <p class="stmt">d) <b>(1,0 pt.)</b> Se aplica un campo magnético uniforme $\vec B_0 = B_0\,\hat x$ (en T, con $B_0 \gt 0$). Calcula el torque sobre la espira, indica en torno a qué eje tiende a girar y en qué orientación queda en equilibrio estable. ¿Cuánto vale la fuerza magnética neta?</p>
+      </div>
+      <figure class="fig" data-fig="s02-p2-espira"><figcaption>La espira vista desde $+z$. La parte recta es un rectángulo de ancho $a$ y alto $2a$; $O$ es el centro de la semicircunferencia.</figcaption></figure>
+    </div>
+  </div>
+
+  <div class="prob" id="s02-e3">
+    <div class="prob-head"><span class="tag">Problema 3</span><span class="ptitle">Barra que baja por rieles inclinados en un campo vertical</span><span class="diff">6 pts</span><span class="src">Problema original · estilo Examen 2024–2026</span></div>
+    <div class="prob-grid">
+      <div>
+        <p class="stmt">Dos rieles conductores paralelos, separados por $\ell = 0{,}5\ \text{m}$, forman un plano inclinado en $\theta = 30^\circ$ respecto de la horizontal. En su extremo superior están unidos por una resistencia $R = 0{,}5\ \Omega$. Una barra conductora de masa $m = 0{,}3\ \text{kg}$, perpendicular a los rieles, desliza sin roce por ellos sin perder el contacto. Hay un campo magnético uniforme <b>vertical hacia arriba</b> de magnitud $B = 1\ \text{T}$. La barra parte del reposo en $t = 0$. Llama $s$ a la distancia, medida a lo largo de los rieles, entre la resistencia y la barra, y $v = ds/dt$ (en m/s) a su rapidez. Desprecia la resistencia de rieles y barra y la autoinducción del circuito.</p>
+        <p class="stmt">Ejes: $\hat x$ horizontal, en el sentido en que baja la barra; $\hat z$ vertical hacia arriba; $\hat y = \hat z\times\hat x$, horizontal y a lo largo de la barra, apuntando del "riel de adelante" al "riel de atrás".</p>
+        <p class="stmt">a) <b>(1,5 pts.)</b> Calcula el flujo magnético $\Phi_B(s)$ a través del circuito, la fem y la corriente inducidas en función de $v$, y el sentido de la corriente en la barra (justifica con la ley de Lenz).</p>
+        <p class="stmt">b) <b>(1,5 pts.)</b> Calcula la fuerza magnética sobre la barra (vector), su componente a lo largo de los rieles, y escribe la ecuación de movimiento para $v(t)$.</p>
+        <p class="stmt">c) <b>(1,5 pts.)</b> Resuelve la ecuación: escribe $v(t)$ y calcula los valores numéricos de la velocidad terminal $v_t$ y de la constante de tiempo $\tau$.</p>
+        <p class="stmt">d) <b>(1,5 pts.)</b> Comprueba que, a velocidad terminal, la potencia que entrega la gravedad es igual a la potencia disipada en $R$. Si al recorrer $D = 10\ \text{m}$ desde el reposo la barra ya va prácticamente a $v_t$, ¿cuánta energía se disipó en $R$ durante ese recorrido?</p>
+      </div>
+      <figure class="fig" data-fig="s02-p3-rieles"><figcaption>Izquierda: vista lateral (se mira en el sentido $+\hat y$); la barra se ve de punta y la resistencia, de canto. Derecha: vista desde arriba, con $\vec B$ saliendo de la hoja.</figcaption></figure>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="s02-pauta" data-block="practica" data-title="Pauta y corrección">
+  <h2>Pauta y corrección</h2>
+  <p>Abre cada pauta solo después de terminar el problema en papel. Cada paso indica su puntaje; la caja de abajo repite los mismos criterios para que marques los que lograste.</p>
+
+  <!-- ===================== P1A ===================== -->
+  <div class="prob" id="s02-p1a" data-kind="practica" data-diff="2">
+    <div class="prob-head"><span class="tag">Pauta P1A</span><span class="ptitle">Anillo cargado con una carga negativa en su centro</span><span class="diff">dificultad 2/3</span><span class="src">Problema original · estilo Examen 2024–2026</span></div>
+    <div class="prob-grid">
+      <div>
+        <p class="stmt">Anillo de radio $a$ con carga $+Q$ uniforme en el plano $z = 0$ y carga puntual fija $-Q/8$ en su centro. a) $\vec E$ en el eje ($z \gt 0$), integrando; b) punto $z_0$ con $\vec E = 0$ y estabilidad; c) $V(z_0)$; d) trabajo del campo y rapidez final de una partícula $(m, q_0)$ que parte de $z_0$ hacia $+z$.</p>
+        <div class="given"><div><b>Datos</b> $a$, $Q \gt 0$, carga central $-Q/8$, $m$, $q_0 \gt 0$, $k$; $V(\infty) = 0$</div><div><b>Piden</b> $\vec E(z)$, $z_0$, estabilidad, $V(z_0)$, $W$, $v_\infty$</div></div>
+      </div>
+      <figure class="fig" data-fig="s02-p1a-anillo"><figcaption>Cada elemento $dq$ del anillo está a distancia $\sqrt{z^2 + a^2}$ de $P$.</figcaption></figure>
+    </div>
+    <div class="predict"><b>Antes de calcular:</b> muy cerca de $O$, ¿qué domina, el anillo o la carga central? ¿Y muy lejos, donde todo se ve como una carga puntual de valor $Q - Q/8$? Si el campo cambia de signo entre esos extremos, tiene que anularse en algún punto.</div>
+    <ol class="reveal">
+      <li class="hint">Divide el anillo en elementos $dq$. Todos están a la misma distancia de $P$; por simetría, las componentes perpendiculares al eje se cancelan de a pares opuestos y solo se suma $dE_z$. Para $z_0$, iguala las magnitudes y eleva a la potencia $2/3$.</li>
+      <li><span class="rl">Paso 1 · Simetría: solo sobrevive la componente $z$ (0,5 pts.)</span><p class="do"><b>Qué hago:</b> un elemento $dq$ del anillo está a distancia $r = \sqrt{z^2 + a^2}$ de $P$ y produce $dE = \dfrac{k\,dq}{z^2 + a^2}$, a lo largo de la recta que une $dq$ con $P$. Su componente según el eje es $dE_z = dE\cos\alpha$, con $\cos\alpha = \dfrac{z}{\sqrt{z^2 + a^2}}$. El elemento diametralmente opuesto da una componente radial igual y opuesta, así que la parte perpendicular al eje se cancela.</p><p><b>Por qué:</b> la distribución tiene simetría de rotación en torno al eje $z$; ninguna dirección perpendicular al eje es privilegiada.</p></li>
+      <li><span class="rl">Paso 2 · Integral sobre el anillo (1,0 pt.)</span><p class="do"><b>Qué hago:</b> con $dq = \dfrac{Q}{2\pi}\,d\varphi$ ($\varphi$ es el ángulo que recorre el anillo):</p>$$E_{z,\text{anillo}} = \int_0^{2\pi}\frac{k\,z}{(z^2 + a^2)^{3/2}}\,\frac{Q}{2\pi}\,d\varphi = \frac{k\,z}{(z^2 + a^2)^{3/2}}\cdot\frac{Q}{2\pi}\cdot 2\pi = \frac{kQz}{(z^2 + a^2)^{3/2}}$$<p><b>Por qué:</b> $z$ y $a$ son fijos durante la integración, así que el integrando es constante y la integral es simplemente la carga total $Q$.</p></li>
+      <li><span class="rl">Paso 3 · Superposición con la carga central (0,5 pts.)</span><p class="do"><b>Qué hago:</b> la carga $-Q/8$, a distancia $z$ de $P$, produce un campo que apunta hacia ella, o sea $-\hat z$, de magnitud $\dfrac{kQ}{8z^2}$. Total:</p>$$\vec E(z) = \left[\frac{kQz}{(z^2 + a^2)^{3/2}} - \frac{kQ}{8z^2}\right]\hat z\qquad (z \gt 0)$$<p><b>Por qué:</b> principio de superposición; el campo de una carga negativa apunta hacia la carga.</p></li>
+      <li><span class="rl">Paso 4 · Punto donde $\vec E = 0$ (1,0 pt.)</span><p class="do"><b>Qué hago:</b> igualo las magnitudes: $\dfrac{z}{(z^2 + a^2)^{3/2}} = \dfrac{1}{8z^2}$, es decir, $8z^3 = (z^2 + a^2)^{3/2}$. Elevando ambos lados a $2/3$ (los dos son positivos): $4z^2 = z^2 + a^2$, así que $3z^2 = a^2$ y</p>$$z_0 = \frac{a}{\sqrt3}$$<p><b>Por qué:</b> $(8z^3)^{2/3} = 4z^2$ y $\big((z^2 + a^2)^{3/2}\big)^{2/3} = z^2 + a^2$. Por simetría, también se anula en $z = -a/\sqrt3$.</p></li>
+      <li><span class="rl">Paso 5 · Estabilidad en el eje: equilibrio inestable (0,5 pts.)</span><p class="do"><b>Qué hago:</b> $E_z \gt 0$ equivale a $8z^3 \gt (z^2 + a^2)^{3/2}$, es decir, a $2z \gt \sqrt{z^2 + a^2}$, o sea $z \gt z_0$. Entonces, para $z \gt z_0$, $E_z \gt 0$: una carga positiva desplazada hacia afuera es empujada aún más afuera. Para $0 \lt z \lt z_0$, $E_z \lt 0$: desplazada hacia adentro, es atraída hacia $O$. En ambos casos <b>se aleja de $z_0$: el equilibrio es inestable</b>.</p><p><b>Por qué:</b> un equilibrio es estable si la fuerza tras un desplazamiento apunta de vuelta al punto. Aquí apunta hacia afuera del punto en ambos sentidos.</p></li>
+      <li><span class="rl">Paso 6 · Potencial en $z_0$ (1,0 pt.)</span><p class="do"><b>Qué hago:</b> el potencial es escalar: todo el anillo está a distancia $\sqrt{z^2 + a^2}$ de $P$, así que $V(z) = \dfrac{kQ}{\sqrt{z^2 + a^2}} - \dfrac{kQ}{8z}$. En $z_0$: $\sqrt{z_0^2 + a^2} = \sqrt{\tfrac43 a^2} = \dfrac{2a}{\sqrt3}$, y</p>$$V(z_0) = \frac{\sqrt3\,kQ}{2a} - \frac{\sqrt3\,kQ}{8a} = \frac{3\sqrt3\,kQ}{8a}$$<p><b>Por qué:</b> $V = \displaystyle\int\frac{k\,dq}{r}$ con $V(\infty) = 0$, y superposición escalar. Fíjate que $V(z_0)\neq0$ aunque $\vec E(z_0) = 0$.</p></li>
+      <li><span class="rl">Paso 7 · Trabajo del campo (0,5 pts.)</span><p class="do"><b>Qué hago:</b> $W_{\text{campo}} = q_0\,[V(z_0) - V(\infty)] = \dfrac{3\sqrt3\,kQq_0}{8a}$, positivo.</p><p><b>Por qué:</b> el campo eléctrico es conservativo: $W = -\Delta U = -q_0\Delta V$. Como $E_z \gt 0$ en todo $z \gt z_0$, el campo empuja a la partícula hacia afuera durante todo el viaje.</p></li>
+      <li><span class="rl">Paso 8 · Rapidez final (1,0 pt.)</span><p class="do"><b>Qué hago:</b> conservación de la energía con rapidez inicial nula: $\tfrac12 m v_\infty^2 = W_{\text{campo}}$, así que</p>$$v_\infty = \sqrt{\frac{2q_0V(z_0)}{m}} = \sqrt{\frac{3\sqrt3\,kQq_0}{4ma}}$$<p><b>Por qué:</b> teorema del trabajo y la energía; el empujón inicial es despreciable.</p></li>
+      <li class="final">$$\boxed{\vec E(z) = \left[\frac{kQz}{(z^2+a^2)^{3/2}} - \frac{kQ}{8z^2}\right]\hat z,\qquad z_0 = \frac{a}{\sqrt3}\ \text{(equilibrio inestable)}}$$ $$\boxed{V(z_0) = \frac{3\sqrt3\,kQ}{8a},\qquad W_{\text{campo}} = \frac{3\sqrt3\,kQq_0}{8a},\qquad v_\infty = \sqrt{\frac{3\sqrt3\,kQq_0}{4ma}}}$$ El campo del anillo solo es $\dfrac{kQz}{(z^2+a^2)^{3/2}}\,\hat z$ (en N/C).</li>
+      <li class="check"><b>Verificación:</b> unidades: $kQ/a^2$ está en N/C, $kQ/a$ en V, $kQq_0/a$ en J y $\sqrt{\text{J/kg}}$ en m/s. Límite lejano ($z\gg a$): $E_z\approx\dfrac{kQ}{z^2} - \dfrac{kQ}{8z^2} = \dfrac{k(7Q/8)}{z^2}$, el campo de la carga neta $7Q/8$. Límite cercano ($z\to0^+$): domina $-kQ/(8z^2)$ y el campo apunta hacia $O$, como predice la intuición. Control: $-dV/dz$ reproduce $E_z$.</li>
+    </ol>
+    <div class="ctrl"></div>
+  </div>
+  <div class="score-box" data-group="p1">
+    <div class="sb-head"><span>Puntaje P1A</span><span class="sb-sub"></span></div>
+    <label><input type="checkbox" class="pts" data-pts="0.5"> Paso 1 · Simetría: solo sobrevive la componente $z$ (0,5 pts.)</label>
+    <label><input type="checkbox" class="pts" data-pts="1"> Paso 2 · Integral sobre el anillo (1,0 pt.)</label>
+    <label><input type="checkbox" class="pts" data-pts="0.5"> Paso 3 · Superposición con la carga central (0,5 pts.)</label>
+    <label><input type="checkbox" class="pts" data-pts="1"> Paso 4 · Punto donde $\vec E = 0$ (1,0 pt.)</label>
+    <label><input type="checkbox" class="pts" data-pts="0.5"> Paso 5 · Estabilidad en el eje: equilibrio inestable (0,5 pts.)</label>
+    <label><input type="checkbox" class="pts" data-pts="1"> Paso 6 · Potencial en $z_0$ (1,0 pt.)</label>
+    <label><input type="checkbox" class="pts" data-pts="0.5"> Paso 7 · Trabajo del campo (0,5 pts.)</label>
+    <label><input type="checkbox" class="pts" data-pts="1"> Paso 8 · Rapidez final (1,0 pt.)</label>
+  </div>
+
+  <!-- ===================== P1B ===================== -->
+  <div class="prob" id="s02-p1b" data-kind="practica" data-diff="2">
+    <div class="prob-head"><span class="tag">Pauta P1B</span><span class="ptitle">Circuito RC con dos baterías y apertura de una rama</span><span class="diff">dificultad 2/3</span><span class="src">Problema original · estilo Examen 2024–2026</span></div>
+    <div class="prob-grid">
+      <div>
+        <p class="stmt">Ramas entre $a$ y $b$: $\varepsilon_1 = 12\ \text{V}$ con $R_1 = 2\ \Omega$ y $S_1$; $S$, $R_3 = 2\ \Omega$ y $C = 3\ \mu\text{F}$; $\varepsilon_2 = 6\ \text{V}$ con $R_2 = 4\ \Omega$ (bornes positivos hacia $a$). En $t = 0$ se cierra $S$; más tarde, con $C$ cargado, se abre $S_1$. Piden corrientes en $t = 0^+$ y $t\to\infty$, $Q_f$, $U_f$, $\tau$, $q(t)$, $i_C(t)$, $v_C(t')$, $\tau'$ y la energía disipada tras abrir $S_1$.</p>
+        <div class="given"><div><b>Datos</b> $\varepsilon_1 = 12\ \text{V}$, $\varepsilon_2 = 6\ \text{V}$, $R_1 = 2\ \Omega$, $R_2 = 4\ \Omega$, $R_3 = 2\ \Omega$, $C = 3\ \mu\text{F}$</div><div><b>Piden</b> $I(0^+)$, $I(\infty)$, $Q_f$, $U_f$, $\tau$, $q(t)$, $i_C(t)$, $v_C(t')$, $\tau'$, $E_{\text{dis}}$</div></div>
+      </div>
+      <figure class="fig" data-fig="s02-p1b-circuito"><figcaption>Toma $V_b = 0$; la incógnita natural es el potencial $V_a$ del nodo superior.</figcaption></figure>
+    </div>
+    <div class="predict"><b>Antes de calcular:</b> en el estado final, ¿puede $\varepsilon_2$ estar entregando energía si $\varepsilon_1$ es mayor y ambas están "enfrentadas" en la misma malla? ¿El voltaje final del condensador estará entre 6 V y 12 V?</div>
+    <ol class="reveal">
+      <li class="hint">En $t = 0^+$ el condensador descargado se comporta como un cable; en $t\to\infty$, como un circuito abierto. En ambos casos basta una ecuación de nodo en $a$. Para $\tau$, apaga las baterías (cortocircuito) y mira la resistencia entre los bornes de $C$.</li>
+      <li><span class="rl">Paso 1 · Condensador descargado en $t = 0^+$: equivale a un cable (0,5 pts.)</span><p class="do"><b>Qué hago:</b> como $q(0) = 0$, $v_C(0^+) = q/C = 0$: la rama central es solo $R_3$ entre $a$ y $b$.</p><p><b>Por qué:</b> la carga de un condensador (y por lo tanto su voltaje) no puede cambiar de golpe, porque eso exigiría corriente infinita.</p></li>
+      <li><span class="rl">Paso 2 · Nodo $a$ en $t = 0^+$: $V_a = 6\ \text{V}$ y corrientes (1,0 pt.)</span><p class="do"><b>Qué hago:</b> con $V_b = 0$, cada rama lleva hacia $a$ la corriente (fem − $V_a$)/R. Ley de nodos (lo que llega a $a$ sale por $R_3$):</p>$$\frac{12 - V_a}{2} + \frac{6 - V_a}{4} = \frac{V_a}{2}\ \Rightarrow\ 24 - 2V_a + 6 - V_a = 2V_a\ \Rightarrow\ V_a = 6\ \text{V}$$<p>Entonces $I_1 = \dfrac{12 - 6}{2} = 3\ \text{A}$ (sube por $\varepsilon_1$, sale por su borne positivo), $I_2 = \dfrac{6 - 6}{4} = 0$ (rama de $\varepsilon_2$) e $i_C(0^+) = \dfrac{6}{2} = 3\ \text{A}$ (baja por $R_3$ y $C$, de $a$ hacia $b$).</p><p><b>Por qué:</b> conservación de la carga en el nodo y ley de Ohm en cada rama (al subir por una batería ideal del borne $-$ al $+$ el potencial aumenta en $\varepsilon$).</p></li>
+      <li><span class="rl">Paso 3 · Régimen $t\to\infty$: corriente de malla 1 A y $v_C = 10\ \text{V}$ (1,0 pt.)</span><p class="do"><b>Qué hago:</b> el condensador cargado no deja pasar corriente: $i_C = 0$. Queda la malla exterior $\varepsilon_1$–$R_1$–$R_2$–$\varepsilon_2$. Recorriéndola: $\varepsilon_1 - IR_1 - IR_2 - \varepsilon_2 = 0$, así que $I = \dfrac{12 - 6}{2 + 4} = 1\ \text{A}$: sube por $\varepsilon_1$ y <b>baja por la rama de $\varepsilon_2$</b>, entrando por su borne positivo (la batería $\varepsilon_2$ se está cargando). Voltaje entre $a$ y $b$: $V_a = \varepsilon_1 - IR_1 = 12 - 2 = 10\ \text{V}$ (control: $\varepsilon_2 + IR_2 = 6 + 4 = 10\ \text{V}$). Como por $R_3$ no pasa corriente, $v_C = 10\ \text{V}$, con la placa superior positiva.</p><p><b>Por qué:</b> en estado estacionario $dq/dt = 0$; ley de mallas de Kirchhoff.</p></li>
+      <li><span class="rl">Paso 4 · Carga y energía final (0,5 pts.)</span><p class="do"><b>Qué hago:</b> $Q_f = Cv_C = (3\ \mu\text{F})(10\ \text{V}) = 30\ \mu\text{C}$; $U_f = \tfrac12 Cv_C^2 = \tfrac12(3\times10^{-6})(100) = 1{,}5\times10^{-4}\ \text{J} = 150\ \mu\text{J}$.</p><p><b>Por qué:</b> definición de capacidad y energía de un condensador.</p></li>
+      <li><span class="rl">Paso 5 · Resistencia equivalente vista por $C$ y $\tau$ (0,5 pts.)</span><p class="do"><b>Qué hago:</b> con las baterías reemplazadas por cables, desde los bornes de $C$ se ve $R_3$ en serie con $R_1\parallel R_2$:</p>$$R_{\text{eq}} = R_3 + \frac{R_1R_2}{R_1 + R_2} = 2 + \frac{8}{6} = \frac{10}{3}\ \Omega,\qquad \tau = R_{\text{eq}}C = \frac{10}{3}\cdot3\ \mu\text{s} = 10\ \mu\text{s}$$<p><b>Por qué:</b> la red vista por $C$ equivale a una fuente de Thévenin $V_{\text{th}} = 10\ \text{V}$ (el $v_C$ final) con resistencia $R_{\text{th}} = R_1\parallel R_2$ en serie con $R_3$; una fuente ideal no aporta resistencia.</p></li>
+      <li><span class="rl">Paso 6 · Carga $q(t)$ y corriente $i_C(t)$ (0,5 pts.)</span><p class="do"><b>Qué hago:</b> partiendo de $q(0) = 0$ hacia $Q_f$: $q(t) = 30\ \mu\text{C}\,\big(1 - e^{-t/\tau}\big)$ e $i_C(t) = \dfrac{dq}{dt} = \dfrac{Q_f}{\tau}e^{-t/\tau} = 3\ \text{A}\;e^{-t/\tau}$, con $\tau = 10\ \mu\text{s}$.</p><p><b>Por qué:</b> en el circuito de Thévenin, $V_{\text{th}} - R_{\text{eq}}\dfrac{dq}{dt} - \dfrac qC = 0$, cuya solución con $q(0) = 0$ es la exponencial de carga. Control: $i_C(0) = 3\ \text{A}$, igual que en el Paso 2.</p></li>
+      <li><span class="rl">Paso 7 · Tras abrir $S_1$: $v_C(t')$ y $\tau'$ (1,0 pt.)</span><p class="do"><b>Qué hago:</b> sin la rama de $\varepsilon_1$ queda una sola malla: $C$, $R_3$, $\varepsilon_2$ y $R_2$. El voltaje del condensador parte en $10\ \text{V}$ (continuidad) y tiende a $\varepsilon_2 = 6\ \text{V}$ (cuando $i = 0$, $v_C = \varepsilon_2$). La resistencia de la malla es $R_2 + R_3 = 6\ \Omega$:</p>$$\tau' = (R_2 + R_3)C = 6\cdot3\ \mu\text{s} = 18\ \mu\text{s},\qquad v_C(t') = 6 + 4\,e^{-t'/\tau'}\ \text{V}$$<p>La corriente, $i(t') = \dfrac{4}{6}e^{-t'/\tau'} = \tfrac23\,e^{-t'/\tau'}\ \text{A}$, sale de la placa superior, sube por $R_3$ y baja por la rama de $\varepsilon_2$ entrando por su borne positivo.</p><p><b>Por qué:</b> ley de mallas $v_C - iR_3 - iR_2 - \varepsilon_2 = 0$ con $i = -dq/dt$: es una relajación exponencial de $10\ \text{V}$ a $6\ \text{V}$ con constante $(R_2 + R_3)C$.</p></li>
+      <li><span class="rl">Paso 8 · Balance de energía tras abrir $S_1$ (1,0 pt.)</span><p class="do"><b>Qué hago:</b> energía inicial $U_f = 150\ \mu\text{J}$; final $U' = \tfrac12(3\ \mu\text{F})(6\ \text{V})^2 = 54\ \mu\text{J}$. La carga que pasa por $\varepsilon_2$ es $\Delta q = C(10 - 6) = 12\ \mu\text{C}$, entrando por su borne positivo, así que la batería <b>absorbe</b> $\varepsilon_2\Delta q = 6\cdot12 = 72\ \mu\text{J}$. Disipado en $R_2$ y $R_3$:</p>$$E_{\text{dis}} = 150 - 54 - 72 = 24\ \mu\text{J}$$<p><b>Por qué:</b> conservación de la energía en la malla. Control directo: $\displaystyle\int_0^\infty (R_2 + R_3)\,i^2\,dt' = 6\cdot\tfrac49\cdot\dfrac{\tau'}{2} = 24\ \mu\text{J}$, que coincide con $\tfrac12C(\Delta v)^2 = \tfrac12(3\ \mu\text{F})(4\ \text{V})^2$.</p></li>
+      <li class="final">$$\boxed{t = 0^+:\ I_1 = 3\ \text{A}\ (\text{sube por }\varepsilon_1),\ I_2 = 0,\ i_C = 3\ \text{A}\ (a\to b)}$$ $$\boxed{t\to\infty:\ I = 1\ \text{A}\ (\text{sube por }\varepsilon_1,\ \text{baja por }\varepsilon_2),\ i_C = 0,\ Q_f = 30\ \mu\text{C},\ U_f = 150\ \mu\text{J}}$$ $$\boxed{\tau = \tfrac{10}{3}\ \Omega\cdot3\ \mu\text{F} = 10\ \mu\text{s},\quad q(t) = 30\ \mu\text{C}\,(1 - e^{-t/\tau}),\quad i_C(t) = 3\ \text{A}\,e^{-t/\tau}}$$ $$\boxed{v_C(t') = 6 + 4e^{-t'/\tau'}\ \text{V},\quad \tau' = 18\ \mu\text{s},\quad E_{\text{dis}} = 24\ \mu\text{J}}$$</li>
+      <li class="check"><b>Verificación:</b> unidades: $\Omega\cdot\text{F} = \dfrac{\text{V}}{\text{A}}\cdot\dfrac{\text{C}}{\text{V}} = \text{s}$. Límites: si $\varepsilon_2 = \varepsilon_1$, la corriente final de malla sería cero y $v_C = \varepsilon_1$; si al abrir $S_1$ no hubiera $\varepsilon_2$ (cable), el condensador se descargaría por completo y se disiparía toda $U_f$. El resultado $v_C = 10\ \text{V}$ está entre 6 y 12 V, como se anticipó.</li>
+    </ol>
+    <div class="ctrl"></div>
+  </div>
+  <div class="score-box" data-group="p1">
+    <div class="sb-head"><span>Puntaje P1B</span><span class="sb-sub"></span></div>
+    <label><input type="checkbox" class="pts" data-pts="0.5"> Paso 1 · Condensador descargado en $t = 0^+$: equivale a un cable (0,5 pts.)</label>
+    <label><input type="checkbox" class="pts" data-pts="1"> Paso 2 · Nodo $a$ en $t = 0^+$: $V_a = 6\ \text{V}$ y corrientes (1,0 pt.)</label>
+    <label><input type="checkbox" class="pts" data-pts="1"> Paso 3 · Régimen $t\to\infty$: corriente de malla 1 A y $v_C = 10\ \text{V}$ (1,0 pt.)</label>
+    <label><input type="checkbox" class="pts" data-pts="0.5"> Paso 4 · Carga y energía final (0,5 pts.)</label>
+    <label><input type="checkbox" class="pts" data-pts="0.5"> Paso 5 · Resistencia equivalente vista por $C$ y $\tau$ (0,5 pts.)</label>
+    <label><input type="checkbox" class="pts" data-pts="0.5"> Paso 6 · Carga $q(t)$ y corriente $i_C(t)$ (0,5 pts.)</label>
+    <label><input type="checkbox" class="pts" data-pts="1"> Paso 7 · Tras abrir $S_1$: $v_C(t')$ y $\tau'$ (1,0 pt.)</label>
+    <label><input type="checkbox" class="pts" data-pts="1"> Paso 8 · Balance de energía tras abrir $S_1$ (1,0 pt.)</label>
+  </div>
+
+  <!-- ===================== P2 ===================== -->
+  <div class="prob" id="s02-p2" data-kind="practica" data-diff="2">
+    <div class="prob-head"><span class="tag">Pauta P2</span><span class="ptitle">Espira de semicircunferencia y tramos rectos: campo, momento y torque</span><span class="diff">dificultad 2/3</span><span class="src">Problema original · estilo Examen 2024–2026</span></div>
+    <div class="prob-grid">
+      <div>
+        <p class="stmt">Espira en el plano $xy$ con corriente $I$ antihoraria vista desde $+z$: semicircunferencia de radio $a$ centrada en $O$ (lado $x \lt 0$) y tres tramos rectos que cierran un rectángulo de ancho $a$ y alto $2a$ a la derecha de $O$. a) $\vec B$ en $O$ de cada parte; b) $\vec B$ total; c) $\vec\mu$; d) torque en $\vec B_0 = B_0\hat x$, eje de giro, equilibrio estable y fuerza neta.</p>
+        <div class="given"><div><b>Datos</b> $I$, $a$, $\mu_0$, $\vec B_0 = B_0\hat x$</div><div><b>Piden</b> $\vec B_O$ por partes y total, $\vec\mu$, $\vec\tau$, eje, equilibrio, $\vec F$</div></div>
+      </div>
+      <figure class="fig" data-fig="s02-p2-espira"><figcaption>El tramo de arriba y el de abajo miden $a$; el de la derecha mide $2a$. Los tres están a distancia $a$ de $O$.</figcaption></figure>
+    </div>
+    <div class="predict"><b>Antes de calcular:</b> la corriente gira en torno a $O$ siempre en el mismo sentido (antihorario). ¿Todas las partes aportan en la misma dirección? ¿El campo total será mayor o menor que el de una espira circular completa de radio $a$, $\mu_0I/(2a)$?</div>
+    <ol class="reveal">
+      <li class="hint">Ley de Biot-Savart: $d\vec B = \dfrac{\mu_0 I}{4\pi}\dfrac{d\vec\ell\times\hat r}{r^2}$, con $\hat r$ apuntando de $d\vec\ell$ al punto $O$. Para un tramo recto a distancia $d$ de $O$, usa la coordenada $u$ a lo largo del tramo, medida desde el pie de la perpendicular, y la primitiva $\displaystyle\int\frac{du}{(u^2 + d^2)^{3/2}} = \frac{u}{d^2\sqrt{u^2 + d^2}}$.</li>
+      <li><span class="rl">Paso 1 · Semicircunferencia por Biot-Savart (1,0 pt.)</span><p class="do"><b>Qué hago:</b> en el arco, $d\vec\ell$ es tangente y $\hat r$ es radial hacia $O$, así que $d\vec\ell\perp\hat r$ y $|d\vec\ell\times\hat r| = d\ell$; con la corriente antihoraria, $d\vec\ell\times\hat r$ apunta en $+\hat z$. Como $r = a$ es constante:</p>$$B_{\text{arco}} = \frac{\mu_0 I}{4\pi a^2}\int d\ell = \frac{\mu_0 I}{4\pi a^2}\,(\pi a) = \frac{\mu_0 I}{4a},\quad\text{en }+\hat z$$<p><b>Por qué:</b> todos los elementos del arco están a la misma distancia y aportan en la misma dirección; el largo del semicírculo es $\pi a$.</p></li>
+      <li><span class="rl">Paso 2 · Integral de un tramo recto finito (0,5 pts.)</span><p class="do"><b>Qué hago:</b> para un tramo recto a distancia perpendicular $d$ de $O$, con $u$ medido a lo largo del tramo desde el pie de la perpendicular, $|d\vec\ell\times\hat r| = du\,\sin\beta = du\,\dfrac{d}{\sqrt{u^2 + d^2}}$ y $r^2 = u^2 + d^2$:</p>$$B = \frac{\mu_0 I}{4\pi}\int_{u_1}^{u_2}\frac{d\,du}{(u^2 + d^2)^{3/2}} = \frac{\mu_0 I}{4\pi d}\left[\frac{u}{\sqrt{u^2 + d^2}}\right]_{u_1}^{u_2}$$<p><b>Por qué:</b> $\beta$ es el ángulo entre $d\vec\ell$ y $\hat r$; la primitiva se comprueba derivando.</p></li>
+      <li><span class="rl">Paso 3 · Los tres tramos rectos (1,0 pt.)</span><p class="do"><b>Qué hago:</b> todos están a $d = a$. <b>Tramo superior</b> (de $(a,a)$ a $(0,a)$): el pie de la perpendicular es $(0, a)$, así que $u$ va de $0$ a $a$: $B_{\text{sup}} = \dfrac{\mu_0 I}{4\pi a}\cdot\dfrac{a}{\sqrt2\,a} = \dfrac{\sqrt2\,\mu_0 I}{8\pi a}$. <b>Tramo inferior:</b> por simetría, lo mismo. <b>Tramo derecho</b> (de $(a,-a)$ a $(a,a)$): $u$ va de $-a$ a $a$: $B_{\text{der}} = \dfrac{\mu_0 I}{4\pi a}\left(\dfrac{1}{\sqrt2} + \dfrac{1}{\sqrt2}\right) = \dfrac{\sqrt2\,\mu_0 I}{4\pi a}$. Los tres apuntan en $+\hat z$.</p><p><b>Por qué:</b> en los tres la corriente rodea a $O$ en sentido antihorario, así que la regla de la mano derecha da $+\hat z$. Por ejemplo, en el tramo derecho, $d\vec\ell = du\,\hat y$ y $\hat r$ tiene componente $-\hat x$: $\hat y\times(-\hat x) = +\hat z$.</p></li>
+      <li><span class="rl">Paso 4 · Campo total en $O$ y dirección (1,0 pt.)</span><p class="do"><b>Qué hago:</b> sumo: $B_{\text{rectos}} = 2\cdot\dfrac{\sqrt2\,\mu_0 I}{8\pi a} + \dfrac{\sqrt2\,\mu_0 I}{4\pi a} = \dfrac{\sqrt2\,\mu_0 I}{2\pi a}$, y</p>$$\vec B_O = \left(\frac{\mu_0 I}{4a} + \frac{\sqrt2\,\mu_0 I}{2\pi a}\right)\hat z = \frac{\mu_0 I}{4a}\left(1 + \frac{2\sqrt2}{\pi}\right)\hat z\approx 0{,}48\,\frac{\mu_0 I}{a}\,\hat z$$<p><b>Por qué:</b> superposición; todas las contribuciones son paralelas, así que se suman las magnitudes. Sale de la hoja.</p></li>
+      <li><span class="rl">Paso 5 · Área de la espira (0,5 pts.)</span><p class="do"><b>Qué hago:</b> $A = \underbrace{\tfrac12\pi a^2}_{\text{semicírculo}} + \underbrace{a\cdot 2a}_{\text{rectángulo}} = \dfrac{(\pi + 4)\,a^2}{2}$.</p><p><b>Por qué:</b> la espira es plana; su área es la de la región que encierra.</p></li>
+      <li><span class="rl">Paso 6 · Momento magnético con dirección (1,0 pt.)</span><p class="do"><b>Qué hago:</b> $\vec\mu = IA\,\hat n$ con $\hat n$ según la mano derecha (corriente antihoraria vista desde $+z$, así que $\hat n = +\hat z$):</p>$$\vec\mu = \frac{(\pi + 4)\,Ia^2}{2}\,\hat z\quad(\text{en A·m}^2)$$<p><b>Por qué:</b> definición del momento dipolar de una espira plana, $\vec\mu = NIA\,\hat n$ con $N = 1$.</p></li>
+      <li><span class="rl">Paso 7 · Torque (0,5 pts.)</span><p class="do"><b>Qué hago:</b> $\vec\tau = \vec\mu\times\vec B_0 = \mu B_0\,(\hat z\times\hat x) = \dfrac{(\pi + 4)\,Ia^2B_0}{2}\,\hat y$. La espira tiende a girar en torno a un eje paralelo a $\hat y$ (contenido en su plano).</p><p><b>Por qué:</b> torque sobre un dipolo magnético en un campo uniforme; $\hat z\times\hat x = \hat y$.</p></li>
+      <li><span class="rl">Paso 8 · Equilibrio estable y fuerza neta (0,5 pts.)</span><p class="do"><b>Qué hago:</b> la energía $U = -\vec\mu\cdot\vec B_0$ es mínima cuando $\vec\mu$ es paralelo a $\vec B_0$: equilibrio estable con $\vec\mu$ en $+\hat x$, es decir, con el plano de la espira perpendicular a $\vec B_0$ (plano $yz$). La fuerza neta es <b>cero</b>.</p><p><b>Por qué:</b> en un campo uniforme, $\vec F = I\oint d\vec\ell\times\vec B_0 = I\left(\oint d\vec\ell\right)\times\vec B_0 = 0$, porque $\oint d\vec\ell = 0$ en una curva cerrada. Con $\vec\mu$ antiparalelo a $\vec B_0$ también hay equilibrio, pero inestable.</p></li>
+      <li class="final">$$\boxed{B_{\text{arco}} = \frac{\mu_0 I}{4a},\quad B_{\text{sup}} = B_{\text{inf}} = \frac{\sqrt2\,\mu_0 I}{8\pi a},\quad B_{\text{der}} = \frac{\sqrt2\,\mu_0 I}{4\pi a}\quad(\text{todos en }+\hat z)}$$ $$\boxed{\vec B_O = \frac{\mu_0 I}{4a}\left(1 + \frac{2\sqrt2}{\pi}\right)\hat z,\qquad \vec\mu = \frac{(\pi+4)\,Ia^2}{2}\,\hat z}$$ $$\boxed{\vec\tau = \frac{(\pi+4)\,Ia^2B_0}{2}\,\hat y,\quad\text{equilibrio estable con }\vec\mu\parallel\hat x,\quad \vec F_{\text{neta}} = 0}$$ Gira en torno a un eje paralelo a $\hat y$; en el equilibrio estable el plano de la espira es perpendicular a $\vec B_0$.</li>
+      <li class="check"><b>Verificación:</b> unidades: $\mu_0 I/a$ está en T, $Ia^2$ en A·m² y $Ia^2B_0$ en N·m. Comparación: un cuadrado de lado $2a$ centrado en $O$ daría $4\cdot\dfrac{\sqrt2\,\mu_0 I}{4\pi a} = \dfrac{\sqrt2\,\mu_0 I}{\pi a}$; los tres tramos equivalen a dos lados completos de ese cuadrado, o sea, a la mitad: $\dfrac{\sqrt2\,\mu_0 I}{2\pi a}$, como se obtuvo. El resultado total, $\approx 0{,}48\,\mu_0I/a$, es algo menor que el de la espira circular completa ($0{,}5\,\mu_0I/a$), porque el lado recto está más lejos de $O$ que un arco.</li>
+    </ol>
+    <div class="ctrl"></div>
+  </div>
+  <div class="score-box" data-group="p2">
+    <div class="sb-head"><span>Puntaje P2</span><span class="sb-sub"></span></div>
+    <label><input type="checkbox" class="pts" data-pts="1"> Paso 1 · Semicircunferencia por Biot-Savart (1,0 pt.)</label>
+    <label><input type="checkbox" class="pts" data-pts="0.5"> Paso 2 · Integral de un tramo recto finito (0,5 pts.)</label>
+    <label><input type="checkbox" class="pts" data-pts="1"> Paso 3 · Los tres tramos rectos (1,0 pt.)</label>
+    <label><input type="checkbox" class="pts" data-pts="1"> Paso 4 · Campo total en $O$ y dirección (1,0 pt.)</label>
+    <label><input type="checkbox" class="pts" data-pts="0.5"> Paso 5 · Área de la espira (0,5 pts.)</label>
+    <label><input type="checkbox" class="pts" data-pts="1"> Paso 6 · Momento magnético con dirección (1,0 pt.)</label>
+    <label><input type="checkbox" class="pts" data-pts="0.5"> Paso 7 · Torque (0,5 pts.)</label>
+    <label><input type="checkbox" class="pts" data-pts="0.5"> Paso 8 · Equilibrio estable y fuerza neta (0,5 pts.)</label>
+  </div>
+
+  <!-- ===================== P3 ===================== -->
+  <div class="prob" id="s02-p3" data-kind="practica" data-diff="3">
+    <div class="prob-head"><span class="tag">Pauta P3</span><span class="ptitle">Barra que baja por rieles inclinados en un campo vertical</span><span class="diff">dificultad 3/3</span><span class="src">Problema original · estilo Examen 2024–2026</span></div>
+    <div class="prob-grid">
+      <div>
+        <p class="stmt">Rieles separados por $\ell = 0{,}5\ \text{m}$, inclinados en $\theta = 30^\circ$ y unidos arriba por $R = 0{,}5\ \Omega$; barra de masa $m = 0{,}3\ \text{kg}$ que parte del reposo y desliza sin roce; campo vertical hacia arriba $B = 1\ \text{T}$; $s$ es la distancia de $R$ a la barra a lo largo de los rieles y $v = ds/dt$. a) $\Phi_B$, $\varepsilon$, $I$ y sentido; b) fuerza, componente a lo largo de los rieles y ecuación de movimiento; c) $v(t)$, $v_t$, $\tau$; d) balance de potencia y energía disipada en $D = 10\ \text{m}$.</p>
+        <div class="given"><div><b>Datos</b> $\ell = 0{,}5\ \text{m}$, $\theta = 30^\circ$, $R = 0{,}5\ \Omega$, $m = 0{,}3\ \text{kg}$, $B = 1\ \text{T}$ (vertical, hacia arriba), $g = 10\ \text{m/s}^2$, $D = 10\ \text{m}$</div><div><b>Piden</b> $\Phi_B(s)$, $\varepsilon$, $I$, sentido, $\vec F_B$, EDO, $v(t)$, $v_t$, $\tau$, potencias, $E_{\text{dis}}$</div></div>
+      </div>
+      <figure class="fig" data-fig="s02-p3-rieles"><figcaption>El campo es vertical, pero el circuito está en el plano inclinado: solo la componente de $\vec B$ normal al plano aporta flujo.</figcaption></figure>
+    </div>
+    <div class="predict"><b>Antes de calcular:</b> la fuerza magnética sobre la barra es horizontal (perpendicular a $\vec B$ vertical y a la barra). ¿Frena la bajada con toda su magnitud o solo con una parte? ¿Esperas una velocidad terminal mayor o menor que si $\vec B$ fuera perpendicular al plano de los rieles?</div>
+    <ol class="reveal">
+      <li class="hint">La normal al plano de los rieles forma un ángulo $\theta$ con la vertical, así que $\Phi_B = B\,(\ell s)\cos\theta$. La fuerza $I\vec\ell\times\vec B$ es horizontal; proyéctala sobre la dirección de los rieles. Aparece $\cos\theta$ dos veces.</li>
+      <li><span class="rl">Paso 1 · Flujo (0,5 pts.)</span><p class="do"><b>Qué hago:</b> el circuito (resistencia, rieles y barra) es un rectángulo de área $\ell s$ en el plano inclinado. Elijo la normal $\hat n = \sin\theta\,\hat x + \cos\theta\,\hat z$ (perpendicular al plano, hacia arriba), que forma un ángulo $\theta$ con $\vec B = B\hat z$:</p>$$\Phi_B = B\,\ell s\cos\theta$$<p><b>Por qué:</b> $\Phi_B = \vec B\cdot\hat n\,A$ para campo uniforme y superficie plana; $\vec B\cdot\hat n = B\cos\theta$.</p></li>
+      <li><span class="rl">Paso 2 · Fem y corriente (0,5 pts.)</span><p class="do"><b>Qué hago:</b> solo $s$ cambia: $\varepsilon = -\dfrac{d\Phi_B}{dt} = -B\ell v\cos\theta$, así que $|\varepsilon| = B\ell v\cos\theta$ e</p>$$I = \frac{B\ell v\cos\theta}{R} = \frac{1\cdot0{,}5\cdot\tfrac{\sqrt3}{2}}{0{,}5}\,v = \frac{\sqrt3}{2}\,v\ \ (\text{A, con }v\text{ en m/s})$$<p><b>Por qué:</b> ley de Faraday y ley de Ohm con resistencia total $R$.</p></li>
+      <li><span class="rl">Paso 3 · Sentido por Lenz (0,5 pts.)</span><p class="do"><b>Qué hago:</b> al bajar la barra, el área crece y el flujo "hacia arriba" aumenta. La corriente inducida debe crear campo hacia abajo dentro del circuito: circula en sentido <b>horario visto desde arriba</b>. En la barra, la corriente va del riel de atrás al de adelante, es decir, en $-\hat y$.</p><p><b>Por qué:</b> ley de Lenz. Coincide con el signo: $\varepsilon \lt 0$ respecto de $\hat n$ (que apunta hacia arriba) significa circulación contraria a la antihoraria vista desde arriba.</p></li>
+      <li><span class="rl">Paso 4 · Fuerza magnética sobre la barra (0,5 pts.)</span><p class="do"><b>Qué hago:</b> con $\vec\ell = -\ell\,\hat y$ (sentido de la corriente):</p>$$\vec F_B = I\vec\ell\times\vec B = I\ell B\,(-\hat y\times\hat z) = -I\ell B\,\hat x$$<p>Es horizontal y apunta hacia el lado de la subida, de magnitud $I\ell B = \dfrac{B^2\ell^2v\cos\theta}{R}$.</p><p><b>Por qué:</b> fuerza sobre un tramo recto con corriente en campo uniforme; $\hat y\times\hat z = \hat x$.</p></li>
+      <li><span class="rl">Paso 5 · Componente a lo largo de los rieles (0,5 pts.)</span><p class="do"><b>Qué hago:</b> la dirección de bajada por los rieles es $\hat u = \cos\theta\,\hat x - \sin\theta\,\hat z$. Entonces $\vec F_B\cdot\hat u = -I\ell B\cos\theta = -\dfrac{B^2\ell^2\cos^2\theta}{R}\,v$: frena la bajada. La componente perpendicular al plano, $-I\ell B\sin\theta$, solo aprieta la barra contra los rieles (la equilibra la normal).</p><p><b>Por qué:</b> solo la componente a lo largo de los rieles cambia la rapidez; sin roce, la normal no influye en el movimiento.</p></li>
+      <li><span class="rl">Paso 6 · Ecuación de movimiento (0,5 pts.)</span><p class="do"><b>Qué hago:</b> segunda ley de Newton a lo largo de $\hat u$ (la gravedad aporta $mg\sin\theta$):</p>$$m\frac{dv}{dt} = mg\sin\theta - \frac{B^2\ell^2\cos^2\theta}{R}\,v\quad\Rightarrow\quad 0{,}3\,\frac{dv}{dt} = 1{,}5 - 0{,}375\,v$$<p><b>Por qué:</b> $mg\sin\theta = 0{,}3\cdot10\cdot\tfrac12 = 1{,}5\ \text{N}$ y $\dfrac{B^2\ell^2\cos^2\theta}{R} = \dfrac{1\cdot0{,}25\cdot\tfrac34}{0{,}5} = 0{,}375\ \text{kg/s}$.</p></li>
+      <li><span class="rl">Paso 7 · Solución $v(t)$ (0,5 pts.)</span><p class="do"><b>Qué hago:</b> la ecuación tiene la forma $\dfrac{dv}{dt} = \dfrac{v_t - v}{\tau}$. Con $w = v - v_t$: $\dfrac{dw}{dt} = -\dfrac{w}{\tau}$, así que $w = w(0)\,e^{-t/\tau}$ con $w(0) = -v_t$. Por lo tanto</p>$$v(t) = v_t\left(1 - e^{-t/\tau}\right),\qquad \tau = \frac{mR}{B^2\ell^2\cos^2\theta},\quad v_t = g\sin\theta\,\tau = \frac{mgR\sin\theta}{B^2\ell^2\cos^2\theta}$$<p><b>Por qué:</b> separación de variables con la condición inicial $v(0) = 0$.</p></li>
+      <li><span class="rl">Paso 8 · Valores de $v_t$ y $\tau$ (1,0 pt.)</span><p class="do"><b>Qué hago:</b> $\tau = \dfrac{0{,}3}{0{,}375} = 0{,}8\ \text{s}$; $v_t = \dfrac{1{,}5}{0{,}375} = 4\ \text{m/s}$ (control: $g\sin\theta\,\tau = 5\cdot0{,}8 = 4$).</p><p><b>Por qué:</b> a velocidad terminal $dv/dt = 0$, es decir, $mg\sin\theta = 0{,}375\,v_t$.</p></li>
+      <li><span class="rl">Paso 9 · Balance de potencia a $v_t$ (0,5 pts.)</span><p class="do"><b>Qué hago:</b> $I_t = \dfrac{\sqrt3}{2}\cdot4 = 2\sqrt3\ \text{A}\approx3{,}5\ \text{A}$. Potencia disipada: $I_t^2R = 12\cdot0{,}5 = 6\ \text{W}$. Potencia de la gravedad: $mg\,v_t\sin\theta = 0{,}3\cdot10\cdot4\cdot\tfrac12 = 6\ \text{W}$. Son iguales.</p><p><b>Por qué:</b> a rapidez constante la energía cinética no cambia, así que toda la energía potencial que se pierde se convierte en calor en $R$.</p></li>
+      <li><span class="rl">Paso 10 · Energía disipada en $D = 10\ \text{m}$ (1,0 pt.)</span><p class="do"><b>Qué hago:</b> la barra baja una altura $D\sin\theta = 5\ \text{m}$. Conservación de la energía:</p>$$E_{\text{dis}} = mgD\sin\theta - \tfrac12mv_t^2 = 0{,}3\cdot10\cdot5 - \tfrac12\cdot0{,}3\cdot16 = 15 - 2{,}4 = 12{,}6\ \text{J}$$<p><b>Por qué:</b> sin roce, la energía potencial perdida se reparte entre energía cinética y calor Joule; la fuerza normal no hace trabajo.</p></li>
+      <li class="final">$$\boxed{\Phi_B = B\ell s\cos\theta,\quad |\varepsilon| = B\ell v\cos\theta,\quad I = \frac{B\ell v\cos\theta}{R} = \tfrac{\sqrt3}{2}\,v\ \text{(horaria vista desde arriba; en la barra, }-\hat y)}$$ $$\boxed{\vec F_B = -\frac{B^2\ell^2v\cos\theta}{R}\,\hat x,\quad F_\parallel = -\frac{B^2\ell^2\cos^2\theta}{R}\,v,\quad m\dot v = mg\sin\theta - \frac{B^2\ell^2\cos^2\theta}{R}\,v}$$ $$\boxed{v(t) = v_t\left(1 - e^{-t/\tau}\right),\quad v_t = 4\ \text{m/s},\quad \tau = 0{,}8\ \text{s}}$$ $$\boxed{P_{\text{grav}} = I_t^2R = 6\ \text{W}\ (I_t = 2\sqrt3\ \text{A}),\qquad E_{\text{dis}} = 12{,}6\ \text{J}}$$</li>
+      <li class="check"><b>Verificación:</b> unidades: $\dfrac{B^2\ell^2}{R}$ está en $\dfrac{\text{T}^2\text{m}^2}{\Omega} = \text{kg/s}$, así que $\tau = m/(\text{kg/s})$ está en s. Límites: con $\theta = 0$ (rieles horizontales) no hay fuerza motriz y $v_t = 0$; con $B\to0$, $v_t\to\infty$ (la barra acelera libremente con $g\sin\theta$). Si $\vec B$ fuera perpendicular al plano, desaparecería el factor $\cos^2\theta = \tfrac34$ y $v_t$ sería $3\ \text{m/s}$: el campo vertical frena menos, como se anticipó. Comprobación del supuesto de d): recorrer 10 m toma unos $D/v_t + \tau\approx3{,}3\ \text{s}\approx4\tau$, y $e^{-4}\approx0{,}02$, así que la barra ya va al 98 % de $v_t$.</li>
+    </ol>
+    <div class="ctrl"></div>
+  </div>
+  <div class="score-box" data-group="p3">
+    <div class="sb-head"><span>Puntaje P3</span><span class="sb-sub"></span></div>
+    <label><input type="checkbox" class="pts" data-pts="0.5"> Paso 1 · Flujo (0,5 pts.)</label>
+    <label><input type="checkbox" class="pts" data-pts="0.5"> Paso 2 · Fem y corriente (0,5 pts.)</label>
+    <label><input type="checkbox" class="pts" data-pts="0.5"> Paso 3 · Sentido por Lenz (0,5 pts.)</label>
+    <label><input type="checkbox" class="pts" data-pts="0.5"> Paso 4 · Fuerza magnética sobre la barra (0,5 pts.)</label>
+    <label><input type="checkbox" class="pts" data-pts="0.5"> Paso 5 · Componente a lo largo de los rieles (0,5 pts.)</label>
+    <label><input type="checkbox" class="pts" data-pts="0.5"> Paso 6 · Ecuación de movimiento (0,5 pts.)</label>
+    <label><input type="checkbox" class="pts" data-pts="0.5"> Paso 7 · Solución $v(t)$ (0,5 pts.)</label>
+    <label><input type="checkbox" class="pts" data-pts="1"> Paso 8 · Valores de $v_t$ y $\tau$ (1,0 pt.)</label>
+    <label><input type="checkbox" class="pts" data-pts="0.5"> Paso 9 · Balance de potencia a $v_t$ (0,5 pts.)</label>
+    <label><input type="checkbox" class="pts" data-pts="1"> Paso 10 · Energía disipada en $D = 10\ \text{m}$ (1,0 pt.)</label>
+  </div>
+</section>
+  </div>
+</section>

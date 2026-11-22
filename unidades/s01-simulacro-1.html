@@ -1,0 +1,248 @@
+<!-- S1 · Simulacro de examen 1. Fragment loaded by scripts/build.py from unidades/manifest.json. -->
+<section class="unit" id="s01" data-num="S1" data-title="Simulacro de examen 1">
+  <header class="unit-head"><span class="unit-num">S1</span><h1>Simulacro de examen 1</h1><span class="unit-weight">150 min · 18 pts · sin calculadora</span></header>
+
+  <div class="simulacro" id="s01-sim" data-minutes="150" data-total="18">
+    <div class="sim-bar">
+      <div><span class="eb-lbl">Tiempo</span><span class="sim-time">2:30:00</span></div>
+      <div class="eb-btns"><button type="button" class="primary sim-start">Iniciar</button><button type="button" class="sim-reset">Reiniciar</button></div>
+      <div class="eb-score"><span class="eb-lbl">Puntaje</span><span class="sim-pts">0 / 18</span><span class="sim-nota">nota 1,0</span></div>
+    </div>
+
+    <section class="sec" id="s01-instrucciones" data-block="mapa" data-title="Instrucciones">
+      <h2>Instrucciones</h2>
+      <p>Este simulacro reproduce el formato del Examen 2026-1: tres problemas de desarrollo de 6 puntos cada uno, 18 puntos en total, en 150 minutos. Todos los problemas son originales, escritos al estilo de los exámenes 2024–2026.</p>
+      <ul>
+        <li><b>Qué respondes:</b> el Problema 1 tiene dos versiones; eliges <b>P1A</b> (electrostática: Gauss, conductores y potencial) <b>o</b> <b>P1B</b> (capacitancia y dieléctricos). Después respondes <b>P2</b> (inducción de Faraday-Lenz) y <b>P3</b> (circuito RLC libre y en corriente alterna), que son obligatorios.</li>
+        <li><b>Material:</b> sin calculadora, sin formulario y sin apuntes, como en el examen real. Los números están elegidos para calcularse a mano; las respuestas simbólicas valen completas.</li>
+        <li><b>Tiempo:</b> presiona <b>Iniciar</b> en la barra superior. Puedes pausar; el reloj se pone rojo en los últimos 10 minutos. Reparte unos 45 minutos por problema y deja 15 minutos para revisar signos y unidades.</li>
+        <li><b>Cómo autocorregirte:</b> resuelve todo en papel antes de abrir la pauta. Luego, en <a href="#s01-pauta">Pauta y corrección</a>, abre los pasos de cada problema y marca en su recuadro de puntaje <b>solo</b> los criterios que de verdad cumpliste en tu hoja (resultado y justificación; un resultado correcto sin el argumento que lo respalda no suma). Si respondiste P1A y P1B, se cuenta solo el mejor de los dos.</li>
+        <li><b>Nota:</b> la barra calcula $\text{nota} = 1 + 6\cdot\dfrac{\text{puntaje}}{18}$; se aprueba con nota 4,0 (9 puntos).</li>
+      </ul>
+      <div class="trap"><b>Antes de empezar:</b> escribe en cada problema el sistema de coordenadas y la normal $\hat n$ que usas. La mitad de los puntos que se pierden en estos temas son signos (sentido de la corriente inducida, signo de la carga ligada, fase de la corriente) que se resuelven declarando la convención al inicio.</div>
+    </section>
+
+    <section class="sec" id="s01-enunciados" data-block="arquetipos" data-title="Enunciados">
+      <h2>Enunciados</h2>
+      <p>Constantes: $\varepsilon_0$ es la permitividad del vacío (F/m), $k = \dfrac{1}{4\pi\varepsilon_0}$, y $\mu_0 = 4\pi\times10^{-7}\ \text{T·m/A}$ es la permeabilidad del vacío.</p>
+
+      <h3 id="s01-e-p1a">Problema 1A <span class="src">Problema original · estilo Examen 2024–2026</span></h3>
+      <div class="prob-grid">
+        <div>
+          <p class="stmt">Una esfera maciza no conductora de radio $R$ (m) tiene densidad volumétrica de carga $\rho(r) = \rho_0\left(1 - \dfrac{r}{R}\right)$ para $0 \lt r \lt R$, donde $r$ (m) es la distancia al centro y $\rho_0 \gt 0$ es una constante (C/m³). La esfera está rodeada por un cascarón esférico conductor concéntrico, de radio interior $2R$ y radio exterior $4R$, que tiene carga neta $Q_c = \dfrac{2}{3}\pi\rho_0 R^3$ (C). Entre la esfera y el cascarón, y fuera del cascarón, hay vacío. Toma $V(\infty) = 0$.</p>
+          <p class="stmt">a) <b>(1 pto.)</b> Calcula la carga total $Q_0$ de la esfera no conductora.<br>
+          b) <b>(2,5 pts.)</b> Usando la ley de Gauss, encuentra el campo eléctrico $\vec E(r)$ en las cuatro regiones: $r \lt R$, $R \lt r \lt 2R$, $2R \lt r \lt 4R$ y $r \gt 4R$.<br>
+          c) <b>(1 pto.)</b> Calcula las densidades superficiales de carga $\sigma_{\text{int}}$ (en $r = 2R$) y $\sigma_{\text{ext}}$ (en $r = 4R$) del cascarón, con su signo.<br>
+          d) <b>(1,5 pts.)</b> Calcula el potencial del cascarón y el potencial en el centro de la esfera, $V(0)$.</p>
+        </div>
+        <figure class="fig" data-fig="s01-p1a-esfera"><figcaption>Corte por el centro: esfera no conductora de radio $R$ (cobre), vacío hasta $2R$ y cascarón conductor entre $2R$ y $4R$ (azul) con carga neta $Q_c$.</figcaption></figure>
+      </div>
+
+      <h3 id="s01-e-p1b">Problema 1B <span class="src">Problema original · estilo Examen 2024–2026</span></h3>
+      <div class="prob-grid">
+        <div>
+          <p class="stmt">Un capacitor cilíndrico de largo $L$ (m) está formado por un conductor interno de radio $a$ (m) y un cascarón conductor externo delgado de radio $b$ (m), con $L \gg b$ (desprecia los efectos de borde). El espacio $a \lt r \lt b$ está lleno con dos dieléctricos lineales: la mitad superior (el semicilindro sobre un plano horizontal que contiene al eje) tiene constante dieléctrica $\kappa_1$ y la mitad inferior, $\kappa_2$ (ambas adimensionales). El conductor interno tiene carga libre $+Q$ (C) y el externo, $-Q$. Aquí $r$ es la distancia al eje.</p>
+          <p class="stmt">a) <b>(2,5 pts.)</b> Razonando "a pequeña escala": justifica que $\vec E$ es radial y tiene el mismo valor en ambos dieléctricos a una misma distancia $r$; aplica la ley de Gauss para $\vec D$, obtén $\vec E(r)$, la diferencia de potencial entre los conductores y la capacitancia $C$.<br>
+          b) <b>(1 pto.)</b> Razonando "a gran escala": obtén $C$ como una combinación de dos capacitores e indica si están en serie o en paralelo.<br>
+          c) <b>(1 pto.)</b> Escribe $\vec D$, $\vec E$ y la polarización $\vec P$ en cada dieléctrico.<br>
+          d) <b>(1,5 pts.)</b> Calcula, con su signo, la densidad de carga libre $\sigma_f$ y la de carga ligada $\sigma_b$ en $r = a$ y en $r = b$ para cada dieléctrico, y la carga ligada en la interfaz plana entre ellos. Si $\kappa_1 = 2$ y $\kappa_2 = 4$, ¿qué fracción de la carga libre $Q$ del conductor interno está en su mitad superior?</p>
+        </div>
+        <figure class="fig" data-fig="s01-p1b-coaxial"><figcaption>Sección transversal: conductor interno de radio $a$ con $+Q$, dieléctrico $\kappa_1$ arriba y $\kappa_2$ abajo, separados por un plano horizontal que contiene al eje, y conductor externo de radio $b$ con $-Q$.</figcaption></figure>
+      </div>
+
+      <h3 id="s01-e-p2">Problema 2 <span class="src">Problema original · estilo Examen 2024–2026</span></h3>
+      <div class="prob-grid">
+        <div>
+          <p class="stmt">Un alambre recto infinito lleva una corriente constante $I$ (A) hacia arriba. A su derecha, en el mismo plano, una espira cuadrada rígida de lado $a$ (m), resistencia $R$ ($\Omega$) y masa $m$ (kg) tiene dos lados paralelos al alambre; su lado más cercano está a distancia $x$ (m) del alambre. La espira se acerca al alambre con rapidez constante $v$ (m/s), es decir, $dx/dt = -v$. Desprecia la autoinductancia de la espira.</p>
+          <p class="stmt">a) <b>(1 pto.)</b> Usando la ley de Ampère, encuentra el campo magnético del alambre (magnitud y dirección) a una distancia $s$ (m) de él.<br>
+          b) <b>(1,5 pts.)</b> Calcula el flujo magnético $\Phi_B(x)$ a través de la espira.<br>
+          c) <b>(2 pts.)</b> Encuentra la fem inducida, la corriente inducida y su sentido (horario o antihorario, visto con el alambre a la izquierda y la corriente hacia arriba). Evalúa ambas cuando $x = a$, con $I = 50\ \text{A}$, $a = 10\ \text{cm}$, $v = 2{,}0\ \text{m/s}$ y $R = 1{,}0\ \text{m}\Omega$.<br>
+          d) <b>(1,5 pts.)</b> Calcula la fuerza magnética neta sobre la espira (magnitud, dirección y su valor numérico en $x = a$) y la fuerza externa necesaria para mantener $v$ constante. Si en ese instante se deja de aplicar la fuerza externa, ¿la espira acelera o frena? Si en vez de acercarse la espira se moviera paralela al alambre, ¿cuánto valdría la fem?</p>
+        </div>
+        <figure class="fig" data-fig="s01-p2-espira"><figcaption>Alambre vertical con corriente $I$ hacia arriba; a la derecha $\vec B$ entra a la hoja. La espira cuadrada de lado $a$ tiene su lado cercano a distancia $x$ y se mueve hacia el alambre con $\vec v$.</figcaption></figure>
+      </div>
+
+      <h3 id="s01-e-p3">Problema 3 <span class="src">Problema original · estilo Examen 2024–2026</span></h3>
+      <div class="prob-grid">
+        <div>
+          <p class="stmt">Un resistor $R = 20\ \Omega$, un inductor $L = 10\ \text{mH}$ y un condensador $C = 100\ \mu\text{F}$ se conectan en serie.</p>
+          <p class="stmt">a) <b>(2 pts.)</b> Circuito sin fuente (figura a): el condensador tiene carga inicial $Q_0 = 5{,}0\ \text{mC}$ y no hay corriente; en $t = 0$ se cierra el interruptor $S$. Escribe la ecuación diferencial de segundo orden para la carga $q(t)$ (C) del condensador, identifica la frecuencia angular natural $\omega_0$ (rad/s) y la constante de amortiguamiento $\gamma$ (s⁻¹), clasifica el régimen y encuentra $q(t)$.<br>
+          b) <b>(2,5 pts.)</b> Ahora el mismo $R$, $L$ y $C$ en serie se conectan a una fuente $V(t) = V_0\cos\omega t$ con $V_0 = 50\ \text{V}$ y $\omega = 2000\ \text{rad/s}$ (figura b). En régimen permanente, calcula la impedancia equivalente $Z_{\text{eq}}$ ($\Omega$), su módulo, el fasor de corriente $\hat I$ (amplitud $I_0$ y fase respecto de la fuente) y escribe $i(t)$. ¿La corriente adelanta o atrasa a la fuente?<br>
+          c) <b>(1,5 pts.)</b> Encuentra la frecuencia angular de resonancia y la potencia media entregada por la fuente a $\omega = 2000\ \text{rad/s}$ y en resonancia.</p>
+        </div>
+        <figure class="fig" data-fig="s01-p3-rlc"><figcaption>(a) Circuito RLC serie sin fuente, con el condensador cargado ($+q$ arriba) y el interruptor $S$ abierto antes de $t = 0$. (b) El mismo circuito alimentado por $V(t) = V_0\cos\omega t$.</figcaption></figure>
+      </div>
+    </section>
+
+    <section class="sec" id="s01-pauta" data-block="practica" data-title="Pauta y corrección">
+      <h2>Pauta y corrección</h2>
+      <p>Abre los pasos solo después de terminar en papel. Cada paso indica su puntaje; el recuadro que sigue a cada problema repite esos criterios para que marques los que cumpliste.</p>
+
+      <!-- ===================== P1A ===================== -->
+      <div class="prob" id="s01-p1a" data-kind="practica" data-diff="2">
+        <div class="prob-head"><span class="tag">P1A</span><span class="ptitle">Esfera con $\rho(r) = \rho_0(1 - r/R)$ dentro de un cascarón conductor cargado</span><span class="diff">dificultad 2/3</span><span class="src">Problema original · estilo Examen 2024–2026</span></div>
+        <div class="prob-grid">
+          <div>
+            <p class="stmt">Esfera no conductora de radio $R$ con $\rho(r) = \rho_0(1 - r/R)$ (C/m³), rodeada por un cascarón conductor entre $2R$ y $4R$ con carga neta $Q_c = \tfrac23\pi\rho_0R^3$; $V(\infty) = 0$. a) Carga $Q_0$ de la esfera. b) $\vec E(r)$ en las cuatro regiones. c) $\sigma_{\text{int}}$ y $\sigma_{\text{ext}}$. d) Potencial del cascarón y $V(0)$.</p>
+            <div class="given"><div><b>Datos</b> $R$, $\rho_0 \gt 0$, radios $2R$ y $4R$, $Q_c = \tfrac23\pi\rho_0R^3$</div><div><b>Piden</b> $Q_0$; $\vec E$ en 4 regiones; $\sigma_{\text{int}}$, $\sigma_{\text{ext}}$; $V_{\text{casc}}$, $V(0)$</div></div>
+          </div>
+          <figure class="fig" data-fig="s01-p1a-esfera"><figcaption>Las superficies gaussianas son esferas concéntricas de radio $r$ en cada región.</figcaption></figure>
+        </div>
+        <div class="predict"><b>Antes de calcular:</b> dentro del metal $\vec E = 0$. ¿Qué carga tiene que aparecer en la superficie interior del cascarón para que eso ocurra? ¿Y cuánta queda para la superficie exterior?</div>
+        <ol class="reveal">
+          <li class="hint">Con simetría esférica, Gauss da $E(r)\,4\pi r^2 = \dfrac{Q_{\text{enc}}(r)}{\varepsilon_0}$. Para $Q_{\text{enc}}$ dentro de la esfera integra en cáscaras: $dQ = \rho(r')\,4\pi r'^2\,dr'$.</li>
+          <li><span class="rl">Paso 1 · Carga total de la esfera (parte a, 1 pto.)</span><p class="do"><b>Qué hago:</b> $Q_0 = \displaystyle\int_0^R \rho_0\left(1 - \frac{r'}{R}\right)4\pi r'^2\,dr' = 4\pi\rho_0\left[\frac{r'^3}{3} - \frac{r'^4}{4R}\right]_0^R = 4\pi\rho_0R^3\left(\frac13 - \frac14\right) = \frac{\pi\rho_0R^3}{3}.$</p><p><b>Por qué:</b> $\rho$ solo depende de $r'$, así que el volumen se divide en cáscaras de área $4\pi r'^2$ y espesor $dr'$. Nota que $Q_c = 2Q_0$.</p></li>
+          <li><span class="rl">Paso 2 · Campo dentro de la esfera, $r \lt R$ (1 pto.)</span><p class="do"><b>Qué hago:</b> la carga encerrada es la misma integral hasta $r$: $Q_{\text{enc}}(r) = 4\pi\rho_0\left(\dfrac{r^3}{3} - \dfrac{r^4}{4R}\right)$. Gauss: $E\,4\pi r^2 = \dfrac{Q_{\text{enc}}}{\varepsilon_0}$, así que $\vec E = \dfrac{\rho_0}{\varepsilon_0}\left(\dfrac{r}{3} - \dfrac{r^2}{4R}\right)\hat r$.</p><p><b>Por qué:</b> por simetría $\vec E$ es radial y de módulo constante sobre la esfera gaussiana de radio $r$; solo cuenta la carga dentro de ella.</p></li>
+          <li><span class="rl">Paso 3 · Campo en el vacío interior, $R \lt r \lt 2R$ (0,5 pts.)</span><p class="do"><b>Qué hago:</b> $Q_{\text{enc}} = Q_0$: $\vec E = \dfrac{kQ_0}{r^2}\hat r = \dfrac{\rho_0R^3}{12\varepsilon_0 r^2}\hat r$.</p><p><b>Por qué:</b> toda la esfera queda dentro de la superficie gaussiana; el cascarón, fuera, no aporta. $\dfrac{1}{4\pi\varepsilon_0}\cdot\dfrac{\pi\rho_0R^3}{3} = \dfrac{\rho_0R^3}{12\varepsilon_0}$.</p></li>
+          <li><span class="rl">Paso 4 · Campo en el conductor, $2R \lt r \lt 4R$ (0,5 pts.)</span><p class="do"><b>Qué hago:</b> $\vec E = 0$.</p><p><b>Por qué:</b> en equilibrio electrostático el campo dentro del material de un conductor es nulo (si no, sus cargas libres se moverían).</p></li>
+          <li><span class="rl">Paso 5 · Campo exterior, $r \gt 4R$ (0,5 pts.)</span><p class="do"><b>Qué hago:</b> $Q_{\text{enc}} = Q_0 + Q_c = 3Q_0 = \pi\rho_0R^3$: $\vec E = \dfrac{\pi\rho_0R^3}{4\pi\varepsilon_0 r^2}\hat r = \dfrac{\rho_0R^3}{4\varepsilon_0 r^2}\hat r$.</p><p><b>Por qué:</b> la superficie gaussiana encierra la esfera y todo el cascarón.</p></li>
+          <li><span class="rl">Paso 6 · Cargas inducidas (parte c, 0,5 + 0,5)</span><p class="do"><b>Qué hago:</b> una esfera gaussiana dentro del metal tiene $\vec E = 0$, luego $Q_0 + q_{\text{int}} = 0$: $q_{\text{int}} = -Q_0$ y $q_{\text{ext}} = Q_c - q_{\text{int}} = 3Q_0$. Repartidas uniformemente:
+          $\sigma_{\text{int}} = \dfrac{-Q_0}{4\pi(2R)^2} = -\dfrac{\rho_0R}{48}$, $\quad\sigma_{\text{ext}} = \dfrac{3Q_0}{4\pi(4R)^2} = \dfrac{\pi\rho_0R^3}{64\pi R^2} = \dfrac{\rho_0R}{64}$.</p><p><b>Por qué:</b> Gauss dentro del conductor y conservación de la carga del cascarón; la simetría esférica hace uniforme cada densidad.</p></li>
+          <li><span class="rl">Paso 7 · Potencial del cascarón (parte d, 0,5 pts.)</span><p class="do"><b>Qué hago:</b> para $r \ge 4R$ el campo es el de una carga puntual $3Q_0$, así que $V(r) = \dfrac{k\,3Q_0}{r}$ y $V_{\text{casc}} = V(4R) = \dfrac{\pi\rho_0R^3}{4\pi\varepsilon_0\cdot 4R} = \dfrac{\rho_0R^2}{16\varepsilon_0}$.</p><p><b>Por qué:</b> $V(4R) = -\displaystyle\int_\infty^{4R}\vec E\cdot d\vec\ell$; el conductor es un volumen equipotencial, así que todo el cascarón tiene ese potencial.</p></li>
+          <li><span class="rl">Paso 8 · Potencial en el centro (1 pto.)</span><p class="do"><b>Qué hago:</b> $V(0) = V(2R) + \displaystyle\int_0^{2R}E\,dr$, con $V(2R) = V_{\text{casc}}$:
+          $\displaystyle\int_R^{2R}\frac{\rho_0R^3}{12\varepsilon_0 r^2}dr = \frac{\rho_0R^3}{12\varepsilon_0}\left(\frac1R - \frac{1}{2R}\right) = \frac{\rho_0R^2}{24\varepsilon_0}$, $\quad\displaystyle\int_0^{R}\frac{\rho_0}{\varepsilon_0}\left(\frac r3 - \frac{r^2}{4R}\right)dr = \frac{\rho_0}{\varepsilon_0}\left(\frac{R^2}{6} - \frac{R^2}{12}\right) = \frac{\rho_0R^2}{12\varepsilon_0}$.
+          Sumando: $V(0) = \dfrac{\rho_0R^2}{\varepsilon_0}\left(\dfrac{1}{16} + \dfrac{1}{24} + \dfrac{1}{12}\right) = \dfrac{\rho_0R^2}{\varepsilon_0}\cdot\dfrac{3 + 2 + 4}{48} = \dfrac{3\rho_0R^2}{16\varepsilon_0}$.</p><p><b>Por qué:</b> $V(0) - V(2R) = -\displaystyle\int_{2R}^{0}E\,dr = \int_0^{2R}E\,dr$; dentro del metal ($2R$ a $4R$) no hay caída de potencial.</p></li>
+          <li class="final">$$\boxed{Q_0 = \frac{\pi\rho_0R^3}{3}}\qquad \boxed{\vec E = \begin{cases}\dfrac{\rho_0}{\varepsilon_0}\left(\dfrac r3 - \dfrac{r^2}{4R}\right)\hat r & r \lt R\\[2mm] \dfrac{\rho_0R^3}{12\varepsilon_0r^2}\hat r & R \lt r \lt 2R\\[2mm] 0 & 2R \lt r \lt 4R\\[2mm] \dfrac{\rho_0R^3}{4\varepsilon_0r^2}\hat r & r \gt 4R\end{cases}}$$ $$\boxed{\sigma_{\text{int}} = -\frac{\rho_0R}{48},\qquad \sigma_{\text{ext}} = +\frac{\rho_0R}{64},\qquad V_{\text{casc}} = \frac{\rho_0R^2}{16\varepsilon_0},\qquad V(0) = \frac{3\rho_0R^2}{16\varepsilon_0}}$$</li>
+          <li class="check"><b>Verificación:</b> unidades: $[\rho_0R/\varepsilon_0] = \dfrac{\text{C/m}^3\cdot\text{m}}{\text{C}^2/(\text{N·m}^2)} = \text{N/C}$ (campo), $[\rho_0R] = \text{C/m}^2$ (densidad superficial) y $[\rho_0R^2/\varepsilon_0] = \text{V}$. Continuidad en $r = R$: ambas expresiones dan $\dfrac{\rho_0R}{12\varepsilon_0}$, como debe ser sin carga superficial. Carga del cascarón: $4\pi(2R)^2\sigma_{\text{int}} + 4\pi(4R)^2\sigma_{\text{ext}} = -\tfrac13\pi\rho_0R^3 + \pi\rho_0R^3 = \tfrac23\pi\rho_0R^3 = Q_c$. Signo: $\rho \ge 0$ en toda la esfera, así que $V$ debe crecer hacia el centro: $V(0) \gt V_{\text{casc}} \gt 0$.</li>
+        </ol>
+        <div class="ctrl"></div>
+      </div>
+      <div class="score-box" data-group="p1">
+        <div class="sb-head"><span>Puntaje P1A</span><span class="sb-sub"></span></div>
+        <label><input type="checkbox" class="pts" data-pts="1"> Paso 1 · Carga total $Q_0 = \pi\rho_0R^3/3$ con la integral en cáscaras (1 pto.)</label>
+        <label><input type="checkbox" class="pts" data-pts="1"> Paso 2 · Campo dentro de la esfera, $r \lt R$ (1 pto.)</label>
+        <label><input type="checkbox" class="pts" data-pts="0.5"> Paso 3 · Campo en el vacío interior, $R \lt r \lt 2R$ (0,5 pts.)</label>
+        <label><input type="checkbox" class="pts" data-pts="0.5"> Paso 4 · Campo en el conductor, $\vec E = 0$ con justificación (0,5 pts.)</label>
+        <label><input type="checkbox" class="pts" data-pts="0.5"> Paso 5 · Campo exterior, $r \gt 4R$ (0,5 pts.)</label>
+        <label><input type="checkbox" class="pts" data-pts="0.5"> Paso 6 · $\sigma_{\text{int}} = -\rho_0R/48$ con su signo (0,5 pts.)</label>
+        <label><input type="checkbox" class="pts" data-pts="0.5"> Paso 6 · $\sigma_{\text{ext}} = \rho_0R/64$ (0,5 pts.)</label>
+        <label><input type="checkbox" class="pts" data-pts="0.5"> Paso 7 · Potencial del cascarón $\rho_0R^2/(16\varepsilon_0)$ (0,5 pts.)</label>
+        <label><input type="checkbox" class="pts" data-pts="1"> Paso 8 · Potencial en el centro $V(0) = 3\rho_0R^2/(16\varepsilon_0)$ (1 pto.)</label>
+      </div>
+
+      <!-- ===================== P1B ===================== -->
+      <div class="prob" id="s01-p1b" data-kind="practica" data-diff="3">
+        <div class="prob-head"><span class="tag">P1B</span><span class="ptitle">Capacitor cilíndrico con dos dieléctricos en semicilindros (paralelo)</span><span class="diff">dificultad 3/3</span><span class="src">Problema original · estilo Examen 2024–2026</span></div>
+        <div class="prob-grid">
+          <div>
+            <p class="stmt">Capacitor cilíndrico de largo $L$, radios $a$ y $b$ ($L \gg b$), con dieléctrico $\kappa_1$ en el semicilindro superior y $\kappa_2$ en el inferior; cargas libres $+Q$ (interno) y $-Q$ (externo). a) $\vec E$, $\Delta V$ y $C$ con Gauss para $\vec D$. b) $C$ como combinación de capacitores. c) $\vec D$, $\vec E$, $\vec P$ en cada dieléctrico. d) $\sigma_f$ y $\sigma_b$ en $r = a$ y $r = b$, carga ligada en la interfaz plana y fracción de $Q$ en la mitad superior si $\kappa_1 = 2$, $\kappa_2 = 4$.</p>
+            <div class="given"><div><b>Datos</b> $L$, $a$, $b$, $\kappa_1$, $\kappa_2$, $Q$</div><div><b>Piden</b> $\vec E$, $\Delta V$, $C$ (dos formas); $\vec D$, $\vec P$; $\sigma_f$, $\sigma_b$; fracción de $Q$ arriba</div></div>
+          </div>
+          <figure class="fig" data-fig="s01-p1b-coaxial"><figcaption>La interfaz entre los dieléctricos es un plano que contiene al eje: $\vec E$ radial es paralelo a ella.</figcaption></figure>
+        </div>
+        <div class="predict"><b>Antes de calcular:</b> los dos dieléctricos tocan los mismos dos conductores, así que tienen la misma diferencia de potencial. ¿Eso los pone en serie o en paralelo? ¿En cuál de las dos mitades se acumula más carga libre?</div>
+        <ol class="reveal">
+          <li class="hint">En la interfaz plana se conserva la componente tangencial de $\vec E$; un campo radial es completamente tangencial a ese plano. La ley de Gauss para $\vec D$ solo cuenta carga libre: $\oint\vec D\cdot d\vec A = Q_{\text{libre,enc}}$, con $\vec D = \kappa\varepsilon_0\vec E$.</li>
+          <li><span class="rl">Paso 1 · Mismo $\vec E$ radial en ambos dieléctricos (0,5 pts.)</span><p class="do"><b>Qué hago:</b> por simetría (cilindro largo) $\vec E = E(r)\,\hat r$ en cada mitad. La interfaz es el plano horizontal que contiene al eje y $\hat r$ está contenido en él, así que todo $\vec E$ es tangencial a la interfaz; como la componente tangencial es continua, $E_1(r) = E_2(r) \equiv E(r)$. Equivalentemente, $\Delta V = \int_a^b E\,dr$ es el mismo por cualquier camino radial, arriba o abajo.</p><p><b>Por qué:</b> $\oint\vec E\cdot d\vec\ell = 0$ aplicado a un rectángulo pequeño que cruza la interfaz da $E_{1,t} = E_{2,t}$. Lo que cambia de un lado a otro es $\vec D$, no $\vec E$.</p></li>
+          <li><span class="rl">Paso 2 · Gauss para $\vec D$ (1 pto.)</span><p class="do"><b>Qué hago:</b> cilindro gaussiano coaxial de radio $r$ ($a \lt r \lt b$) y largo $L$. En la mitad superior $D_1 = \kappa_1\varepsilon_0E$ y en la inferior $D_2 = \kappa_2\varepsilon_0E$, cada una sobre un área lateral $\pi rL$ (las tapas no aportan, $\vec D\perp d\vec A$):
+          $\kappa_1\varepsilon_0E\,\pi rL + \kappa_2\varepsilon_0E\,\pi rL = Q \implies \vec E = \dfrac{Q}{\pi\varepsilon_0(\kappa_1 + \kappa_2)\,rL}\hat r.$</p><p><b>Por qué:</b> la carga libre encerrada es la del conductor interno, $Q$; las cargas ligadas no entran en la ley de Gauss para $\vec D$.</p></li>
+          <li><span class="rl">Paso 3 · Diferencia de potencial (0,5 pts.)</span><p class="do"><b>Qué hago:</b> $V_a - V_b = \displaystyle\int_a^b E\,dr = \frac{Q}{\pi\varepsilon_0(\kappa_1 + \kappa_2)L}\int_a^b\frac{dr}{r} = \frac{Q\ln(b/a)}{\pi\varepsilon_0(\kappa_1 + \kappa_2)L}$.</p><p><b>Por qué:</b> $V_a - V_b = -\displaystyle\int_b^a\vec E\cdot d\vec\ell$; el conductor interno, positivo, está a mayor potencial.</p></li>
+          <li><span class="rl">Paso 4 · Capacitancia (0,5 pts.)</span><p class="do"><b>Qué hago:</b> $C = \dfrac{Q}{V_a - V_b} = \dfrac{\pi\varepsilon_0(\kappa_1 + \kappa_2)L}{\ln(b/a)}$.</p><p><b>Por qué:</b> definición de capacitancia; $Q$ se cancela, como debe.</p></li>
+          <li><span class="rl">Paso 5 · Gran escala: dos capacitores en paralelo (1 pto.)</span><p class="do"><b>Qué hago:</b> cada mitad es medio capacitor cilíndrico lleno con un solo dieléctrico. Un cilindro completo con $\kappa$ tiene $\dfrac{2\pi\kappa\varepsilon_0L}{\ln(b/a)}$; la mitad, $C_i = \dfrac{\pi\kappa_i\varepsilon_0L}{\ln(b/a)}$. Comparten las dos placas, así que están en <b>paralelo</b>: $C = C_1 + C_2 = \dfrac{\pi\varepsilon_0(\kappa_1 + \kappa_2)L}{\ln(b/a)}$.</p><p><b>Por qué:</b> en paralelo los capacitores tienen el mismo $\Delta V$ (conectados a los mismos conductores) y sus cargas se suman. Coincide con el paso 4.</p></li>
+          <li><span class="rl">Paso 6 · $\vec E$, $\vec D$ y $\vec P$ en cada dieléctrico (1 pto.)</span><p class="do"><b>Qué hago:</b> con $i = 1, 2$:
+          $\vec E_i = \dfrac{Q}{\pi\varepsilon_0(\kappa_1 + \kappa_2)rL}\hat r$ (igual en ambos), $\quad\vec D_i = \kappa_i\varepsilon_0\vec E = \dfrac{\kappa_iQ}{\pi(\kappa_1 + \kappa_2)rL}\hat r$, $\quad\vec P_i = (\kappa_i - 1)\varepsilon_0\vec E = \dfrac{(\kappa_i - 1)Q}{\pi(\kappa_1 + \kappa_2)rL}\hat r$.</p><p><b>Por qué:</b> en un dieléctrico lineal $\vec D = \varepsilon_0\vec E + \vec P = \kappa\varepsilon_0\vec E$, de donde $\vec P = (\kappa - 1)\varepsilon_0\vec E$.</p></li>
+          <li><span class="rl">Paso 7 · Cargas libres en los conductores (0,5 pts.)</span><p class="do"><b>Qué hago:</b> en la superficie de un conductor $\sigma_f = \vec D\cdot\hat n_{\text{cond}}$, con $\hat n_{\text{cond}}$ saliendo del conductor hacia el dieléctrico: en $r = a$, $\hat n = +\hat r$: $\sigma_{f,i}(a) = +\dfrac{\kappa_iQ}{\pi(\kappa_1 + \kappa_2)aL}$; en $r = b$, $\hat n = -\hat r$: $\sigma_{f,i}(b) = -\dfrac{\kappa_iQ}{\pi(\kappa_1 + \kappa_2)bL}$.</p><p><b>Por qué:</b> Gauss para $\vec D$ en una cajita que cruza la superficie del metal (donde $\vec D = 0$). La carga libre <b>no</b> es uniforme: es mayor frente al dieléctrico de mayor $\kappa$.</p></li>
+          <li><span class="rl">Paso 8 · Cargas ligadas en $r = a$, $r = b$ y en la interfaz (0,5 pts.)</span><p class="do"><b>Qué hago:</b> $\sigma_b = \vec P\cdot\hat n$ con $\hat n$ saliendo <b>del dieléctrico</b>: en $r = a$, $\hat n = -\hat r$: $\sigma_{b,i}(a) = -\dfrac{(\kappa_i - 1)Q}{\pi(\kappa_1 + \kappa_2)aL}$ (negativa, frente a la placa positiva); en $r = b$, $\hat n = +\hat r$: $\sigma_{b,i}(b) = +\dfrac{(\kappa_i - 1)Q}{\pi(\kappa_1 + \kappa_2)bL}$. En la interfaz plana $\hat n = \pm\hat y$ es perpendicular a $\vec P$ (radial), así que $\sigma_b = 0$ ahí. Además $\rho_b = -\nabla\cdot\vec P = -\dfrac1r\dfrac{d}{dr}\left(r\cdot\dfrac{\text{cte}}{r}\right) = 0$.</p><p><b>Por qué:</b> la polarización apunta de la placa positiva a la negativa, así que deja carga ligada negativa junto a $+Q$ y positiva junto a $-Q$. Comprobación: en $r = a$, $\sigma_{f,i} + \sigma_{b,i} = \dfrac{Q}{\pi(\kappa_1 + \kappa_2)aL} = \varepsilon_0E(a)$, igual en las dos mitades, como exige que $\vec E$ sea el mismo.</p></li>
+          <li><span class="rl">Paso 9 · Fracción de la carga libre en la mitad superior (0,5 pts.)</span><p class="do"><b>Qué hago:</b> $Q_{\text{sup}} = \sigma_{f,1}(a)\cdot\pi aL = \dfrac{\kappa_1}{\kappa_1 + \kappa_2}Q$. Con $\kappa_1 = 2$, $\kappa_2 = 4$: $Q_{\text{sup}} = \dfrac{2}{6}Q = \dfrac{Q}{3}$ (y $\tfrac{2Q}{3}$ en la mitad inferior).</p><p><b>Por qué:</b> en paralelo la carga se reparte en proporción a las capacitancias, $C_1 : C_2 = \kappa_1 : \kappa_2$.</p></li>
+          <li class="final">$$\boxed{\vec E = \frac{Q}{\pi\varepsilon_0(\kappa_1 + \kappa_2)rL}\hat r\ \text{(igual en ambos)},\qquad V_a - V_b = \frac{Q\ln(b/a)}{\pi\varepsilon_0(\kappa_1 + \kappa_2)L},\qquad C = \frac{\pi\varepsilon_0(\kappa_1 + \kappa_2)L}{\ln(b/a)} = C_1 + C_2\ \text{(paralelo)}}$$ $$\boxed{\vec D_i = \frac{\kappa_iQ}{\pi(\kappa_1 + \kappa_2)rL}\hat r,\qquad \vec P_i = \frac{(\kappa_i - 1)Q}{\pi(\kappa_1 + \kappa_2)rL}\hat r}$$ $$\boxed{\sigma_{f,i}(a) = +\frac{\kappa_iQ}{\pi(\kappa_1 + \kappa_2)aL},\quad \sigma_{f,i}(b) = -\frac{\kappa_iQ}{\pi(\kappa_1 + \kappa_2)bL},\quad \sigma_{b,i}(a) = -\frac{(\kappa_i - 1)Q}{\pi(\kappa_1 + \kappa_2)aL},\quad \sigma_{b,i}(b) = +\frac{(\kappa_i - 1)Q}{\pi(\kappa_1 + \kappa_2)bL}}$$ $$\boxed{\sigma_b = 0\ \text{en la interfaz plana},\qquad Q_{\text{sup}} = \frac{\kappa_1}{\kappa_1 + \kappa_2}Q = \frac{Q}{3}\ \ (\kappa_1 = 2,\ \kappa_2 = 4)}$$</li>
+          <li class="check"><b>Verificación:</b> unidades: $[\varepsilon_0L] = \text{F}$, así que $[C] = \text{F}$; $[Q/(rL)] = \text{C/m}^2$ para $D$, $P$ y $\sigma$. Límite: con $\kappa_1 = \kappa_2 = \kappa$ se recupera el cilindro lleno, $C = \dfrac{2\pi\kappa\varepsilon_0L}{\ln(b/a)}$, y con $\kappa = 1$ el vacío, donde $\vec P = 0$ y $\sigma_b = 0$. Carga total: $\pi aL\,[\sigma_{f,1}(a) + \sigma_{f,2}(a)] = Q$.</li>
+        </ol>
+        <div class="ctrl"></div>
+      </div>
+      <div class="score-box" data-group="p1">
+        <div class="sb-head"><span>Puntaje P1B</span><span class="sb-sub"></span></div>
+        <label><input type="checkbox" class="pts" data-pts="0.5"> Paso 1 · Justifica que $\vec E$ es radial e igual en ambos dieléctricos (0,5 pts.)</label>
+        <label><input type="checkbox" class="pts" data-pts="1"> Paso 2 · Gauss para $\vec D$ con $D_1 \ne D_2$ y $\vec E(r)$ correcto (1 pto.)</label>
+        <label><input type="checkbox" class="pts" data-pts="0.5"> Paso 3 · Diferencia de potencial con $\ln(b/a)$ (0,5 pts.)</label>
+        <label><input type="checkbox" class="pts" data-pts="0.5"> Paso 4 · Capacitancia $C = \pi\varepsilon_0(\kappa_1 + \kappa_2)L/\ln(b/a)$ (0,5 pts.)</label>
+        <label><input type="checkbox" class="pts" data-pts="1"> Paso 5 · Gran escala: dos medios capacitores en paralelo, misma $C$ (1 pto.)</label>
+        <label><input type="checkbox" class="pts" data-pts="1"> Paso 6 · $\vec E$, $\vec D$ y $\vec P$ en cada dieléctrico (1 pto.)</label>
+        <label><input type="checkbox" class="pts" data-pts="0.5"> Paso 7 · Cargas libres en $r = a$ y $r = b$ con signo (0,5 pts.)</label>
+        <label><input type="checkbox" class="pts" data-pts="0.5"> Paso 8 · Cargas ligadas en $r = a$, $r = b$ con signo y $\sigma_b = 0$ en la interfaz (0,5 pts.)</label>
+        <label><input type="checkbox" class="pts" data-pts="0.5"> Paso 9 · Fracción $Q_{\text{sup}} = Q/3$ (0,5 pts.)</label>
+      </div>
+
+      <!-- ===================== P2 ===================== -->
+      <div class="prob" id="s01-p2" data-kind="practica" data-diff="2">
+        <div class="prob-head"><span class="tag">P2</span><span class="ptitle">Espira cuadrada que se acerca a un alambre: fem, frenado y fuerza externa</span><span class="diff">dificultad 2/3</span><span class="src">Problema original · estilo Examen 2024–2026</span></div>
+        <div class="prob-grid">
+          <div>
+            <p class="stmt">Alambre infinito con corriente $I$ hacia arriba; a su derecha, en su plano, una espira cuadrada de lado $a$, resistencia $R$ y masa $m$, con su lado cercano a distancia $x$, se acerca con rapidez constante $v$ ($dx/dt = -v$). a) $\vec B(s)$ por Ampère. b) $\Phi_B(x)$. c) Fem, corriente y sentido; valores en $x = a$ con $I = 50\ \text{A}$, $a = 10\ \text{cm}$, $v = 2{,}0\ \text{m/s}$, $R = 1{,}0\ \text{m}\Omega$. d) Fuerza magnética y fuerza externa; qué pasa sin fuerza externa; fem si se mueve paralela al alambre.</p>
+            <div class="given"><div><b>Datos</b> $I$, $a$, $R$, $m$, $x$, $v$; $\mu_0 = 4\pi\times10^{-7}\ \text{T·m/A}$</div><div><b>Piden</b> $\vec B(s)$, $\Phi_B(x)$, $\varepsilon$, $I_{\text{ind}}$ y sentido, $\vec F_B$, $\vec F_{\text{ext}}$, comportamiento sin $\vec F_{\text{ext}}$, fem en movimiento paralelo</div></div>
+          </div>
+          <figure class="fig" data-fig="s01-p2-espira"><figcaption>Toma $\hat n$ entrando a la hoja, de modo que el sentido positivo de circulación es el horario.</figcaption></figure>
+        </div>
+        <div class="predict"><b>Antes de calcular:</b> al acercarse al alambre, ¿el flujo entrante aumenta o disminuye? Según Lenz, ¿la fuerza magnética atrae la espira hacia el alambre o la repele?</div>
+        <ol class="reveal">
+          <li class="hint">$B$ depende solo de la distancia al alambre: divide la espira en franjas verticales de ancho $ds$ y área $dA = a\,ds$. Al derivar el flujo usa la regla de la cadena con $dx/dt = -v$.</li>
+          <li><span class="rl">Paso 1 · Campo por Ampère (parte a, 1 pto.)</span><p class="do"><b>Qué hago:</b> circunferencia amperiana de radio $s$ centrada en el alambre: $\oint\vec B\cdot d\vec\ell = B\,2\pi s = \mu_0I$, así que $B = \dfrac{\mu_0I}{2\pi s}$, azimutal; a la derecha del alambre (zona de la espira) <b>entra</b> a la hoja.</p><p><b>Por qué:</b> por simetría $\vec B$ es tangente a la circunferencia y de módulo constante sobre ella; el sentido sale de la regla de la mano derecha con el pulgar hacia arriba.</p></li>
+          <li><span class="rl">Paso 2 · Flujo (parte b, 1,5 pts.)</span><p class="do"><b>Qué hago:</b> con $\hat n$ entrante: $\Phi_B = \displaystyle\int_x^{x+a}\frac{\mu_0I}{2\pi s}\,a\,ds = \frac{\mu_0Ia}{2\pi}\Big[\ln s\Big]_x^{x+a} = \frac{\mu_0Ia}{2\pi}\ln\!\left(1 + \frac ax\right)$.</p><p><b>Por qué:</b> en cada franja la distancia $s$ es fija y $B$ es constante; $\vec B\parallel\hat n$, así que $\vec B\cdot d\vec A = B\,dA$.</p></li>
+          <li><span class="rl">Paso 3 · Fem (1 pto.)</span><p class="do"><b>Qué hago:</b> $\dfrac{d\Phi_B}{dt} = \dfrac{\mu_0Ia}{2\pi}\left(\dfrac{1}{x + a} - \dfrac1x\right)\dfrac{dx}{dt} = \dfrac{\mu_0Ia}{2\pi}\cdot\dfrac{-a}{x(x + a)}\cdot(-v) = \dfrac{\mu_0Ia^2v}{2\pi x(x + a)}$, así que $\varepsilon = -\dfrac{d\Phi_B}{dt} = -\dfrac{\mu_0Ia^2v}{2\pi x(x + a)}$. En $x = a$: $|\varepsilon| = \dfrac{\mu_0Iv}{4\pi} = (10^{-7})(50)(2{,}0) = 1{,}0\times10^{-5}\ \text{V}$.</p><p><b>Por qué:</b> ley de Faraday; solo cambia $x$. Con $\mu_0/(4\pi) = 10^{-7}\ \text{T·m/A}$ la cuenta es directa.</p></li>
+          <li><span class="rl">Paso 4 · Corriente y sentido (1 pto.)</span><p class="do"><b>Qué hago:</b> $I_{\text{ind}} = \dfrac{|\varepsilon|}{R} = \dfrac{\mu_0Ia^2v}{2\pi R\,x(x + a)}$; en $x = a$: $I_{\text{ind}} = \dfrac{1{,}0\times10^{-5}}{1{,}0\times10^{-3}} = 1{,}0\times10^{-2}\ \text{A} = 10\ \text{mA}$. Sentido <b>antihorario</b>: $\varepsilon \lt 0$ con $\hat n$ entrante (positivo = horario).</p><p><b>Por qué:</b> Lenz: el flujo entrante aumenta (la espira va hacia campo más intenso), así que la corriente inducida crea campo saliente dentro de la espira, es decir, circula antihoraria. Las dos razones coinciden.</p></li>
+          <li><span class="rl">Paso 5 · Fuerza magnética neta (0,5 pts.)</span><p class="do"><b>Qué hago:</b> antihoraria significa que la corriente baja por el lado cercano (en $s = x$) y sube por el lejano (en $s = x + a$). Lado cercano: $\vec F = I_{\text{ind}}a(-\hat y)\times(-B(x)\hat z) = I_{\text{ind}}aB(x)\,\hat x$ (se aleja del alambre). Lado lejano: $I_{\text{ind}}aB(x + a)$ hacia el alambre. Las fuerzas sobre los lados horizontales se cancelan (corrientes opuestas a la misma distancia). Neta: $\vec F_B = I_{\text{ind}}a\,[B(x) - B(x + a)]\,\hat x = \dfrac{\mu_0^2I^2a^4v}{4\pi^2R\,x^2(x + a)^2}\,\hat x$, alejándose del alambre. En $x = a$: $F_B = I_{\text{ind}}\dfrac{\mu_0I}{4\pi} = (10^{-2})(10^{-7})(50) = 5{,}0\times10^{-8}\ \text{N}$.</p><p><b>Por qué:</b> $d\vec F = I\,d\vec\ell\times\vec B$ en cada lado ($\hat x$ hacia la derecha, alejándose del alambre; $\hat y$ hacia arriba; $\hat z$ saliendo de la hoja). Domina el lado cercano, donde $B$ es mayor; corrientes antiparalelas se repelen.</p></li>
+          <li><span class="rl">Paso 6 · Fuerza externa (0,5 pts.)</span><p class="do"><b>Qué hago:</b> para $v$ constante la fuerza neta es cero: $\vec F_{\text{ext}} = -\vec F_B$, de magnitud $\dfrac{\mu_0^2I^2a^4v}{4\pi^2R\,x^2(x + a)^2}$ ($5{,}0\times10^{-8}\ \text{N}$ en $x = a$), dirigida <b>hacia el alambre</b>.</p><p><b>Por qué:</b> segunda ley de Newton con aceleración nula; no hay otras fuerzas en la dirección $\hat x$.</p></li>
+          <li><span class="rl">Paso 7 · Sin fuerza externa y movimiento paralelo (0,5 pts.)</span><p class="do"><b>Qué hago:</b> sin $\vec F_{\text{ext}}$, la única fuerza horizontal es $\vec F_B$, opuesta a la velocidad: la espira <b>frena</b> ($m\,dv/dt = -F_B \lt 0$). Si la espira se moviera paralela al alambre, $x$ no cambiaría, el flujo sería constante y $\varepsilon = 0$ (sin corriente ni fuerza).</p><p><b>Por qué:</b> Lenz: la fuerza inducida siempre se opone al movimiento que cambia el flujo. Moverse paralelo al alambre no cambia la distancia, así que no cambia $\Phi_B$.</p></li>
+          <li class="final">$$\boxed{\vec B = \frac{\mu_0I}{2\pi s}\ \text{(entra a la hoja a la derecha)},\qquad \Phi_B = \frac{\mu_0Ia}{2\pi}\ln\!\left(1 + \frac ax\right)}$$ (signos de $\Phi_B$ y $\varepsilon$ con $\hat n$ entrante; con $\hat n$ saliente ambos cambian de signo, pero $|\varepsilon|$ y el sentido físico de la corriente no.) $$\boxed{\varepsilon = -\frac{\mu_0Ia^2v}{2\pi x(x + a)},\quad I_{\text{ind}} = \frac{\mu_0Ia^2v}{2\pi Rx(x + a)}\ \text{(antihoraria)};\quad x = a:\ |\varepsilon| = 1{,}0\times10^{-5}\ \text{V},\ I_{\text{ind}} = 10\ \text{mA}}$$ $$\boxed{\vec F_B = \frac{\mu_0^2I^2a^4v}{4\pi^2Rx^2(x + a)^2}\ \text{alejándose del alambre}\ (5{,}0\times10^{-8}\ \text{N en } x = a),\qquad \vec F_{\text{ext}} = -\vec F_B\ \text{hacia el alambre}}$$ Sin fuerza externa la espira frena; con movimiento paralelo al alambre, $\varepsilon = 0$.</li>
+          <li class="check"><b>Verificación:</b> unidades: $\mu_0I/s$ es un campo (T), $[\varepsilon] = \text{T·m·(m/s)} = \text{V}$ y $[I_{\text{ind}}aB] = \text{A·m·T} = \text{N}$. Energía en $x = a$: $F_{\text{ext}}v = (5{,}0\times10^{-8})(2{,}0) = 1{,}0\times10^{-7}\ \text{W} = I_{\text{ind}}^2R = (10^{-2})^2(10^{-3})$: el trabajo del agente externo se disipa como calor. Fem de movimiento: $\varepsilon = av\,[B(x) - B(x + a)]$ da lo mismo. Límite: $x\to\infty$ da $\varepsilon\to0$ (campo casi uniforme sobre la espira).</li>
+        </ol>
+        <div class="ctrl"></div>
+      </div>
+      <div class="score-box" data-group="p2">
+        <div class="sb-head"><span>Puntaje P2</span><span class="sb-sub"></span></div>
+        <label><input type="checkbox" class="pts" data-pts="1"> Paso 1 · Campo por Ampère con magnitud y dirección (1 pto.)</label>
+        <label><input type="checkbox" class="pts" data-pts="1.5"> Paso 2 · Flujo con la integral en franjas, $\frac{\mu_0Ia}{2\pi}\ln(1 + a/x)$ (1,5 pts.)</label>
+        <label><input type="checkbox" class="pts" data-pts="1"> Paso 3 · Fem simbólica y $1{,}0\times10^{-5}\ \text{V}$ en $x = a$ (1 pto.)</label>
+        <label><input type="checkbox" class="pts" data-pts="1"> Paso 4 · Corriente (10 mA en $x = a$) y sentido antihorario justificado (1 pto.)</label>
+        <label><input type="checkbox" class="pts" data-pts="0.5"> Paso 5 · Fuerza magnética neta, alejándose del alambre, $5{,}0\times10^{-8}\ \text{N}$ (0,5 pts.)</label>
+        <label><input type="checkbox" class="pts" data-pts="0.5"> Paso 6 · Fuerza externa igual y opuesta, hacia el alambre (0,5 pts.)</label>
+        <label><input type="checkbox" class="pts" data-pts="0.5"> Paso 7 · Frena sin fuerza externa y $\varepsilon = 0$ en movimiento paralelo (0,5 pts.)</label>
+      </div>
+
+      <!-- ===================== P3 ===================== -->
+      <div class="prob" id="s01-p3" data-kind="practica" data-diff="2">
+        <div class="prob-head"><span class="tag">P3</span><span class="ptitle">Circuito RLC serie: amortiguamiento crítico y régimen sinusoidal</span><span class="diff">dificultad 2/3</span><span class="src">Problema original · estilo Examen 2024–2026</span></div>
+        <div class="prob-grid">
+          <div>
+            <p class="stmt">$R = 20\ \Omega$, $L = 10\ \text{mH}$, $C = 100\ \mu\text{F}$ en serie. a) Sin fuente, con $q(0) = Q_0 = 5{,}0\ \text{mC}$ e $i(0) = 0$: EDO para $q(t)$, $\omega_0$, $\gamma$, régimen y $q(t)$. b) Con $V(t) = V_0\cos\omega t$, $V_0 = 50\ \text{V}$, $\omega = 2000\ \text{rad/s}$: $Z_{\text{eq}}$, $|Z_{\text{eq}}|$, $\hat I$ (amplitud y fase), $i(t)$, adelanto o atraso. c) Frecuencia de resonancia y potencia media a $\omega = 2000\ \text{rad/s}$ y en resonancia.</p>
+            <div class="given"><div><b>Datos</b> $R = 20\ \Omega$, $L = 1{,}0\times10^{-2}\ \text{H}$, $C = 1{,}0\times10^{-4}\ \text{F}$, $Q_0 = 5{,}0\times10^{-3}\ \text{C}$, $V_0 = 50\ \text{V}$, $\omega = 2000\ \text{rad/s}$</div><div><b>Piden</b> EDO, $\omega_0$, $\gamma$, régimen, $q(t)$; $Z_{\text{eq}}$, $\hat I$, $i(t)$; $\omega_{\text{res}}$, $\langle P\rangle$ (dos casos)</div></div>
+          </div>
+          <figure class="fig" data-fig="s01-p3-rlc"><figcaption>(a) Descarga sin fuente; la corriente $i = -dq/dt$ sale de la placa positiva. (b) Régimen sinusoidal con la fuente como referencia de fase.</figcaption></figure>
+        </div>
+        <div class="predict"><b>Antes de calcular:</b> compara $R$ con $2\sqrt{L/C}$. Y en b): a $\omega = 2000\ \text{rad/s}$, ¿domina la reactancia del inductor o la del condensador? Entonces, ¿la corriente adelanta o atrasa?</div>
+        <ol class="reveal">
+          <li class="hint">Divide la EDO por $L$ y compárala con $\ddot q + 2\gamma\dot q + \omega_0^2q = 0$. En CA usa $Z_L = j\omega L$, $Z_C = \dfrac{1}{j\omega C} = -\dfrac{j}{\omega C}$ y suma en serie.</li>
+          <li><span class="rl">Paso 1 · EDO de segundo orden (0,5 pts.)</span><p class="do"><b>Qué hago:</b> ley de mallas recorriendo el circuito: $\dfrac qC - Ri - L\dfrac{di}{dt} = 0$ con $i = -\dfrac{dq}{dt}$, es decir, $L\dfrac{d^2q}{dt^2} + R\dfrac{dq}{dt} + \dfrac qC = 0$, o $\ddot q + \dfrac RL\dot q + \dfrac{1}{LC}q = 0$.</p><p><b>Por qué:</b> la suma de caídas de potencial en una malla cerrada es cero; el condensador actúa como fuente mientras se descarga.</p></li>
+          <li><span class="rl">Paso 2 · $\omega_0$ y $\gamma$ (0,5 pts.)</span><p class="do"><b>Qué hago:</b> $\omega_0 = \dfrac{1}{\sqrt{LC}} = \dfrac{1}{\sqrt{10^{-2}\cdot10^{-4}}} = \dfrac{1}{10^{-3}} = 1000\ \text{rad/s}$; $\gamma = \dfrac{R}{2L} = \dfrac{20}{2\cdot10^{-2}} = 1000\ \text{s}^{-1}$.</p><p><b>Por qué:</b> se leen de los coeficientes: $2\gamma = R/L$ y $\omega_0^2 = 1/(LC)$.</p></li>
+          <li><span class="rl">Paso 3 · Régimen (0,5 pts.)</span><p class="do"><b>Qué hago:</b> $\gamma = \omega_0$: <b>amortiguamiento crítico</b>. Equivalentemente, $R = R_{\text{crít}} = 2\sqrt{L/C} = 2\sqrt{100}\ \Omega = 20\ \Omega$. La ecuación característica $\lambda^2 + 2\gamma\lambda + \omega_0^2 = 0$ tiene la raíz doble $\lambda = -\gamma$.</p><p><b>Por qué:</b> el discriminante $\gamma^2 - \omega_0^2$ es cero: el circuito vuelve a cero lo más rápido posible sin oscilar.</p></li>
+          <li><span class="rl">Paso 4 · Solución $q(t)$ (0,5 pts.)</span><p class="do"><b>Qué hago:</b> con raíz doble, $q(t) = (A + Bt)e^{-\gamma t}$. $q(0) = A = Q_0$; $\dot q(0) = B - \gamma A = 0 \implies B = \gamma Q_0$. Así $q(t) = Q_0(1 + \gamma t)e^{-\gamma t} = 5{,}0\,(1 + 1000\,t)\,e^{-1000\,t}\ \text{mC}$ ($t$ en s).</p><p><b>Por qué:</b> $i(0) = 0$ exige $\dot q(0) = 0$. Por ejemplo, en $t = 1\ \text{ms}$: $q = 2Q_0e^{-1} \approx 0{,}74\,Q_0 \approx 3{,}7\ \text{mC}$.</p></li>
+          <li><span class="rl">Paso 5 · Impedancia equivalente (0,5 pts.)</span><p class="do"><b>Qué hago:</b> $X_L = \omega L = 2000\cdot10^{-2} = 20\ \Omega$; $X_C = \dfrac{1}{\omega C} = \dfrac{1}{2000\cdot10^{-4}} = 5\ \Omega$. En serie: $Z_{\text{eq}} = R + j(X_L - X_C) = 20 + 15j\ \Omega$.</p><p><b>Por qué:</b> en serie las impedancias se suman; $Z_C = -jX_C$.</p></li>
+          <li><span class="rl">Paso 6 · Módulo y ángulo de $Z_{\text{eq}}$ (0,5 pts.)</span><p class="do"><b>Qué hago:</b> $|Z_{\text{eq}}| = \sqrt{20^2 + 15^2} = 5\sqrt{4^2 + 3^2} = 25\ \Omega$; $\tan\phi = \dfrac{15}{20} = \dfrac34$, con $\cos\phi = \dfrac45$ y $\sin\phi = \dfrac35$ ($\phi \approx 37^\circ$).</p><p><b>Por qué:</b> triángulo 3-4-5 escalado por 5.</p></li>
+          <li><span class="rl">Paso 7 · Amplitud de la corriente (0,5 pts.)</span><p class="do"><b>Qué hago:</b> con $\hat V = V_0 = 50\ \text{V}$ (fase cero): $I_0 = \dfrac{V_0}{|Z_{\text{eq}}|} = \dfrac{50}{25} = 2{,}0\ \text{A}$.</p><p><b>Por qué:</b> ley de Ohm fasorial, $\hat I = \hat V/Z_{\text{eq}}$, en módulo.</p></li>
+          <li><span class="rl">Paso 8 · Fase y fasor (0,5 pts.)</span><p class="do"><b>Qué hago:</b> $\hat I = \dfrac{50}{25e^{j\phi}} = 2{,}0\,e^{-j\phi}\ \text{A} = 2{,}0\left(\tfrac45 - \tfrac35j\right) = 1{,}6 - 1{,}2j\ \text{A}$, con $\phi = \arctan\tfrac34$. La corriente <b>atrasa</b> a la fuente en $\phi \approx 37^\circ$.</p><p><b>Por qué:</b> $\omega \gt \omega_0$, domina el inductor ($X_L \gt X_C$) y el circuito es inductivo.</p></li>
+          <li><span class="rl">Paso 9 · Corriente en el tiempo (0,5 pts.)</span><p class="do"><b>Qué hago:</b> $i(t) = \text{Re}\{\hat Ie^{j\omega t}\} = 2{,}0\cos\!\left(2000\,t - \arctan\tfrac34\right)\ \text{A} = 1{,}6\cos(2000\,t) + 1{,}2\sin(2000\,t)\ \text{A}$.</p><p><b>Por qué:</b> el fasor guarda amplitud y fase; la parte real de $\hat Ie^{j\omega t}$ es la señal física.</p></li>
+          <li><span class="rl">Paso 10 · Resonancia (0,5 pts.)</span><p class="do"><b>Qué hago:</b> $\text{Im}(Z_{\text{eq}}) = 0 \iff \omega L = \dfrac{1}{\omega C} \iff \omega_{\text{res}} = \dfrac{1}{\sqrt{LC}} = 1000\ \text{rad/s}$.</p><p><b>Por qué:</b> en resonancia las reactancias se cancelan y $Z_{\text{eq}} = R$ es mínima.</p></li>
+          <li><span class="rl">Paso 11 · Potencia media a $\omega = 2000\ \text{rad/s}$ (0,5 pts.)</span><p class="do"><b>Qué hago:</b> $\langle P\rangle = \tfrac12V_0I_0\cos\phi = \tfrac12(50)(2{,}0)\left(\tfrac45\right) = 40\ \text{W}$.</p><p><b>Por qué:</b> con amplitudes se usa el factor $\tfrac12$; solo el resistor disipa: $\tfrac12I_0^2R = \tfrac12(4)(20) = 40\ \text{W}$, igual.</p></li>
+          <li><span class="rl">Paso 12 · Potencia media en resonancia (0,5 pts.)</span><p class="do"><b>Qué hago:</b> $I_0 = V_0/R = 2{,}5\ \text{A}$, $\phi = 0$: $\langle P\rangle_{\text{res}} = \tfrac12V_0I_0 = \tfrac12\dfrac{V_0^2}{R} = \dfrac{2500}{40} = 62{,}5\ \text{W}$.</p><p><b>Por qué:</b> en resonancia la corriente está en fase con la fuente y su amplitud es máxima, así que la potencia es la máxima posible.</p></li>
+          <li class="final">$$\boxed{L\ddot q + R\dot q + \frac qC = 0,\quad \omega_0 = 1000\ \text{rad/s},\quad \gamma = 1000\ \text{s}^{-1}\ \Rightarrow\ \text{amortiguamiento crítico},\quad q(t) = Q_0(1 + \gamma t)e^{-\gamma t}}$$ $$\boxed{Z_{\text{eq}} = 20 + 15j\ \Omega,\quad |Z_{\text{eq}}| = 25\ \Omega,\quad \hat I = 2{,}0\,e^{-j\phi}\ \text{A},\ \tan\phi = \tfrac34\ (\phi\approx37^\circ),\quad i(t) = 2{,}0\cos(2000\,t - \phi)\ \text{A (atrasa)}}$$ $$\boxed{\omega_{\text{res}} = 1000\ \text{rad/s},\qquad \langle P\rangle_{2000} = 40\ \text{W},\qquad \langle P\rangle_{\text{res}} = 62{,}5\ \text{W}}$$</li>
+          <li class="check"><b>Verificación:</b> unidades: $[R/L] = \Omega/\text{H} = \text{s}^{-1}$, $[1/\sqrt{LC}] = 1/\sqrt{\text{H·F}} = \text{s}^{-1}$, $[\omega L] = \Omega$. Límites: con $R \lt 20\ \Omega$ el circuito oscilaría (subamortiguado), con $R \gt 20\ \Omega$ sería sobreamortiguado; $q(t)\to0$ cuando $t\to\infty$ y $q(0) = Q_0$. Fase: si $\omega \lt \omega_0$ dominaría el condensador y la corriente adelantaría. Potencia: $40\ \text{W} = 62{,}5\ \text{W}\cdot\cos^2\phi = 62{,}5\cdot\tfrac{16}{25}$, coherente con $\langle P\rangle = \tfrac{V_0^2R}{2|Z|^2}$.</li>
+        </ol>
+        <div class="ctrl"></div>
+      </div>
+      <div class="score-box" data-group="p3">
+        <div class="sb-head"><span>Puntaje P3</span><span class="sb-sub"></span></div>
+        <label><input type="checkbox" class="pts" data-pts="0.5"> Paso 1 · EDO de segundo orden para $q(t)$ (0,5 pts.)</label>
+        <label><input type="checkbox" class="pts" data-pts="0.5"> Paso 2 · $\omega_0 = 1000\ \text{rad/s}$ y $\gamma = 1000\ \text{s}^{-1}$ (0,5 pts.)</label>
+        <label><input type="checkbox" class="pts" data-pts="0.5"> Paso 3 · Régimen: amortiguamiento crítico, justificado (0,5 pts.)</label>
+        <label><input type="checkbox" class="pts" data-pts="0.5"> Paso 4 · $q(t) = Q_0(1 + \gamma t)e^{-\gamma t}$ con condiciones iniciales (0,5 pts.)</label>
+        <label><input type="checkbox" class="pts" data-pts="0.5"> Paso 5 · $Z_{\text{eq}} = 20 + 15j\ \Omega$ (0,5 pts.)</label>
+        <label><input type="checkbox" class="pts" data-pts="0.5"> Paso 6 · $|Z_{\text{eq}}| = 25\ \Omega$ y $\tan\phi = 3/4$ (0,5 pts.)</label>
+        <label><input type="checkbox" class="pts" data-pts="0.5"> Paso 7 · Amplitud $I_0 = 2{,}0\ \text{A}$ (0,5 pts.)</label>
+        <label><input type="checkbox" class="pts" data-pts="0.5"> Paso 8 · Fasor $\hat I = 2{,}0\,e^{-j\phi}$ A y corriente atrasada (0,5 pts.)</label>
+        <label><input type="checkbox" class="pts" data-pts="0.5"> Paso 9 · $i(t) = 2{,}0\cos(2000\,t - \phi)$ A (0,5 pts.)</label>
+        <label><input type="checkbox" class="pts" data-pts="0.5"> Paso 10 · $\omega_{\text{res}} = 1000\ \text{rad/s}$ (0,5 pts.)</label>
+        <label><input type="checkbox" class="pts" data-pts="0.5"> Paso 11 · $\langle P\rangle = 40\ \text{W}$ a $2000\ \text{rad/s}$ (0,5 pts.)</label>
+        <label><input type="checkbox" class="pts" data-pts="0.5"> Paso 12 · $\langle P\rangle_{\text{res}} = 62{,}5\ \text{W}$ (0,5 pts.)</label>
+      </div>
+    </section>
+  </div>
+</section>
