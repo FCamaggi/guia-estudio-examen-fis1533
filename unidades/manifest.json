@@ -82,5 +82,26 @@
     "title": "Corriente alterna y ondas EM",
     "file": "u11-ca-ondas.html",
     "block": "D · Inducción y CA"
+  },
+  {
+    "id": "s01",
+    "num": "S1",
+    "title": "Simulacro de examen 1",
+    "file": "s01-simulacro-1.html",
+    "block": "E · Simulacros y simuladores"
+  },
+  {
+    "id": "s02",
+    "num": "S2",
+    "title": "Simulacro de examen 2",
+    "file": "s02-simulacro-2.html",
+    "block": "E · Simulacros y simuladores"
+  },
+  {
+    "id": "t01",
+    "num": "T",
+    "title": "Simuladores interactivos: RL, RLC y fasores",
+    "file": "t01-simuladores.html",
+    "block": "E · Simulacros y simuladores"
   }
 ]

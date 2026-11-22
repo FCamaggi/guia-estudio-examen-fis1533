@@ -1,0 +1,161 @@
+<section class="unit" id="t01" data-num="T" data-title="Simuladores interactivos: RL, RLC y fasores">
+  <header class="unit-head">
+    <span class="unit-num">T</span>
+    <h1>Simuladores interactivos: RL, RLC y fasores</h1>
+    <span class="unit-weight">Explora antes de memorizar</span>
+  </header>
+
+  <section class="sec" id="t01-rl" data-block="practica" data-title="Circuito RL">
+    <h2>Circuito RL: crecimiento y decaimiento</h2>
+    <p>En un circuito $RL$ serie, la corriente evoluciona exponencialmente con constante de tiempo $\tau = L/R$ hacia el valor estacionario $I_\infty = \varepsilon/R$: en crecimiento $i(t) = I_\infty(1 - e^{-t/\tau})$ y $v_L(t) = \varepsilon e^{-t/\tau}$, mientras que en decaimiento $i(t) = I_0 e^{-t/\tau}$.</p>
+    <p>Modifica $\varepsilon$, $R$ y $L$ o alterna entre ambos modos para ver cómo cambian la rapidez de respuesta $\tau$, la corriente límite y la energía magnética almacenada $\frac{1}{2}LI_\infty^2$.</p>
+
+    <div class="sim" id="t01-rl-sim">
+      <div class="sim-head">
+        <span class="sim-title">Simulador RL serie</span>
+        <div class="seg" role="group" aria-label="Modo del circuito RL">
+          <button type="button" id="t01-rl-grow" class="on" aria-pressed="true">Crecimiento</button>
+          <button type="button" id="t01-rl-decay" aria-pressed="false">Decaimiento</button>
+        </div>
+      </div>
+
+      <div class="sim-controls">
+        <label for="t01-rl-eps"><span>$\varepsilon$</span><output id="t01-rl-eps-o">10 V</output></label>
+        <input type="range" id="t01-rl-eps" min="1" max="24" step="0.5" value="10">
+
+        <label for="t01-rl-r"><span>$R$</span><output id="t01-rl-r-o">10 Ω</output></label>
+        <input type="range" id="t01-rl-r" min="1" max="100" step="1" value="10">
+
+        <label for="t01-rl-l"><span>$L$</span><output id="t01-rl-l-o">100 mH</output></label>
+        <input type="range" id="t01-rl-l" min="10" max="500" step="5" value="100">
+      </div>
+
+      <div class="sim-read" id="t01-rl-read"></div>
+      <canvas id="t01-rl-canvas" style="width:100%;height:auto;display:block;background:var(--paper);border-radius:8px"></canvas>
+      <p class="sim-note">Curvas normalizadas entre $0$ y $5\tau$. La línea punteada vertical marca $t = \tau$ ($0{,}63\,I_\infty$ en crecimiento o $0{,}37\,I_0$ en decaimiento).</p>
+    </div>
+
+    <div class="why">
+      <b>Qué observar:</b>
+      <ol>
+        <li>Si duplicas $R$ manteniendo $\varepsilon$ y $L$ fijos, ¿qué ocurre con $\tau$ y con la energía magnética final $\frac{1}{2}LI_\infty^2$?</li>
+        <li>En $t = 0^+$, justo al cerrar el interruptor en crecimiento, ¿cuánto valen $i(0^+)$ y $v_L(0^+)$?</li>
+        <li>Al pasar a decaimiento, ¿por qué $v_L(t)$ cambia de signo respecto al modo de crecimiento?</li>
+      </ol>
+      <details class="deriv">
+        <summary>Ver respuestas y repasar en U10</summary>
+        <ul>
+          <li>Al duplicar $R$, $\tau = L/R$ se reduce a la mitad (el circuito responde el doble de rápido), pero $I_\infty = \varepsilon/R$ también cae a la mitad, así que la energía $\frac{1}{2}LI_\infty^2$ se reduce a un cuarto.</li>
+          <li>En $t = 0^+$, la corriente en el inductor es continua: $i(0^+) = 0$ (se comporta como circuito abierto) y toda la fem cae en el inductor, $v_L(0^+) = \varepsilon$.</li>
+          <li>En decaimiento $di/dt \lt 0$, por lo que $v_L = L\,di/dt = -\varepsilon e^{-t/\tau} \lt 0$: el inductor invierte su polaridad para seguir empujando la corriente mientras disipa su energía en $R$.</li>
+        </ul>
+        <p>Repasa la teoría completa en <a href="#u10-s4">U10 · Circuito RL</a>.</p>
+      </details>
+    </div>
+  </section>
+
+  <section class="sec" id="t01-rlc" data-block="practica" data-title="Circuito RLC: amortiguamiento">
+    <h2>Circuito RLC serie: regímenes de amortiguamiento</h2>
+    <p>Un capacitor cargado inicialmente con $q(0) = Q_0$ e $i(0) = 0$ se descarga a través de $R$ y $L$ siguiendo $\ddot q + 2\gamma\dot q + \omega_0^2 q = 0$, con $\omega_0 = 1/\sqrt{LC}$ y $\gamma = R/(2L)$.</p>
+    <p>Según la relación entre $\gamma$ y $\omega_0$, la respuesta pasa de subamortiguada ($\omega_d = \sqrt{\omega_0^2 - \gamma^2}$) a críticamente amortiguada ($\gamma = \omega_0$) o sobreamortiguada ($\gamma \gt \omega_0$).</p>
+
+    <div class="sim" id="t01-rlc-sim">
+      <div class="sim-head">
+        <span class="sim-title">Simulador RLC serie libre</span>
+        <div class="eb-btns">
+          <button type="button" id="t01-rlc-crit" class="primary">Amortiguamiento crítico</button>
+        </div>
+      </div>
+
+      <div class="sim-controls">
+        <label for="t01-rlc-r"><span>$R$</span><output id="t01-rlc-r-o">10 Ω</output></label>
+        <input type="range" id="t01-rlc-r" min="0.5" max="220" step="0.1" value="10">
+
+        <label for="t01-rlc-l"><span>$L$</span><output id="t01-rlc-l-o">10 mH</output></label>
+        <input type="range" id="t01-rlc-l" min="1" max="100" step="1" value="10">
+
+        <label for="t01-rlc-c"><span>$C$</span><output id="t01-rlc-c-o">100 μF</output></label>
+        <input type="range" id="t01-rlc-c" min="10" max="500" step="5" value="100">
+
+        <label for="t01-rlc-q0"><span>$Q_0$</span><output id="t01-rlc-q0-o">100 μC</output></label>
+        <input type="range" id="t01-rlc-q0" min="10" max="500" step="10" value="100">
+      </div>
+
+      <div class="sim-read" id="t01-rlc-read"></div>
+      <canvas id="t01-rlc-canvas" style="width:100%;height:auto;display:block;background:var(--paper);border-radius:8px"></canvas>
+      <p class="sim-note" id="t01-rlc-formula">Régimen subamortiguado: $q(t) = Q_0 e^{-\gamma t}\!\left(\cos\omega_d t + \frac{\gamma}{\omega_d}\sin\omega_d t\right)$.</p>
+    </div>
+
+    <div class="why">
+      <b>Qué observar:</b>
+      <ol>
+        <li>Pulsa «Amortiguamiento crítico» y luego aumenta $R$ un poco más: ¿cuál de los dos regímenes regresa a $q \approx 0$ en menos tiempo?</li>
+        <li>En el régimen subamortiguado, ¿cómo se compara $\omega_d$ con $\omega_0$ a medida que aumentas $R$?</li>
+        <li>Si duplicas $L$ manteniendo $R$ y $C$ constantes, ¿el circuito se vuelve más o menos oscilatorio?</li>
+      </ol>
+      <details class="deriv">
+        <summary>Ver respuestas y repasar en U10</summary>
+        <ul>
+          <li>El amortiguamiento crítico ($R = 2\sqrt{L/C}$) logra el retorno más rápido a cero sin oscilar; al subir más $R$ (sobreamortiguado), la raíz lenta $-\gamma + \sqrt{\gamma^2 - \omega_0^2}$ frena la descarga.</li>
+          <li>$\omega_d = \sqrt{\omega_0^2 - \gamma^2} \lt \omega_0$: al crecer $R$, aumenta $\gamma$ y la frecuencia de oscilación $\omega_d$ disminuye hasta anularse en $\gamma = \omega_0$.</li>
+          <li>La condición de oscilación es $R \lt 2\sqrt{L/C}$: aumentar $L$ sube $R_{\text{crít}}$ y baja $\gamma = R/(2L)$, por lo que el circuito se vuelve más oscilatorio (aunque con menor $\omega_0$).</li>
+        </ul>
+        <p>Repasa la derivación en <a href="#u10-s6">U10 · Circuito RLC serie</a>.</p>
+      </details>
+    </div>
+  </section>
+
+  <section class="sec" id="t01-ca" data-block="practica" data-title="Corriente alterna: fasores y resonancia">
+    <h2>Corriente alterna: fasores y resonancia</h2>
+    <p>En régimen estacionario sinusoidal, la impedancia del $RLC$ serie es $Z = R + j(\omega L - 1/(\omega C))$ y su ángulo de fase cumple $\varphi = \arctan\!\big((\omega L - 1/(\omega C))/R\big)$.</p>
+    <p>La amplitud de corriente es $I_0 = V_0/|Z|$ y la potencia media disipada vale $\langle P\rangle = \frac{1}{2}V_0 I_0\cos\varphi$, alcanzando el máximo en resonancia ($\omega = \omega_0 = 1/\sqrt{LC}$).</p>
+
+    <div class="sim" id="t01-ca-sim">
+      <div class="sim-head">
+        <span class="sim-title">Simulador de CA: fasores y curva de resonancia</span>
+      </div>
+
+      <div class="sim-controls">
+        <label for="t01-ca-v0"><span>$V_0$</span><output id="t01-ca-v0-o">50 V</output></label>
+        <input type="range" id="t01-ca-v0" min="5" max="100" step="1" value="50">
+
+        <label for="t01-ca-w"><span>$\omega$</span><output id="t01-ca-w-o">2000 rad/s</output></label>
+        <input type="range" id="t01-ca-w" min="2" max="4" step="0.001" value="3.301">
+
+        <label for="t01-ca-r"><span>$R$</span><output id="t01-ca-r-o">20 Ω</output></label>
+        <input type="range" id="t01-ca-r" min="2" max="100" step="1" value="20">
+
+        <label for="t01-ca-l"><span>$L$</span><output id="t01-ca-l-o">10 mH</output></label>
+        <input type="range" id="t01-ca-l" min="1" max="50" step="1" value="10">
+
+        <label for="t01-ca-c"><span>$C$</span><output id="t01-ca-c-o">100 μF</output></label>
+        <input type="range" id="t01-ca-c" min="10" max="500" step="5" value="100">
+      </div>
+
+      <div class="sim-read" id="t01-ca-read"></div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:12px">
+        <canvas id="t01-ca-phasor" style="width:100%;height:auto;display:block;background:var(--paper);border-radius:8px"></canvas>
+        <canvas id="t01-ca-res" style="width:100%;height:auto;display:block;background:var(--paper);border-radius:8px"></canvas>
+      </div>
+      <p class="sim-note">Izquierda: diagrama fasorial con $\hat I$ como referencia horizontal ($\hat V_R$ en fase, $\hat V_L$ a $+90^\circ$, $\hat V_C$ a $-90^\circ$ y suma $\hat V$). Derecha: curva $I_0(\omega)$ en escala logarítmica con marcador en $\omega$ actual y en $\omega_0$.</p>
+    </div>
+
+    <div class="why">
+      <b>Qué observar:</b>
+      <ol>
+        <li>Ajusta $\omega$ hasta que $\varphi \approx 0^\circ$: ¿qué relación cumplen $X_L$, $X_C$, $|Z|$ y $\langle P\rangle$ en ese punto?</li>
+        <li>En resonancia con $R$ pequeño, observa las longitudes de $\hat V_L$ y $\hat V_C$ comparadas con $V_0$: ¿cómo pueden superar a $V_0$ sin violar Kirchhoff?</li>
+        <li>Al reducir $R$ manteniendo $L$ y $C$ fijos, ¿cómo cambia la altura y el ancho del pico de resonancia $I_0(\omega)$?</li>
+      </ol>
+      <details class="deriv">
+        <summary>Ver respuestas y repasar en U11</summary>
+        <ul>
+          <li>En resonancia ($\omega = \omega_0$), $X_L = X_C$, la parte imaginaria de $Z$ se anula, $|Z| = R$ es mínimo, $\cos\varphi = 1$ e $I_0$ y $\langle P\rangle$ son máximos.</li>
+          <li>$\hat V_L$ y $\hat V_C$ están desfasados $180^\circ$ ($+90^\circ$ y $-90^\circ$), de modo que sus fasores se cancelan exactamente entre sí ($\hat V_L + \hat V_C = 0$) y la suma total sigue siendo $\hat V = \hat V_R$.</li>
+          <li>Al bajar $R$, el pico $I_{0,\text{máx}} = V_0/R$ sube y la curva se vuelve más aguda y selectiva en frecuencia.</li>
+        </ul>
+        <p>Repasa la teoría en <a href="#u11-s1">U11 · Fasores</a>, <a href="#u11-s2">U11 · Impedancia y resonancia</a> y <a href="#u11-s3">U11 · Potencia en CA</a>.</p>
+      </details>
+    </div>
+  </section>
+</section>
