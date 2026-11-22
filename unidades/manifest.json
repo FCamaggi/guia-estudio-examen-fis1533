@@ -1,5 +1,12 @@
 [
   {
+    "id": "r01",
+    "num": "R",
+    "title": "Mapa del examen, formulario y notación",
+    "file": "r01-repaso-final.html",
+    "block": "0 · Antes de estudiar"
+  },
+  {
     "id": "u01",
     "num": "U1",
     "title": "Carga, Coulomb y campo eléctrico",
