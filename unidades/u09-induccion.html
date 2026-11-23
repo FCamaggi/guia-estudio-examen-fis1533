@@ -547,20 +547,33 @@
 <section class="sec" id="u09-formulas" data-block="formulas" data-title="Tarjeta de fórmulas">
   <h2>Tarjeta de fórmulas</h2>
   <div class="formulas"><table><thead><tr><th>Fórmula</th><th>Significado</th><th>Válida si</th></tr></thead>
-  <tbody>
+    <tbody class="fam">
+    <tr class="fam-head"><th colspan="3" scope="colgroup">Flujo magnético</th></tr>
     <tr><td>$\Phi_B = \displaystyle\int\vec B\cdot d\vec A$; $\ \Phi_B = BA\cos\varphi$</td><td>Flujo magnético (Wb); $\varphi$ entre $\vec B$ y $\hat n$</td><td>La forma corta, solo con $\vec B$ uniforme y superficie plana</td></tr>
     <tr><td>$\Phi_B = \dfrac{\mu_0 I\ell}{2\pi}\ln\!\left(\dfrac{r+w}{r}\right)$</td><td>Flujo de un alambre infinito por una espira rectangular coplanar</td><td>Lado $\ell$ paralelo al alambre, ancho $w$, lado cercano a distancia $r$</td></tr>
+  </tbody>
+  <tbody class="fam">
+    <tr class="fam-head"><th colspan="3" scope="colgroup">Faraday y Lenz</th></tr>
     <tr><td>$\varepsilon = -N\dfrac{d\Phi_B}{dt}$</td><td>Ley de Faraday; $\varepsilon$ en V, $N$ vueltas</td><td>Siempre; signo según la mano derecha alrededor de $\hat n$</td></tr>
     <tr><td>Ley de Lenz</td><td>La corriente inducida se opone al <em>cambio</em> del flujo</td><td>Siempre; la fuerza sobre la corriente inducida frena el movimiento</td></tr>
+    <tr><td>$\varepsilon = NBA\omega\sin\omega t$, $\ \varepsilon_{\text{máx}} = NBA\omega$</td><td>Generador; $\omega = 2\pi f$ (rad/s)</td><td>Rotación uniforme, eje perpendicular a $\vec B$ uniforme</td></tr>
+    <tr><td>$Q = \dfrac{N|\Delta\Phi_B|}{R}$</td><td>Carga total que circula (C)</td><td>El flujo cambia en un solo sentido</td></tr>
+  </tbody>
+  <tbody class="fam">
+    <tr class="fam-head"><th colspan="3" scope="colgroup">Fem de movimiento y frenado</th></tr>
     <tr><td>$\varepsilon = \displaystyle\oint(\vec v\times\vec B)\cdot d\vec\ell$; $\ |\varepsilon| = B\ell v$</td><td>Fem de movimiento; $\ell$ largo del tramo que se mueve (m)</td><td>La forma corta, para un tramo recto con $\vec v$, $\vec B$, $\vec\ell$ perpendiculares y $B$ uniforme</td></tr>
     <tr><td>$I = \dfrac{|\varepsilon|}{R}$, $\ \vec F = I\vec\ell\times\vec B$</td><td>Corriente inducida (A) y fuerza sobre un tramo recto (N)</td><td>Autoinducción despreciable; $\vec B$ uniforme sobre el tramo</td></tr>
     <tr><td>$F_B = \dfrac{B^2\ell^2v}{R}$, $\ P = \dfrac{\varepsilon^2}{R}$</td><td>Fuerza de frenado y potencia disipada (W)</td><td>Barra sobre rieles en campo uniforme</td></tr>
     <tr><td>$v = v_0e^{-t/\tau}$, $\ \tau = \dfrac{mR}{B^2\ell^2}$, $\ x_{\text{total}} = v_0\tau$</td><td>Barra lanzada, frenada solo por inducción</td><td>Sin roce ni otras fuerzas</td></tr>
     <tr><td>$v_{\text{term}} = \dfrac{FR}{B^2\ell^2}$</td><td>Velocidad terminal con fuerza constante $F$ (p. ej. $mg$)</td><td>Fuerza magnética $\propto v$; con $\vec B(z)$, usar la fuerza neta real (p. ej. $\alpha^2a^4v/R$)</td></tr>
+  </tbody>
+  <tbody class="fam">
+    <tr class="fam-head"><th colspan="3" scope="colgroup">Campo eléctrico inducido</th></tr>
     <tr><td>$\displaystyle\oint\vec E\cdot d\vec\ell = -\frac{d\Phi_B}{dt}$; $\ \nabla\times\vec E = -\dfrac{\partial\vec B}{\partial t}$</td><td>Campo eléctrico inducido (V/m), no conservativo</td><td>Curva fija</td></tr>
     <tr><td>$E = \dfrac r2\left|\dfrac{dB}{dt}\right|$ ($r\lt b$); $\ E = \dfrac{b^2}{2r}\left|\dfrac{dB}{dt}\right|$ ($r\gt b$)</td><td>$\vec E$ tangente en un solenoide de radio $b$</td><td>Solenoide largo, simetría cilíndrica</td></tr>
-    <tr><td>$\varepsilon = NBA\omega\sin\omega t$, $\ \varepsilon_{\text{máx}} = NBA\omega$</td><td>Generador; $\omega = 2\pi f$ (rad/s)</td><td>Rotación uniforme, eje perpendicular a $\vec B$ uniforme</td></tr>
-    <tr><td>$Q = \dfrac{N|\Delta\Phi_B|}{R}$</td><td>Carga total que circula (C)</td><td>El flujo cambia en un solo sentido</td></tr>
+  </tbody>
+  <tbody class="fam">
+    <tr class="fam-head"><th colspan="3" scope="colgroup">Corriente de desplazamiento</th></tr>
     <tr><td>$I_D = \varepsilon_0\dfrac{d\Phi_E}{dt}$; $\ \displaystyle\oint\vec B\cdot d\vec\ell = \mu_0(I_{\text{enc}} + I_D)$</td><td>Corriente de desplazamiento y ley de Ampère-Maxwell</td><td>Siempre; importa donde $\vec E$ cambia sin corriente de conducción</td></tr>
     <tr><td>$B = \dfrac{\mu_0 ir}{2\pi R^2}$ ($r\lt R$)</td><td>Campo entre placas circulares de un condensador que se carga</td><td>Placas de radio $R$, campo eléctrico uniforme entre ellas</td></tr>
   </tbody></table></div>

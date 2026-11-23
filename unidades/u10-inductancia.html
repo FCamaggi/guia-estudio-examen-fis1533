@@ -526,20 +526,33 @@
 <section class="sec" id="u10-formulas" data-block="formulas" data-title="Tarjeta de fórmulas">
   <h2>Tarjeta de fórmulas</h2>
   <div class="formulas"><table><thead><tr><th>Fórmula</th><th>Significado y unidades SI</th><th>Válida si</th></tr></thead>
-  <tbody>
+    <tbody class="fam">
+    <tr class="fam-head"><th colspan="3" scope="colgroup">Inductancia mutua</th></tr>
     <tr><td>$M = \dfrac{N_2\Phi_{21}}{i_1} = \dfrac{N_1\Phi_{12}}{i_2}$</td><td>$M$: inductancia mutua (H); $N_1, N_2$: vueltas (adim.); $\Phi_{21}, \Phi_{12}$: flujo por vuelta (Wb); $i_1, i_2$: corrientes (A)</td><td>Geometría fija y medio lineal; $M_{21} = M_{12} = M$</td></tr>
     <tr><td>$\varepsilon_2 = -M\dfrac{di_1}{dt}$, $\ \varepsilon_1 = -M\dfrac{di_2}{dt}$</td><td>$\varepsilon_1, \varepsilon_2$: fem mutuamente inducidas (V); $t$: tiempo (s)</td><td>Geometría fija, corrientes variables</td></tr>
     <tr><td>$M_{\text{sol}} = \dfrac{\mu_0 N_1 N_2 (\pi r_1^2)}{\ell}$</td><td>$\mu_0 = 4\pi\times10^{-7}\ \text{H/m}$; $r_1$: radio interior (m); $\ell$: largo (m)</td><td>Solenoides largos ($\ell \gg r_2 \gt r_1$) de igual longitud $\ell$</td></tr>
     <tr><td>$M_{\text{al-esp}} = \dfrac{\mu_0 a}{2\pi}\ln\!\left(\dfrac{h+b}{h}\right)$</td><td>$a$: lado paralelo al alambre (m); $b$: alto de espira (m); $h$: distancia al borde cercano (m)</td><td>Alambre infinito y espira rectangular coplanares</td></tr>
+  </tbody>
+  <tbody class="fam">
+    <tr class="fam-head"><th colspan="3" scope="colgroup">Autoinductancia y energía magnética</th></tr>
     <tr><td>$L = \dfrac{N\Phi_B}{i}$, $\ \varepsilon_L = -L\dfrac{di}{dt}$</td><td>$L$: autoinductancia (H); $N$: vueltas; $\Phi_B$: flujo propio (Wb); $\varepsilon_L$: fem autoinducida (V); $i$: corriente (A)</td><td>Geometría fija; $i_L(0^+) = i_L(0^-)$ (sin saltos)</td></tr>
     <tr><td>$V_{ab} = V_a - V_b = L\dfrac{di}{dt}$</td><td>$V_{ab}$: caída de potencial en el sentido de $i$ (V)</td><td>Inductor ideal ($R_{\text{bobina}} = 0$), corriente $i$ de $a$ a $b$</td></tr>
     <tr><td>$L_{\text{sol}} = \dfrac{\mu_0 N^2 A}{\ell} = \mu_0 n^2 (A\ell)$</td><td>$A$: sección transversal ($\text{m}^2$); $\ell$: largo (m); $n = N/\ell$: densidad de vueltas ($\text{m}^{-1}$)</td><td>Solenoide ideal largo de sección $A$ y largo $\ell$</td></tr>
     <tr><td>$L_{\text{tor}} = \dfrac{\mu_0 N^2 A}{2\pi r}$; $\ \dfrac{L_{\text{coax}}}{\ell} = \dfrac{\mu_0}{2\pi}\ln\!\left(\dfrac{b}{a}\right)$</td><td>Toroide: $A$ sección ($\text{m}^2$), $r$ radio medio (m); coaxial: radios $a \lt b$ (m), largo $\ell$ (m)</td><td>Toroide: sección $A \ll r^2$; coaxial: cilindros delgados $a \lt b$</td></tr>
     <tr><td>$U_B = \dfrac{1}{2}LI^2$, $\ u_B = \dfrac{B^2}{2\mu_0}$</td><td>$U_B$: energía magnética (J); $I$: corriente (A); $u_B$: densidad ($\text{J/m}^3$); $B$: campo (T); $\mathcal{V}$: volumen ($\text{m}^3$)</td><td>$U_B$ en cualquier inductor; $u_B$ en el vacío ($U_B = \int_{\mathcal{V}} u_B\,d\mathcal{V}$)</td></tr>
+  </tbody>
+  <tbody class="fam">
+    <tr class="fam-head"><th colspan="3" scope="colgroup">Circuitos RL</th></tr>
     <tr><td>$\varepsilon - iR - L\dfrac{di}{dt} = 0$, $\ \tau = \dfrac{L}{R}$</td><td>$\varepsilon$: fem (V); $i$: corriente (A); $R$: resistencia ($\Omega$); $\tau$: constante de tiempo (s)</td><td>$R$ es la resistencia equivalente vista desde $L$</td></tr>
     <tr><td>$i(t) = \dfrac{\varepsilon}{R}(1 - e^{-t/\tau})$; $\ i(t) = I_0 e^{-t/\tau}$</td><td>$i(t)$: corriente (A); $I_0$: corriente inicial al conmutar (A); $\tau = L/R$ (s)</td><td>Fuente $\varepsilon$ constante; $L$ abierto en $0^+$ (si $i_L=0$), corto en $\infty$</td></tr>
+  </tbody>
+  <tbody class="fam">
+    <tr class="fam-head"><th colspan="3" scope="colgroup">Circuitos LC</th></tr>
     <tr><td>$\dfrac{d^2 q}{dt^2} + \dfrac{1}{LC}q = 0$, $\ \omega_0 = \dfrac{1}{\sqrt{LC}}$</td><td>$q$: carga (C); $C$: capacitancia (F); $\omega_0$: frecuencia angular natural (rad/s); $Q_{\text{máx}}$ (C), $\phi$ (rad), $I_{\text{máx}}$ (A)</td><td>$R = 0$; $q(t) = Q_{\text{máx}}\cos(\omega_0 t + \phi)$, $I_{\text{máx}} = \omega_0 Q_{\text{máx}}$</td></tr>
     <tr><td>$\dfrac{q^2}{2C} + \dfrac{1}{2}Li^2 = \dfrac{Q_{\text{máx}}^2}{2C} = \dfrac{1}{2}LI_{\text{máx}}^2$</td><td>Conservación de energía en circuito $LC$ ideal (J)</td><td>Sin resistencia ($R = 0$); sin régimen permanente en $t \to \infty$</td></tr>
+  </tbody>
+  <tbody class="fam">
+    <tr class="fam-head"><th colspan="3" scope="colgroup">Circuitos RLC amortiguados</th></tr>
     <tr><td>$\ddot q + \dfrac{R}{L}\dot q + \dfrac{1}{LC}q = 0$ ($\gamma = \dfrac{R}{2L}$)</td><td>$\gamma$: tasa de amortiguamiento ($\text{s}^{-1}$); $R_{\text{crít}} = 2\sqrt{L/C}$: resistencia crítica ($\Omega$)</td><td>Sin fuente; comparar $\gamma$ con $\omega_0$ ($R$ con $R_{\text{crít}}$)</td></tr>
     <tr><td>$q(t) = A e^{-(R/2L)t}\cos(\omega_d t + \phi)$, $\ \omega_d = \sqrt{\dfrac{1}{LC} - \left(\dfrac{R}{2L}\right)^2}$</td><td>$A$: amplitud inicial (C); $\phi$: fase (rad); $\omega_d$: frecuencia amortiguada (rad/s)</td><td>Solo si $R \lt 2\sqrt{L/C}$ ($\gamma \lt \omega_0$); $R = R_{\text{crít}}$ crítico; $R \gt R_{\text{crít}}$ sobreamortiguado</td></tr>
   </tbody></table></div>

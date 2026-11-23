@@ -496,18 +496,28 @@
 <section class="sec" id="u01-formulas" data-block="formulas" data-title="Tarjeta de fórmulas">
   <h2>Tarjeta de fórmulas</h2>
   <div class="formulas"><table><thead><tr><th>Fórmula</th><th>Significado</th><th>Válida si</th></tr></thead>
-  <tbody>
+    <tbody class="fam">
+    <tr class="fam-head"><th colspan="3" scope="colgroup">Carga, Coulomb y dinámica puntual</th></tr>
     <tr><td>$q = ne$, $\ \sum q_i = \text{cte}$</td><td>Carga (C), $e = 1{,}602\times10^{-19}\ \text{C}$, $n\in\mathbb{Z}$</td><td>Siempre; la suma en sistemas aislados</td></tr>
     <tr><td>$\vec F_{12} = k\dfrac{q_1 q_2}{r^2}\hat r_{12} = kq_1 q_2\dfrac{\vec r_2 - \vec r_1}{|\vec r_2 - \vec r_1|^3}$</td><td>Fuerza de Coulomb (N); $k = \dfrac{1}{4\pi\varepsilon_0} \approx 8{,}99\times10^9\ \text{N·m}^2/\text{C}^2$</td><td>Cargas puntuales en reposo en el vacío; $\hat r_{12}$ de $q_1$ a $q_2$</td></tr>
     <tr><td>$\vec E = \dfrac{\vec F_e}{q_0}$, $\ \vec F = q\vec E$, $\ \vec E = k\displaystyle\sum_i \dfrac{q_i}{r_i^2}\hat r_i$</td><td>Campo eléctrico (N/C = V/m), superposición discreta</td><td>Cargas fuente puntuales (o fuera de esferas simétricas)</td></tr>
+    <tr><td>$\vec a = \dfrac{q\vec E}{m}$, $\ \Delta y = \dfrac{qEL^2}{2mv_0^2}$</td><td>Aceleración ($\text{m/s}^2$) y deflexión transversal en placas de largo $L$</td><td>$\vec E$ uniforme, $\vec v_0\perp\vec E$, gravedad despreciable</td></tr>
+  </tbody>
+  <tbody class="fam">
+    <tr class="fam-head"><th colspan="3" scope="colgroup">Distribuciones continuas de carga</th></tr>
     <tr><td>$\vec E = k\displaystyle\int \dfrac{\vec r - \vec r\,'}{|\vec r - \vec r\,'|^3}\,dq$</td><td>Campo de distribución continua; $dq = \lambda\,d\ell,\ \sigma\,dA,\ \rho\,dV$ ($\lambda$ C/m, $\sigma$ C/m², $\rho$ C/m³)</td><td>Siempre en electrostática</td></tr>
     <tr><td>$E_{\text{barra, eje}} = \dfrac{kQ}{a(a+L)}$</td><td>Campo en el eje a distancia $a$ del extremo cercano de barra de largo $L$</td><td>Densidad uniforme $\lambda = Q/L$</td></tr>
     <tr><td>$E_{\text{barra, med}} = \dfrac{kQ}{x\sqrt{x^2+a^2}}$; $\ E_{\text{línea}} = \dfrac{2k\lambda}{x} = \dfrac{\lambda}{2\pi\varepsilon_0 x}$</td><td>Mediatriz de barra de largo $2a$; límite de línea infinita ($a\gg x$)</td><td>Densidad uniforme; $x$ distancia perpendicular</td></tr>
     <tr><td>$\vec E_{\text{anillo}}(z) = \dfrac{kQz}{(z^2+R^2)^{3/2}}\,\hat z$</td><td>Campo sobre el eje de anillo de radio $R$ y carga $Q$</td><td>Densidad uniforme; eje de simetría</td></tr>
     <tr><td>$E_{\text{disco}} = \dfrac{\sigma}{2\varepsilon_0}\!\left(1 - \dfrac{z}{\sqrt{z^2+R^2}}\right)$; $\ E_{\text{plano}} = \dfrac{\sigma}{2\varepsilon_0}$</td><td>Disco uniforme ($z \gt 0$); límite de plano infinito ($R\gg z$); dos planos $\pm\sigma$: $E_{\text{entre}} = \sigma/\varepsilon_0$</td><td>Densidad $\sigma$ uniforme; eje de simetría</td></tr>
+  </tbody>
+  <tbody class="fam">
+    <tr class="fam-head"><th colspan="3" scope="colgroup">Dipolo eléctrico</th></tr>
     <tr><td>$\vec p = q\vec d$; $\ \vec E_{\text{ec}} \approx -\dfrac{k\vec p}{x^3}$, $\ \vec E_{\text{eje}} \approx \dfrac{2k\vec p}{z^3}$</td><td>Momento dipolar (C·m, de $-q$ a $+q$) y campo lejano</td><td>$x, z \gg d$</td></tr>
     <tr><td>$\vec\tau = \vec p\times\vec E$, $\ U = -\vec p\cdot\vec E = -pE\cos\phi$</td><td>Torque (N·m) y energía potencial (J) de dipolo</td><td>$\vec E$ uniforme ($U=0$ en $\phi=90^\circ$)</td></tr>
-    <tr><td>$\vec a = \dfrac{q\vec E}{m}$, $\ \Delta y = \dfrac{qEL^2}{2mv_0^2}$</td><td>Aceleración ($\text{m/s}^2$) y deflexión transversal en placas de largo $L$</td><td>$\vec E$ uniforme, $\vec v_0\perp\vec E$, gravedad despreciable</td></tr>
+  </tbody>
+  <tbody class="fam">
+    <tr class="fam-head"><th colspan="3" scope="colgroup">Herramientas de apoyo</th></tr>
     <tr><td>$\Phi_E = \displaystyle\oint\vec E\cdot d\vec A = \dfrac{Q_{\text{enc}}}{\varepsilon_0}$; $\ V = k\displaystyle\sum_i\dfrac{q_i}{r_i}$, $\ W_{\text{ext}} = q\Delta V$</td><td>Herramientas de apoyo: ley de Gauss ($\Phi_E$ en $\text{N·m}^2/\text{C}$) y potencial ($V$ en V, $V(\infty)=0$)</td><td>Gauss en cualquier superficie cerrada; $V$ para cargas puntuales</td></tr>
   </tbody></table></div>
 </section>

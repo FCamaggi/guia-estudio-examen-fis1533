@@ -489,20 +489,30 @@
 <section class="sec" id="u04-formulas" data-block="formulas" data-title="Tarjeta de fórmulas">
   <h2>Tarjeta de fórmulas</h2>
   <div class="formulas"><table><thead><tr><th>Fórmula</th><th>Significado (unidades SI)</th><th>Válida si</th></tr></thead>
-  <tbody>
+    <tbody class="fam">
+    <tr class="fam-head"><th colspan="3" scope="colgroup">Capacitancia y asociación</th></tr>
     <tr><td>$C = \dfrac{Q}{|\Delta V|}$</td><td>$C$: capacitancia ($\text{F} = \text{C/V}$); $Q$: carga en placa $+$ (C); $|\Delta V|$: voltaje (V)</td><td>Siempre; $C$ depende solo de geometría y medio</td></tr>
     <tr><td>$C = \dfrac{\varepsilon A}{d}$</td><td>Placas paralelas; $A$: área ($\text{m}^2$); $d$: separación (m); $\varepsilon = \kappa\varepsilon_0$ ($\text{F/m}$)</td><td>$d \ll \sqrt{A}$ (desprecia bordes), dieléctrico homogéneo</td></tr>
     <tr><td>$C = \dfrac{2\pi\varepsilon L}{\ln(r_b/r_a)}$</td><td>Cilíndrico coaxial; $r_a \lt r_b$: radios (m); $L$: largo (m)</td><td>$L \gg r_b$, dieléctrico homogéneo entre $r_a$ y $r_b$</td></tr>
     <tr><td>$C = 4\pi\varepsilon\,\dfrac{r_a r_b}{r_b - r_a}$</td><td>Esférico concéntrico; $r_a \lt r_b$: radios (m); aislada: $r_b\to\infty \Rightarrow C = 4\pi\varepsilon r_a$</td><td>Dieléctrico homogéneo entre $r_a$ y $r_b$</td></tr>
     <tr><td>Serie: $\dfrac{1}{C_{\text{eq}}} = \sum \dfrac{1}{C_i}$; $\ $ Paralelo: $C_{\text{eq}} = \sum C_i$</td><td>$C_{\text{eq}}$: capacitancia equivalente (F)</td><td>Serie: misma $Q$; paralelo: mismo $V$</td></tr>
+  </tbody>
+  <tbody class="fam">
+    <tr class="fam-head"><th colspan="3" scope="colgroup">Energía y fuerza eléctrica</th></tr>
     <tr><td>$U = \dfrac{Q^2}{2C} = \dfrac{1}{2}CV^2 = \dfrac{1}{2}QV$</td><td>$U$: energía almacenada (J)</td><td>Siempre ($Q^2/2C$ útil si $Q$ fija; $\tfrac12 CV^2$ si $V$ fija)</td></tr>
     <tr><td>$u_E = \dfrac{1}{2}\varepsilon E^2 = \dfrac{1}{2}\vec D\cdot\vec E$; $\ F_x = -\dfrac{dU}{dx}\Big|_Q = +\dfrac{dU}{dx}\Big|_V$</td><td>$u_E$: densidad de energía ($\text{J/m}^3$); $F_x$: fuerza (N); $x$: posición (m)</td><td>$u_E$: medio lineal; $-dU/dx$ si $Q$ fija, $+dU/dx$ si $V$ fija</td></tr>
+  </tbody>
+  <tbody class="fam">
+    <tr class="fam-head"><th colspan="3" scope="colgroup">Dieléctricos, polarización y rigidez</th></tr>
     <tr><td>$\kappa \equiv K \equiv \varepsilon_r = \dfrac{\varepsilon}{\varepsilon_0} = \dfrac{C}{C_0} = 1 + \chi_e$</td><td>Constante dieléctrica relativa (adimensional, $\kappa \ge 1$)</td><td>Medio dieléctrico lineal, homogéneo e isotrópico</td></tr>
     <tr><td>$\vec P = (\varepsilon - \varepsilon_0)\vec E = \varepsilon_0(\kappa - 1)\vec E$</td><td>Polarización ($\text{C/m}^2$); $\varepsilon_0 = 8{,}85\times 10^{-12}\ \text{F/m}$</td><td>Dieléctrico lineal e isotrópico</td></tr>
     <tr><td>$\sigma_b = \vec P\cdot\hat n$; $\ \rho_b = -\nabla\cdot\vec P$</td><td>Densidades de carga ligada superficial ($\text{C/m}^2$) y volumétrica ($\text{C/m}^3$)</td><td>Siempre; $\hat n$ apunta <b>hacia afuera del dieléctrico</b></td></tr>
+    <tr><td>$V_{\text{máx}} = E_m\,d$</td><td>$E_m$: rigidez dieléctrica (V/m; aire $\approx 3{,}0\times 10^6\ \text{V/m}$)</td><td>Campo uniforme; con varias capas, verificar $E_i \lt E_{mi}$ en cada una</td></tr>
+  </tbody>
+  <tbody class="fam">
+    <tr class="fam-head"><th colspan="3" scope="colgroup">Desplazamiento eléctrico</th></tr>
     <tr><td>$\vec D = \varepsilon_0\vec E + \vec P = \varepsilon\vec E$</td><td>Desplazamiento eléctrico ($\text{C/m}^2$)</td><td>Primera igualdad siempre; $\vec D = \varepsilon\vec E$ en medio lineal</td></tr>
     <tr><td>$\displaystyle\oint_S \vec D\cdot d\vec A = Q_{\text{libre, enc}}$; $\ \nabla\cdot\vec D = \rho_{\text{libre}}$</td><td>Ley de Gauss en dieléctricos; $Q_{\text{libre, enc}}$ en C</td><td>Siempre; despeja $\vec D$ directo solo si la simetría es intacta</td></tr>
-    <tr><td>$V_{\text{máx}} = E_m\,d$</td><td>$E_m$: rigidez dieléctrica (V/m; aire $\approx 3{,}0\times 10^6\ \text{V/m}$)</td><td>Campo uniforme; con varias capas, verificar $E_i \lt E_{mi}$ en cada una</td></tr>
   </tbody></table></div>
 </section>
 </section>

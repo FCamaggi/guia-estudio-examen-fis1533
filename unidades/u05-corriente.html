@@ -401,18 +401,28 @@
 <section class="sec" id="u05-formulas" data-block="formulas" data-title="Tarjeta de fórmulas">
   <h2>Tarjeta de fórmulas</h2>
   <div class="formulas"><table><thead><tr><th>Fórmula</th><th>Significado</th><th>Válida si</th></tr></thead>
-  <tbody>
+    <tbody class="fam">
+    <tr class="fam-head"><th colspan="3" scope="colgroup">Corriente, continuidad y Ohm local</th></tr>
     <tr><td>$I = \dfrac{dQ}{dt} = \displaystyle\int_S \vec J\cdot d\vec A$</td><td>Corriente eléctrica ($\text{A} = \text{C/s}$); $\vec J$ densidad ($\text{A/m}^2$); $d\vec A$ área ($\text{m}^2$)</td><td>Siempre; $I = JA$ solo si $\vec J$ es uniforme y $\perp A$</td></tr>
     <tr><td>$\vec J = n q \vec v_d$, $\ I = n|q|Av_d$</td><td>$n$ portadores ($\text{m}^{-3}$), $q$ carga (C), $\vec v_d$ deriva ($\text{m/s}$)</td><td>Portadores de una sola especie con deriva uniforme</td></tr>
     <tr><td>$\nabla\cdot\vec J + \dfrac{\partial\rho_q}{\partial t} = 0$</td><td>Continuidad; $\rho_q$ densidad volumétrica de carga ($\text{C/m}^3$)</td><td>Siempre; en régimen estacionario $\nabla\cdot\vec J = 0$</td></tr>
     <tr><td>$\vec J = \sigma\vec E = \dfrac{\vec E}{\rho}$, $\ \sigma = \dfrac{1}{\rho}$</td><td>Ley de Ohm diferencial; $\sigma$ ($(\Omega\cdot\text{m})^{-1}$), $\rho$ ($\Omega\cdot\text{m}$)</td><td>Material óhmico ($\rho$ independiente de $E$)</td></tr>
+  </tbody>
+  <tbody class="fam">
+    <tr class="fam-head"><th colspan="3" scope="colgroup">Resistencia y geometrías</th></tr>
     <tr><td>$\rho(T) = \rho_0[1 + \alpha(T - T_0)]$</td><td>$\alpha$ coef. térmico ($\text{K}^{-1}$): $\alpha \gt 0$ metal, $\alpha \lt 0$ semicond.</td><td>Rango moderado de $T$ alrededor de $T_0$</td></tr>
     <tr><td>$\Delta V = IR$, $\ R = \dfrac{\rho L}{A} = \dfrac{L}{\sigma A}$</td><td>Ley de Ohm macroscópica y resistencia ($\Omega = \text{V/A}$)</td><td>Conductor recto de sección $A$ y $\rho$ uniformes</td></tr>
     <tr><td>$R = \displaystyle\int \frac{\rho(\ell)\,d\ell}{A(\ell)}$</td><td>Suma de rebanadas en serie perpendiculares a $\vec J$</td><td>Las secciones $A(\ell)$ son equipotenciales</td></tr>
     <tr><td>$R_{\text{cono}} = \dfrac{\rho h}{\pi a b}$</td><td>Tronco de cono recto de largo $h$ y radios $a, b$</td><td>Flujo axial uniforme por sección, abertura pequeña</td></tr>
     <tr><td>$R_{\text{cil}} = \dfrac{\ln(b/a)}{2\pi\sigma L}$, $\ R_{\text{esf}} = \dfrac{b - a}{4\pi\sigma ab}$</td><td>Flujo radial entre cilindros ($L$) o esferas ($a \lt b$)</td><td>Electrodos concéntricos equipotenciales</td></tr>
+  </tbody>
+  <tbody class="fam">
+    <tr class="fam-head"><th colspan="3" scope="colgroup">Asociación, fem y resistencia interna</th></tr>
     <tr><td>$R_{\text{serie}} = \sum R_i$; $\ \dfrac{1}{R_{\text{par}}} = \sum \dfrac{1}{R_i}$</td><td>Resistencia equivalente serie (misma $I$) y paralelo (mismo $\Delta V$)</td><td>Conexión entre dos nodos bien definidos</td></tr>
     <tr><td>$I = \dfrac{\varepsilon}{r + R}$, $\ V_{ba} = \varepsilon - Ir$</td><td>Malla simple con fem $\varepsilon$ (V) y resistencia interna $r$ ($\Omega$)</td><td>$I$ saliendo por $+$; si entra por $+$, $V_{ba} = \varepsilon + Ir$</td></tr>
+  </tbody>
+  <tbody class="fam">
+    <tr class="fam-head"><th colspan="3" scope="colgroup">Potencia y efecto Joule</th></tr>
     <tr><td>$P = I\,\Delta V = I^2 R = \dfrac{(\Delta V)^2}{R}$</td><td>Potencia eléctrica ($\text{W} = \text{J/s}$)</td><td>$P = I\Delta V$ siempre; $I^2R$ y $\Delta V^2/R$ en resistores óhmicos</td></tr>
     <tr><td>$p = \vec J\cdot\vec E = J^2\rho = \sigma E^2$</td><td>Densidad volumétrica de potencia Joule ($\text{W/m}^3$)</td><td>Material óhmico local</td></tr>
     <tr><td>$P_{R,\text{máx}} = \dfrac{\varepsilon^2}{4r}$ (en $R = r$)</td><td>Máxima potencia entregada a la carga $R$ ($\eta = 50\,\%$)</td><td>$\varepsilon$ y $r$ fijos, $R$ variable</td></tr>

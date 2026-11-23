@@ -459,18 +459,28 @@
 <section class="sec" id="u11-formulas" data-block="formulas" data-title="Tarjeta de fórmulas">
   <h2>Tarjeta de fórmulas</h2>
   <div class="formulas"><table><thead><tr><th>Fórmula</th><th>Significado</th><th>Válida si</th></tr></thead>
-  <tbody>
+    <tbody class="fam">
+    <tr class="fam-head"><th colspan="3" scope="colgroup">Fasores, rms e impedancias</th></tr>
     <tr><td>$v(t) = \operatorname{Re}\{\hat V e^{j\omega t}\}$, $\ i(t) = \operatorname{Re}\{\hat I e^{j\omega t}\}$</td><td>Fasores complejos $\hat V, \hat I$; $\omega = 2\pi f$ (rad/s)</td><td>Régimen estacionario sinusoidal a una sola frecuencia</td></tr>
     <tr><td>$V_{\text{rms}} = \dfrac{V_0}{\sqrt{2}}$, $\ I_{\text{rms}} = \dfrac{I_0}{\sqrt{2}}$</td><td>Valor eficaz (rms) en función de la amplitud pico $V_0, I_0$</td><td>Señales puramente sinusoidales</td></tr>
     <tr><td>$Z_R = R$, $\ Z_L = j\omega L$, $\ Z_C = \dfrac{1}{j\omega C} = -\dfrac{j}{\omega C}$</td><td>Impedancias ($\Omega$); reactancias $X_L = \omega L$, $X_C = \frac{1}{\omega C}$</td><td>Elementos ideales en régimen sinusoidal ($j^2 = -1$)</td></tr>
     <tr><td>$Z_{\text{eq}} = \sum Z_k$ (serie); $\ \dfrac{1}{Z_{\text{eq}}} = \sum \dfrac{1}{Z_k}$ (paralelo)</td><td>Asociación de impedancias complejas; $\hat V = Z_{\text{eq}}\hat I$</td><td>Sumar números complejos, nunca módulos</td></tr>
     <tr><td>$\hat V_k = \dfrac{Z_k}{Z_{\text{eq}}}\hat V$ (serie); $\ \hat I_1 = \dfrac{Z_2}{Z_1+Z_2}\hat I_{\text{tot}}$ (paralelo)</td><td>Divisores de voltaje y de corriente en forma fasorial</td><td>$\sum\hat I_k = 0$ en nodos, $\sum\hat V_k = 0$ en mallas</td></tr>
+  </tbody>
+  <tbody class="fam">
+    <tr class="fam-head"><th colspan="3" scope="colgroup">RLC serie, resonancia y potencia</th></tr>
     <tr><td>$Z = R + j\left(\omega L - \dfrac{1}{\omega C}\right)$, $\ \tan\varphi = \dfrac{\omega L - \frac{1}{\omega C}}{R}$</td><td>RLC serie; $|Z| = \sqrt{R^2 + (X_L - X_C)^2}$, $I_0 = V_0/|Z|$</td><td>$R, L, C$ en serie; $i(t) = I_0\cos(\omega t - \varphi)$ si $v(t) = V_0\cos\omega t$</td></tr>
     <tr><td>$\operatorname{Im}\{Z_{\text{eq}}(\omega_0)\} = 0$; $\ \omega_0 = \dfrac{1}{\sqrt{LC}}$ (RLC serie)</td><td>Resonancia ($\varphi = 0$, $I_0$ máxima en serie); antirresonancia si $|Z_p|\to\infty$</td><td>La forma $1/\sqrt{LC}$ solo en RLC serie simple; calcular $Z_{\text{eq}}$ en redes mixtas</td></tr>
     <tr><td>$\langle P\rangle = \dfrac{1}{2}V_0 I_0\cos\varphi = V_{\text{rms}} I_{\text{rms}}\cos\varphi$</td><td>Potencia media (W); $\cos\varphi = \frac{\operatorname{Re} Z}{|Z|}$ factor de potencia</td><td>Carga pasiva lineal; $\langle P\rangle = 0$ en $L$ y $C$ ideales</td></tr>
+  </tbody>
+  <tbody class="fam">
+    <tr class="fam-head"><th colspan="3" scope="colgroup">Ondas electromagnéticas</th></tr>
     <tr><td>$\nabla^2\vec E = \mu_0\varepsilon_0\dfrac{\partial^2\vec E}{\partial t^2}$, $\ c = \dfrac{1}{\sqrt{\mu_0\varepsilon_0}} \approx 3{,}00\times 10^8\ \text{m/s}$</td><td>Ecuación de onda EM y rapidez de la luz; $\omega = ck = 2\pi c/\lambda$</td><td>Vacío sin cargas ni corrientes ($\rho = 0, \vec J = \vec 0$)</td></tr>
     <tr><td>$v = \dfrac{1}{\sqrt{\varepsilon\mu}} = \dfrac{c}{n}$, $\ n = \sqrt{\dfrac{\varepsilon\mu}{\varepsilon_0\mu_0}}$, $\ B_0 = \dfrac{E_0}{v}$</td><td>Rapidez ($v$ en m/s) e índice de refracción $n$ en un medio lineal</td><td>Medio dieléctrico homogéneo ($\rho_f = 0, \vec J_f = \vec 0$)</td></tr>
     <tr><td>$\vec k\times\vec E = \omega\vec B \iff \vec B = \dfrac{1}{c}(\hat k\times\vec E)$, $\ B_0 = \dfrac{E_0}{c}$</td><td>Relación entre campos ($\hat k\cdot\vec E = \hat k\cdot\vec B = 0$)</td><td>Onda plana monocromática en el vacío; en un medio, $c\to v=c/n$</td></tr>
+  </tbody>
+  <tbody class="fam">
+    <tr class="fam-head"><th colspan="3" scope="colgroup">Energía, Poynting e intensidad</th></tr>
     <tr><td>$u = \dfrac{1}{2}\left(\varepsilon_0 E^2 + \dfrac{B^2}{\mu_0}\right) = \varepsilon_0 E^2$, $\ \vec S = \dfrac{1}{\mu_0}(\vec E\times\vec B)$</td><td>Densidad de energía ($\text{J/m}^3$) y vector de Poynting ($\text{W/m}^2$)</td><td>$u = \varepsilon_0 E^2$ vale para onda plana única en el vacío</td></tr>
     <tr><td>$I = |\langle\vec S\rangle| = \dfrac{1}{2}c\varepsilon_0 E_0^2 = \dfrac{E_0^2}{2\mu_0 c} = c\langle u\rangle$, $\ P = \langle\vec S\rangle\cdot\hat n_A A$</td><td>Intensidad ($\text{W/m}^2$) y potencia captada (W) en área $A$</td><td>Onda plana sinusoidal en el vacío; $P = IA$ en incidencia normal</td></tr>
   </tbody></table></div>

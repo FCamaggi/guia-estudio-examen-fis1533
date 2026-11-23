@@ -52,11 +52,23 @@
 .deriv > summary { cursor: pointer; font-weight: 600; color: var(--accent); }
 
 /* Formula card: timetable rows */
-.formulas table { width: 100%; border-collapse: collapse; border-top: 2px solid var(--ink); }
-.formulas td, .formulas th { border-bottom: 1px solid var(--line); padding: 10px 12px; vertical-align: top; text-align: left; }
-.formulas th { font: 700 0.8125rem var(--font-display); text-transform: none; color: var(--ink); border-bottom: 2px solid var(--ink); background: transparent; }
-.formulas tbody tr:nth-child(even) td { background: color-mix(in srgb, var(--ink) 4%, transparent); }
-.formulas td:first-child { font-size: 1.05em; }
+/* Formula card: one block per family (tbody.fam), a black head band with the unit's line colour,
+   then formula cards in a 2-column grid: formula, "Válida si" right under it, meaning muted. */
+.formulas table { display: block; width: 100%; border: 0; }
+.formulas thead { display: none; }
+.formulas tbody.fam { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); margin-bottom: 18px; border-top: 2px solid var(--ink); border-left: 1px solid var(--line); }
+.formulas tr.fam-head { grid-column: 1 / -1; display: block; background: var(--band); }
+.formulas tr.fam-head th { display: block; padding: 8px 12px; text-align: left; color: var(--band-ink); font: 700 0.9375rem var(--font-display); border: 0; background: transparent; }
+.formulas tr.fam-head th::after { content: ""; display: block; height: 4px; margin: 8px -12px -8px; background: var(--line-c, var(--ink)); }
+.formulas tr:not(.fam-head) { display: flex; flex-direction: column; gap: 6px; padding: 14px 14px 16px; border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); min-width: 0; }
+.formulas td { display: block; padding: 0; border: 0; background: none; min-width: 0; overflow: visible; }
+/* Cells grow with their content; only a formula wider than its card scrolls sideways, on its own. */
+.formulas td mjx-container { max-width: 100%; overflow-x: auto; overflow-y: hidden; padding: 4px 0; vertical-align: middle; }
+.formulas td:nth-child(1) { font-size: 1.1em; }
+.formulas td:nth-child(3) { order: 2; font-size: 0.875rem; font-weight: 600; }
+.formulas td:nth-child(3)::before { content: "Válida si: "; font-weight: 400; color: var(--muted); }
+.formulas td:nth-child(2) { order: 3; font-size: 0.875rem; color: var(--muted); }
+@media (max-width: 760px) { .formulas tbody.fam { grid-template-columns: minmax(0, 1fr); } }
 
 /* Problem difficulty */
 .diff { font: 600 0.75rem var(--font-mono); color: color-mix(in srgb, var(--band-ink) 72%, transparent); margin-left: 6px; }

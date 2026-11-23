@@ -509,17 +509,27 @@
 <section class="sec" id="u08-formulas" data-block="formulas" data-title="Tarjeta de fórmulas">
   <h2>Tarjeta de fórmulas</h2>
   <div class="formulas"><table><thead><tr><th>Fórmula</th><th>Significado</th><th>Válida si</th></tr></thead>
-  <tbody>
+    <tbody class="fam">
+    <tr class="fam-head"><th colspan="3" scope="colgroup">Biot-Savart y alambres rectos</th></tr>
     <tr><td>$\vec B = \dfrac{\mu_0}{4\pi}\dfrac{q\,\vec v\times\hat r}{r^2}$</td><td>Campo de carga puntual $q$ (C) con velocidad $\vec v$ (m/s); $\mu_0 = 4\pi\times10^{-7}\ \text{T·m/A}$</td><td>$\vec v$ constante, $v\ll c$; $\hat r$ va de $q$ a $P$</td></tr>
     <tr><td>$d\vec B = \dfrac{\mu_0 I}{4\pi}\dfrac{d\vec\ell\times(\vec r-\vec r\,')}{|\vec r-\vec r\,'|^3}$</td><td>Ley de Biot-Savart; $I$ (A), $d\vec\ell$ (m) en el sentido de $I$</td><td>Corrientes estacionarias; segmentos colineales con $P$ dan $0$</td></tr>
     <tr><td>$B = \dfrac{\mu_0 I}{4\pi R}(\sin\theta_2 - \sin\theta_1)$</td><td>Alambre recto finito a distancia perpendicular $R$ (m)</td><td>$\theta_1, \theta_2$ medidos desde la perpendicular a $P$</td></tr>
     <tr><td>$\vec B = \dfrac{\mu_0 I}{2\pi r}\,\hat\theta$</td><td>Alambre recto infinito (o fuera de un cilindro de radio $R$, $r\gt R$)</td><td>Cable recto muy largo; sentido por mano derecha</td></tr>
     <tr><td>$\dfrac{F}{L} = \dfrac{\mu_0 I_1 I_2}{2\pi d}$</td><td>Fuerza por metro (N/m) entre alambres paralelos a distancia $d$ (m)</td><td>Alambres largos paralelos; mismo sentido atrae, opuesto repele</td></tr>
+  </tbody>
+  <tbody class="fam">
+    <tr class="fam-head"><th colspan="3" scope="colgroup">Espiras, arcos y dipolo</th></tr>
     <tr><td>$\vec B_{\text{eje}} = \dfrac{\mu_0 I R^2}{2(R^2+z^2)^{3/2}}\,\hat z$</td><td>Campo en el eje $z$ de espira de radio $R$ (m); en el centro ($z=0$): $\dfrac{\mu_0 I}{2R}$</td><td>Espira circular plana; $\times N$ para $N$ vueltas</td></tr>
     <tr><td>$B_{\text{arco}} = \dfrac{\mu_0 I\phi}{4\pi R}$</td><td>Campo en el centro de curvatura de un arco de ángulo $\phi$ (rad)</td><td>Solo en el centro de curvatura; semicírculo ($\phi=\pi$): $\dfrac{\mu_0 I}{4R}$</td></tr>
     <tr><td>$\vec\mu = NIA\,\hat n$; $\ B_{\text{lej}} \approx \dfrac{\mu_0}{2\pi}\dfrac{\mu}{|z|^3}$</td><td>Momento dipolar magnético ($\text{A·m}^2$) y campo axial lejano</td><td>Espira plana de área $A$ ($\text{m}^2$); $|z|\gg R$ para el campo dipolar</td></tr>
+  </tbody>
+  <tbody class="fam">
+    <tr class="fam-head"><th colspan="3" scope="colgroup">Leyes de Gauss y Ampère</th></tr>
     <tr><td>$\displaystyle\oint\vec B\cdot d\vec A = 0$; $\ \nabla\cdot\vec B = 0$</td><td>Ley de Gauss del magnetismo (sin monopolos)</td><td>Siempre</td></tr>
     <tr><td>$\displaystyle\oint_C\vec B\cdot d\vec\ell = \mu_0 I_{\text{enc}}$; $\ \nabla\times\vec B = \mu_0\vec J$</td><td>Ley de Ampère; $I_{\text{enc}} = \displaystyle\int_S\vec J\cdot d\vec A$ (con $dA = r\,dr\,d\theta$ en polares)</td><td>Corrientes estacionarias; permite despejar $\vec B$ solo con alta simetría</td></tr>
+  </tbody>
+  <tbody class="fam">
+    <tr class="fam-head"><th colspan="3" scope="colgroup">Campos por ley de Ampère</th></tr>
     <tr><td>$B(r\lt R) = \dfrac{\mu_0 I r}{2\pi R^2}$</td><td>Interior de alambre cilíndrico de radio $R$ con $\vec J$ uniforme</td><td>Cilindro infinito; con $\vec J(r)$ variable, integra $I_{\text{enc}}(r)$</td></tr>
     <tr><td>$B_{\text{sol}} = \mu_0 nI = \dfrac{\mu_0 NI}{\ell}$</td><td>Interior de solenoide con $n = N/\ell$ vueltas/m ($\text{m}^{-1}$)</td><td>Solenoide ideal (largo $\gg$ radio); $B\approx 0$ afuera</td></tr>
     <tr><td>$B_{\text{tor}} = \dfrac{\mu_0 NI}{2\pi r}$</td><td>Interior del núcleo de un toroide ($b \lt r \lt c$)</td><td>Toroide ideal de $N$ vueltas juntas; $B = 0$ para $r\lt b$ y $r\gt c$</td></tr>

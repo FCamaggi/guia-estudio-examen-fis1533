@@ -587,18 +587,25 @@
 <section class="sec" id="u02-formulas" data-block="formulas" data-title="Tarjeta de fórmulas">
   <h2>Tarjeta de fórmulas</h2>
   <div class="formulas"><table><thead><tr><th>Fórmula</th><th>Significado y unidades SI</th><th>Válida si</th></tr></thead>
-  <tbody>
+    <tbody class="fam">
+    <tr class="fam-head"><th colspan="3" scope="colgroup">Flujo eléctrico y ley de Gauss</th></tr>
     <tr><td>$\Phi_E = \displaystyle\int_S \vec E\cdot d\vec A$; $\ \Phi_E = EA\cos\varphi$</td><td>Flujo eléctrico ($\text{N·m}^2/\text{C}$); $\vec E$ ($\text{N/C}$), $A, d\vec A$ ($\text{m}^2$), $\varphi$ entre $\vec E$ y $\hat n$</td><td>La forma corta, solo para $\vec E$ uniforme y superficie plana</td></tr>
     <tr><td>$\Phi_{\text{centro}} = \dfrac{q}{6\varepsilon_0}$, $\ \Phi_{\text{vértice, op}} = \dfrac{q}{24\varepsilon_0}$</td><td>Flujo ($\text{N·m}^2/\text{C}$) por una cara de un cubo con carga $q$ ($\text{C}$)</td><td>Carga en el centro del cubo o en un vértice (caras adyacentes dan $0$)</td></tr>
     <tr><td>$\displaystyle\oint_S \vec E\cdot d\vec A = \frac{Q_{\text{enc}}}{\varepsilon_0}$</td><td>Ley de Gauss integral; $\vec E$ ($\text{N/C}$), $d\vec A$ ($\text{m}^2$), $Q_{\text{enc}}$ ($\text{C}$), $\varepsilon_0 \approx 8{,}85\times 10^{-12}\ \text{C}^2/(\text{N·m}^2)$</td><td>Siempre (para despejar $\vec E$, requiere simetría esférica, cilíndrica o planar)</td></tr>
+    <tr><td>$\nabla\cdot\vec E = \dfrac{\rho}{\varepsilon_0}$</td><td>Ley de Gauss diferencial; $\nabla\cdot\vec E$ ($\text{V/m}^2$), $\rho$ ($\text{C/m}^3$)</td><td>Siempre; radial esféricas $\frac{1}{r^2}\frac{d(r^2E_r)}{dr}$, cilíndricas $\frac{1}{r}\frac{d(rE_r)}{dr}$</td></tr>
+  </tbody>
+  <tbody class="fam">
+    <tr class="fam-head"><th colspan="3" scope="colgroup">Campos por simetría y superposición</th></tr>
     <tr><td>$dV_{\text{esf}} = 4\pi r^2\,dr$, $\ dV_{\text{cil}} = 2\pi r L\,dr$</td><td>Elementos de volumen ($\text{m}^3$); radio $r$ ($\text{m}$), largo $L$ ($\text{m}$)</td><td>Cuando $\rho = \rho(r)$ depende solo de la coordenada radial $r$</td></tr>
     <tr><td>$\vec E_{\text{esf}} = \dfrac{\rho r}{3\varepsilon_0}\,\hat r\ (r\le R)$; $\ \dfrac{Q}{4\pi\varepsilon_0 r^2}\,\hat r\ (r\ge R)$</td><td>Campo ($\text{N/C}$) de esfera maciza uniforme; $\rho$ ($\text{C/m}^3$), $Q$ ($\text{C}$), $r, R$ ($\text{m}$)</td><td>Simetría esférica; para cascarón hueco de radio $R$, $E = 0$ si $r \lt R$</td></tr>
     <tr><td>$\vec E_{\text{cil}} = \dfrac{\rho r}{2\varepsilon_0}\,\hat r\ (r\le R)$; $\ \dfrac{\rho R^2}{2\varepsilon_0 r}\,\hat r\ (r\gt R)$</td><td>Campo ($\text{N/C}$) de cilindro infinito; línea: $\dfrac{\lambda}{2\pi\varepsilon_0 r}\hat r$ ($\lambda$ en $\text{C/m}$, $\rho$ en $\text{C/m}^3$, $r, R$ en $\text{m}$)</td><td>Simetría cilíndrica infinita ($L\gg r$, lejos de bordes)</td></tr>
     <tr><td>$E_{\text{plano}} = \dfrac{|\sigma|}{2\varepsilon_0}$; $\ E_{\text{losa}} = \dfrac{\rho|z|}{\varepsilon_0}\ (|z|\le a)$</td><td>Campo ($\text{N/C}$); plano ($\sigma$ en $\text{C/m}^2$); losa ($\rho$ en $\text{C/m}^3$, $z, a$ en $\text{m}$)</td><td>Plano o losa infinita de espesor $2a$ centrada en $z = 0$; para $|z|\gt a$, $E = \rho a/\varepsilon_0$</td></tr>
+    <tr><td>$\vec E_{\text{cav, esf}} = \dfrac{\rho}{3\varepsilon_0}\vec a$, $\ \vec E_{\text{cav, cil}} = \dfrac{\rho}{2\varepsilon_0}\vec a_\perp$</td><td>Campo ($\text{N/C}$) dentro de cavidad vacía descentrada; $\rho$ ($\text{C/m}^3$), $\vec a, \vec a_\perp$ ($\text{m}$)</td><td>Cuerpo con densidad uniforme $+\rho$ y hueco de la misma forma</td></tr>
+  </tbody>
+  <tbody class="fam">
+    <tr class="fam-head"><th colspan="3" scope="colgroup">Conductores en equilibrio</th></tr>
     <tr><td>$\vec E_{\text{metal}} = \vec 0$, $\ q_{\text{int}} = -Q_{\text{enc}}$, $\ E_{\text{sup}} = \dfrac{\sigma}{\varepsilon_0}$</td><td>Conductor en equilibrio; $q_{\text{int}}, Q_{\text{enc}}, q_{\text{ext}}, Q_{\text{cond}}$ ($\text{C}$), $\sigma$ ($\text{C/m}^2$), $E_{\text{sup}}$ ($\text{N/C}$); $q_{\text{ext}} = Q_{\text{cond}} + Q_{\text{enc}}$</td><td>Electrostática (cargas en reposo); $E_{\text{sup}}$ normal a la superficie</td></tr>
     <tr><td>Conexión a tierra: $V(R_{\text{tierra}}) = 0$</td><td>Potencial $V$ ($\text{V}$), $R_{\text{tierra}}$ ($\text{m}$); si es la capa exterior aislada: $q_{\text{ext}} = 0$ ($\text{C}$) y $\vec E_{\text{ext}} = \vec 0$</td><td>Referencia $V(\infty) = 0$; $q_{\text{int}} = -Q_{\text{enc}}$ se conserva</td></tr>
-    <tr><td>$\vec E_{\text{cav, esf}} = \dfrac{\rho}{3\varepsilon_0}\vec a$, $\ \vec E_{\text{cav, cil}} = \dfrac{\rho}{2\varepsilon_0}\vec a_\perp$</td><td>Campo ($\text{N/C}$) dentro de cavidad vacía descentrada; $\rho$ ($\text{C/m}^3$), $\vec a, \vec a_\perp$ ($\text{m}$)</td><td>Cuerpo con densidad uniforme $+\rho$ y hueco de la misma forma</td></tr>
-    <tr><td>$\nabla\cdot\vec E = \dfrac{\rho}{\varepsilon_0}$</td><td>Ley de Gauss diferencial; $\nabla\cdot\vec E$ ($\text{V/m}^2$), $\rho$ ($\text{C/m}^3$)</td><td>Siempre; radial esféricas $\frac{1}{r^2}\frac{d(r^2E_r)}{dr}$, cilíndricas $\frac{1}{r}\frac{d(rE_r)}{dr}$</td></tr>
   </tbody></table></div>
 </section>
 </section>

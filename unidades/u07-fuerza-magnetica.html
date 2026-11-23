@@ -492,17 +492,27 @@
 <section class="sec" id="u07-formulas" data-block="formulas" data-title="Tarjeta de fórmulas">
   <h2>Tarjeta de fórmulas</h2>
   <div class="formulas"><table><thead><tr><th>Fórmula</th><th>Significado</th><th>Válida si</th></tr></thead>
-  <tbody>
+    <tbody class="fam">
+    <tr class="fam-head"><th colspan="3" scope="colgroup">Fuerza sobre cargas y flujo</th></tr>
     <tr><td>$\vec F_B = q\,\vec v\times\vec B$; $\ F_B = |q|vB\sin\theta$</td><td>Fuerza magnética (N) sobre carga $q$ (C) con velocidad $\vec v$ (m/s) en campo $\vec B$ (T); $1\ \text{T} = 1\ \text{N/(A·m)} = 10^4\ \text{G}$</td><td>Siempre; $W_B = 0$ en todo caso</td></tr>
     <tr><td>$\vec F = q(\vec E + \vec v\times\vec B)$</td><td>Fuerza de Lorentz (N); $\vec E$ campo eléctrico (V/m)</td><td>Siempre (partícula puntual)</td></tr>
     <tr><td>$\Phi_B = \displaystyle\int_S \vec B\cdot d\vec A$; $\ \displaystyle\oint_S \vec B\cdot d\vec A = 0$</td><td>Flujo magnético (Wb = $\text{T·m}^2$) y ley de Gauss magnética ($\nabla\cdot\vec B = 0$)</td><td>Flujo neto nulo en toda superficie cerrada</td></tr>
+  </tbody>
+  <tbody class="fam">
+    <tr class="fam-head"><th colspan="3" scope="colgroup">Trayectorias y espectrometría</th></tr>
     <tr><td>$R = \dfrac{mv_\perp}{|q|B}$, $\ \omega_c = \dfrac{|q|B}{m}$, $\ T = \dfrac{2\pi m}{|q|B}$</td><td>Radio de giro (m), frecuencia ciclotrón (rad/s) y periodo (s)</td><td>$\vec B$ uniforme, sin otras fuerzas en el plano perpendicular</td></tr>
     <tr><td>$p = v_\parallel T = \dfrac{2\pi m v_\parallel}{|q|B}$</td><td>Paso (avance por vuelta) de una trayectoria helicoidal (m)</td><td>$\vec B$ uniforme con componente paralela $v_\parallel$ constante</td></tr>
     <tr><td>$v = \dfrac{E}{B}$; $\ m = \dfrac{|q|B_0^2 R^2}{2\Delta V} = \dfrac{|q|BB_0 R}{E}$</td><td>Selector de velocidades y espectrómetro de masas (diámetro $d = 2R$)</td><td>$\vec E \perp \vec B \perp \vec v$ opuestos en el selector; $\vec B_0$ uniforme en la cámara</td></tr>
+  </tbody>
+  <tbody class="fam">
+    <tr class="fam-head"><th colspan="3" scope="colgroup">Fuerza sobre corrientes</th></tr>
     <tr><td>$d\vec F_B = I\,d\vec\ell\times\vec B$; $\ \vec F_B = I\displaystyle\int_a^b d\vec\ell\times\vec B$</td><td>Fuerza (N) sobre corriente $I$ (A); en tramo recto y $\vec B$ uniforme: $\vec F_B = I\vec L\times\vec B$</td><td>Forma integral siempre; en $\vec B$ uniforme, abierta usa $\vec L'$ ($a\to b$) y cerrada da $\vec 0$</td></tr>
+    <tr><td>$F_{\text{neta}} = \dfrac{\mu_0 I_1 I_2 ab}{2\pi\,h(h+b)}$</td><td>Fuerza neta entre alambre infinito ($I_1$) y espira coplanar $a\times b$ ($I_2$)</td><td>Lado $a$ paralelo al alambre, lado cercano a distancia $h$</td></tr>
+  </tbody>
+  <tbody class="fam">
+    <tr class="fam-head"><th colspan="3" scope="colgroup">Dipolo magnético</th></tr>
     <tr><td>$\vec\mu = NIA\,\hat n$</td><td>Momento dipolar magnético ($\text{A·m}^2$); $N$ vueltas, área $A$ ($\text{m}^2$), $\hat n$ por mano derecha</td><td>Espira plana (en Cádiz se llama $\vec m$)</td></tr>
     <tr><td>$\vec\tau = \vec\mu\times\vec B$, $\ U = -\vec\mu\cdot\vec B = -\mu B\cos\varphi$</td><td>Torque ($\text{N·m}$) y energía potencial (J); $\varphi$ entre $\vec\mu$ y $\vec B$</td><td>$\vec B$ uniforme; estable $\varphi = 0^\circ$ ($-\mu B$), inestable $\varphi = 180^\circ$ ($+\mu B$)</td></tr>
-    <tr><td>$F_{\text{neta}} = \dfrac{\mu_0 I_1 I_2 ab}{2\pi\,h(h+b)}$</td><td>Fuerza neta entre alambre infinito ($I_1$) y espira coplanar $a\times b$ ($I_2$)</td><td>Lado $a$ paralelo al alambre, lado cercano a distancia $h$</td></tr>
   </tbody></table></div>
 </section>
 </section>

@@ -457,11 +457,23 @@ table.duo tbody th { font-family: var(--font-display); font-size: 0.875rem; colo
 .deriv > summary { cursor: pointer; font-weight: 600; color: var(--accent); }
 
 /* Formula card: timetable rows */
-.formulas table { width: 100%; border-collapse: collapse; border-top: 2px solid var(--ink); }
-.formulas td, .formulas th { border-bottom: 1px solid var(--line); padding: 10px 12px; vertical-align: top; text-align: left; }
-.formulas th { font: 700 0.8125rem var(--font-display); text-transform: none; color: var(--ink); border-bottom: 2px solid var(--ink); background: transparent; }
-.formulas tbody tr:nth-child(even) td { background: color-mix(in srgb, var(--ink) 4%, transparent); }
-.formulas td:first-child { font-size: 1.05em; }
+/* Formula card: one block per family (tbody.fam), a black head band with the unit's line colour,
+   then formula cards in a 2-column grid: formula, "Válida si" right under it, meaning muted. */
+.formulas table { display: block; width: 100%; border: 0; }
+.formulas thead { display: none; }
+.formulas tbody.fam { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); margin-bottom: 18px; border-top: 2px solid var(--ink); border-left: 1px solid var(--line); }
+.formulas tr.fam-head { grid-column: 1 / -1; display: block; background: var(--band); }
+.formulas tr.fam-head th { display: block; padding: 8px 12px; text-align: left; color: var(--band-ink); font: 700 0.9375rem var(--font-display); border: 0; background: transparent; }
+.formulas tr.fam-head th::after { content: ""; display: block; height: 4px; margin: 8px -12px -8px; background: var(--line-c, var(--ink)); }
+.formulas tr:not(.fam-head) { display: flex; flex-direction: column; gap: 6px; padding: 14px 14px 16px; border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); min-width: 0; }
+.formulas td { display: block; padding: 0; border: 0; background: none; min-width: 0; overflow: visible; }
+/* Cells grow with their content; only a formula wider than its card scrolls sideways, on its own. */
+.formulas td mjx-container { max-width: 100%; overflow-x: auto; overflow-y: hidden; padding: 4px 0; vertical-align: middle; }
+.formulas td:nth-child(1) { font-size: 1.1em; }
+.formulas td:nth-child(3) { order: 2; font-size: 0.875rem; font-weight: 600; }
+.formulas td:nth-child(3)::before { content: "Válida si: "; font-weight: 400; color: var(--muted); }
+.formulas td:nth-child(2) { order: 3; font-size: 0.875rem; color: var(--muted); }
+@media (max-width: 760px) { .formulas tbody.fam { grid-template-columns: minmax(0, 1fr); } }
 
 /* Problem difficulty */
 .diff { font: 600 0.75rem var(--font-mono); color: color-mix(in srgb, var(--band-ink) 72%, transparent); margin-left: 6px; }
@@ -1099,48 +1111,72 @@ window.MathJax = {
 <!-- U1 -->
   <h3>U1 · Carga, Coulomb y campo eléctrico <a class="small" href="#u01-formulas">(ver tarjeta en U1)</a></h3>
   <div class="formulas"><div class="tbl-scroll"><table><thead><tr><th>Fórmula</th><th>Significado</th><th>Válida si</th></tr></thead>
-  <tbody>
-<tr><td>$q = ne$, $\ \sum q_i = \text{cte}$</td><td>Carga (C), $e = 1{,}602\times10^{-19}\ \text{C}$, $n\in\mathbb{Z}$</td><td>Siempre; la suma en sistemas aislados</td></tr>
+    <tbody class="fam">
+    <tr class="fam-head"><th colspan="3" scope="colgroup">Carga, Coulomb y dinámica puntual</th></tr>
+    <tr><td>$q = ne$, $\ \sum q_i = \text{cte}$</td><td>Carga (C), $e = 1{,}602\times10^{-19}\ \text{C}$, $n\in\mathbb{Z}$</td><td>Siempre; la suma en sistemas aislados</td></tr>
     <tr><td>$\vec F_{12} = k\dfrac{q_1 q_2}{r^2}\hat r_{12} = kq_1 q_2\dfrac{\vec r_2 - \vec r_1}{|\vec r_2 - \vec r_1|^3}$</td><td>Fuerza de Coulomb (N); $k = \dfrac{1}{4\pi\varepsilon_0} \approx 8{,}99\times10^9\ \text{N·m}^2/\text{C}^2$</td><td>Cargas puntuales en reposo en el vacío; $\hat r_{12}$ de $q_1$ a $q_2$</td></tr>
     <tr><td>$\vec E = \dfrac{\vec F_e}{q_0}$, $\ \vec F = q\vec E$, $\ \vec E = k\displaystyle\sum_i \dfrac{q_i}{r_i^2}\hat r_i$</td><td>Campo eléctrico (N/C = V/m), superposición discreta</td><td>Cargas fuente puntuales (o fuera de esferas simétricas)</td></tr>
+    <tr><td>$\vec a = \dfrac{q\vec E}{m}$, $\ \Delta y = \dfrac{qEL^2}{2mv_0^2}$</td><td>Aceleración ($\text{m/s}^2$) y deflexión transversal en placas de largo $L$</td><td>$\vec E$ uniforme, $\vec v_0\perp\vec E$, gravedad despreciable</td></tr>
+  </tbody>
+  <tbody class="fam">
+    <tr class="fam-head"><th colspan="3" scope="colgroup">Distribuciones continuas de carga</th></tr>
     <tr><td>$\vec E = k\displaystyle\int \dfrac{\vec r - \vec r\,'}{|\vec r - \vec r\,'|^3}\,dq$</td><td>Campo de distribución continua; $dq = \lambda\,d\ell,\ \sigma\,dA,\ \rho\,dV$ ($\lambda$ C/m, $\sigma$ C/m², $\rho$ C/m³)</td><td>Siempre en electrostática</td></tr>
     <tr><td>$E_{\text{barra, eje}} = \dfrac{kQ}{a(a+L)}$</td><td>Campo en el eje a distancia $a$ del extremo cercano de barra de largo $L$</td><td>Densidad uniforme $\lambda = Q/L$</td></tr>
     <tr><td>$E_{\text{barra, med}} = \dfrac{kQ}{x\sqrt{x^2+a^2}}$; $\ E_{\text{línea}} = \dfrac{2k\lambda}{x} = \dfrac{\lambda}{2\pi\varepsilon_0 x}$</td><td>Mediatriz de barra de largo $2a$; límite de línea infinita ($a\gg x$)</td><td>Densidad uniforme; $x$ distancia perpendicular</td></tr>
     <tr><td>$\vec E_{\text{anillo}}(z) = \dfrac{kQz}{(z^2+R^2)^{3/2}}\,\hat z$</td><td>Campo sobre el eje de anillo de radio $R$ y carga $Q$</td><td>Densidad uniforme; eje de simetría</td></tr>
     <tr><td>$E_{\text{disco}} = \dfrac{\sigma}{2\varepsilon_0}\!\left(1 - \dfrac{z}{\sqrt{z^2+R^2}}\right)$; $\ E_{\text{plano}} = \dfrac{\sigma}{2\varepsilon_0}$</td><td>Disco uniforme ($z \gt 0$); límite de plano infinito ($R\gg z$); dos planos $\pm\sigma$: $E_{\text{entre}} = \sigma/\varepsilon_0$</td><td>Densidad $\sigma$ uniforme; eje de simetría</td></tr>
+  </tbody>
+  <tbody class="fam">
+    <tr class="fam-head"><th colspan="3" scope="colgroup">Dipolo eléctrico</th></tr>
     <tr><td>$\vec p = q\vec d$; $\ \vec E_{\text{ec}} \approx -\dfrac{k\vec p}{x^3}$, $\ \vec E_{\text{eje}} \approx \dfrac{2k\vec p}{z^3}$</td><td>Momento dipolar (C·m, de $-q$ a $+q$) y campo lejano</td><td>$x, z \gg d$</td></tr>
     <tr><td>$\vec\tau = \vec p\times\vec E$, $\ U = -\vec p\cdot\vec E = -pE\cos\phi$</td><td>Torque (N·m) y energía potencial (J) de dipolo</td><td>$\vec E$ uniforme ($U=0$ en $\phi=90^\circ$)</td></tr>
-    <tr><td>$\vec a = \dfrac{q\vec E}{m}$, $\ \Delta y = \dfrac{qEL^2}{2mv_0^2}$</td><td>Aceleración ($\text{m/s}^2$) y deflexión transversal en placas de largo $L$</td><td>$\vec E$ uniforme, $\vec v_0\perp\vec E$, gravedad despreciable</td></tr>
+  </tbody>
+  <tbody class="fam">
+    <tr class="fam-head"><th colspan="3" scope="colgroup">Herramientas de apoyo</th></tr>
     <tr><td>$\Phi_E = \displaystyle\oint\vec E\cdot d\vec A = \dfrac{Q_{\text{enc}}}{\varepsilon_0}$; $\ V = k\displaystyle\sum_i\dfrac{q_i}{r_i}$, $\ W_{\text{ext}} = q\Delta V$</td><td>Herramientas de apoyo: ley de Gauss ($\Phi_E$ en $\text{N·m}^2/\text{C}$) y potencial ($V$ en V, $V(\infty)=0$)</td><td>Gauss en cualquier superficie cerrada; $V$ para cargas puntuales</td></tr>
   </tbody></table></div></div>
 <!-- U2 -->
   <h3>U2 · Ley de Gauss y conductores <a class="small" href="#u02-formulas">(ver tarjeta en U2)</a></h3>
   <div class="formulas"><div class="tbl-scroll"><table><thead><tr><th>Fórmula</th><th>Significado</th><th>Válida si</th></tr></thead>
-  <tbody>
-<tr><td>$\Phi_E = \displaystyle\int_S \vec E\cdot d\vec A$; $\ \Phi_E = EA\cos\varphi$</td><td>Flujo eléctrico ($\text{N·m}^2/\text{C}$); $\vec E$ ($\text{N/C}$), $A, d\vec A$ ($\text{m}^2$), $\varphi$ entre $\vec E$ y $\hat n$</td><td>La forma corta, solo para $\vec E$ uniforme y superficie plana</td></tr>
+    <tbody class="fam">
+    <tr class="fam-head"><th colspan="3" scope="colgroup">Flujo eléctrico y ley de Gauss</th></tr>
+    <tr><td>$\Phi_E = \displaystyle\int_S \vec E\cdot d\vec A$; $\ \Phi_E = EA\cos\varphi$</td><td>Flujo eléctrico ($\text{N·m}^2/\text{C}$); $\vec E$ ($\text{N/C}$), $A, d\vec A$ ($\text{m}^2$), $\varphi$ entre $\vec E$ y $\hat n$</td><td>La forma corta, solo para $\vec E$ uniforme y superficie plana</td></tr>
     <tr><td>$\Phi_{\text{centro}} = \dfrac{q}{6\varepsilon_0}$, $\ \Phi_{\text{vértice, op}} = \dfrac{q}{24\varepsilon_0}$</td><td>Flujo ($\text{N·m}^2/\text{C}$) por una cara de un cubo con carga $q$ ($\text{C}$)</td><td>Carga en el centro del cubo o en un vértice (caras adyacentes dan $0$)</td></tr>
     <tr><td>$\displaystyle\oint_S \vec E\cdot d\vec A = \frac{Q_{\text{enc}}}{\varepsilon_0}$</td><td>Ley de Gauss integral; $\vec E$ ($\text{N/C}$), $d\vec A$ ($\text{m}^2$), $Q_{\text{enc}}$ ($\text{C}$), $\varepsilon_0 \approx 8{,}85\times 10^{-12}\ \text{C}^2/(\text{N·m}^2)$</td><td>Siempre (para despejar $\vec E$, requiere simetría esférica, cilíndrica o planar)</td></tr>
+    <tr><td>$\nabla\cdot\vec E = \dfrac{\rho}{\varepsilon_0}$</td><td>Ley de Gauss diferencial; $\nabla\cdot\vec E$ ($\text{V/m}^2$), $\rho$ ($\text{C/m}^3$)</td><td>Siempre; radial esféricas $\frac{1}{r^2}\frac{d(r^2E_r)}{dr}$, cilíndricas $\frac{1}{r}\frac{d(rE_r)}{dr}$</td></tr>
+  </tbody>
+  <tbody class="fam">
+    <tr class="fam-head"><th colspan="3" scope="colgroup">Campos por simetría y superposición</th></tr>
     <tr><td>$dV_{\text{esf}} = 4\pi r^2\,dr$, $\ dV_{\text{cil}} = 2\pi r L\,dr$</td><td>Elementos de volumen ($\text{m}^3$); radio $r$ ($\text{m}$), largo $L$ ($\text{m}$)</td><td>Cuando $\rho = \rho(r)$ depende solo de la coordenada radial $r$</td></tr>
     <tr><td>$\vec E_{\text{esf}} = \dfrac{\rho r}{3\varepsilon_0}\,\hat r\ (r\le R)$; $\ \dfrac{Q}{4\pi\varepsilon_0 r^2}\,\hat r\ (r\ge R)$</td><td>Campo ($\text{N/C}$) de esfera maciza uniforme; $\rho$ ($\text{C/m}^3$), $Q$ ($\text{C}$), $r, R$ ($\text{m}$)</td><td>Simetría esférica; para cascarón hueco de radio $R$, $E = 0$ si $r \lt R$</td></tr>
     <tr><td>$\vec E_{\text{cil}} = \dfrac{\rho r}{2\varepsilon_0}\,\hat r\ (r\le R)$; $\ \dfrac{\rho R^2}{2\varepsilon_0 r}\,\hat r\ (r\gt R)$</td><td>Campo ($\text{N/C}$) de cilindro infinito; línea: $\dfrac{\lambda}{2\pi\varepsilon_0 r}\hat r$ ($\lambda$ en $\text{C/m}$, $\rho$ en $\text{C/m}^3$, $r, R$ en $\text{m}$)</td><td>Simetría cilíndrica infinita ($L\gg r$, lejos de bordes)</td></tr>
     <tr><td>$E_{\text{plano}} = \dfrac{|\sigma|}{2\varepsilon_0}$; $\ E_{\text{losa}} = \dfrac{\rho|z|}{\varepsilon_0}\ (|z|\le a)$</td><td>Campo ($\text{N/C}$); plano ($\sigma$ en $\text{C/m}^2$); losa ($\rho$ en $\text{C/m}^3$, $z, a$ en $\text{m}$)</td><td>Plano o losa infinita de espesor $2a$ centrada en $z = 0$; para $|z|\gt a$, $E = \rho a/\varepsilon_0$</td></tr>
+    <tr><td>$\vec E_{\text{cav, esf}} = \dfrac{\rho}{3\varepsilon_0}\vec a$, $\ \vec E_{\text{cav, cil}} = \dfrac{\rho}{2\varepsilon_0}\vec a_\perp$</td><td>Campo ($\text{N/C}$) dentro de cavidad vacía descentrada; $\rho$ ($\text{C/m}^3$), $\vec a, \vec a_\perp$ ($\text{m}$)</td><td>Cuerpo con densidad uniforme $+\rho$ y hueco de la misma forma</td></tr>
+  </tbody>
+  <tbody class="fam">
+    <tr class="fam-head"><th colspan="3" scope="colgroup">Conductores en equilibrio</th></tr>
     <tr><td>$\vec E_{\text{metal}} = \vec 0$, $\ q_{\text{int}} = -Q_{\text{enc}}$, $\ E_{\text{sup}} = \dfrac{\sigma}{\varepsilon_0}$</td><td>Conductor en equilibrio; $q_{\text{int}}, Q_{\text{enc}}, q_{\text{ext}}, Q_{\text{cond}}$ ($\text{C}$), $\sigma$ ($\text{C/m}^2$), $E_{\text{sup}}$ ($\text{N/C}$); $q_{\text{ext}} = Q_{\text{cond}} + Q_{\text{enc}}$</td><td>Electrostática (cargas en reposo); $E_{\text{sup}}$ normal a la superficie</td></tr>
     <tr><td>Conexión a tierra: $V(R_{\text{tierra}}) = 0$</td><td>Potencial $V$ ($\text{V}$), $R_{\text{tierra}}$ ($\text{m}$); si es la capa exterior aislada: $q_{\text{ext}} = 0$ ($\text{C}$) y $\vec E_{\text{ext}} = \vec 0$</td><td>Referencia $V(\infty) = 0$; $q_{\text{int}} = -Q_{\text{enc}}$ se conserva</td></tr>
-    <tr><td>$\vec E_{\text{cav, esf}} = \dfrac{\rho}{3\varepsilon_0}\vec a$, $\ \vec E_{\text{cav, cil}} = \dfrac{\rho}{2\varepsilon_0}\vec a_\perp$</td><td>Campo ($\text{N/C}$) dentro de cavidad vacía descentrada; $\rho$ ($\text{C/m}^3$), $\vec a, \vec a_\perp$ ($\text{m}$)</td><td>Cuerpo con densidad uniforme $+\rho$ y hueco de la misma forma</td></tr>
-    <tr><td>$\nabla\cdot\vec E = \dfrac{\rho}{\varepsilon_0}$</td><td>Ley de Gauss diferencial; $\nabla\cdot\vec E$ ($\text{V/m}^2$), $\rho$ ($\text{C/m}^3$)</td><td>Siempre; radial esféricas $\frac{1}{r^2}\frac{d(r^2E_r)}{dr}$, cilíndricas $\frac{1}{r}\frac{d(rE_r)}{dr}$</td></tr>
   </tbody></table></div></div>
 <!-- U3 -->
   <h3>U3 · Potencial eléctrico <a class="small" href="#u03-formulas">(ver tarjeta en U3)</a></h3>
   <div class="formulas"><div class="tbl-scroll"><table><thead><tr><th>Fórmula</th><th>Significado</th><th>Válida si</th></tr></thead>
-  <tbody>
-<tr><td>$W_{a\to b} = q_0\displaystyle\int_a^b\vec E\cdot d\vec\ell$; $\ \Delta U = -W_{a\to b}$</td><td>Trabajo del campo y cambio de energía potencial (J); $q_0$ carga (C), $\vec E$ campo (V/m)</td><td>Campo electrostático (conservativo)</td></tr>
+    <tbody class="fam">
+    <tr class="fam-head"><th colspan="3" scope="colgroup">Trabajo, energía y potencial</th></tr>
+    <tr><td>$W_{a\to b} = q_0\displaystyle\int_a^b\vec E\cdot d\vec\ell$; $\ \Delta U = -W_{a\to b}$</td><td>Trabajo del campo y cambio de energía potencial (J); $q_0$ carga (C), $\vec E$ campo (V/m)</td><td>Campo electrostático (conservativo)</td></tr>
     <tr><td>$U = k\displaystyle\sum_{i\lt j}\frac{q_i q_j}{r_{ij}} = \frac12\sum_i q_i V_i$</td><td>Energía potencial de un sistema de cargas (J); $r_{ij}$ distancia (m), $k = \frac{1}{4\pi\varepsilon_0}$</td><td>$U(\infty) = 0$; $V_i$ excluye la propia carga $q_i$</td></tr>
     <tr><td>$\Delta V = V_b - V_a = -\displaystyle\int_a^b \vec E\cdot d\vec\ell$; $\ V_{ab} = V_a - V_b$</td><td>Diferencia de potencial (V = J/C); $d\vec\ell$ elemento de línea (m)</td><td>Campo electrostático ($\nabla\times\vec E = \vec 0$)</td></tr>
     <tr><td>$\Delta K = -q\,\Delta V$; $\ 1\ \text{eV} = 1{,}60\times10^{-19}\ \text{J}$</td><td>Conservación de energía ($K = \frac12 mv^2$ en J); $q$ carga (C)</td><td>Solo fuerzas electrostáticas (o más $\vec B$, que no trabaja)</td></tr>
+  </tbody>
+  <tbody class="fam">
+    <tr class="fam-head"><th colspan="3" scope="colgroup">Potencial de distribuciones</th></tr>
     <tr><td>$V(P) = k\displaystyle\sum_i \frac{q_i}{r_i}$; $\ V = k\int\frac{dq}{|\vec r - \vec r'|}$</td><td>Superposición escalar de potencial (V); $dq = \lambda d\ell, \sigma dA, \rho dV$</td><td>Distribución finita con $V(\infty) = 0$</td></tr>
     <tr><td>$V_{\text{anillo}} = \dfrac{kQ}{\sqrt{x^2+a^2}}$; $\ V_{\text{disco}} = \dfrac{\sigma}{2\varepsilon_0}\left(\sqrt{x^2+R^2}-|x|\right)$</td><td>Potencial en el eje a distancia $x$ (m); $a, R$ radios (m)</td><td>Densidad uniforme; $V(\infty) = 0$</td></tr>
     <tr><td>$V_{\text{línea}} = \dfrac{\lambda}{2\pi\varepsilon_0}\ln\!\left(\dfrac{r_0}{r}\right)$; $\ \Delta V_{\text{plano}} = -\dfrac{\sigma\,\Delta|x|}{2\varepsilon_0}$</td><td>Potencial de línea infinita ($\lambda$ en C/m) y plano infinito ($\sigma$ en C/m²)</td><td>Referencia finita $V(r_0) = 0$ (no sirve $\infty$)</td></tr>
     <tr><td>$V_{\text{esf. maciza}}(r) = \dfrac{kQ}{2R}\left(3 - \dfrac{r^2}{R^2}\right)$ ($r\le R$)</td><td>Potencial dentro de esfera aislante uniforme ($R$ en m, $Q$ en C)</td><td>Afuera ($r\ge R$) vale $kQ/r$; $V(\infty)=0$</td></tr>
+  </tbody>
+  <tbody class="fam">
+    <tr class="fam-head"><th colspan="3" scope="colgroup">Ecuaciones locales y conductores</th></tr>
     <tr><td>$\vec E = -\nabla V = -\left(\partial_x V\hat x + \partial_y V\hat y + \partial_z V\hat z\right)$</td><td>Campo desde el potencial (V/m); radial $E_r = -\partial V/\partial r$</td><td>Campo electrostático; $\vec E \perp$ equipotenciales</td></tr>
     <tr><td>$\nabla^2 V = -\dfrac{\rho}{\varepsilon_0}$ (Poisson); $\ \nabla^2 V = 0$ (Laplace)</td><td>Ecuación diferencial del potencial; $\rho$ densidad (C/m³)</td><td>Laplace donde $\rho = 0$</td></tr>
     <tr><td>$\dfrac{q_1'}{R_1} = \dfrac{q_2'}{R_2}$; $\ V_{\text{tierra}} = 0$; $\ U = \dfrac{kQ^2}{2R}$</td><td>Esferas conectadas ($d \gg R_1, R_2$), tierra y autoenergía esférica</td><td>Conductores en equilibrio electrostático</td></tr>
@@ -1148,36 +1184,56 @@ window.MathJax = {
 <!-- U4 -->
   <h3>U4 · Capacitancia y dieléctricos <a class="small" href="#u04-formulas">(ver tarjeta en U4)</a></h3>
   <div class="formulas"><div class="tbl-scroll"><table><thead><tr><th>Fórmula</th><th>Significado</th><th>Válida si</th></tr></thead>
-  <tbody>
-<tr><td>$C = \dfrac{Q}{|\Delta V|}$</td><td>$C$: capacitancia ($\text{F} = \text{C/V}$); $Q$: carga en placa $+$ (C); $|\Delta V|$: voltaje (V)</td><td>Siempre; $C$ depende solo de geometría y medio</td></tr>
+    <tbody class="fam">
+    <tr class="fam-head"><th colspan="3" scope="colgroup">Capacitancia y asociación</th></tr>
+    <tr><td>$C = \dfrac{Q}{|\Delta V|}$</td><td>$C$: capacitancia ($\text{F} = \text{C/V}$); $Q$: carga en placa $+$ (C); $|\Delta V|$: voltaje (V)</td><td>Siempre; $C$ depende solo de geometría y medio</td></tr>
     <tr><td>$C = \dfrac{\varepsilon A}{d}$</td><td>Placas paralelas; $A$: área ($\text{m}^2$); $d$: separación (m); $\varepsilon = \kappa\varepsilon_0$ ($\text{F/m}$)</td><td>$d \ll \sqrt{A}$ (desprecia bordes), dieléctrico homogéneo</td></tr>
     <tr><td>$C = \dfrac{2\pi\varepsilon L}{\ln(r_b/r_a)}$</td><td>Cilíndrico coaxial; $r_a \lt r_b$: radios (m); $L$: largo (m)</td><td>$L \gg r_b$, dieléctrico homogéneo entre $r_a$ y $r_b$</td></tr>
     <tr><td>$C = 4\pi\varepsilon\,\dfrac{r_a r_b}{r_b - r_a}$</td><td>Esférico concéntrico; $r_a \lt r_b$: radios (m); aislada: $r_b\to\infty \Rightarrow C = 4\pi\varepsilon r_a$</td><td>Dieléctrico homogéneo entre $r_a$ y $r_b$</td></tr>
     <tr><td>Serie: $\dfrac{1}{C_{\text{eq}}} = \sum \dfrac{1}{C_i}$; $\ $ Paralelo: $C_{\text{eq}} = \sum C_i$</td><td>$C_{\text{eq}}$: capacitancia equivalente (F)</td><td>Serie: misma $Q$; paralelo: mismo $V$</td></tr>
+  </tbody>
+  <tbody class="fam">
+    <tr class="fam-head"><th colspan="3" scope="colgroup">Energía y fuerza eléctrica</th></tr>
     <tr><td>$U = \dfrac{Q^2}{2C} = \dfrac{1}{2}CV^2 = \dfrac{1}{2}QV$</td><td>$U$: energía almacenada (J)</td><td>Siempre ($Q^2/2C$ útil si $Q$ fija; $\tfrac12 CV^2$ si $V$ fija)</td></tr>
     <tr><td>$u_E = \dfrac{1}{2}\varepsilon E^2 = \dfrac{1}{2}\vec D\cdot\vec E$; $\ F_x = -\dfrac{dU}{dx}\Big|_Q = +\dfrac{dU}{dx}\Big|_V$</td><td>$u_E$: densidad de energía ($\text{J/m}^3$); $F_x$: fuerza (N); $x$: posición (m)</td><td>$u_E$: medio lineal; $-dU/dx$ si $Q$ fija, $+dU/dx$ si $V$ fija</td></tr>
+  </tbody>
+  <tbody class="fam">
+    <tr class="fam-head"><th colspan="3" scope="colgroup">Dieléctricos, polarización y rigidez</th></tr>
     <tr><td>$\kappa \equiv K \equiv \varepsilon_r = \dfrac{\varepsilon}{\varepsilon_0} = \dfrac{C}{C_0} = 1 + \chi_e$</td><td>Constante dieléctrica relativa (adimensional, $\kappa \ge 1$)</td><td>Medio dieléctrico lineal, homogéneo e isotrópico</td></tr>
     <tr><td>$\vec P = (\varepsilon - \varepsilon_0)\vec E = \varepsilon_0(\kappa - 1)\vec E$</td><td>Polarización ($\text{C/m}^2$); $\varepsilon_0 = 8{,}85\times 10^{-12}\ \text{F/m}$</td><td>Dieléctrico lineal e isotrópico</td></tr>
     <tr><td>$\sigma_b = \vec P\cdot\hat n$; $\ \rho_b = -\nabla\cdot\vec P$</td><td>Densidades de carga ligada superficial ($\text{C/m}^2$) y volumétrica ($\text{C/m}^3$)</td><td>Siempre; $\hat n$ apunta <b>hacia afuera del dieléctrico</b></td></tr>
+    <tr><td>$V_{\text{máx}} = E_m\,d$</td><td>$E_m$: rigidez dieléctrica (V/m; aire $\approx 3{,}0\times 10^6\ \text{V/m}$)</td><td>Campo uniforme; con varias capas, verificar $E_i \lt E_{mi}$ en cada una</td></tr>
+  </tbody>
+  <tbody class="fam">
+    <tr class="fam-head"><th colspan="3" scope="colgroup">Desplazamiento eléctrico</th></tr>
     <tr><td>$\vec D = \varepsilon_0\vec E + \vec P = \varepsilon\vec E$</td><td>Desplazamiento eléctrico ($\text{C/m}^2$)</td><td>Primera igualdad siempre; $\vec D = \varepsilon\vec E$ en medio lineal</td></tr>
     <tr><td>$\displaystyle\oint_S \vec D\cdot d\vec A = Q_{\text{libre, enc}}$; $\ \nabla\cdot\vec D = \rho_{\text{libre}}$</td><td>Ley de Gauss en dieléctricos; $Q_{\text{libre, enc}}$ en C</td><td>Siempre; despeja $\vec D$ directo solo si la simetría es intacta</td></tr>
-    <tr><td>$V_{\text{máx}} = E_m\,d$</td><td>$E_m$: rigidez dieléctrica (V/m; aire $\approx 3{,}0\times 10^6\ \text{V/m}$)</td><td>Campo uniforme; con varias capas, verificar $E_i \lt E_{mi}$ en cada una</td></tr>
   </tbody></table></div></div>
 <!-- U5 -->
   <h3>U5 · Corriente, resistencia y fem <a class="small" href="#u05-formulas">(ver tarjeta en U5)</a></h3>
   <div class="formulas"><div class="tbl-scroll"><table><thead><tr><th>Fórmula</th><th>Significado</th><th>Válida si</th></tr></thead>
-  <tbody>
-<tr><td>$I = \dfrac{dQ}{dt} = \displaystyle\int_S \vec J\cdot d\vec A$</td><td>Corriente eléctrica ($\text{A} = \text{C/s}$); $\vec J$ densidad ($\text{A/m}^2$); $d\vec A$ área ($\text{m}^2$)</td><td>Siempre; $I = JA$ solo si $\vec J$ es uniforme y $\perp A$</td></tr>
+    <tbody class="fam">
+    <tr class="fam-head"><th colspan="3" scope="colgroup">Corriente, continuidad y Ohm local</th></tr>
+    <tr><td>$I = \dfrac{dQ}{dt} = \displaystyle\int_S \vec J\cdot d\vec A$</td><td>Corriente eléctrica ($\text{A} = \text{C/s}$); $\vec J$ densidad ($\text{A/m}^2$); $d\vec A$ área ($\text{m}^2$)</td><td>Siempre; $I = JA$ solo si $\vec J$ es uniforme y $\perp A$</td></tr>
     <tr><td>$\vec J = n q \vec v_d$, $\ I = n|q|Av_d$</td><td>$n$ portadores ($\text{m}^{-3}$), $q$ carga (C), $\vec v_d$ deriva ($\text{m/s}$)</td><td>Portadores de una sola especie con deriva uniforme</td></tr>
     <tr><td>$\nabla\cdot\vec J + \dfrac{\partial\rho_q}{\partial t} = 0$</td><td>Continuidad; $\rho_q$ densidad volumétrica de carga ($\text{C/m}^3$)</td><td>Siempre; en régimen estacionario $\nabla\cdot\vec J = 0$</td></tr>
     <tr><td>$\vec J = \sigma\vec E = \dfrac{\vec E}{\rho}$, $\ \sigma = \dfrac{1}{\rho}$</td><td>Ley de Ohm diferencial; $\sigma$ ($(\Omega\cdot\text{m})^{-1}$), $\rho$ ($\Omega\cdot\text{m}$)</td><td>Material óhmico ($\rho$ independiente de $E$)</td></tr>
+  </tbody>
+  <tbody class="fam">
+    <tr class="fam-head"><th colspan="3" scope="colgroup">Resistencia y geometrías</th></tr>
     <tr><td>$\rho(T) = \rho_0[1 + \alpha(T - T_0)]$</td><td>$\alpha$ coef. térmico ($\text{K}^{-1}$): $\alpha \gt 0$ metal, $\alpha \lt 0$ semicond.</td><td>Rango moderado de $T$ alrededor de $T_0$</td></tr>
     <tr><td>$\Delta V = IR$, $\ R = \dfrac{\rho L}{A} = \dfrac{L}{\sigma A}$</td><td>Ley de Ohm macroscópica y resistencia ($\Omega = \text{V/A}$)</td><td>Conductor recto de sección $A$ y $\rho$ uniformes</td></tr>
     <tr><td>$R = \displaystyle\int \frac{\rho(\ell)\,d\ell}{A(\ell)}$</td><td>Suma de rebanadas en serie perpendiculares a $\vec J$</td><td>Las secciones $A(\ell)$ son equipotenciales</td></tr>
     <tr><td>$R_{\text{cono}} = \dfrac{\rho h}{\pi a b}$</td><td>Tronco de cono recto de largo $h$ y radios $a, b$</td><td>Flujo axial uniforme por sección, abertura pequeña</td></tr>
     <tr><td>$R_{\text{cil}} = \dfrac{\ln(b/a)}{2\pi\sigma L}$, $\ R_{\text{esf}} = \dfrac{b - a}{4\pi\sigma ab}$</td><td>Flujo radial entre cilindros ($L$) o esferas ($a \lt b$)</td><td>Electrodos concéntricos equipotenciales</td></tr>
+  </tbody>
+  <tbody class="fam">
+    <tr class="fam-head"><th colspan="3" scope="colgroup">Asociación, fem y resistencia interna</th></tr>
     <tr><td>$R_{\text{serie}} = \sum R_i$; $\ \dfrac{1}{R_{\text{par}}} = \sum \dfrac{1}{R_i}$</td><td>Resistencia equivalente serie (misma $I$) y paralelo (mismo $\Delta V$)</td><td>Conexión entre dos nodos bien definidos</td></tr>
     <tr><td>$I = \dfrac{\varepsilon}{r + R}$, $\ V_{ba} = \varepsilon - Ir$</td><td>Malla simple con fem $\varepsilon$ (V) y resistencia interna $r$ ($\Omega$)</td><td>$I$ saliendo por $+$; si entra por $+$, $V_{ba} = \varepsilon + Ir$</td></tr>
+  </tbody>
+  <tbody class="fam">
+    <tr class="fam-head"><th colspan="3" scope="colgroup">Potencia y efecto Joule</th></tr>
     <tr><td>$P = I\,\Delta V = I^2 R = \dfrac{(\Delta V)^2}{R}$</td><td>Potencia eléctrica ($\text{W} = \text{J/s}$)</td><td>$P = I\Delta V$ siempre; $I^2R$ y $\Delta V^2/R$ en resistores óhmicos</td></tr>
     <tr><td>$p = \vec J\cdot\vec E = J^2\rho = \sigma E^2$</td><td>Densidad volumétrica de potencia Joule ($\text{W/m}^3$)</td><td>Material óhmico local</td></tr>
     <tr><td>$P_{R,\text{máx}} = \dfrac{\varepsilon^2}{4r}$ (en $R = r$)</td><td>Máxima potencia entregada a la carga $R$ ($\eta = 50\,\%$)</td><td>$\varepsilon$ y $r$ fijos, $R$ variable</td></tr>
@@ -1185,49 +1241,79 @@ window.MathJax = {
 <!-- U6 -->
   <h3>U6 · Circuitos DC, Kirchhoff y RC <a class="small" href="#u06-formulas">(ver tarjeta en U6)</a></h3>
   <div class="formulas"><div class="tbl-scroll"><table><thead><tr><th>Fórmula</th><th>Significado</th><th>Válida si</th></tr></thead>
-  <tbody>
-<tr><td>$V = IR$, $\ P = I\,\Delta V_R = I^2 R = \dfrac{(\Delta V_R)^2}{R}$</td><td>Ley de Ohm y potencia Joule; $V$ (V), $I$ (A), $R$ ($\Omega$), $P$ (W)</td><td>Resistor óhmico; corriente estacionaria o instantánea</td></tr>
+    <tbody class="fam">
+    <tr class="fam-head"><th colspan="3" scope="colgroup">Ohm, fuentes y equivalentes</th></tr>
+    <tr><td>$V = IR$, $\ P = I\,\Delta V_R = I^2 R = \dfrac{(\Delta V_R)^2}{R}$</td><td>Ley de Ohm y potencia Joule; $V$ (V), $I$ (A), $R$ ($\Omega$), $P$ (W)</td><td>Resistor óhmico; corriente estacionaria o instantánea</td></tr>
     <tr><td>$V_{\text{term}} = \varepsilon \mp Ir$, $\ I V_{\text{term}} = \varepsilon I - I^2 r$</td><td>Voltaje y balance de fuente real; $\varepsilon$ fem (V), $r$ resistencia interna ($\Omega$)</td><td>$-$ si entrega corriente desde $+$; $+$ si absorbe entrando por $+$</td></tr>
     <tr><td>$R_{\text{eq}} = \sum_i R_i$; $\ \dfrac{1}{R_{\text{eq}}} = \sum_i \dfrac{1}{R_i}$</td><td>Resistencias equivalentes en serie y en paralelo ($\Omega$)</td><td>Serie: misma $I$; paralelo: mismo $\Delta V$ entre nodos</td></tr>
+  </tbody>
+  <tbody class="fam">
+    <tr class="fam-head"><th colspan="3" scope="colgroup">Kirchhoff, puente y medición</th></tr>
     <tr><td>$\dfrac{R_1}{R_2} = \dfrac{R_3}{R_4}\ \Longleftrightarrow\ R_1 R_4 = R_2 R_3$</td><td>Condición de equilibrio del puente de Wheatstone</td><td>Corriente nula en la rama central ($I_5 = 0$, $V_b = V_c$)</td></tr>
     <tr><td>$\sum I_{\text{entran}} = \sum I_{\text{salen}}$, $\ \sum_{\text{malla}} \Delta V = 0$</td><td>Leyes de Kirchhoff (LCK nodos, LVK mallas)</td><td>Siempre en redes de parámetros concentrados (cuidado con signos de recorrido)</td></tr>
     <tr><td>$r_A \ll R_{\text{circ}}$ (serie), $\ r_V \gg R$ (paralelo)</td><td>Condiciones de amperímetro y voltímetro casi ideales</td><td>Medición directa sin perturbar el circuito</td></tr>
+  </tbody>
+  <tbody class="fam">
+    <tr class="fam-head"><th colspan="3" scope="colgroup">Capacitor y energía en RC</th></tr>
     <tr><td>$q = C\,\Delta V_C$, $\ C = \kappa C_0$, $\ U = \dfrac{q^2}{2C} = \dfrac{1}{2}C(\Delta V_C)^2$</td><td>Capacitor; $q$ (C), $C$ (F), $\kappa$ cte. dieléctrica, $U$ (J)</td><td>Siempre; si $\Delta V_C$ fijo y $C \to \kappa C$, entonces $U \to \kappa U$</td></tr>
+    <tr><td>$W_\varepsilon = C\varepsilon^2$, $\ U_C = W_R = \frac{1}{2}C\varepsilon^2$</td><td>Energía entregada ($W_\varepsilon$), almacenada ($U_C$) y disipada ($W_R$) al cargar desde $0$ (J)</td><td>Carga completa a fem constante $\varepsilon$ en serie con $R$</td></tr>
+  </tbody>
+  <tbody class="fam">
+    <tr class="fam-head"><th colspan="3" scope="colgroup">Transitorios RC</th></tr>
     <tr><td>$q(t) = C\varepsilon(1 - e^{-t/\tau})$, $\ i(t) = \dfrac{\varepsilon}{R}e^{-t/\tau}$</td><td>Carga de circuito $RC$ serie desde $q(0) = 0$; $\tau = RC$ (s)</td><td>Una sola malla $R$–$C$ con fem constante $\varepsilon$</td></tr>
     <tr><td>$q(t) = Q_0 e^{-t/\tau}$, $\ i_{\text{desc}}(t) = \dfrac{Q_0}{RC}e^{-t/\tau}$</td><td>Descarga de circuito $RC$ desde $q(0) = Q_0$ (C)</td><td>Sin fuentes conectadas; $\tau = R_{\text{eq}} C$ con $R_{\text{eq}}$ ($\Omega$)</td></tr>
     <tr><td>$q(t) = Q_\infty + (q_0 - Q_\infty)e^{-t/\tau}$, $\ \tau = R_{\text{Th}}C$</td><td>Transitorio $RC$ en cualquier red con 1 capacitor</td><td>$R_{\text{Th}}$ ($\Omega$) vista desde $C$ apagando fuentes independientes; $Q_\infty = C\,\Delta V_C(\infty)$</td></tr>
     <tr><td>$t = 0^+:\ \Delta V_C = 0$ (si $q_0=0$); $\ t \to \infty:\ i_C = 0$</td><td>Comportamiento límite del capacitor (corto $\to$ abierto)</td><td>Circuitos DC conmutados; $\Delta V_C$ es continua en $t = 0$</td></tr>
-    <tr><td>$W_\varepsilon = C\varepsilon^2$, $\ U_C = W_R = \frac{1}{2}C\varepsilon^2$</td><td>Energía entregada ($W_\varepsilon$), almacenada ($U_C$) y disipada ($W_R$) al cargar desde $0$ (J)</td><td>Carga completa a fem constante $\varepsilon$ en serie con $R$</td></tr>
   </tbody></table></div></div>
 <!-- U7 -->
   <h3>U7 · Fuerza magnética <a class="small" href="#u07-formulas">(ver tarjeta en U7)</a></h3>
   <div class="formulas"><div class="tbl-scroll"><table><thead><tr><th>Fórmula</th><th>Significado</th><th>Válida si</th></tr></thead>
-  <tbody>
-<tr><td>$\vec F_B = q\,\vec v\times\vec B$; $\ F_B = |q|vB\sin\theta$</td><td>Fuerza magnética (N) sobre carga $q$ (C) con velocidad $\vec v$ (m/s) en campo $\vec B$ (T); $1\ \text{T} = 1\ \text{N/(A·m)} = 10^4\ \text{G}$</td><td>Siempre; $W_B = 0$ en todo caso</td></tr>
+    <tbody class="fam">
+    <tr class="fam-head"><th colspan="3" scope="colgroup">Fuerza sobre cargas y flujo</th></tr>
+    <tr><td>$\vec F_B = q\,\vec v\times\vec B$; $\ F_B = |q|vB\sin\theta$</td><td>Fuerza magnética (N) sobre carga $q$ (C) con velocidad $\vec v$ (m/s) en campo $\vec B$ (T); $1\ \text{T} = 1\ \text{N/(A·m)} = 10^4\ \text{G}$</td><td>Siempre; $W_B = 0$ en todo caso</td></tr>
     <tr><td>$\vec F = q(\vec E + \vec v\times\vec B)$</td><td>Fuerza de Lorentz (N); $\vec E$ campo eléctrico (V/m)</td><td>Siempre (partícula puntual)</td></tr>
     <tr><td>$\Phi_B = \displaystyle\int_S \vec B\cdot d\vec A$; $\ \displaystyle\oint_S \vec B\cdot d\vec A = 0$</td><td>Flujo magnético (Wb = $\text{T·m}^2$) y ley de Gauss magnética ($\nabla\cdot\vec B = 0$)</td><td>Flujo neto nulo en toda superficie cerrada</td></tr>
+  </tbody>
+  <tbody class="fam">
+    <tr class="fam-head"><th colspan="3" scope="colgroup">Trayectorias y espectrometría</th></tr>
     <tr><td>$R = \dfrac{mv_\perp}{|q|B}$, $\ \omega_c = \dfrac{|q|B}{m}$, $\ T = \dfrac{2\pi m}{|q|B}$</td><td>Radio de giro (m), frecuencia ciclotrón (rad/s) y periodo (s)</td><td>$\vec B$ uniforme, sin otras fuerzas en el plano perpendicular</td></tr>
     <tr><td>$p = v_\parallel T = \dfrac{2\pi m v_\parallel}{|q|B}$</td><td>Paso (avance por vuelta) de una trayectoria helicoidal (m)</td><td>$\vec B$ uniforme con componente paralela $v_\parallel$ constante</td></tr>
     <tr><td>$v = \dfrac{E}{B}$; $\ m = \dfrac{|q|B_0^2 R^2}{2\Delta V} = \dfrac{|q|BB_0 R}{E}$</td><td>Selector de velocidades y espectrómetro de masas (diámetro $d = 2R$)</td><td>$\vec E \perp \vec B \perp \vec v$ opuestos en el selector; $\vec B_0$ uniforme en la cámara</td></tr>
+  </tbody>
+  <tbody class="fam">
+    <tr class="fam-head"><th colspan="3" scope="colgroup">Fuerza sobre corrientes</th></tr>
     <tr><td>$d\vec F_B = I\,d\vec\ell\times\vec B$; $\ \vec F_B = I\displaystyle\int_a^b d\vec\ell\times\vec B$</td><td>Fuerza (N) sobre corriente $I$ (A); en tramo recto y $\vec B$ uniforme: $\vec F_B = I\vec L\times\vec B$</td><td>Forma integral siempre; en $\vec B$ uniforme, abierta usa $\vec L'$ ($a\to b$) y cerrada da $\vec 0$</td></tr>
+    <tr><td>$F_{\text{neta}} = \dfrac{\mu_0 I_1 I_2 ab}{2\pi\,h(h+b)}$</td><td>Fuerza neta entre alambre infinito ($I_1$) y espira coplanar $a\times b$ ($I_2$)</td><td>Lado $a$ paralelo al alambre, lado cercano a distancia $h$</td></tr>
+  </tbody>
+  <tbody class="fam">
+    <tr class="fam-head"><th colspan="3" scope="colgroup">Dipolo magnético</th></tr>
     <tr><td>$\vec\mu = NIA\,\hat n$</td><td>Momento dipolar magnético ($\text{A·m}^2$); $N$ vueltas, área $A$ ($\text{m}^2$), $\hat n$ por mano derecha</td><td>Espira plana (en Cádiz se llama $\vec m$)</td></tr>
     <tr><td>$\vec\tau = \vec\mu\times\vec B$, $\ U = -\vec\mu\cdot\vec B = -\mu B\cos\varphi$</td><td>Torque ($\text{N·m}$) y energía potencial (J); $\varphi$ entre $\vec\mu$ y $\vec B$</td><td>$\vec B$ uniforme; estable $\varphi = 0^\circ$ ($-\mu B$), inestable $\varphi = 180^\circ$ ($+\mu B$)</td></tr>
-    <tr><td>$F_{\text{neta}} = \dfrac{\mu_0 I_1 I_2 ab}{2\pi\,h(h+b)}$</td><td>Fuerza neta entre alambre infinito ($I_1$) y espira coplanar $a\times b$ ($I_2$)</td><td>Lado $a$ paralelo al alambre, lado cercano a distancia $h$</td></tr>
   </tbody></table></div></div>
 <!-- U8 -->
   <h3>U8 · Fuentes de campo magnético <a class="small" href="#u08-formulas">(ver tarjeta en U8)</a></h3>
   <div class="formulas"><div class="tbl-scroll"><table><thead><tr><th>Fórmula</th><th>Significado</th><th>Válida si</th></tr></thead>
-  <tbody>
-<tr><td>$\vec B = \dfrac{\mu_0}{4\pi}\dfrac{q\,\vec v\times\hat r}{r^2}$</td><td>Campo de carga puntual $q$ (C) con velocidad $\vec v$ (m/s); $\mu_0 = 4\pi\times10^{-7}\ \text{T·m/A}$</td><td>$\vec v$ constante, $v\ll c$; $\hat r$ va de $q$ a $P$</td></tr>
+    <tbody class="fam">
+    <tr class="fam-head"><th colspan="3" scope="colgroup">Biot-Savart y alambres rectos</th></tr>
+    <tr><td>$\vec B = \dfrac{\mu_0}{4\pi}\dfrac{q\,\vec v\times\hat r}{r^2}$</td><td>Campo de carga puntual $q$ (C) con velocidad $\vec v$ (m/s); $\mu_0 = 4\pi\times10^{-7}\ \text{T·m/A}$</td><td>$\vec v$ constante, $v\ll c$; $\hat r$ va de $q$ a $P$</td></tr>
     <tr><td>$d\vec B = \dfrac{\mu_0 I}{4\pi}\dfrac{d\vec\ell\times(\vec r-\vec r\,')}{|\vec r-\vec r\,'|^3}$</td><td>Ley de Biot-Savart; $I$ (A), $d\vec\ell$ (m) en el sentido de $I$</td><td>Corrientes estacionarias; segmentos colineales con $P$ dan $0$</td></tr>
     <tr><td>$B = \dfrac{\mu_0 I}{4\pi R}(\sin\theta_2 - \sin\theta_1)$</td><td>Alambre recto finito a distancia perpendicular $R$ (m)</td><td>$\theta_1, \theta_2$ medidos desde la perpendicular a $P$</td></tr>
     <tr><td>$\vec B = \dfrac{\mu_0 I}{2\pi r}\,\hat\theta$</td><td>Alambre recto infinito (o fuera de un cilindro de radio $R$, $r\gt R$)</td><td>Cable recto muy largo; sentido por mano derecha</td></tr>
     <tr><td>$\dfrac{F}{L} = \dfrac{\mu_0 I_1 I_2}{2\pi d}$</td><td>Fuerza por metro (N/m) entre alambres paralelos a distancia $d$ (m)</td><td>Alambres largos paralelos; mismo sentido atrae, opuesto repele</td></tr>
+  </tbody>
+  <tbody class="fam">
+    <tr class="fam-head"><th colspan="3" scope="colgroup">Espiras, arcos y dipolo</th></tr>
     <tr><td>$\vec B_{\text{eje}} = \dfrac{\mu_0 I R^2}{2(R^2+z^2)^{3/2}}\,\hat z$</td><td>Campo en el eje $z$ de espira de radio $R$ (m); en el centro ($z=0$): $\dfrac{\mu_0 I}{2R}$</td><td>Espira circular plana; $\times N$ para $N$ vueltas</td></tr>
     <tr><td>$B_{\text{arco}} = \dfrac{\mu_0 I\phi}{4\pi R}$</td><td>Campo en el centro de curvatura de un arco de ángulo $\phi$ (rad)</td><td>Solo en el centro de curvatura; semicírculo ($\phi=\pi$): $\dfrac{\mu_0 I}{4R}$</td></tr>
     <tr><td>$\vec\mu = NIA\,\hat n$; $\ B_{\text{lej}} \approx \dfrac{\mu_0}{2\pi}\dfrac{\mu}{|z|^3}$</td><td>Momento dipolar magnético ($\text{A·m}^2$) y campo axial lejano</td><td>Espira plana de área $A$ ($\text{m}^2$); $|z|\gg R$ para el campo dipolar</td></tr>
+  </tbody>
+  <tbody class="fam">
+    <tr class="fam-head"><th colspan="3" scope="colgroup">Leyes de Gauss y Ampère</th></tr>
     <tr><td>$\displaystyle\oint\vec B\cdot d\vec A = 0$; $\ \nabla\cdot\vec B = 0$</td><td>Ley de Gauss del magnetismo (sin monopolos)</td><td>Siempre</td></tr>
     <tr><td>$\displaystyle\oint_C\vec B\cdot d\vec\ell = \mu_0 I_{\text{enc}}$; $\ \nabla\times\vec B = \mu_0\vec J$</td><td>Ley de Ampère; $I_{\text{enc}} = \displaystyle\int_S\vec J\cdot d\vec A$ (con $dA = r\,dr\,d\theta$ en polares)</td><td>Corrientes estacionarias; permite despejar $\vec B$ solo con alta simetría</td></tr>
+  </tbody>
+  <tbody class="fam">
+    <tr class="fam-head"><th colspan="3" scope="colgroup">Campos por ley de Ampère</th></tr>
     <tr><td>$B(r\lt R) = \dfrac{\mu_0 I r}{2\pi R^2}$</td><td>Interior de alambre cilíndrico de radio $R$ con $\vec J$ uniforme</td><td>Cilindro infinito; con $\vec J(r)$ variable, integra $I_{\text{enc}}(r)$</td></tr>
     <tr><td>$B_{\text{sol}} = \mu_0 nI = \dfrac{\mu_0 NI}{\ell}$</td><td>Interior de solenoide con $n = N/\ell$ vueltas/m ($\text{m}^{-1}$)</td><td>Solenoide ideal (largo $\gg$ radio); $B\approx 0$ afuera</td></tr>
     <tr><td>$B_{\text{tor}} = \dfrac{\mu_0 NI}{2\pi r}$</td><td>Interior del núcleo de un toroide ($b \lt r \lt c$)</td><td>Toroide ideal de $N$ vueltas juntas; $B = 0$ para $r\lt b$ y $r\gt c$</td></tr>
@@ -1236,58 +1322,94 @@ window.MathJax = {
 <!-- U9 -->
   <h3>U9 · Inducción electromagnética <a class="small" href="#u09-formulas">(ver tarjeta en U9)</a></h3>
   <div class="formulas"><div class="tbl-scroll"><table><thead><tr><th>Fórmula</th><th>Significado</th><th>Válida si</th></tr></thead>
-  <tbody>
-<tr><td>$\Phi_B = \displaystyle\int\vec B\cdot d\vec A$; $\ \Phi_B = BA\cos\varphi$</td><td>Flujo magnético (Wb); $\varphi$ entre $\vec B$ y $\hat n$</td><td>La forma corta, solo con $\vec B$ uniforme y superficie plana</td></tr>
+    <tbody class="fam">
+    <tr class="fam-head"><th colspan="3" scope="colgroup">Flujo magnético</th></tr>
+    <tr><td>$\Phi_B = \displaystyle\int\vec B\cdot d\vec A$; $\ \Phi_B = BA\cos\varphi$</td><td>Flujo magnético (Wb); $\varphi$ entre $\vec B$ y $\hat n$</td><td>La forma corta, solo con $\vec B$ uniforme y superficie plana</td></tr>
     <tr><td>$\Phi_B = \dfrac{\mu_0 I\ell}{2\pi}\ln\!\left(\dfrac{r+w}{r}\right)$</td><td>Flujo de un alambre infinito por una espira rectangular coplanar</td><td>Lado $\ell$ paralelo al alambre, ancho $w$, lado cercano a distancia $r$</td></tr>
+  </tbody>
+  <tbody class="fam">
+    <tr class="fam-head"><th colspan="3" scope="colgroup">Faraday y Lenz</th></tr>
     <tr><td>$\varepsilon = -N\dfrac{d\Phi_B}{dt}$</td><td>Ley de Faraday; $\varepsilon$ en V, $N$ vueltas</td><td>Siempre; signo según la mano derecha alrededor de $\hat n$</td></tr>
     <tr><td>Ley de Lenz</td><td>La corriente inducida se opone al <em>cambio</em> del flujo</td><td>Siempre; la fuerza sobre la corriente inducida frena el movimiento</td></tr>
+    <tr><td>$\varepsilon = NBA\omega\sin\omega t$, $\ \varepsilon_{\text{máx}} = NBA\omega$</td><td>Generador; $\omega = 2\pi f$ (rad/s)</td><td>Rotación uniforme, eje perpendicular a $\vec B$ uniforme</td></tr>
+    <tr><td>$Q = \dfrac{N|\Delta\Phi_B|}{R}$</td><td>Carga total que circula (C)</td><td>El flujo cambia en un solo sentido</td></tr>
+  </tbody>
+  <tbody class="fam">
+    <tr class="fam-head"><th colspan="3" scope="colgroup">Fem de movimiento y frenado</th></tr>
     <tr><td>$\varepsilon = \displaystyle\oint(\vec v\times\vec B)\cdot d\vec\ell$; $\ |\varepsilon| = B\ell v$</td><td>Fem de movimiento; $\ell$ largo del tramo que se mueve (m)</td><td>La forma corta, para un tramo recto con $\vec v$, $\vec B$, $\vec\ell$ perpendiculares y $B$ uniforme</td></tr>
     <tr><td>$I = \dfrac{|\varepsilon|}{R}$, $\ \vec F = I\vec\ell\times\vec B$</td><td>Corriente inducida (A) y fuerza sobre un tramo recto (N)</td><td>Autoinducción despreciable; $\vec B$ uniforme sobre el tramo</td></tr>
     <tr><td>$F_B = \dfrac{B^2\ell^2v}{R}$, $\ P = \dfrac{\varepsilon^2}{R}$</td><td>Fuerza de frenado y potencia disipada (W)</td><td>Barra sobre rieles en campo uniforme</td></tr>
     <tr><td>$v = v_0e^{-t/\tau}$, $\ \tau = \dfrac{mR}{B^2\ell^2}$, $\ x_{\text{total}} = v_0\tau$</td><td>Barra lanzada, frenada solo por inducción</td><td>Sin roce ni otras fuerzas</td></tr>
     <tr><td>$v_{\text{term}} = \dfrac{FR}{B^2\ell^2}$</td><td>Velocidad terminal con fuerza constante $F$ (p. ej. $mg$)</td><td>Fuerza magnética $\propto v$; con $\vec B(z)$, usar la fuerza neta real (p. ej. $\alpha^2a^4v/R$)</td></tr>
+  </tbody>
+  <tbody class="fam">
+    <tr class="fam-head"><th colspan="3" scope="colgroup">Campo eléctrico inducido</th></tr>
     <tr><td>$\displaystyle\oint\vec E\cdot d\vec\ell = -\frac{d\Phi_B}{dt}$; $\ \nabla\times\vec E = -\dfrac{\partial\vec B}{\partial t}$</td><td>Campo eléctrico inducido (V/m), no conservativo</td><td>Curva fija</td></tr>
     <tr><td>$E = \dfrac r2\left|\dfrac{dB}{dt}\right|$ ($r\lt b$); $\ E = \dfrac{b^2}{2r}\left|\dfrac{dB}{dt}\right|$ ($r\gt b$)</td><td>$\vec E$ tangente en un solenoide de radio $b$</td><td>Solenoide largo, simetría cilíndrica</td></tr>
-    <tr><td>$\varepsilon = NBA\omega\sin\omega t$, $\ \varepsilon_{\text{máx}} = NBA\omega$</td><td>Generador; $\omega = 2\pi f$ (rad/s)</td><td>Rotación uniforme, eje perpendicular a $\vec B$ uniforme</td></tr>
-    <tr><td>$Q = \dfrac{N|\Delta\Phi_B|}{R}$</td><td>Carga total que circula (C)</td><td>El flujo cambia en un solo sentido</td></tr>
+  </tbody>
+  <tbody class="fam">
+    <tr class="fam-head"><th colspan="3" scope="colgroup">Corriente de desplazamiento</th></tr>
     <tr><td>$I_D = \varepsilon_0\dfrac{d\Phi_E}{dt}$; $\ \displaystyle\oint\vec B\cdot d\vec\ell = \mu_0(I_{\text{enc}} + I_D)$</td><td>Corriente de desplazamiento y ley de Ampère-Maxwell</td><td>Siempre; importa donde $\vec E$ cambia sin corriente de conducción</td></tr>
     <tr><td>$B = \dfrac{\mu_0 ir}{2\pi R^2}$ ($r\lt R$)</td><td>Campo entre placas circulares de un condensador que se carga</td><td>Placas de radio $R$, campo eléctrico uniforme entre ellas</td></tr>
   </tbody></table></div></div>
 <!-- U10 -->
   <h3>U10 · Inductancia y circuitos RL, LC, RLC <a class="small" href="#u10-formulas">(ver tarjeta en U10)</a></h3>
   <div class="formulas"><div class="tbl-scroll"><table><thead><tr><th>Fórmula</th><th>Significado</th><th>Válida si</th></tr></thead>
-  <tbody>
-<tr><td>$M = \dfrac{N_2\Phi_{21}}{i_1} = \dfrac{N_1\Phi_{12}}{i_2}$</td><td>$M$: inductancia mutua (H); $N_1, N_2$: vueltas (adim.); $\Phi_{21}, \Phi_{12}$: flujo por vuelta (Wb); $i_1, i_2$: corrientes (A)</td><td>Geometría fija y medio lineal; $M_{21} = M_{12} = M$</td></tr>
+    <tbody class="fam">
+    <tr class="fam-head"><th colspan="3" scope="colgroup">Inductancia mutua</th></tr>
+    <tr><td>$M = \dfrac{N_2\Phi_{21}}{i_1} = \dfrac{N_1\Phi_{12}}{i_2}$</td><td>$M$: inductancia mutua (H); $N_1, N_2$: vueltas (adim.); $\Phi_{21}, \Phi_{12}$: flujo por vuelta (Wb); $i_1, i_2$: corrientes (A)</td><td>Geometría fija y medio lineal; $M_{21} = M_{12} = M$</td></tr>
     <tr><td>$\varepsilon_2 = -M\dfrac{di_1}{dt}$, $\ \varepsilon_1 = -M\dfrac{di_2}{dt}$</td><td>$\varepsilon_1, \varepsilon_2$: fem mutuamente inducidas (V); $t$: tiempo (s)</td><td>Geometría fija, corrientes variables</td></tr>
     <tr><td>$M_{\text{sol}} = \dfrac{\mu_0 N_1 N_2 (\pi r_1^2)}{\ell}$</td><td>$\mu_0 = 4\pi\times10^{-7}\ \text{H/m}$; $r_1$: radio interior (m); $\ell$: largo (m)</td><td>Solenoides largos ($\ell \gg r_2 \gt r_1$) de igual longitud $\ell$</td></tr>
     <tr><td>$M_{\text{al-esp}} = \dfrac{\mu_0 a}{2\pi}\ln\!\left(\dfrac{h+b}{h}\right)$</td><td>$a$: lado paralelo al alambre (m); $b$: alto de espira (m); $h$: distancia al borde cercano (m)</td><td>Alambre infinito y espira rectangular coplanares</td></tr>
+  </tbody>
+  <tbody class="fam">
+    <tr class="fam-head"><th colspan="3" scope="colgroup">Autoinductancia y energía magnética</th></tr>
     <tr><td>$L = \dfrac{N\Phi_B}{i}$, $\ \varepsilon_L = -L\dfrac{di}{dt}$</td><td>$L$: autoinductancia (H); $N$: vueltas; $\Phi_B$: flujo propio (Wb); $\varepsilon_L$: fem autoinducida (V); $i$: corriente (A)</td><td>Geometría fija; $i_L(0^+) = i_L(0^-)$ (sin saltos)</td></tr>
     <tr><td>$V_{ab} = V_a - V_b = L\dfrac{di}{dt}$</td><td>$V_{ab}$: caída de potencial en el sentido de $i$ (V)</td><td>Inductor ideal ($R_{\text{bobina}} = 0$), corriente $i$ de $a$ a $b$</td></tr>
     <tr><td>$L_{\text{sol}} = \dfrac{\mu_0 N^2 A}{\ell} = \mu_0 n^2 (A\ell)$</td><td>$A$: sección transversal ($\text{m}^2$); $\ell$: largo (m); $n = N/\ell$: densidad de vueltas ($\text{m}^{-1}$)</td><td>Solenoide ideal largo de sección $A$ y largo $\ell$</td></tr>
     <tr><td>$L_{\text{tor}} = \dfrac{\mu_0 N^2 A}{2\pi r}$; $\ \dfrac{L_{\text{coax}}}{\ell} = \dfrac{\mu_0}{2\pi}\ln\!\left(\dfrac{b}{a}\right)$</td><td>Toroide: $A$ sección ($\text{m}^2$), $r$ radio medio (m); coaxial: radios $a \lt b$ (m), largo $\ell$ (m)</td><td>Toroide: sección $A \ll r^2$; coaxial: cilindros delgados $a \lt b$</td></tr>
     <tr><td>$U_B = \dfrac{1}{2}LI^2$, $\ u_B = \dfrac{B^2}{2\mu_0}$</td><td>$U_B$: energía magnética (J); $I$: corriente (A); $u_B$: densidad ($\text{J/m}^3$); $B$: campo (T); $\mathcal{V}$: volumen ($\text{m}^3$)</td><td>$U_B$ en cualquier inductor; $u_B$ en el vacío ($U_B = \int_{\mathcal{V}} u_B\,d\mathcal{V}$)</td></tr>
+  </tbody>
+  <tbody class="fam">
+    <tr class="fam-head"><th colspan="3" scope="colgroup">Circuitos RL</th></tr>
     <tr><td>$\varepsilon - iR - L\dfrac{di}{dt} = 0$, $\ \tau = \dfrac{L}{R}$</td><td>$\varepsilon$: fem (V); $i$: corriente (A); $R$: resistencia ($\Omega$); $\tau$: constante de tiempo (s)</td><td>$R$ es la resistencia equivalente vista desde $L$</td></tr>
     <tr><td>$i(t) = \dfrac{\varepsilon}{R}(1 - e^{-t/\tau})$; $\ i(t) = I_0 e^{-t/\tau}$</td><td>$i(t)$: corriente (A); $I_0$: corriente inicial al conmutar (A); $\tau = L/R$ (s)</td><td>Fuente $\varepsilon$ constante; $L$ abierto en $0^+$ (si $i_L=0$), corto en $\infty$</td></tr>
+  </tbody>
+  <tbody class="fam">
+    <tr class="fam-head"><th colspan="3" scope="colgroup">Circuitos LC</th></tr>
     <tr><td>$\dfrac{d^2 q}{dt^2} + \dfrac{1}{LC}q = 0$, $\ \omega_0 = \dfrac{1}{\sqrt{LC}}$</td><td>$q$: carga (C); $C$: capacitancia (F); $\omega_0$: frecuencia angular natural (rad/s); $Q_{\text{máx}}$ (C), $\phi$ (rad), $I_{\text{máx}}$ (A)</td><td>$R = 0$; $q(t) = Q_{\text{máx}}\cos(\omega_0 t + \phi)$, $I_{\text{máx}} = \omega_0 Q_{\text{máx}}$</td></tr>
     <tr><td>$\dfrac{q^2}{2C} + \dfrac{1}{2}Li^2 = \dfrac{Q_{\text{máx}}^2}{2C} = \dfrac{1}{2}LI_{\text{máx}}^2$</td><td>Conservación de energía en circuito $LC$ ideal (J)</td><td>Sin resistencia ($R = 0$); sin régimen permanente en $t \to \infty$</td></tr>
+  </tbody>
+  <tbody class="fam">
+    <tr class="fam-head"><th colspan="3" scope="colgroup">Circuitos RLC amortiguados</th></tr>
     <tr><td>$\ddot q + \dfrac{R}{L}\dot q + \dfrac{1}{LC}q = 0$ ($\gamma = \dfrac{R}{2L}$)</td><td>$\gamma$: tasa de amortiguamiento ($\text{s}^{-1}$); $R_{\text{crít}} = 2\sqrt{L/C}$: resistencia crítica ($\Omega$)</td><td>Sin fuente; comparar $\gamma$ con $\omega_0$ ($R$ con $R_{\text{crít}}$)</td></tr>
     <tr><td>$q(t) = A e^{-(R/2L)t}\cos(\omega_d t + \phi)$, $\ \omega_d = \sqrt{\dfrac{1}{LC} - \left(\dfrac{R}{2L}\right)^2}$</td><td>$A$: amplitud inicial (C); $\phi$: fase (rad); $\omega_d$: frecuencia amortiguada (rad/s)</td><td>Solo si $R \lt 2\sqrt{L/C}$ ($\gamma \lt \omega_0$); $R = R_{\text{crít}}$ crítico; $R \gt R_{\text{crít}}$ sobreamortiguado</td></tr>
   </tbody></table></div></div>
 <!-- U11 -->
   <h3>U11 · Corriente alterna y ondas EM <a class="small" href="#u11-formulas">(ver tarjeta en U11)</a></h3>
   <div class="formulas"><div class="tbl-scroll"><table><thead><tr><th>Fórmula</th><th>Significado</th><th>Válida si</th></tr></thead>
-  <tbody>
-<tr><td>$v(t) = \operatorname{Re}\{\hat V e^{j\omega t}\}$, $\ i(t) = \operatorname{Re}\{\hat I e^{j\omega t}\}$</td><td>Fasores complejos $\hat V, \hat I$; $\omega = 2\pi f$ (rad/s)</td><td>Régimen estacionario sinusoidal a una sola frecuencia</td></tr>
+    <tbody class="fam">
+    <tr class="fam-head"><th colspan="3" scope="colgroup">Fasores, rms e impedancias</th></tr>
+    <tr><td>$v(t) = \operatorname{Re}\{\hat V e^{j\omega t}\}$, $\ i(t) = \operatorname{Re}\{\hat I e^{j\omega t}\}$</td><td>Fasores complejos $\hat V, \hat I$; $\omega = 2\pi f$ (rad/s)</td><td>Régimen estacionario sinusoidal a una sola frecuencia</td></tr>
     <tr><td>$V_{\text{rms}} = \dfrac{V_0}{\sqrt{2}}$, $\ I_{\text{rms}} = \dfrac{I_0}{\sqrt{2}}$</td><td>Valor eficaz (rms) en función de la amplitud pico $V_0, I_0$</td><td>Señales puramente sinusoidales</td></tr>
     <tr><td>$Z_R = R$, $\ Z_L = j\omega L$, $\ Z_C = \dfrac{1}{j\omega C} = -\dfrac{j}{\omega C}$</td><td>Impedancias ($\Omega$); reactancias $X_L = \omega L$, $X_C = \frac{1}{\omega C}$</td><td>Elementos ideales en régimen sinusoidal ($j^2 = -1$)</td></tr>
     <tr><td>$Z_{\text{eq}} = \sum Z_k$ (serie); $\ \dfrac{1}{Z_{\text{eq}}} = \sum \dfrac{1}{Z_k}$ (paralelo)</td><td>Asociación de impedancias complejas; $\hat V = Z_{\text{eq}}\hat I$</td><td>Sumar números complejos, nunca módulos</td></tr>
     <tr><td>$\hat V_k = \dfrac{Z_k}{Z_{\text{eq}}}\hat V$ (serie); $\ \hat I_1 = \dfrac{Z_2}{Z_1+Z_2}\hat I_{\text{tot}}$ (paralelo)</td><td>Divisores de voltaje y de corriente en forma fasorial</td><td>$\sum\hat I_k = 0$ en nodos, $\sum\hat V_k = 0$ en mallas</td></tr>
+  </tbody>
+  <tbody class="fam">
+    <tr class="fam-head"><th colspan="3" scope="colgroup">RLC serie, resonancia y potencia</th></tr>
     <tr><td>$Z = R + j\left(\omega L - \dfrac{1}{\omega C}\right)$, $\ \tan\varphi = \dfrac{\omega L - \frac{1}{\omega C}}{R}$</td><td>RLC serie; $|Z| = \sqrt{R^2 + (X_L - X_C)^2}$, $I_0 = V_0/|Z|$</td><td>$R, L, C$ en serie; $i(t) = I_0\cos(\omega t - \varphi)$ si $v(t) = V_0\cos\omega t$</td></tr>
     <tr><td>$\operatorname{Im}\{Z_{\text{eq}}(\omega_0)\} = 0$; $\ \omega_0 = \dfrac{1}{\sqrt{LC}}$ (RLC serie)</td><td>Resonancia ($\varphi = 0$, $I_0$ máxima en serie); antirresonancia si $|Z_p|\to\infty$</td><td>La forma $1/\sqrt{LC}$ solo en RLC serie simple; calcular $Z_{\text{eq}}$ en redes mixtas</td></tr>
     <tr><td>$\langle P\rangle = \dfrac{1}{2}V_0 I_0\cos\varphi = V_{\text{rms}} I_{\text{rms}}\cos\varphi$</td><td>Potencia media (W); $\cos\varphi = \frac{\operatorname{Re} Z}{|Z|}$ factor de potencia</td><td>Carga pasiva lineal; $\langle P\rangle = 0$ en $L$ y $C$ ideales</td></tr>
+  </tbody>
+  <tbody class="fam">
+    <tr class="fam-head"><th colspan="3" scope="colgroup">Ondas electromagnéticas</th></tr>
     <tr><td>$\nabla^2\vec E = \mu_0\varepsilon_0\dfrac{\partial^2\vec E}{\partial t^2}$, $\ c = \dfrac{1}{\sqrt{\mu_0\varepsilon_0}} \approx 3{,}00\times 10^8\ \text{m/s}$</td><td>Ecuación de onda EM y rapidez de la luz; $\omega = ck = 2\pi c/\lambda$</td><td>Vacío sin cargas ni corrientes ($\rho = 0, \vec J = \vec 0$)</td></tr>
     <tr><td>$v = \dfrac{1}{\sqrt{\varepsilon\mu}} = \dfrac{c}{n}$, $\ n = \sqrt{\dfrac{\varepsilon\mu}{\varepsilon_0\mu_0}}$, $\ B_0 = \dfrac{E_0}{v}$</td><td>Rapidez ($v$ en m/s) e índice de refracción $n$ en un medio lineal</td><td>Medio dieléctrico homogéneo ($\rho_f = 0, \vec J_f = \vec 0$)</td></tr>
     <tr><td>$\vec k\times\vec E = \omega\vec B \iff \vec B = \dfrac{1}{c}(\hat k\times\vec E)$, $\ B_0 = \dfrac{E_0}{c}$</td><td>Relación entre campos ($\hat k\cdot\vec E = \hat k\cdot\vec B = 0$)</td><td>Onda plana monocromática en el vacío; en un medio, $c\to v=c/n$</td></tr>
+  </tbody>
+  <tbody class="fam">
+    <tr class="fam-head"><th colspan="3" scope="colgroup">Energía, Poynting e intensidad</th></tr>
     <tr><td>$u = \dfrac{1}{2}\left(\varepsilon_0 E^2 + \dfrac{B^2}{\mu_0}\right) = \varepsilon_0 E^2$, $\ \vec S = \dfrac{1}{\mu_0}(\vec E\times\vec B)$</td><td>Densidad de energía ($\text{J/m}^3$) y vector de Poynting ($\text{W/m}^2$)</td><td>$u = \varepsilon_0 E^2$ vale para onda plana única en el vacío</td></tr>
     <tr><td>$I = |\langle\vec S\rangle| = \dfrac{1}{2}c\varepsilon_0 E_0^2 = \dfrac{E_0^2}{2\mu_0 c} = c\langle u\rangle$, $\ P = \langle\vec S\rangle\cdot\hat n_A A$</td><td>Intensidad ($\text{W/m}^2$) y potencia captada (W) en área $A$</td><td>Onda plana sinusoidal en el vacío; $P = IA$ en incidencia normal</td></tr>
   </tbody></table></div></div>
@@ -1880,18 +2002,28 @@ window.MathJax = {
 <section class="sec" id="u01-formulas" data-block="formulas" data-title="Tarjeta de fórmulas">
   <div class="sec-head"><h2>Tarjeta de fórmulas</h2><button type="button" class="master" data-sec="u01-formulas" data-unit="u01" aria-pressed="false">Marcar como dominado</button></div>
   <div class="formulas"><div class="tbl-scroll"><table><thead><tr><th>Fórmula</th><th>Significado</th><th>Válida si</th></tr></thead>
-  <tbody>
+    <tbody class="fam">
+    <tr class="fam-head"><th colspan="3" scope="colgroup">Carga, Coulomb y dinámica puntual</th></tr>
     <tr><td>$q = ne$, $\ \sum q_i = \text{cte}$</td><td>Carga (C), $e = 1{,}602\times10^{-19}\ \text{C}$, $n\in\mathbb{Z}$</td><td>Siempre; la suma en sistemas aislados</td></tr>
     <tr><td>$\vec F_{12} = k\dfrac{q_1 q_2}{r^2}\hat r_{12} = kq_1 q_2\dfrac{\vec r_2 - \vec r_1}{|\vec r_2 - \vec r_1|^3}$</td><td>Fuerza de Coulomb (N); $k = \dfrac{1}{4\pi\varepsilon_0} \approx 8{,}99\times10^9\ \text{N·m}^2/\text{C}^2$</td><td>Cargas puntuales en reposo en el vacío; $\hat r_{12}$ de $q_1$ a $q_2$</td></tr>
     <tr><td>$\vec E = \dfrac{\vec F_e}{q_0}$, $\ \vec F = q\vec E$, $\ \vec E = k\displaystyle\sum_i \dfrac{q_i}{r_i^2}\hat r_i$</td><td>Campo eléctrico (N/C = V/m), superposición discreta</td><td>Cargas fuente puntuales (o fuera de esferas simétricas)</td></tr>
+    <tr><td>$\vec a = \dfrac{q\vec E}{m}$, $\ \Delta y = \dfrac{qEL^2}{2mv_0^2}$</td><td>Aceleración ($\text{m/s}^2$) y deflexión transversal en placas de largo $L$</td><td>$\vec E$ uniforme, $\vec v_0\perp\vec E$, gravedad despreciable</td></tr>
+  </tbody>
+  <tbody class="fam">
+    <tr class="fam-head"><th colspan="3" scope="colgroup">Distribuciones continuas de carga</th></tr>
     <tr><td>$\vec E = k\displaystyle\int \dfrac{\vec r - \vec r\,'}{|\vec r - \vec r\,'|^3}\,dq$</td><td>Campo de distribución continua; $dq = \lambda\,d\ell,\ \sigma\,dA,\ \rho\,dV$ ($\lambda$ C/m, $\sigma$ C/m², $\rho$ C/m³)</td><td>Siempre en electrostática</td></tr>
     <tr><td>$E_{\text{barra, eje}} = \dfrac{kQ}{a(a+L)}$</td><td>Campo en el eje a distancia $a$ del extremo cercano de barra de largo $L$</td><td>Densidad uniforme $\lambda = Q/L$</td></tr>
     <tr><td>$E_{\text{barra, med}} = \dfrac{kQ}{x\sqrt{x^2+a^2}}$; $\ E_{\text{línea}} = \dfrac{2k\lambda}{x} = \dfrac{\lambda}{2\pi\varepsilon_0 x}$</td><td>Mediatriz de barra de largo $2a$; límite de línea infinita ($a\gg x$)</td><td>Densidad uniforme; $x$ distancia perpendicular</td></tr>
     <tr><td>$\vec E_{\text{anillo}}(z) = \dfrac{kQz}{(z^2+R^2)^{3/2}}\,\hat z$</td><td>Campo sobre el eje de anillo de radio $R$ y carga $Q$</td><td>Densidad uniforme; eje de simetría</td></tr>
     <tr><td>$E_{\text{disco}} = \dfrac{\sigma}{2\varepsilon_0}\!\left(1 - \dfrac{z}{\sqrt{z^2+R^2}}\right)$; $\ E_{\text{plano}} = \dfrac{\sigma}{2\varepsilon_0}$</td><td>Disco uniforme ($z \gt 0$); límite de plano infinito ($R\gg z$); dos planos $\pm\sigma$: $E_{\text{entre}} = \sigma/\varepsilon_0$</td><td>Densidad $\sigma$ uniforme; eje de simetría</td></tr>
+  </tbody>
+  <tbody class="fam">
+    <tr class="fam-head"><th colspan="3" scope="colgroup">Dipolo eléctrico</th></tr>
     <tr><td>$\vec p = q\vec d$; $\ \vec E_{\text{ec}} \approx -\dfrac{k\vec p}{x^3}$, $\ \vec E_{\text{eje}} \approx \dfrac{2k\vec p}{z^3}$</td><td>Momento dipolar (C·m, de $-q$ a $+q$) y campo lejano</td><td>$x, z \gg d$</td></tr>
     <tr><td>$\vec\tau = \vec p\times\vec E$, $\ U = -\vec p\cdot\vec E = -pE\cos\phi$</td><td>Torque (N·m) y energía potencial (J) de dipolo</td><td>$\vec E$ uniforme ($U=0$ en $\phi=90^\circ$)</td></tr>
-    <tr><td>$\vec a = \dfrac{q\vec E}{m}$, $\ \Delta y = \dfrac{qEL^2}{2mv_0^2}$</td><td>Aceleración ($\text{m/s}^2$) y deflexión transversal en placas de largo $L$</td><td>$\vec E$ uniforme, $\vec v_0\perp\vec E$, gravedad despreciable</td></tr>
+  </tbody>
+  <tbody class="fam">
+    <tr class="fam-head"><th colspan="3" scope="colgroup">Herramientas de apoyo</th></tr>
     <tr><td>$\Phi_E = \displaystyle\oint\vec E\cdot d\vec A = \dfrac{Q_{\text{enc}}}{\varepsilon_0}$; $\ V = k\displaystyle\sum_i\dfrac{q_i}{r_i}$, $\ W_{\text{ext}} = q\Delta V$</td><td>Herramientas de apoyo: ley de Gauss ($\Phi_E$ en $\text{N·m}^2/\text{C}$) y potencial ($V$ en V, $V(\infty)=0$)</td><td>Gauss en cualquier superficie cerrada; $V$ para cargas puntuales</td></tr>
   </tbody></table></div></div>
 </section>
@@ -2530,18 +2662,25 @@ window.MathJax = {
 <section class="sec" id="u02-formulas" data-block="formulas" data-title="Tarjeta de fórmulas">
   <div class="sec-head"><h2>Tarjeta de fórmulas</h2><button type="button" class="master" data-sec="u02-formulas" data-unit="u02" aria-pressed="false">Marcar como dominado</button></div>
   <div class="formulas"><div class="tbl-scroll"><table><thead><tr><th>Fórmula</th><th>Significado y unidades SI</th><th>Válida si</th></tr></thead>
-  <tbody>
+    <tbody class="fam">
+    <tr class="fam-head"><th colspan="3" scope="colgroup">Flujo eléctrico y ley de Gauss</th></tr>
     <tr><td>$\Phi_E = \displaystyle\int_S \vec E\cdot d\vec A$; $\ \Phi_E = EA\cos\varphi$</td><td>Flujo eléctrico ($\text{N·m}^2/\text{C}$); $\vec E$ ($\text{N/C}$), $A, d\vec A$ ($\text{m}^2$), $\varphi$ entre $\vec E$ y $\hat n$</td><td>La forma corta, solo para $\vec E$ uniforme y superficie plana</td></tr>
     <tr><td>$\Phi_{\text{centro}} = \dfrac{q}{6\varepsilon_0}$, $\ \Phi_{\text{vértice, op}} = \dfrac{q}{24\varepsilon_0}$</td><td>Flujo ($\text{N·m}^2/\text{C}$) por una cara de un cubo con carga $q$ ($\text{C}$)</td><td>Carga en el centro del cubo o en un vértice (caras adyacentes dan $0$)</td></tr>
     <tr><td>$\displaystyle\oint_S \vec E\cdot d\vec A = \frac{Q_{\text{enc}}}{\varepsilon_0}$</td><td>Ley de Gauss integral; $\vec E$ ($\text{N/C}$), $d\vec A$ ($\text{m}^2$), $Q_{\text{enc}}$ ($\text{C}$), $\varepsilon_0 \approx 8{,}85\times 10^{-12}\ \text{C}^2/(\text{N·m}^2)$</td><td>Siempre (para despejar $\vec E$, requiere simetría esférica, cilíndrica o planar)</td></tr>
+    <tr><td>$\nabla\cdot\vec E = \dfrac{\rho}{\varepsilon_0}$</td><td>Ley de Gauss diferencial; $\nabla\cdot\vec E$ ($\text{V/m}^2$), $\rho$ ($\text{C/m}^3$)</td><td>Siempre; radial esféricas $\frac{1}{r^2}\frac{d(r^2E_r)}{dr}$, cilíndricas $\frac{1}{r}\frac{d(rE_r)}{dr}$</td></tr>
+  </tbody>
+  <tbody class="fam">
+    <tr class="fam-head"><th colspan="3" scope="colgroup">Campos por simetría y superposición</th></tr>
     <tr><td>$dV_{\text{esf}} = 4\pi r^2\,dr$, $\ dV_{\text{cil}} = 2\pi r L\,dr$</td><td>Elementos de volumen ($\text{m}^3$); radio $r$ ($\text{m}$), largo $L$ ($\text{m}$)</td><td>Cuando $\rho = \rho(r)$ depende solo de la coordenada radial $r$</td></tr>
     <tr><td>$\vec E_{\text{esf}} = \dfrac{\rho r}{3\varepsilon_0}\,\hat r\ (r\le R)$; $\ \dfrac{Q}{4\pi\varepsilon_0 r^2}\,\hat r\ (r\ge R)$</td><td>Campo ($\text{N/C}$) de esfera maciza uniforme; $\rho$ ($\text{C/m}^3$), $Q$ ($\text{C}$), $r, R$ ($\text{m}$)</td><td>Simetría esférica; para cascarón hueco de radio $R$, $E = 0$ si $r \lt R$</td></tr>
     <tr><td>$\vec E_{\text{cil}} = \dfrac{\rho r}{2\varepsilon_0}\,\hat r\ (r\le R)$; $\ \dfrac{\rho R^2}{2\varepsilon_0 r}\,\hat r\ (r\gt R)$</td><td>Campo ($\text{N/C}$) de cilindro infinito; línea: $\dfrac{\lambda}{2\pi\varepsilon_0 r}\hat r$ ($\lambda$ en $\text{C/m}$, $\rho$ en $\text{C/m}^3$, $r, R$ en $\text{m}$)</td><td>Simetría cilíndrica infinita ($L\gg r$, lejos de bordes)</td></tr>
     <tr><td>$E_{\text{plano}} = \dfrac{|\sigma|}{2\varepsilon_0}$; $\ E_{\text{losa}} = \dfrac{\rho|z|}{\varepsilon_0}\ (|z|\le a)$</td><td>Campo ($\text{N/C}$); plano ($\sigma$ en $\text{C/m}^2$); losa ($\rho$ en $\text{C/m}^3$, $z, a$ en $\text{m}$)</td><td>Plano o losa infinita de espesor $2a$ centrada en $z = 0$; para $|z|\gt a$, $E = \rho a/\varepsilon_0$</td></tr>
+    <tr><td>$\vec E_{\text{cav, esf}} = \dfrac{\rho}{3\varepsilon_0}\vec a$, $\ \vec E_{\text{cav, cil}} = \dfrac{\rho}{2\varepsilon_0}\vec a_\perp$</td><td>Campo ($\text{N/C}$) dentro de cavidad vacía descentrada; $\rho$ ($\text{C/m}^3$), $\vec a, \vec a_\perp$ ($\text{m}$)</td><td>Cuerpo con densidad uniforme $+\rho$ y hueco de la misma forma</td></tr>
+  </tbody>
+  <tbody class="fam">
+    <tr class="fam-head"><th colspan="3" scope="colgroup">Conductores en equilibrio</th></tr>
     <tr><td>$\vec E_{\text{metal}} = \vec 0$, $\ q_{\text{int}} = -Q_{\text{enc}}$, $\ E_{\text{sup}} = \dfrac{\sigma}{\varepsilon_0}$</td><td>Conductor en equilibrio; $q_{\text{int}}, Q_{\text{enc}}, q_{\text{ext}}, Q_{\text{cond}}$ ($\text{C}$), $\sigma$ ($\text{C/m}^2$), $E_{\text{sup}}$ ($\text{N/C}$); $q_{\text{ext}} = Q_{\text{cond}} + Q_{\text{enc}}$</td><td>Electrostática (cargas en reposo); $E_{\text{sup}}$ normal a la superficie</td></tr>
     <tr><td>Conexión a tierra: $V(R_{\text{tierra}}) = 0$</td><td>Potencial $V$ ($\text{V}$), $R_{\text{tierra}}$ ($\text{m}$); si es la capa exterior aislada: $q_{\text{ext}} = 0$ ($\text{C}$) y $\vec E_{\text{ext}} = \vec 0$</td><td>Referencia $V(\infty) = 0$; $q_{\text{int}} = -Q_{\text{enc}}$ se conserva</td></tr>
-    <tr><td>$\vec E_{\text{cav, esf}} = \dfrac{\rho}{3\varepsilon_0}\vec a$, $\ \vec E_{\text{cav, cil}} = \dfrac{\rho}{2\varepsilon_0}\vec a_\perp$</td><td>Campo ($\text{N/C}$) dentro de cavidad vacía descentrada; $\rho$ ($\text{C/m}^3$), $\vec a, \vec a_\perp$ ($\text{m}$)</td><td>Cuerpo con densidad uniforme $+\rho$ y hueco de la misma forma</td></tr>
-    <tr><td>$\nabla\cdot\vec E = \dfrac{\rho}{\varepsilon_0}$</td><td>Ley de Gauss diferencial; $\nabla\cdot\vec E$ ($\text{V/m}^2$), $\rho$ ($\text{C/m}^3$)</td><td>Siempre; radial esféricas $\frac{1}{r^2}\frac{d(r^2E_r)}{dr}$, cilíndricas $\frac{1}{r}\frac{d(rE_r)}{dr}$</td></tr>
   </tbody></table></div></div>
 </section>
 </section>
@@ -3047,15 +3186,22 @@ window.MathJax = {
 <section class="sec" id="u03-formulas" data-block="formulas" data-title="Tarjeta de fórmulas">
   <div class="sec-head"><h2>Tarjeta de fórmulas</h2><button type="button" class="master" data-sec="u03-formulas" data-unit="u03" aria-pressed="false">Marcar como dominado</button></div>
   <div class="formulas"><div class="tbl-scroll"><table><thead><tr><th>Fórmula</th><th>Significado</th><th>Válida si</th></tr></thead>
-  <tbody>
+    <tbody class="fam">
+    <tr class="fam-head"><th colspan="3" scope="colgroup">Trabajo, energía y potencial</th></tr>
     <tr><td>$W_{a\to b} = q_0\displaystyle\int_a^b\vec E\cdot d\vec\ell$; $\ \Delta U = -W_{a\to b}$</td><td>Trabajo del campo y cambio de energía potencial (J); $q_0$ carga (C), $\vec E$ campo (V/m)</td><td>Campo electrostático (conservativo)</td></tr>
     <tr><td>$U = k\displaystyle\sum_{i\lt j}\frac{q_i q_j}{r_{ij}} = \frac12\sum_i q_i V_i$</td><td>Energía potencial de un sistema de cargas (J); $r_{ij}$ distancia (m), $k = \frac{1}{4\pi\varepsilon_0}$</td><td>$U(\infty) = 0$; $V_i$ excluye la propia carga $q_i$</td></tr>
     <tr><td>$\Delta V = V_b - V_a = -\displaystyle\int_a^b \vec E\cdot d\vec\ell$; $\ V_{ab} = V_a - V_b$</td><td>Diferencia de potencial (V = J/C); $d\vec\ell$ elemento de línea (m)</td><td>Campo electrostático ($\nabla\times\vec E = \vec 0$)</td></tr>
     <tr><td>$\Delta K = -q\,\Delta V$; $\ 1\ \text{eV} = 1{,}60\times10^{-19}\ \text{J}$</td><td>Conservación de energía ($K = \frac12 mv^2$ en J); $q$ carga (C)</td><td>Solo fuerzas electrostáticas (o más $\vec B$, que no trabaja)</td></tr>
+  </tbody>
+  <tbody class="fam">
+    <tr class="fam-head"><th colspan="3" scope="colgroup">Potencial de distribuciones</th></tr>
     <tr><td>$V(P) = k\displaystyle\sum_i \frac{q_i}{r_i}$; $\ V = k\int\frac{dq}{|\vec r - \vec r'|}$</td><td>Superposición escalar de potencial (V); $dq = \lambda d\ell, \sigma dA, \rho dV$</td><td>Distribución finita con $V(\infty) = 0$</td></tr>
     <tr><td>$V_{\text{anillo}} = \dfrac{kQ}{\sqrt{x^2+a^2}}$; $\ V_{\text{disco}} = \dfrac{\sigma}{2\varepsilon_0}\left(\sqrt{x^2+R^2}-|x|\right)$</td><td>Potencial en el eje a distancia $x$ (m); $a, R$ radios (m)</td><td>Densidad uniforme; $V(\infty) = 0$</td></tr>
     <tr><td>$V_{\text{línea}} = \dfrac{\lambda}{2\pi\varepsilon_0}\ln\!\left(\dfrac{r_0}{r}\right)$; $\ \Delta V_{\text{plano}} = -\dfrac{\sigma\,\Delta|x|}{2\varepsilon_0}$</td><td>Potencial de línea infinita ($\lambda$ en C/m) y plano infinito ($\sigma$ en C/m²)</td><td>Referencia finita $V(r_0) = 0$ (no sirve $\infty$)</td></tr>
     <tr><td>$V_{\text{esf. maciza}}(r) = \dfrac{kQ}{2R}\left(3 - \dfrac{r^2}{R^2}\right)$ ($r\le R$)</td><td>Potencial dentro de esfera aislante uniforme ($R$ en m, $Q$ en C)</td><td>Afuera ($r\ge R$) vale $kQ/r$; $V(\infty)=0$</td></tr>
+  </tbody>
+  <tbody class="fam">
+    <tr class="fam-head"><th colspan="3" scope="colgroup">Ecuaciones locales y conductores</th></tr>
     <tr><td>$\vec E = -\nabla V = -\left(\partial_x V\hat x + \partial_y V\hat y + \partial_z V\hat z\right)$</td><td>Campo desde el potencial (V/m); radial $E_r = -\partial V/\partial r$</td><td>Campo electrostático; $\vec E \perp$ equipotenciales</td></tr>
     <tr><td>$\nabla^2 V = -\dfrac{\rho}{\varepsilon_0}$ (Poisson); $\ \nabla^2 V = 0$ (Laplace)</td><td>Ecuación diferencial del potencial; $\rho$ densidad (C/m³)</td><td>Laplace donde $\rho = 0$</td></tr>
     <tr><td>$\dfrac{q_1'}{R_1} = \dfrac{q_2'}{R_2}$; $\ V_{\text{tierra}} = 0$; $\ U = \dfrac{kQ^2}{2R}$</td><td>Esferas conectadas ($d \gg R_1, R_2$), tierra y autoenergía esférica</td><td>Conductores en equilibrio electrostático</td></tr>
@@ -3588,20 +3734,30 @@ window.MathJax = {
 <section class="sec" id="u04-formulas" data-block="formulas" data-title="Tarjeta de fórmulas">
   <div class="sec-head"><h2>Tarjeta de fórmulas</h2><button type="button" class="master" data-sec="u04-formulas" data-unit="u04" aria-pressed="false">Marcar como dominado</button></div>
   <div class="formulas"><div class="tbl-scroll"><table><thead><tr><th>Fórmula</th><th>Significado (unidades SI)</th><th>Válida si</th></tr></thead>
-  <tbody>
+    <tbody class="fam">
+    <tr class="fam-head"><th colspan="3" scope="colgroup">Capacitancia y asociación</th></tr>
     <tr><td>$C = \dfrac{Q}{|\Delta V|}$</td><td>$C$: capacitancia ($\text{F} = \text{C/V}$); $Q$: carga en placa $+$ (C); $|\Delta V|$: voltaje (V)</td><td>Siempre; $C$ depende solo de geometría y medio</td></tr>
     <tr><td>$C = \dfrac{\varepsilon A}{d}$</td><td>Placas paralelas; $A$: área ($\text{m}^2$); $d$: separación (m); $\varepsilon = \kappa\varepsilon_0$ ($\text{F/m}$)</td><td>$d \ll \sqrt{A}$ (desprecia bordes), dieléctrico homogéneo</td></tr>
     <tr><td>$C = \dfrac{2\pi\varepsilon L}{\ln(r_b/r_a)}$</td><td>Cilíndrico coaxial; $r_a \lt r_b$: radios (m); $L$: largo (m)</td><td>$L \gg r_b$, dieléctrico homogéneo entre $r_a$ y $r_b$</td></tr>
     <tr><td>$C = 4\pi\varepsilon\,\dfrac{r_a r_b}{r_b - r_a}$</td><td>Esférico concéntrico; $r_a \lt r_b$: radios (m); aislada: $r_b\to\infty \Rightarrow C = 4\pi\varepsilon r_a$</td><td>Dieléctrico homogéneo entre $r_a$ y $r_b$</td></tr>
     <tr><td>Serie: $\dfrac{1}{C_{\text{eq}}} = \sum \dfrac{1}{C_i}$; $\ $ Paralelo: $C_{\text{eq}} = \sum C_i$</td><td>$C_{\text{eq}}$: capacitancia equivalente (F)</td><td>Serie: misma $Q$; paralelo: mismo $V$</td></tr>
+  </tbody>
+  <tbody class="fam">
+    <tr class="fam-head"><th colspan="3" scope="colgroup">Energía y fuerza eléctrica</th></tr>
     <tr><td>$U = \dfrac{Q^2}{2C} = \dfrac{1}{2}CV^2 = \dfrac{1}{2}QV$</td><td>$U$: energía almacenada (J)</td><td>Siempre ($Q^2/2C$ útil si $Q$ fija; $\tfrac12 CV^2$ si $V$ fija)</td></tr>
     <tr><td>$u_E = \dfrac{1}{2}\varepsilon E^2 = \dfrac{1}{2}\vec D\cdot\vec E$; $\ F_x = -\dfrac{dU}{dx}\Big|_Q = +\dfrac{dU}{dx}\Big|_V$</td><td>$u_E$: densidad de energía ($\text{J/m}^3$); $F_x$: fuerza (N); $x$: posición (m)</td><td>$u_E$: medio lineal; $-dU/dx$ si $Q$ fija, $+dU/dx$ si $V$ fija</td></tr>
+  </tbody>
+  <tbody class="fam">
+    <tr class="fam-head"><th colspan="3" scope="colgroup">Dieléctricos, polarización y rigidez</th></tr>
     <tr><td>$\kappa \equiv K \equiv \varepsilon_r = \dfrac{\varepsilon}{\varepsilon_0} = \dfrac{C}{C_0} = 1 + \chi_e$</td><td>Constante dieléctrica relativa (adimensional, $\kappa \ge 1$)</td><td>Medio dieléctrico lineal, homogéneo e isotrópico</td></tr>
     <tr><td>$\vec P = (\varepsilon - \varepsilon_0)\vec E = \varepsilon_0(\kappa - 1)\vec E$</td><td>Polarización ($\text{C/m}^2$); $\varepsilon_0 = 8{,}85\times 10^{-12}\ \text{F/m}$</td><td>Dieléctrico lineal e isotrópico</td></tr>
     <tr><td>$\sigma_b = \vec P\cdot\hat n$; $\ \rho_b = -\nabla\cdot\vec P$</td><td>Densidades de carga ligada superficial ($\text{C/m}^2$) y volumétrica ($\text{C/m}^3$)</td><td>Siempre; $\hat n$ apunta <b>hacia afuera del dieléctrico</b></td></tr>
+    <tr><td>$V_{\text{máx}} = E_m\,d$</td><td>$E_m$: rigidez dieléctrica (V/m; aire $\approx 3{,}0\times 10^6\ \text{V/m}$)</td><td>Campo uniforme; con varias capas, verificar $E_i \lt E_{mi}$ en cada una</td></tr>
+  </tbody>
+  <tbody class="fam">
+    <tr class="fam-head"><th colspan="3" scope="colgroup">Desplazamiento eléctrico</th></tr>
     <tr><td>$\vec D = \varepsilon_0\vec E + \vec P = \varepsilon\vec E$</td><td>Desplazamiento eléctrico ($\text{C/m}^2$)</td><td>Primera igualdad siempre; $\vec D = \varepsilon\vec E$ en medio lineal</td></tr>
     <tr><td>$\displaystyle\oint_S \vec D\cdot d\vec A = Q_{\text{libre, enc}}$; $\ \nabla\cdot\vec D = \rho_{\text{libre}}$</td><td>Ley de Gauss en dieléctricos; $Q_{\text{libre, enc}}$ en C</td><td>Siempre; despeja $\vec D$ directo solo si la simetría es intacta</td></tr>
-    <tr><td>$V_{\text{máx}} = E_m\,d$</td><td>$E_m$: rigidez dieléctrica (V/m; aire $\approx 3{,}0\times 10^6\ \text{V/m}$)</td><td>Campo uniforme; con varias capas, verificar $E_i \lt E_{mi}$ en cada una</td></tr>
   </tbody></table></div></div>
 </section>
 </section>
@@ -4039,18 +4195,28 @@ window.MathJax = {
 <section class="sec" id="u05-formulas" data-block="formulas" data-title="Tarjeta de fórmulas">
   <div class="sec-head"><h2>Tarjeta de fórmulas</h2><button type="button" class="master" data-sec="u05-formulas" data-unit="u05" aria-pressed="false">Marcar como dominado</button></div>
   <div class="formulas"><div class="tbl-scroll"><table><thead><tr><th>Fórmula</th><th>Significado</th><th>Válida si</th></tr></thead>
-  <tbody>
+    <tbody class="fam">
+    <tr class="fam-head"><th colspan="3" scope="colgroup">Corriente, continuidad y Ohm local</th></tr>
     <tr><td>$I = \dfrac{dQ}{dt} = \displaystyle\int_S \vec J\cdot d\vec A$</td><td>Corriente eléctrica ($\text{A} = \text{C/s}$); $\vec J$ densidad ($\text{A/m}^2$); $d\vec A$ área ($\text{m}^2$)</td><td>Siempre; $I = JA$ solo si $\vec J$ es uniforme y $\perp A$</td></tr>
     <tr><td>$\vec J = n q \vec v_d$, $\ I = n|q|Av_d$</td><td>$n$ portadores ($\text{m}^{-3}$), $q$ carga (C), $\vec v_d$ deriva ($\text{m/s}$)</td><td>Portadores de una sola especie con deriva uniforme</td></tr>
     <tr><td>$\nabla\cdot\vec J + \dfrac{\partial\rho_q}{\partial t} = 0$</td><td>Continuidad; $\rho_q$ densidad volumétrica de carga ($\text{C/m}^3$)</td><td>Siempre; en régimen estacionario $\nabla\cdot\vec J = 0$</td></tr>
     <tr><td>$\vec J = \sigma\vec E = \dfrac{\vec E}{\rho}$, $\ \sigma = \dfrac{1}{\rho}$</td><td>Ley de Ohm diferencial; $\sigma$ ($(\Omega\cdot\text{m})^{-1}$), $\rho$ ($\Omega\cdot\text{m}$)</td><td>Material óhmico ($\rho$ independiente de $E$)</td></tr>
+  </tbody>
+  <tbody class="fam">
+    <tr class="fam-head"><th colspan="3" scope="colgroup">Resistencia y geometrías</th></tr>
     <tr><td>$\rho(T) = \rho_0[1 + \alpha(T - T_0)]$</td><td>$\alpha$ coef. térmico ($\text{K}^{-1}$): $\alpha \gt 0$ metal, $\alpha \lt 0$ semicond.</td><td>Rango moderado de $T$ alrededor de $T_0$</td></tr>
     <tr><td>$\Delta V = IR$, $\ R = \dfrac{\rho L}{A} = \dfrac{L}{\sigma A}$</td><td>Ley de Ohm macroscópica y resistencia ($\Omega = \text{V/A}$)</td><td>Conductor recto de sección $A$ y $\rho$ uniformes</td></tr>
     <tr><td>$R = \displaystyle\int \frac{\rho(\ell)\,d\ell}{A(\ell)}$</td><td>Suma de rebanadas en serie perpendiculares a $\vec J$</td><td>Las secciones $A(\ell)$ son equipotenciales</td></tr>
     <tr><td>$R_{\text{cono}} = \dfrac{\rho h}{\pi a b}$</td><td>Tronco de cono recto de largo $h$ y radios $a, b$</td><td>Flujo axial uniforme por sección, abertura pequeña</td></tr>
     <tr><td>$R_{\text{cil}} = \dfrac{\ln(b/a)}{2\pi\sigma L}$, $\ R_{\text{esf}} = \dfrac{b - a}{4\pi\sigma ab}$</td><td>Flujo radial entre cilindros ($L$) o esferas ($a \lt b$)</td><td>Electrodos concéntricos equipotenciales</td></tr>
+  </tbody>
+  <tbody class="fam">
+    <tr class="fam-head"><th colspan="3" scope="colgroup">Asociación, fem y resistencia interna</th></tr>
     <tr><td>$R_{\text{serie}} = \sum R_i$; $\ \dfrac{1}{R_{\text{par}}} = \sum \dfrac{1}{R_i}$</td><td>Resistencia equivalente serie (misma $I$) y paralelo (mismo $\Delta V$)</td><td>Conexión entre dos nodos bien definidos</td></tr>
     <tr><td>$I = \dfrac{\varepsilon}{r + R}$, $\ V_{ba} = \varepsilon - Ir$</td><td>Malla simple con fem $\varepsilon$ (V) y resistencia interna $r$ ($\Omega$)</td><td>$I$ saliendo por $+$; si entra por $+$, $V_{ba} = \varepsilon + Ir$</td></tr>
+  </tbody>
+  <tbody class="fam">
+    <tr class="fam-head"><th colspan="3" scope="colgroup">Potencia y efecto Joule</th></tr>
     <tr><td>$P = I\,\Delta V = I^2 R = \dfrac{(\Delta V)^2}{R}$</td><td>Potencia eléctrica ($\text{W} = \text{J/s}$)</td><td>$P = I\Delta V$ siempre; $I^2R$ y $\Delta V^2/R$ en resistores óhmicos</td></tr>
     <tr><td>$p = \vec J\cdot\vec E = J^2\rho = \sigma E^2$</td><td>Densidad volumétrica de potencia Joule ($\text{W/m}^3$)</td><td>Material óhmico local</td></tr>
     <tr><td>$P_{R,\text{máx}} = \dfrac{\varepsilon^2}{4r}$ (en $R = r$)</td><td>Máxima potencia entregada a la carga $R$ ($\eta = 50\,\%$)</td><td>$\varepsilon$ y $r$ fijos, $R$ variable</td></tr>
@@ -4591,19 +4757,29 @@ window.MathJax = {
 <section class="sec" id="u06-formulas" data-block="formulas" data-title="Tarjeta de fórmulas">
   <div class="sec-head"><h2>Tarjeta de fórmulas</h2><button type="button" class="master" data-sec="u06-formulas" data-unit="u06" aria-pressed="false">Marcar como dominado</button></div>
   <div class="formulas"><div class="tbl-scroll"><table><thead><tr><th>Fórmula</th><th>Significado</th><th>Válida si</th></tr></thead>
-  <tbody>
+    <tbody class="fam">
+    <tr class="fam-head"><th colspan="3" scope="colgroup">Ohm, fuentes y equivalentes</th></tr>
     <tr><td>$V = IR$, $\ P = I\,\Delta V_R = I^2 R = \dfrac{(\Delta V_R)^2}{R}$</td><td>Ley de Ohm y potencia Joule; $V$ (V), $I$ (A), $R$ ($\Omega$), $P$ (W)</td><td>Resistor óhmico; corriente estacionaria o instantánea</td></tr>
     <tr><td>$V_{\text{term}} = \varepsilon \mp Ir$, $\ I V_{\text{term}} = \varepsilon I - I^2 r$</td><td>Voltaje y balance de fuente real; $\varepsilon$ fem (V), $r$ resistencia interna ($\Omega$)</td><td>$-$ si entrega corriente desde $+$; $+$ si absorbe entrando por $+$</td></tr>
     <tr><td>$R_{\text{eq}} = \sum_i R_i$; $\ \dfrac{1}{R_{\text{eq}}} = \sum_i \dfrac{1}{R_i}$</td><td>Resistencias equivalentes en serie y en paralelo ($\Omega$)</td><td>Serie: misma $I$; paralelo: mismo $\Delta V$ entre nodos</td></tr>
+  </tbody>
+  <tbody class="fam">
+    <tr class="fam-head"><th colspan="3" scope="colgroup">Kirchhoff, puente y medición</th></tr>
     <tr><td>$\dfrac{R_1}{R_2} = \dfrac{R_3}{R_4}\ \Longleftrightarrow\ R_1 R_4 = R_2 R_3$</td><td>Condición de equilibrio del puente de Wheatstone</td><td>Corriente nula en la rama central ($I_5 = 0$, $V_b = V_c$)</td></tr>
     <tr><td>$\sum I_{\text{entran}} = \sum I_{\text{salen}}$, $\ \sum_{\text{malla}} \Delta V = 0$</td><td>Leyes de Kirchhoff (LCK nodos, LVK mallas)</td><td>Siempre en redes de parámetros concentrados (cuidado con signos de recorrido)</td></tr>
     <tr><td>$r_A \ll R_{\text{circ}}$ (serie), $\ r_V \gg R$ (paralelo)</td><td>Condiciones de amperímetro y voltímetro casi ideales</td><td>Medición directa sin perturbar el circuito</td></tr>
+  </tbody>
+  <tbody class="fam">
+    <tr class="fam-head"><th colspan="3" scope="colgroup">Capacitor y energía en RC</th></tr>
     <tr><td>$q = C\,\Delta V_C$, $\ C = \kappa C_0$, $\ U = \dfrac{q^2}{2C} = \dfrac{1}{2}C(\Delta V_C)^2$</td><td>Capacitor; $q$ (C), $C$ (F), $\kappa$ cte. dieléctrica, $U$ (J)</td><td>Siempre; si $\Delta V_C$ fijo y $C \to \kappa C$, entonces $U \to \kappa U$</td></tr>
+    <tr><td>$W_\varepsilon = C\varepsilon^2$, $\ U_C = W_R = \frac{1}{2}C\varepsilon^2$</td><td>Energía entregada ($W_\varepsilon$), almacenada ($U_C$) y disipada ($W_R$) al cargar desde $0$ (J)</td><td>Carga completa a fem constante $\varepsilon$ en serie con $R$</td></tr>
+  </tbody>
+  <tbody class="fam">
+    <tr class="fam-head"><th colspan="3" scope="colgroup">Transitorios RC</th></tr>
     <tr><td>$q(t) = C\varepsilon(1 - e^{-t/\tau})$, $\ i(t) = \dfrac{\varepsilon}{R}e^{-t/\tau}$</td><td>Carga de circuito $RC$ serie desde $q(0) = 0$; $\tau = RC$ (s)</td><td>Una sola malla $R$–$C$ con fem constante $\varepsilon$</td></tr>
     <tr><td>$q(t) = Q_0 e^{-t/\tau}$, $\ i_{\text{desc}}(t) = \dfrac{Q_0}{RC}e^{-t/\tau}$</td><td>Descarga de circuito $RC$ desde $q(0) = Q_0$ (C)</td><td>Sin fuentes conectadas; $\tau = R_{\text{eq}} C$ con $R_{\text{eq}}$ ($\Omega$)</td></tr>
     <tr><td>$q(t) = Q_\infty + (q_0 - Q_\infty)e^{-t/\tau}$, $\ \tau = R_{\text{Th}}C$</td><td>Transitorio $RC$ en cualquier red con 1 capacitor</td><td>$R_{\text{Th}}$ ($\Omega$) vista desde $C$ apagando fuentes independientes; $Q_\infty = C\,\Delta V_C(\infty)$</td></tr>
     <tr><td>$t = 0^+:\ \Delta V_C = 0$ (si $q_0=0$); $\ t \to \infty:\ i_C = 0$</td><td>Comportamiento límite del capacitor (corto $\to$ abierto)</td><td>Circuitos DC conmutados; $\Delta V_C$ es continua en $t = 0$</td></tr>
-    <tr><td>$W_\varepsilon = C\varepsilon^2$, $\ U_C = W_R = \frac{1}{2}C\varepsilon^2$</td><td>Energía entregada ($W_\varepsilon$), almacenada ($U_C$) y disipada ($W_R$) al cargar desde $0$ (J)</td><td>Carga completa a fem constante $\varepsilon$ en serie con $R$</td></tr>
   </tbody></table></div></div>
 </section>
 </section>
@@ -5142,17 +5318,27 @@ window.MathJax = {
 <section class="sec" id="u07-formulas" data-block="formulas" data-title="Tarjeta de fórmulas">
   <div class="sec-head"><h2>Tarjeta de fórmulas</h2><button type="button" class="master" data-sec="u07-formulas" data-unit="u07" aria-pressed="false">Marcar como dominado</button></div>
   <div class="formulas"><div class="tbl-scroll"><table><thead><tr><th>Fórmula</th><th>Significado</th><th>Válida si</th></tr></thead>
-  <tbody>
+    <tbody class="fam">
+    <tr class="fam-head"><th colspan="3" scope="colgroup">Fuerza sobre cargas y flujo</th></tr>
     <tr><td>$\vec F_B = q\,\vec v\times\vec B$; $\ F_B = |q|vB\sin\theta$</td><td>Fuerza magnética (N) sobre carga $q$ (C) con velocidad $\vec v$ (m/s) en campo $\vec B$ (T); $1\ \text{T} = 1\ \text{N/(A·m)} = 10^4\ \text{G}$</td><td>Siempre; $W_B = 0$ en todo caso</td></tr>
     <tr><td>$\vec F = q(\vec E + \vec v\times\vec B)$</td><td>Fuerza de Lorentz (N); $\vec E$ campo eléctrico (V/m)</td><td>Siempre (partícula puntual)</td></tr>
     <tr><td>$\Phi_B = \displaystyle\int_S \vec B\cdot d\vec A$; $\ \displaystyle\oint_S \vec B\cdot d\vec A = 0$</td><td>Flujo magnético (Wb = $\text{T·m}^2$) y ley de Gauss magnética ($\nabla\cdot\vec B = 0$)</td><td>Flujo neto nulo en toda superficie cerrada</td></tr>
+  </tbody>
+  <tbody class="fam">
+    <tr class="fam-head"><th colspan="3" scope="colgroup">Trayectorias y espectrometría</th></tr>
     <tr><td>$R = \dfrac{mv_\perp}{|q|B}$, $\ \omega_c = \dfrac{|q|B}{m}$, $\ T = \dfrac{2\pi m}{|q|B}$</td><td>Radio de giro (m), frecuencia ciclotrón (rad/s) y periodo (s)</td><td>$\vec B$ uniforme, sin otras fuerzas en el plano perpendicular</td></tr>
     <tr><td>$p = v_\parallel T = \dfrac{2\pi m v_\parallel}{|q|B}$</td><td>Paso (avance por vuelta) de una trayectoria helicoidal (m)</td><td>$\vec B$ uniforme con componente paralela $v_\parallel$ constante</td></tr>
     <tr><td>$v = \dfrac{E}{B}$; $\ m = \dfrac{|q|B_0^2 R^2}{2\Delta V} = \dfrac{|q|BB_0 R}{E}$</td><td>Selector de velocidades y espectrómetro de masas (diámetro $d = 2R$)</td><td>$\vec E \perp \vec B \perp \vec v$ opuestos en el selector; $\vec B_0$ uniforme en la cámara</td></tr>
+  </tbody>
+  <tbody class="fam">
+    <tr class="fam-head"><th colspan="3" scope="colgroup">Fuerza sobre corrientes</th></tr>
     <tr><td>$d\vec F_B = I\,d\vec\ell\times\vec B$; $\ \vec F_B = I\displaystyle\int_a^b d\vec\ell\times\vec B$</td><td>Fuerza (N) sobre corriente $I$ (A); en tramo recto y $\vec B$ uniforme: $\vec F_B = I\vec L\times\vec B$</td><td>Forma integral siempre; en $\vec B$ uniforme, abierta usa $\vec L'$ ($a\to b$) y cerrada da $\vec 0$</td></tr>
+    <tr><td>$F_{\text{neta}} = \dfrac{\mu_0 I_1 I_2 ab}{2\pi\,h(h+b)}$</td><td>Fuerza neta entre alambre infinito ($I_1$) y espira coplanar $a\times b$ ($I_2$)</td><td>Lado $a$ paralelo al alambre, lado cercano a distancia $h$</td></tr>
+  </tbody>
+  <tbody class="fam">
+    <tr class="fam-head"><th colspan="3" scope="colgroup">Dipolo magnético</th></tr>
     <tr><td>$\vec\mu = NIA\,\hat n$</td><td>Momento dipolar magnético ($\text{A·m}^2$); $N$ vueltas, área $A$ ($\text{m}^2$), $\hat n$ por mano derecha</td><td>Espira plana (en Cádiz se llama $\vec m$)</td></tr>
     <tr><td>$\vec\tau = \vec\mu\times\vec B$, $\ U = -\vec\mu\cdot\vec B = -\mu B\cos\varphi$</td><td>Torque ($\text{N·m}$) y energía potencial (J); $\varphi$ entre $\vec\mu$ y $\vec B$</td><td>$\vec B$ uniforme; estable $\varphi = 0^\circ$ ($-\mu B$), inestable $\varphi = 180^\circ$ ($+\mu B$)</td></tr>
-    <tr><td>$F_{\text{neta}} = \dfrac{\mu_0 I_1 I_2 ab}{2\pi\,h(h+b)}$</td><td>Fuerza neta entre alambre infinito ($I_1$) y espira coplanar $a\times b$ ($I_2$)</td><td>Lado $a$ paralelo al alambre, lado cercano a distancia $h$</td></tr>
   </tbody></table></div></div>
 </section>
 </section>
@@ -5718,17 +5904,27 @@ window.MathJax = {
 <section class="sec" id="u08-formulas" data-block="formulas" data-title="Tarjeta de fórmulas">
   <div class="sec-head"><h2>Tarjeta de fórmulas</h2><button type="button" class="master" data-sec="u08-formulas" data-unit="u08" aria-pressed="false">Marcar como dominado</button></div>
   <div class="formulas"><div class="tbl-scroll"><table><thead><tr><th>Fórmula</th><th>Significado</th><th>Válida si</th></tr></thead>
-  <tbody>
+    <tbody class="fam">
+    <tr class="fam-head"><th colspan="3" scope="colgroup">Biot-Savart y alambres rectos</th></tr>
     <tr><td>$\vec B = \dfrac{\mu_0}{4\pi}\dfrac{q\,\vec v\times\hat r}{r^2}$</td><td>Campo de carga puntual $q$ (C) con velocidad $\vec v$ (m/s); $\mu_0 = 4\pi\times10^{-7}\ \text{T·m/A}$</td><td>$\vec v$ constante, $v\ll c$; $\hat r$ va de $q$ a $P$</td></tr>
     <tr><td>$d\vec B = \dfrac{\mu_0 I}{4\pi}\dfrac{d\vec\ell\times(\vec r-\vec r\,')}{|\vec r-\vec r\,'|^3}$</td><td>Ley de Biot-Savart; $I$ (A), $d\vec\ell$ (m) en el sentido de $I$</td><td>Corrientes estacionarias; segmentos colineales con $P$ dan $0$</td></tr>
     <tr><td>$B = \dfrac{\mu_0 I}{4\pi R}(\sin\theta_2 - \sin\theta_1)$</td><td>Alambre recto finito a distancia perpendicular $R$ (m)</td><td>$\theta_1, \theta_2$ medidos desde la perpendicular a $P$</td></tr>
     <tr><td>$\vec B = \dfrac{\mu_0 I}{2\pi r}\,\hat\theta$</td><td>Alambre recto infinito (o fuera de un cilindro de radio $R$, $r\gt R$)</td><td>Cable recto muy largo; sentido por mano derecha</td></tr>
     <tr><td>$\dfrac{F}{L} = \dfrac{\mu_0 I_1 I_2}{2\pi d}$</td><td>Fuerza por metro (N/m) entre alambres paralelos a distancia $d$ (m)</td><td>Alambres largos paralelos; mismo sentido atrae, opuesto repele</td></tr>
+  </tbody>
+  <tbody class="fam">
+    <tr class="fam-head"><th colspan="3" scope="colgroup">Espiras, arcos y dipolo</th></tr>
     <tr><td>$\vec B_{\text{eje}} = \dfrac{\mu_0 I R^2}{2(R^2+z^2)^{3/2}}\,\hat z$</td><td>Campo en el eje $z$ de espira de radio $R$ (m); en el centro ($z=0$): $\dfrac{\mu_0 I}{2R}$</td><td>Espira circular plana; $\times N$ para $N$ vueltas</td></tr>
     <tr><td>$B_{\text{arco}} = \dfrac{\mu_0 I\phi}{4\pi R}$</td><td>Campo en el centro de curvatura de un arco de ángulo $\phi$ (rad)</td><td>Solo en el centro de curvatura; semicírculo ($\phi=\pi$): $\dfrac{\mu_0 I}{4R}$</td></tr>
     <tr><td>$\vec\mu = NIA\,\hat n$; $\ B_{\text{lej}} \approx \dfrac{\mu_0}{2\pi}\dfrac{\mu}{|z|^3}$</td><td>Momento dipolar magnético ($\text{A·m}^2$) y campo axial lejano</td><td>Espira plana de área $A$ ($\text{m}^2$); $|z|\gg R$ para el campo dipolar</td></tr>
+  </tbody>
+  <tbody class="fam">
+    <tr class="fam-head"><th colspan="3" scope="colgroup">Leyes de Gauss y Ampère</th></tr>
     <tr><td>$\displaystyle\oint\vec B\cdot d\vec A = 0$; $\ \nabla\cdot\vec B = 0$</td><td>Ley de Gauss del magnetismo (sin monopolos)</td><td>Siempre</td></tr>
     <tr><td>$\displaystyle\oint_C\vec B\cdot d\vec\ell = \mu_0 I_{\text{enc}}$; $\ \nabla\times\vec B = \mu_0\vec J$</td><td>Ley de Ampère; $I_{\text{enc}} = \displaystyle\int_S\vec J\cdot d\vec A$ (con $dA = r\,dr\,d\theta$ en polares)</td><td>Corrientes estacionarias; permite despejar $\vec B$ solo con alta simetría</td></tr>
+  </tbody>
+  <tbody class="fam">
+    <tr class="fam-head"><th colspan="3" scope="colgroup">Campos por ley de Ampère</th></tr>
     <tr><td>$B(r\lt R) = \dfrac{\mu_0 I r}{2\pi R^2}$</td><td>Interior de alambre cilíndrico de radio $R$ con $\vec J$ uniforme</td><td>Cilindro infinito; con $\vec J(r)$ variable, integra $I_{\text{enc}}(r)$</td></tr>
     <tr><td>$B_{\text{sol}} = \mu_0 nI = \dfrac{\mu_0 NI}{\ell}$</td><td>Interior de solenoide con $n = N/\ell$ vueltas/m ($\text{m}^{-1}$)</td><td>Solenoide ideal (largo $\gg$ radio); $B\approx 0$ afuera</td></tr>
     <tr><td>$B_{\text{tor}} = \dfrac{\mu_0 NI}{2\pi r}$</td><td>Interior del núcleo de un toroide ($b \lt r \lt c$)</td><td>Toroide ideal de $N$ vueltas juntas; $B = 0$ para $r\lt b$ y $r\gt c$</td></tr>
@@ -6330,20 +6526,33 @@ window.MathJax = {
 <section class="sec" id="u09-formulas" data-block="formulas" data-title="Tarjeta de fórmulas">
   <div class="sec-head"><h2>Tarjeta de fórmulas</h2><button type="button" class="master" data-sec="u09-formulas" data-unit="u09" aria-pressed="false">Marcar como dominado</button></div>
   <div class="formulas"><div class="tbl-scroll"><table><thead><tr><th>Fórmula</th><th>Significado</th><th>Válida si</th></tr></thead>
-  <tbody>
+    <tbody class="fam">
+    <tr class="fam-head"><th colspan="3" scope="colgroup">Flujo magnético</th></tr>
     <tr><td>$\Phi_B = \displaystyle\int\vec B\cdot d\vec A$; $\ \Phi_B = BA\cos\varphi$</td><td>Flujo magnético (Wb); $\varphi$ entre $\vec B$ y $\hat n$</td><td>La forma corta, solo con $\vec B$ uniforme y superficie plana</td></tr>
     <tr><td>$\Phi_B = \dfrac{\mu_0 I\ell}{2\pi}\ln\!\left(\dfrac{r+w}{r}\right)$</td><td>Flujo de un alambre infinito por una espira rectangular coplanar</td><td>Lado $\ell$ paralelo al alambre, ancho $w$, lado cercano a distancia $r$</td></tr>
+  </tbody>
+  <tbody class="fam">
+    <tr class="fam-head"><th colspan="3" scope="colgroup">Faraday y Lenz</th></tr>
     <tr><td>$\varepsilon = -N\dfrac{d\Phi_B}{dt}$</td><td>Ley de Faraday; $\varepsilon$ en V, $N$ vueltas</td><td>Siempre; signo según la mano derecha alrededor de $\hat n$</td></tr>
     <tr><td>Ley de Lenz</td><td>La corriente inducida se opone al <em>cambio</em> del flujo</td><td>Siempre; la fuerza sobre la corriente inducida frena el movimiento</td></tr>
+    <tr><td>$\varepsilon = NBA\omega\sin\omega t$, $\ \varepsilon_{\text{máx}} = NBA\omega$</td><td>Generador; $\omega = 2\pi f$ (rad/s)</td><td>Rotación uniforme, eje perpendicular a $\vec B$ uniforme</td></tr>
+    <tr><td>$Q = \dfrac{N|\Delta\Phi_B|}{R}$</td><td>Carga total que circula (C)</td><td>El flujo cambia en un solo sentido</td></tr>
+  </tbody>
+  <tbody class="fam">
+    <tr class="fam-head"><th colspan="3" scope="colgroup">Fem de movimiento y frenado</th></tr>
     <tr><td>$\varepsilon = \displaystyle\oint(\vec v\times\vec B)\cdot d\vec\ell$; $\ |\varepsilon| = B\ell v$</td><td>Fem de movimiento; $\ell$ largo del tramo que se mueve (m)</td><td>La forma corta, para un tramo recto con $\vec v$, $\vec B$, $\vec\ell$ perpendiculares y $B$ uniforme</td></tr>
     <tr><td>$I = \dfrac{|\varepsilon|}{R}$, $\ \vec F = I\vec\ell\times\vec B$</td><td>Corriente inducida (A) y fuerza sobre un tramo recto (N)</td><td>Autoinducción despreciable; $\vec B$ uniforme sobre el tramo</td></tr>
     <tr><td>$F_B = \dfrac{B^2\ell^2v}{R}$, $\ P = \dfrac{\varepsilon^2}{R}$</td><td>Fuerza de frenado y potencia disipada (W)</td><td>Barra sobre rieles en campo uniforme</td></tr>
     <tr><td>$v = v_0e^{-t/\tau}$, $\ \tau = \dfrac{mR}{B^2\ell^2}$, $\ x_{\text{total}} = v_0\tau$</td><td>Barra lanzada, frenada solo por inducción</td><td>Sin roce ni otras fuerzas</td></tr>
     <tr><td>$v_{\text{term}} = \dfrac{FR}{B^2\ell^2}$</td><td>Velocidad terminal con fuerza constante $F$ (p. ej. $mg$)</td><td>Fuerza magnética $\propto v$; con $\vec B(z)$, usar la fuerza neta real (p. ej. $\alpha^2a^4v/R$)</td></tr>
+  </tbody>
+  <tbody class="fam">
+    <tr class="fam-head"><th colspan="3" scope="colgroup">Campo eléctrico inducido</th></tr>
     <tr><td>$\displaystyle\oint\vec E\cdot d\vec\ell = -\frac{d\Phi_B}{dt}$; $\ \nabla\times\vec E = -\dfrac{\partial\vec B}{\partial t}$</td><td>Campo eléctrico inducido (V/m), no conservativo</td><td>Curva fija</td></tr>
     <tr><td>$E = \dfrac r2\left|\dfrac{dB}{dt}\right|$ ($r\lt b$); $\ E = \dfrac{b^2}{2r}\left|\dfrac{dB}{dt}\right|$ ($r\gt b$)</td><td>$\vec E$ tangente en un solenoide de radio $b$</td><td>Solenoide largo, simetría cilíndrica</td></tr>
-    <tr><td>$\varepsilon = NBA\omega\sin\omega t$, $\ \varepsilon_{\text{máx}} = NBA\omega$</td><td>Generador; $\omega = 2\pi f$ (rad/s)</td><td>Rotación uniforme, eje perpendicular a $\vec B$ uniforme</td></tr>
-    <tr><td>$Q = \dfrac{N|\Delta\Phi_B|}{R}$</td><td>Carga total que circula (C)</td><td>El flujo cambia en un solo sentido</td></tr>
+  </tbody>
+  <tbody class="fam">
+    <tr class="fam-head"><th colspan="3" scope="colgroup">Corriente de desplazamiento</th></tr>
     <tr><td>$I_D = \varepsilon_0\dfrac{d\Phi_E}{dt}$; $\ \displaystyle\oint\vec B\cdot d\vec\ell = \mu_0(I_{\text{enc}} + I_D)$</td><td>Corriente de desplazamiento y ley de Ampère-Maxwell</td><td>Siempre; importa donde $\vec E$ cambia sin corriente de conducción</td></tr>
     <tr><td>$B = \dfrac{\mu_0 ir}{2\pi R^2}$ ($r\lt R$)</td><td>Campo entre placas circulares de un condensador que se carga</td><td>Placas de radio $R$, campo eléctrico uniforme entre ellas</td></tr>
   </tbody></table></div></div>
@@ -6918,20 +7127,33 @@ window.MathJax = {
 <section class="sec" id="u10-formulas" data-block="formulas" data-title="Tarjeta de fórmulas">
   <div class="sec-head"><h2>Tarjeta de fórmulas</h2><button type="button" class="master" data-sec="u10-formulas" data-unit="u10" aria-pressed="false">Marcar como dominado</button></div>
   <div class="formulas"><div class="tbl-scroll"><table><thead><tr><th>Fórmula</th><th>Significado y unidades SI</th><th>Válida si</th></tr></thead>
-  <tbody>
+    <tbody class="fam">
+    <tr class="fam-head"><th colspan="3" scope="colgroup">Inductancia mutua</th></tr>
     <tr><td>$M = \dfrac{N_2\Phi_{21}}{i_1} = \dfrac{N_1\Phi_{12}}{i_2}$</td><td>$M$: inductancia mutua (H); $N_1, N_2$: vueltas (adim.); $\Phi_{21}, \Phi_{12}$: flujo por vuelta (Wb); $i_1, i_2$: corrientes (A)</td><td>Geometría fija y medio lineal; $M_{21} = M_{12} = M$</td></tr>
     <tr><td>$\varepsilon_2 = -M\dfrac{di_1}{dt}$, $\ \varepsilon_1 = -M\dfrac{di_2}{dt}$</td><td>$\varepsilon_1, \varepsilon_2$: fem mutuamente inducidas (V); $t$: tiempo (s)</td><td>Geometría fija, corrientes variables</td></tr>
     <tr><td>$M_{\text{sol}} = \dfrac{\mu_0 N_1 N_2 (\pi r_1^2)}{\ell}$</td><td>$\mu_0 = 4\pi\times10^{-7}\ \text{H/m}$; $r_1$: radio interior (m); $\ell$: largo (m)</td><td>Solenoides largos ($\ell \gg r_2 \gt r_1$) de igual longitud $\ell$</td></tr>
     <tr><td>$M_{\text{al-esp}} = \dfrac{\mu_0 a}{2\pi}\ln\!\left(\dfrac{h+b}{h}\right)$</td><td>$a$: lado paralelo al alambre (m); $b$: alto de espira (m); $h$: distancia al borde cercano (m)</td><td>Alambre infinito y espira rectangular coplanares</td></tr>
+  </tbody>
+  <tbody class="fam">
+    <tr class="fam-head"><th colspan="3" scope="colgroup">Autoinductancia y energía magnética</th></tr>
     <tr><td>$L = \dfrac{N\Phi_B}{i}$, $\ \varepsilon_L = -L\dfrac{di}{dt}$</td><td>$L$: autoinductancia (H); $N$: vueltas; $\Phi_B$: flujo propio (Wb); $\varepsilon_L$: fem autoinducida (V); $i$: corriente (A)</td><td>Geometría fija; $i_L(0^+) = i_L(0^-)$ (sin saltos)</td></tr>
     <tr><td>$V_{ab} = V_a - V_b = L\dfrac{di}{dt}$</td><td>$V_{ab}$: caída de potencial en el sentido de $i$ (V)</td><td>Inductor ideal ($R_{\text{bobina}} = 0$), corriente $i$ de $a$ a $b$</td></tr>
     <tr><td>$L_{\text{sol}} = \dfrac{\mu_0 N^2 A}{\ell} = \mu_0 n^2 (A\ell)$</td><td>$A$: sección transversal ($\text{m}^2$); $\ell$: largo (m); $n = N/\ell$: densidad de vueltas ($\text{m}^{-1}$)</td><td>Solenoide ideal largo de sección $A$ y largo $\ell$</td></tr>
     <tr><td>$L_{\text{tor}} = \dfrac{\mu_0 N^2 A}{2\pi r}$; $\ \dfrac{L_{\text{coax}}}{\ell} = \dfrac{\mu_0}{2\pi}\ln\!\left(\dfrac{b}{a}\right)$</td><td>Toroide: $A$ sección ($\text{m}^2$), $r$ radio medio (m); coaxial: radios $a \lt b$ (m), largo $\ell$ (m)</td><td>Toroide: sección $A \ll r^2$; coaxial: cilindros delgados $a \lt b$</td></tr>
     <tr><td>$U_B = \dfrac{1}{2}LI^2$, $\ u_B = \dfrac{B^2}{2\mu_0}$</td><td>$U_B$: energía magnética (J); $I$: corriente (A); $u_B$: densidad ($\text{J/m}^3$); $B$: campo (T); $\mathcal{V}$: volumen ($\text{m}^3$)</td><td>$U_B$ en cualquier inductor; $u_B$ en el vacío ($U_B = \int_{\mathcal{V}} u_B\,d\mathcal{V}$)</td></tr>
+  </tbody>
+  <tbody class="fam">
+    <tr class="fam-head"><th colspan="3" scope="colgroup">Circuitos RL</th></tr>
     <tr><td>$\varepsilon - iR - L\dfrac{di}{dt} = 0$, $\ \tau = \dfrac{L}{R}$</td><td>$\varepsilon$: fem (V); $i$: corriente (A); $R$: resistencia ($\Omega$); $\tau$: constante de tiempo (s)</td><td>$R$ es la resistencia equivalente vista desde $L$</td></tr>
     <tr><td>$i(t) = \dfrac{\varepsilon}{R}(1 - e^{-t/\tau})$; $\ i(t) = I_0 e^{-t/\tau}$</td><td>$i(t)$: corriente (A); $I_0$: corriente inicial al conmutar (A); $\tau = L/R$ (s)</td><td>Fuente $\varepsilon$ constante; $L$ abierto en $0^+$ (si $i_L=0$), corto en $\infty$</td></tr>
+  </tbody>
+  <tbody class="fam">
+    <tr class="fam-head"><th colspan="3" scope="colgroup">Circuitos LC</th></tr>
     <tr><td>$\dfrac{d^2 q}{dt^2} + \dfrac{1}{LC}q = 0$, $\ \omega_0 = \dfrac{1}{\sqrt{LC}}$</td><td>$q$: carga (C); $C$: capacitancia (F); $\omega_0$: frecuencia angular natural (rad/s); $Q_{\text{máx}}$ (C), $\phi$ (rad), $I_{\text{máx}}$ (A)</td><td>$R = 0$; $q(t) = Q_{\text{máx}}\cos(\omega_0 t + \phi)$, $I_{\text{máx}} = \omega_0 Q_{\text{máx}}$</td></tr>
     <tr><td>$\dfrac{q^2}{2C} + \dfrac{1}{2}Li^2 = \dfrac{Q_{\text{máx}}^2}{2C} = \dfrac{1}{2}LI_{\text{máx}}^2$</td><td>Conservación de energía en circuito $LC$ ideal (J)</td><td>Sin resistencia ($R = 0$); sin régimen permanente en $t \to \infty$</td></tr>
+  </tbody>
+  <tbody class="fam">
+    <tr class="fam-head"><th colspan="3" scope="colgroup">Circuitos RLC amortiguados</th></tr>
     <tr><td>$\ddot q + \dfrac{R}{L}\dot q + \dfrac{1}{LC}q = 0$ ($\gamma = \dfrac{R}{2L}$)</td><td>$\gamma$: tasa de amortiguamiento ($\text{s}^{-1}$); $R_{\text{crít}} = 2\sqrt{L/C}$: resistencia crítica ($\Omega$)</td><td>Sin fuente; comparar $\gamma$ con $\omega_0$ ($R$ con $R_{\text{crít}}$)</td></tr>
     <tr><td>$q(t) = A e^{-(R/2L)t}\cos(\omega_d t + \phi)$, $\ \omega_d = \sqrt{\dfrac{1}{LC} - \left(\dfrac{R}{2L}\right)^2}$</td><td>$A$: amplitud inicial (C); $\phi$: fase (rad); $\omega_d$: frecuencia amortiguada (rad/s)</td><td>Solo si $R \lt 2\sqrt{L/C}$ ($\gamma \lt \omega_0$); $R = R_{\text{crít}}$ crítico; $R \gt R_{\text{crít}}$ sobreamortiguado</td></tr>
   </tbody></table></div></div>
@@ -7437,18 +7659,28 @@ window.MathJax = {
 <section class="sec" id="u11-formulas" data-block="formulas" data-title="Tarjeta de fórmulas">
   <div class="sec-head"><h2>Tarjeta de fórmulas</h2><button type="button" class="master" data-sec="u11-formulas" data-unit="u11" aria-pressed="false">Marcar como dominado</button></div>
   <div class="formulas"><div class="tbl-scroll"><table><thead><tr><th>Fórmula</th><th>Significado</th><th>Válida si</th></tr></thead>
-  <tbody>
+    <tbody class="fam">
+    <tr class="fam-head"><th colspan="3" scope="colgroup">Fasores, rms e impedancias</th></tr>
     <tr><td>$v(t) = \operatorname{Re}\{\hat V e^{j\omega t}\}$, $\ i(t) = \operatorname{Re}\{\hat I e^{j\omega t}\}$</td><td>Fasores complejos $\hat V, \hat I$; $\omega = 2\pi f$ (rad/s)</td><td>Régimen estacionario sinusoidal a una sola frecuencia</td></tr>
     <tr><td>$V_{\text{rms}} = \dfrac{V_0}{\sqrt{2}}$, $\ I_{\text{rms}} = \dfrac{I_0}{\sqrt{2}}$</td><td>Valor eficaz (rms) en función de la amplitud pico $V_0, I_0$</td><td>Señales puramente sinusoidales</td></tr>
     <tr><td>$Z_R = R$, $\ Z_L = j\omega L$, $\ Z_C = \dfrac{1}{j\omega C} = -\dfrac{j}{\omega C}$</td><td>Impedancias ($\Omega$); reactancias $X_L = \omega L$, $X_C = \frac{1}{\omega C}$</td><td>Elementos ideales en régimen sinusoidal ($j^2 = -1$)</td></tr>
     <tr><td>$Z_{\text{eq}} = \sum Z_k$ (serie); $\ \dfrac{1}{Z_{\text{eq}}} = \sum \dfrac{1}{Z_k}$ (paralelo)</td><td>Asociación de impedancias complejas; $\hat V = Z_{\text{eq}}\hat I$</td><td>Sumar números complejos, nunca módulos</td></tr>
     <tr><td>$\hat V_k = \dfrac{Z_k}{Z_{\text{eq}}}\hat V$ (serie); $\ \hat I_1 = \dfrac{Z_2}{Z_1+Z_2}\hat I_{\text{tot}}$ (paralelo)</td><td>Divisores de voltaje y de corriente en forma fasorial</td><td>$\sum\hat I_k = 0$ en nodos, $\sum\hat V_k = 0$ en mallas</td></tr>
+  </tbody>
+  <tbody class="fam">
+    <tr class="fam-head"><th colspan="3" scope="colgroup">RLC serie, resonancia y potencia</th></tr>
     <tr><td>$Z = R + j\left(\omega L - \dfrac{1}{\omega C}\right)$, $\ \tan\varphi = \dfrac{\omega L - \frac{1}{\omega C}}{R}$</td><td>RLC serie; $|Z| = \sqrt{R^2 + (X_L - X_C)^2}$, $I_0 = V_0/|Z|$</td><td>$R, L, C$ en serie; $i(t) = I_0\cos(\omega t - \varphi)$ si $v(t) = V_0\cos\omega t$</td></tr>
     <tr><td>$\operatorname{Im}\{Z_{\text{eq}}(\omega_0)\} = 0$; $\ \omega_0 = \dfrac{1}{\sqrt{LC}}$ (RLC serie)</td><td>Resonancia ($\varphi = 0$, $I_0$ máxima en serie); antirresonancia si $|Z_p|\to\infty$</td><td>La forma $1/\sqrt{LC}$ solo en RLC serie simple; calcular $Z_{\text{eq}}$ en redes mixtas</td></tr>
     <tr><td>$\langle P\rangle = \dfrac{1}{2}V_0 I_0\cos\varphi = V_{\text{rms}} I_{\text{rms}}\cos\varphi$</td><td>Potencia media (W); $\cos\varphi = \frac{\operatorname{Re} Z}{|Z|}$ factor de potencia</td><td>Carga pasiva lineal; $\langle P\rangle = 0$ en $L$ y $C$ ideales</td></tr>
+  </tbody>
+  <tbody class="fam">
+    <tr class="fam-head"><th colspan="3" scope="colgroup">Ondas electromagnéticas</th></tr>
     <tr><td>$\nabla^2\vec E = \mu_0\varepsilon_0\dfrac{\partial^2\vec E}{\partial t^2}$, $\ c = \dfrac{1}{\sqrt{\mu_0\varepsilon_0}} \approx 3{,}00\times 10^8\ \text{m/s}$</td><td>Ecuación de onda EM y rapidez de la luz; $\omega = ck = 2\pi c/\lambda$</td><td>Vacío sin cargas ni corrientes ($\rho = 0, \vec J = \vec 0$)</td></tr>
     <tr><td>$v = \dfrac{1}{\sqrt{\varepsilon\mu}} = \dfrac{c}{n}$, $\ n = \sqrt{\dfrac{\varepsilon\mu}{\varepsilon_0\mu_0}}$, $\ B_0 = \dfrac{E_0}{v}$</td><td>Rapidez ($v$ en m/s) e índice de refracción $n$ en un medio lineal</td><td>Medio dieléctrico homogéneo ($\rho_f = 0, \vec J_f = \vec 0$)</td></tr>
     <tr><td>$\vec k\times\vec E = \omega\vec B \iff \vec B = \dfrac{1}{c}(\hat k\times\vec E)$, $\ B_0 = \dfrac{E_0}{c}$</td><td>Relación entre campos ($\hat k\cdot\vec E = \hat k\cdot\vec B = 0$)</td><td>Onda plana monocromática en el vacío; en un medio, $c\to v=c/n$</td></tr>
+  </tbody>
+  <tbody class="fam">
+    <tr class="fam-head"><th colspan="3" scope="colgroup">Energía, Poynting e intensidad</th></tr>
     <tr><td>$u = \dfrac{1}{2}\left(\varepsilon_0 E^2 + \dfrac{B^2}{\mu_0}\right) = \varepsilon_0 E^2$, $\ \vec S = \dfrac{1}{\mu_0}(\vec E\times\vec B)$</td><td>Densidad de energía ($\text{J/m}^3$) y vector de Poynting ($\text{W/m}^2$)</td><td>$u = \varepsilon_0 E^2$ vale para onda plana única en el vacío</td></tr>
     <tr><td>$I = |\langle\vec S\rangle| = \dfrac{1}{2}c\varepsilon_0 E_0^2 = \dfrac{E_0^2}{2\mu_0 c} = c\langle u\rangle$, $\ P = \langle\vec S\rangle\cdot\hat n_A A$</td><td>Intensidad ($\text{W/m}^2$) y potencia captada (W) en área $A$</td><td>Onda plana sinusoidal en el vacío; $P = IA$ en incidencia normal</td></tr>
   </tbody></table></div></div>

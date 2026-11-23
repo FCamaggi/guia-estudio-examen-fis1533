@@ -463,15 +463,22 @@
 <section class="sec" id="u03-formulas" data-block="formulas" data-title="Tarjeta de fórmulas">
   <h2>Tarjeta de fórmulas</h2>
   <div class="formulas"><table><thead><tr><th>Fórmula</th><th>Significado</th><th>Válida si</th></tr></thead>
-  <tbody>
+    <tbody class="fam">
+    <tr class="fam-head"><th colspan="3" scope="colgroup">Trabajo, energía y potencial</th></tr>
     <tr><td>$W_{a\to b} = q_0\displaystyle\int_a^b\vec E\cdot d\vec\ell$; $\ \Delta U = -W_{a\to b}$</td><td>Trabajo del campo y cambio de energía potencial (J); $q_0$ carga (C), $\vec E$ campo (V/m)</td><td>Campo electrostático (conservativo)</td></tr>
     <tr><td>$U = k\displaystyle\sum_{i\lt j}\frac{q_i q_j}{r_{ij}} = \frac12\sum_i q_i V_i$</td><td>Energía potencial de un sistema de cargas (J); $r_{ij}$ distancia (m), $k = \frac{1}{4\pi\varepsilon_0}$</td><td>$U(\infty) = 0$; $V_i$ excluye la propia carga $q_i$</td></tr>
     <tr><td>$\Delta V = V_b - V_a = -\displaystyle\int_a^b \vec E\cdot d\vec\ell$; $\ V_{ab} = V_a - V_b$</td><td>Diferencia de potencial (V = J/C); $d\vec\ell$ elemento de línea (m)</td><td>Campo electrostático ($\nabla\times\vec E = \vec 0$)</td></tr>
     <tr><td>$\Delta K = -q\,\Delta V$; $\ 1\ \text{eV} = 1{,}60\times10^{-19}\ \text{J}$</td><td>Conservación de energía ($K = \frac12 mv^2$ en J); $q$ carga (C)</td><td>Solo fuerzas electrostáticas (o más $\vec B$, que no trabaja)</td></tr>
+  </tbody>
+  <tbody class="fam">
+    <tr class="fam-head"><th colspan="3" scope="colgroup">Potencial de distribuciones</th></tr>
     <tr><td>$V(P) = k\displaystyle\sum_i \frac{q_i}{r_i}$; $\ V = k\int\frac{dq}{|\vec r - \vec r'|}$</td><td>Superposición escalar de potencial (V); $dq = \lambda d\ell, \sigma dA, \rho dV$</td><td>Distribución finita con $V(\infty) = 0$</td></tr>
     <tr><td>$V_{\text{anillo}} = \dfrac{kQ}{\sqrt{x^2+a^2}}$; $\ V_{\text{disco}} = \dfrac{\sigma}{2\varepsilon_0}\left(\sqrt{x^2+R^2}-|x|\right)$</td><td>Potencial en el eje a distancia $x$ (m); $a, R$ radios (m)</td><td>Densidad uniforme; $V(\infty) = 0$</td></tr>
     <tr><td>$V_{\text{línea}} = \dfrac{\lambda}{2\pi\varepsilon_0}\ln\!\left(\dfrac{r_0}{r}\right)$; $\ \Delta V_{\text{plano}} = -\dfrac{\sigma\,\Delta|x|}{2\varepsilon_0}$</td><td>Potencial de línea infinita ($\lambda$ en C/m) y plano infinito ($\sigma$ en C/m²)</td><td>Referencia finita $V(r_0) = 0$ (no sirve $\infty$)</td></tr>
     <tr><td>$V_{\text{esf. maciza}}(r) = \dfrac{kQ}{2R}\left(3 - \dfrac{r^2}{R^2}\right)$ ($r\le R$)</td><td>Potencial dentro de esfera aislante uniforme ($R$ en m, $Q$ en C)</td><td>Afuera ($r\ge R$) vale $kQ/r$; $V(\infty)=0$</td></tr>
+  </tbody>
+  <tbody class="fam">
+    <tr class="fam-head"><th colspan="3" scope="colgroup">Ecuaciones locales y conductores</th></tr>
     <tr><td>$\vec E = -\nabla V = -\left(\partial_x V\hat x + \partial_y V\hat y + \partial_z V\hat z\right)$</td><td>Campo desde el potencial (V/m); radial $E_r = -\partial V/\partial r$</td><td>Campo electrostático; $\vec E \perp$ equipotenciales</td></tr>
     <tr><td>$\nabla^2 V = -\dfrac{\rho}{\varepsilon_0}$ (Poisson); $\ \nabla^2 V = 0$ (Laplace)</td><td>Ecuación diferencial del potencial; $\rho$ densidad (C/m³)</td><td>Laplace donde $\rho = 0$</td></tr>
     <tr><td>$\dfrac{q_1'}{R_1} = \dfrac{q_2'}{R_2}$; $\ V_{\text{tierra}} = 0$; $\ U = \dfrac{kQ^2}{2R}$</td><td>Esferas conectadas ($d \gg R_1, R_2$), tierra y autoenergía esférica</td><td>Conductores en equilibrio electrostático</td></tr>

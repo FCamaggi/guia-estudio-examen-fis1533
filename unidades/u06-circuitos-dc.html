@@ -497,19 +497,29 @@
 <section class="sec" id="u06-formulas" data-block="formulas" data-title="Tarjeta de fórmulas">
   <h2>Tarjeta de fórmulas</h2>
   <div class="formulas"><table><thead><tr><th>Fórmula</th><th>Significado</th><th>Válida si</th></tr></thead>
-  <tbody>
+    <tbody class="fam">
+    <tr class="fam-head"><th colspan="3" scope="colgroup">Ohm, fuentes y equivalentes</th></tr>
     <tr><td>$V = IR$, $\ P = I\,\Delta V_R = I^2 R = \dfrac{(\Delta V_R)^2}{R}$</td><td>Ley de Ohm y potencia Joule; $V$ (V), $I$ (A), $R$ ($\Omega$), $P$ (W)</td><td>Resistor óhmico; corriente estacionaria o instantánea</td></tr>
     <tr><td>$V_{\text{term}} = \varepsilon \mp Ir$, $\ I V_{\text{term}} = \varepsilon I - I^2 r$</td><td>Voltaje y balance de fuente real; $\varepsilon$ fem (V), $r$ resistencia interna ($\Omega$)</td><td>$-$ si entrega corriente desde $+$; $+$ si absorbe entrando por $+$</td></tr>
     <tr><td>$R_{\text{eq}} = \sum_i R_i$; $\ \dfrac{1}{R_{\text{eq}}} = \sum_i \dfrac{1}{R_i}$</td><td>Resistencias equivalentes en serie y en paralelo ($\Omega$)</td><td>Serie: misma $I$; paralelo: mismo $\Delta V$ entre nodos</td></tr>
+  </tbody>
+  <tbody class="fam">
+    <tr class="fam-head"><th colspan="3" scope="colgroup">Kirchhoff, puente y medición</th></tr>
     <tr><td>$\dfrac{R_1}{R_2} = \dfrac{R_3}{R_4}\ \Longleftrightarrow\ R_1 R_4 = R_2 R_3$</td><td>Condición de equilibrio del puente de Wheatstone</td><td>Corriente nula en la rama central ($I_5 = 0$, $V_b = V_c$)</td></tr>
     <tr><td>$\sum I_{\text{entran}} = \sum I_{\text{salen}}$, $\ \sum_{\text{malla}} \Delta V = 0$</td><td>Leyes de Kirchhoff (LCK nodos, LVK mallas)</td><td>Siempre en redes de parámetros concentrados (cuidado con signos de recorrido)</td></tr>
     <tr><td>$r_A \ll R_{\text{circ}}$ (serie), $\ r_V \gg R$ (paralelo)</td><td>Condiciones de amperímetro y voltímetro casi ideales</td><td>Medición directa sin perturbar el circuito</td></tr>
+  </tbody>
+  <tbody class="fam">
+    <tr class="fam-head"><th colspan="3" scope="colgroup">Capacitor y energía en RC</th></tr>
     <tr><td>$q = C\,\Delta V_C$, $\ C = \kappa C_0$, $\ U = \dfrac{q^2}{2C} = \dfrac{1}{2}C(\Delta V_C)^2$</td><td>Capacitor; $q$ (C), $C$ (F), $\kappa$ cte. dieléctrica, $U$ (J)</td><td>Siempre; si $\Delta V_C$ fijo y $C \to \kappa C$, entonces $U \to \kappa U$</td></tr>
+    <tr><td>$W_\varepsilon = C\varepsilon^2$, $\ U_C = W_R = \frac{1}{2}C\varepsilon^2$</td><td>Energía entregada ($W_\varepsilon$), almacenada ($U_C$) y disipada ($W_R$) al cargar desde $0$ (J)</td><td>Carga completa a fem constante $\varepsilon$ en serie con $R$</td></tr>
+  </tbody>
+  <tbody class="fam">
+    <tr class="fam-head"><th colspan="3" scope="colgroup">Transitorios RC</th></tr>
     <tr><td>$q(t) = C\varepsilon(1 - e^{-t/\tau})$, $\ i(t) = \dfrac{\varepsilon}{R}e^{-t/\tau}$</td><td>Carga de circuito $RC$ serie desde $q(0) = 0$; $\tau = RC$ (s)</td><td>Una sola malla $R$–$C$ con fem constante $\varepsilon$</td></tr>
     <tr><td>$q(t) = Q_0 e^{-t/\tau}$, $\ i_{\text{desc}}(t) = \dfrac{Q_0}{RC}e^{-t/\tau}$</td><td>Descarga de circuito $RC$ desde $q(0) = Q_0$ (C)</td><td>Sin fuentes conectadas; $\tau = R_{\text{eq}} C$ con $R_{\text{eq}}$ ($\Omega$)</td></tr>
     <tr><td>$q(t) = Q_\infty + (q_0 - Q_\infty)e^{-t/\tau}$, $\ \tau = R_{\text{Th}}C$</td><td>Transitorio $RC$ en cualquier red con 1 capacitor</td><td>$R_{\text{Th}}$ ($\Omega$) vista desde $C$ apagando fuentes independientes; $Q_\infty = C\,\Delta V_C(\infty)$</td></tr>
     <tr><td>$t = 0^+:\ \Delta V_C = 0$ (si $q_0=0$); $\ t \to \infty:\ i_C = 0$</td><td>Comportamiento límite del capacitor (corto $\to$ abierto)</td><td>Circuitos DC conmutados; $\Delta V_C$ es continua en $t = 0$</td></tr>
-    <tr><td>$W_\varepsilon = C\varepsilon^2$, $\ U_C = W_R = \frac{1}{2}C\varepsilon^2$</td><td>Energía entregada ($W_\varepsilon$), almacenada ($U_C$) y disipada ($W_R$) al cargar desde $0$ (J)</td><td>Carga completa a fem constante $\varepsilon$ en serie con $R$</td></tr>
   </tbody></table></div>
 </section>
 </section>
