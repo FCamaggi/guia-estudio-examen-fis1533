@@ -43,6 +43,14 @@
 /* TOC additions */
 .toc a.sub { padding-left: 34px; font-size: 13px; color: var(--muted); }
 .toc-unit:not(.open) > a.sub { display: none; }
+.toc-search { margin-top: 12px; }
+.toc-search input { width: 100%; box-sizing: border-box; padding: 7px 10px; font: 14px var(--font-body, inherit); color: var(--ink);
+  background: var(--surface); border: 1px solid var(--line); border-radius: 8px; }
+.toc-search input:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
+.toc-empty { margin: 8px 2px 0; font-size: 13px; color: var(--muted); }
+.toc.searching .toc-unit > a.sub { display: none; }
+.toc.searching .toc-unit > a.sub.match { display: flex; }
+.toc [hidden] { display: none !important; }
 .toc .up { margin-left: auto; font: 600 11px var(--font-mono); color: var(--muted); }
 .toc .pending { display: flex; gap: 8px; padding: 6px 10px; font-size: 14px; color: var(--muted); opacity: .6; }
 .toc .pending .n { font-family: var(--font-mono); font-size: 11px; min-width: 18px; }

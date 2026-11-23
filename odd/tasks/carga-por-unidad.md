@@ -24,12 +24,12 @@ Baseline measured before the change: 44 s to ready, ~640k DOM nodes, 18,640 form
 
 | ID | Specs | Route | Status | Evidence |
 |---|---|---|---|---|
-| T0 | (prior session) remove 8-day plan and dates | inline | done, uncommitted | build 15/15 |
-| T1 | S1 | inline | done, uncommitted | build 15/15; templates + #guide-data; MathJax `startup.typeset: false` |
-| T2 | S2a–S2e | inline | done, uncommitted | `scripts/nav_check.cjs` 13/13 PASS on index.html and dist |
-| T3 | S3 | inline | done, uncommitted | quiz, steps, simulacro (timer keeps running hidden), simulators, nota via `Guide.onMount` |
-| T4 | S4 | inline | pending | |
-| T5 | S5 | inline | pending | |
+| T0 | (prior session) remove 8-day plan and dates | inline | done, 86c03d9 | build 15/15 |
+| T1 | S1 | inline | done, 8f45fda | build 15/15; templates + #guide-data; MathJax `startup.typeset: false` |
+| T2 | S2a–S2e | inline | done, 8f45fda | `scripts/nav_check.cjs` 13/13 PASS on index.html and dist |
+| T3 | S3 | inline | done, 8f45fda | quiz, steps, simulacro (timer keeps running hidden), simulators, nota via `Guide.onMount` |
+| T4 | S4 | inline | done (commit after 8f45fda) | search RED on 8f45fda dist (no #toc-q), GREEN: nav_check 18/18 on index.html and dist |
+| T5 | S5 | inline | on hold (user disagreement, L4) | |
 | T6 | S6 | inline + agy audit | pending | |
 
 T1–T3 are one coupled change (build output, router and module init contract); they land together.
@@ -39,3 +39,5 @@ T1–T3 are one coupled change (build output, router and module init contract); 
 - L1 (2026-11-22, user-approved design, carried over verbatim in the 2026-11-23 handoff): "Pendiente: el diseño que elegiste, una unidad a la vez: 1. Build … 6. QA … En la próxima sesión arranco por los puntos 1 a 3, que son la base de todo lo demás."
 - L2 (2026-11-23): session resumed; starting T1–T3 inline (coupled, no writer reason).
 - L3 (2026-11-23): T1–T3 implemented. Measured after (headless Chromium, file://): ready in 2.2–3.7 s (was 44 s), 2.6k DOM nodes at start (was ~640k), 29 formulas typeset at start. Programmatic jumps use instant scroll because main.css sets `scroll-behavior: smooth`; a 4 s "pin" keeps a jump target in place while math above it typesets. `render_check.mjs` now forces a full typeset before capturing. Pre-existing (base commit too): `render_check.mjs` times out on the full-page capture of the u10 preview. Risk: item 6 (only the ad-hoc `nav_check.cjs` guards navigation); independent check is the agy audit planned in T6. Next: T4 TOC search + T5 UI.
+- L4 (2026-11-23, user, verbatim): "dale y push a main, ademas continua con el punto 4, pero el punto 5 no lo continues porque tengo un desacuerdo, yo correria la bateria completa de impeccable (y otros de diseño) no asumiria el tema como correcto, dale continua hasta antes del punto 5, haz commit y push". T0 and T1–T3 committed and pushed (86c03d9, 8f45fda). S5 is on hold: its listed UI items are not accepted as the plan; the user wants the full impeccable battery (and other design skills) to decide the design instead of assuming the current direction is right.
+- L5 (2026-11-23): T4 done. TOC search filters section titles of every unit (case- and accent-insensitive); a unit-title hit lists all its sections; Enter opens the first result, Escape clears; "Sin resultados" when nothing matches. Collapse and build-total progress were already in 8f45fda. Next: T5 stays on hold until the user runs the design review (L4); T6 QA depends on T5.

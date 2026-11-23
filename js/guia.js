@@ -129,6 +129,66 @@
     if (unit && unit.id) { io.observe(unit); activate(unit.id); }
   }
 
+  /* ---------- TOC section search ----------
+     Ctrl+F only reaches the mounted unit, so the TOC filters section titles of every unit.
+     Matching ignores case and accents. Enter opens the first result, Escape clears. */
+  function norm(t) {
+    return t.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().replace(/\s+/g, " ").trim();
+  }
+  function setupSearch() {
+    var input = document.getElementById("toc-q");
+    var nav = document.getElementById("toc-nav");
+    var toc = document.getElementById("toc");
+    var empty = document.getElementById("toc-empty");
+    if (!input || !nav || !toc) return;
+    var units = Array.prototype.slice.call(nav.querySelectorAll(".toc-unit"));
+    units.forEach(function (u) {
+      u.querySelectorAll("a").forEach(function (a) {
+        var label = a.cloneNode(true);
+        label.querySelectorAll(".n, .up").forEach(function (x) { x.remove(); });
+        a.setAttribute("data-q", norm(label.textContent));
+      });
+    });
+
+    function filter() {
+      var q = norm(input.value);
+      toc.classList.toggle("searching", !!q);
+      var any = false;
+      units.forEach(function (u) {
+        var head = u.querySelector("a.toc-u");
+        var unitHit = !!q && head.getAttribute("data-q").indexOf(q) >= 0;
+        var subHit = false;
+        u.querySelectorAll("a.sub").forEach(function (a) {
+          var hit = !!q && (unitHit || a.getAttribute("data-q").indexOf(q) >= 0);
+          a.classList.toggle("match", hit);
+          subHit = subHit || hit;
+        });
+        var show = !q || unitHit || subHit;
+        u.hidden = !show;
+        any = any || (q && show);
+      });
+      nav.querySelectorAll(".toc-block").forEach(function (b) {
+        var n = b.nextElementSibling, vis = false;
+        while (n && !n.classList.contains("toc-block")) {
+          if (!n.hidden) vis = true;
+          n = n.nextElementSibling;
+        }
+        b.hidden = !!q && !vis;
+      });
+      if (empty) empty.hidden = !q || any;
+    }
+
+    input.addEventListener("input", filter);
+    input.addEventListener("keydown", function (e) {
+      if (e.key === "Escape") { input.value = ""; filter(); }
+      else if (e.key === "Enter") {
+        var first = nav.querySelector(".toc-unit:not([hidden]) a.sub.match") || nav.querySelector(".toc-unit:not([hidden]) a.toc-u");
+        if (first && input.value.trim()) { e.preventDefault(); first.click(); }
+      }
+    });
+  }
+  setupSearch();
+
   window.Guide.onMount(function (root, first) {
     if (first) {
       root.querySelectorAll(".quiz").forEach(setupQuiz);

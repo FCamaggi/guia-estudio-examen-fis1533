@@ -101,6 +101,27 @@ const ok = (c, m) => { if (!c) failed = true; console.log((c ? "PASS " : "FAIL "
   const after = await page.textContent("#prog-count");
   await page.click("#unit-host .master");
   ok(before !== after, `master toggles progress ${before} -> ${after}`);
+  // TOC section search (S4): accent-insensitive, across all units, Enter opens, Escape clears
+  const vis = () => page.evaluate(() => [...document.querySelectorAll(".toc a.sub")].filter(a => a.offsetParent).map(a => a.getAttribute("href")));
+  await page.fill("#toc-q", "MUTUA");
+  let hits = await vis();
+  ok(hits.includes("#u10-s1"), "search 'MUTUA' finds u10 section across units: " + hits.join(","));
+  await page.fill("#toc-q", "induccion");
+  hits = await vis();
+  ok(hits.some(h => h.startsWith("#u09")), "accent-insensitive search 'induccion' lists u09 sections (" + hits.length + ")");
+  await page.fill("#toc-q", "zzzqqq");
+  const emptyShown = await page.evaluate(() => !document.getElementById("toc-empty").hidden && [...document.querySelectorAll(".toc-unit")].every(u => u.hidden));
+  ok(emptyShown, "no-match query shows 'Sin resultados'");
+  await page.fill("#toc-q", "MUTUA");
+  await page.press("#toc-q", "Enter");
+  await page.waitForTimeout(400);
+  s = await page.evaluate(() => ({ cur: Guide.current, h: location.hash }));
+  ok(s.cur === "u10" && s.h === "#u10-s1", "Enter opens first result " + JSON.stringify(s));
+  await page.press("#toc-q", "Escape");
+  const cleared = await page.evaluate(() => ({ q: document.getElementById("toc-q").value,
+    hidden: [...document.querySelectorAll(".toc-unit")].filter(u => u.hidden).length,
+    subs: [...document.querySelectorAll(".toc a.sub")].filter(a => a.offsetParent).every(a => a.closest(".toc-unit").classList.contains("open")) }));
+  ok(cleared.q === "" && cleared.hidden === 0 && cleared.subs, "Escape clears search and only the active unit stays expanded");
   ok(errs.length === 0, "no console errors " + errs.slice(0, 5).join(" | "));
   await b.close();
   process.exit(failed ? 1 : 0);

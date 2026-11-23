@@ -95,8 +95,11 @@ def build_toc(units: list[dict], present: dict[str, str]) -> str:
         '<aside class="toc" id="toc" aria-label="Índice">',
         '<div class="toc-head"><div class="toc-course">FIS1533 · Examen</div>',
         '<div class="toc-progress"><span id="prog-count">0/0</span> secciones dominadas',
-        '<div class="bar"><div class="bar-fill" id="prog-bar"></div></div></div></div>',
-        "<nav>",
+        '<div class="bar"><div class="bar-fill" id="prog-bar"></div></div></div>',
+        '<div class="toc-search"><input type="search" id="toc-q" placeholder="Buscar sección…" '
+        'aria-label="Buscar sección en todas las unidades" aria-controls="toc-nav" autocomplete="off">',
+        '<p class="toc-empty" id="toc-empty" hidden>Sin resultados</p></div></div>',
+        '<nav id="toc-nav">',
     ]
     block = None
     for u in units:
