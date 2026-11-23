@@ -75,9 +75,13 @@ for (const f of files) {
     await page.goto(pathToFileURL(resolve(f)).href, { waitUntil: "networkidle" });
   }
   if (f.endsWith(".html")) {
-    // Wait for MathJax to finish typesetting when present.
+    // Wait for MathJax, then typeset the whole mounted page: the guide typesets lazily
+    // (js/00-guide.js), so content below the fold would otherwise still be raw TeX.
     await page
-      .evaluate(() => window.MathJax?.startup?.promise ?? null)
+      .evaluate(async () => {
+        await (window.MathJax?.startup?.promise ?? null);
+        if (window.MathJax?.typesetPromise) await window.MathJax.typesetPromise();
+      })
       .catch(() => null);
     const mathErrors = await page.$$eval("mjx-merror, .MathJax_Error", (els) =>
       els.map((e) => e.getAttribute("data-mjx-error") || e.textContent).slice(0, 20),

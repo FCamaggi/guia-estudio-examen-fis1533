@@ -45,7 +45,7 @@
     update();
   }
 
-  function init() { document.querySelectorAll(".nota-calc").forEach(setup); }
-  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", init);
-  else init();
+  window.Guide.onMount(function (root, first) {
+    if (first) root.querySelectorAll(".nota-calc").forEach(setup);
+  });
 })();

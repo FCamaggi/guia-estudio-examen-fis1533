@@ -101,9 +101,8 @@
     paintScore();
   }
 
-  function init() {
-    document.querySelectorAll(".simulacro").forEach(setup);
-  }
-  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", init);
-  else init();
+  // The unit stays in memory when hidden, so a running timer keeps counting.
+  window.Guide.onMount(function (root, first) {
+    if (first) root.querySelectorAll(".simulacro").forEach(setup);
+  });
 })();

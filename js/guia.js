@@ -1,5 +1,7 @@
 /* Exam guide runtime: per-unit quizzes, per-unit progress, active TOC link.
-   Guided problems (.prob) and quick answers (.try) are handled by 01-problemas-guiados.js. */
+   Guided problems (.prob) and quick answers (.try) are handled by 01-problemas-guiados.js.
+   Units are mounted lazily by 00-guide.js, so progress totals come from the build data
+   (Guide.data.units[].sections), not from the buttons currently in the DOM. */
 (function () {
   "use strict";
   var KEY = "fis1533-examen-2026-2";
@@ -12,7 +14,7 @@
   state.quiz = state.quiz || {};
 
   /* ---------- Quizzes scoped per .quiz block ---------- */
-  document.querySelectorAll(".quiz").forEach(function (quiz) {
+  function setupQuiz(quiz) {
     var qid = quiz.id;
     var qs = quiz.querySelectorAll(".q");
     var score = document.createElement("div");
@@ -60,57 +62,78 @@
       paint();
     });
     paint();
-  });
+  }
 
   /* ---------- Progress: one "dominado" toggle per section ---------- */
-  var masters = document.querySelectorAll(".master");
+  function sectionsByUnit() {
+    var out = {};
+    if (window.Guide.data) {
+      window.Guide.data.units.forEach(function (u) { out[u.id] = u.sections; });
+      return out;
+    }
+    document.querySelectorAll(".master").forEach(function (b) { // preview: only the DOM is available
+      var u = b.getAttribute("data-unit");
+      (out[u] = out[u] || []).push(b.getAttribute("data-sec"));
+    });
+    return out;
+  }
+
   function paintProgress() {
-    var perUnit = {};
-    masters.forEach(function (b) {
-      var id = b.getAttribute("data-sec");
-      var unit = b.getAttribute("data-unit");
-      var on = !!state.done[id];
+    document.querySelectorAll(".master").forEach(function (b) {
+      var on = !!state.done[b.getAttribute("data-sec")];
       b.setAttribute("aria-pressed", on ? "true" : "false");
       b.textContent = on ? "Dominado" : "Marcar como dominado";
-      perUnit[unit] = perUnit[unit] || { n: 0, tot: 0 };
-      perUnit[unit].tot++;
-      if (on) perUnit[unit].n++;
     });
+    var units = sectionsByUnit();
     var all = 0, tot = 0;
-    Object.keys(perUnit).forEach(function (u) {
-      all += perUnit[u].n; tot += perUnit[u].tot;
+    Object.keys(units).forEach(function (u) {
+      var secs = units[u];
+      var n = secs.filter(function (id) { return state.done[id]; }).length;
+      all += n; tot += secs.length;
       var el = document.querySelector('.toc [data-unit-progress="' + u + '"]');
-      if (el) el.textContent = perUnit[u].n + "/" + perUnit[u].tot;
+      if (el) el.textContent = secs.length ? n + "/" + secs.length : "";
       var link = document.querySelector('.toc a[data-unit="' + u + '"]');
-      if (link) link.classList.toggle("done", perUnit[u].n === perUnit[u].tot);
+      if (link) link.classList.toggle("done", secs.length > 0 && n === secs.length);
     });
     var c = document.getElementById("prog-count");
     var barEl = document.getElementById("prog-bar");
     if (c) c.textContent = all + "/" + tot;
     if (barEl) barEl.style.width = (100 * all / Math.max(tot, 1)) + "%";
   }
-  masters.forEach(function (b) {
-    b.addEventListener("click", function () {
-      var id = b.getAttribute("data-sec");
-      state.done[id] = !state.done[id];
-      store.set(state);
-      paintProgress();
-    });
+
+  document.addEventListener("click", function (e) {
+    var b = e.target.closest && e.target.closest(".master");
+    if (!b) return;
+    var id = b.getAttribute("data-sec");
+    state.done[id] = !state.done[id];
+    store.set(state);
+    paintProgress();
   });
-  paintProgress();
 
   /* ---------- Active TOC link ---------- */
-  var links = {};
-  document.querySelectorAll(".toc a[href^='#']").forEach(function (a) { links[a.getAttribute("href").slice(1)] = a; });
-  if ("IntersectionObserver" in window) {
-    var io = new IntersectionObserver(function (entries) {
-      entries.forEach(function (e) {
-        if (e.isIntersecting && links[e.target.id]) {
-          Object.keys(links).forEach(function (k) { links[k].classList.remove("active"); });
-          links[e.target.id].classList.add("active");
-        }
-      });
-    }, { rootMargin: "-20% 0px -70% 0px" });
-    document.querySelectorAll("section.unit, section.sec").forEach(function (s) { if (s.id) io.observe(s); });
+  var io = null;
+  function activate(id) {
+    document.querySelectorAll(".toc a.active").forEach(function (a) { a.classList.remove("active"); });
+    var a = document.querySelector('.toc a[href="#' + id + '"]');
+    if (a) a.classList.add("active");
   }
+  function observeSections(root) {
+    if (!("IntersectionObserver" in window)) return;
+    if (!io) {
+      io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) { if (e.isIntersecting && e.target.isConnected) activate(e.target.id); });
+      }, { rootMargin: "-20% 0px -70% 0px" });
+    }
+    root.querySelectorAll("section.sec[id]").forEach(function (s) { io.observe(s); });
+    var unit = root.matches("section.unit") ? root : root.querySelector("section.unit");
+    if (unit && unit.id) { io.observe(unit); activate(unit.id); }
+  }
+
+  window.Guide.onMount(function (root, first) {
+    if (first) {
+      root.querySelectorAll(".quiz").forEach(setupQuiz);
+      observeSections(root);
+    }
+    paintProgress();
+  });
 })();

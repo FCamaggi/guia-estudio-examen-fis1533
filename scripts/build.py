@@ -8,6 +8,10 @@ injects "dominado" buttons per section and generates the TOC.
 Outputs:
   index.html               dev build (links css/ and js/)
   dist/guia-examen.html    single-file build (css, js and figures inlined; MathJax via CDN)
+
+Each unit is emitted inside <template id="tpl-UNIT">; js/00-guide.js mounts one unit at a
+time and typesets its formulas section by section. A JSON block (#guide-data) carries the
+unit order, section titles and an id -> unit map so deep links can open the right unit.
 """
 
 from __future__ import annotations
@@ -22,14 +26,15 @@ BASE = Path(__file__).resolve().parent.parent
 UNITS_DIR = BASE / "unidades"
 FIG_DIR = BASE / "figuras" / "svg"
 CSS = ["css/main.css", "css/guia.css"]
-JS = ["js/01-problemas-guiados.js", "js/guia.js", "js/06-simulacro.js", "js/07-simuladores.js", "js/08-nota-necesaria.js"]
+JS = ["js/00-guide.js", "js/01-problemas-guiados.js", "js/guia.js", "js/06-simulacro.js", "js/07-simuladores.js", "js/08-nota-necesaria.js"]
 TITLE = "Guía de estudio · Examen FIS1533"
 
 MATHJAX = """<script>
 window.MathJax = {
   tex: { inlineMath: [["$", "$"]], displayMath: [["$$", "$$"]], processEscapes: true,
          macros: { dd: "\\\\mathrm{d}", ui: ["\\\\hat{\\\\mathbf{#1}}", 1] } },
-  svg: { fontCache: "global" }
+  svg: { fontCache: "global" },
+  startup: { typeset: false }
 };
 </script>
 <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>"""
@@ -44,6 +49,7 @@ FONTS = (
 FIG_RE = re.compile(r'<figure class="fig([^"]*)" data-fig="([\w-]+)"([^>]*)>')
 SEC_RE = re.compile(r'<section class="sec([^"]*)" id="([\w-]+)"([^>]*)>')
 STYLE_RE = re.compile(r"<style>.*?</style>", re.S)
+ID_RE = re.compile(r'\bid="([\w-]+)"')
 
 
 def load_manifest() -> list[dict]:
@@ -100,12 +106,14 @@ def build_toc(units: list[dict], present: dict[str, str]) -> str:
                 rows.append(f'<div class="toc-block">{html.escape(block)}</div>')
         uid = u["id"]
         if uid in present:
+            rows.append(f'<div class="toc-unit" data-unit="{uid}">')
             rows.append(
-                f'<a href="#{uid}" data-unit="{uid}"><span class="n">{html.escape(u["num"])}</span>'
+                f'<a class="toc-u" href="#{uid}" data-unit="{uid}"><span class="n">{html.escape(u["num"])}</span>'
                 f'{html.escape(u["title"])} <span class="up" data-unit-progress="{uid}"></span></a>'
             )
             for sid, stitle in section_titles(present[uid]):
                 rows.append(f'<a class="sub" href="#{sid}">{html.escape(stitle)}</a>')
+            rows.append("</div>")
         else:
             rows.append(
                 f'<span class="pending"><span class="n">{html.escape(u["num"])}</span>'
@@ -113,6 +121,21 @@ def build_toc(units: list[dict], present: dict[str, str]) -> str:
             )
     rows += ["</nav>", "</aside>"]
     return "\n".join(rows)
+
+
+def guide_data(units: list[dict], present: dict[str, str]) -> str:
+    """JSON consumed by js/00-guide.js: unit order, sections and id -> unit map."""
+    data: dict = {"units": [], "ids": {}}
+    for u in units:
+        uid = u["id"]
+        if uid not in present:
+            continue
+        secs = section_titles(present[uid])
+        data["units"].append({"id": uid, "num": u["num"], "title": u["title"], "sections": [s for s, _ in secs]})
+        for i in ID_RE.findall(present[uid]):
+            data["ids"].setdefault(i, uid)
+    raw = json.dumps(data, ensure_ascii=False, separators=(",", ":")).replace("</", "<\\/")
+    return f'<script type="application/json" id="guide-data">{raw}</script>'
 
 
 def page(head_assets: str, toc: str, body: str, tail_assets: str) -> str:
@@ -178,10 +201,12 @@ def main() -> int:
 
     hero_path = UNITS_DIR / "00-portada.html"
     parts = [hero_path.read_text(encoding="utf-8")] if hero_path.exists() else []
+    parts.append('<div id="unit-host" tabindex="-1"></div>')
     for u in units:
         if u["id"] in present:
-            frag = inline_figures(present[u["id"]], errors)
-            parts.append(inject_masters(frag, u["id"]))
+            frag = inject_masters(inline_figures(present[u["id"]], errors), u["id"])
+            parts.append(f'<template id="tpl-{u["id"]}" data-unit="{u["id"]}">\n{frag}\n</template>')
+    parts.append(guide_data(units, present))
     body = "\n".join(parts)
     toc = build_toc(units, present)
 

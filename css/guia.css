@@ -42,9 +42,21 @@
 
 /* TOC additions */
 .toc a.sub { padding-left: 34px; font-size: 13px; color: var(--muted); }
+.toc-unit:not(.open) > a.sub { display: none; }
 .toc .up { margin-left: auto; font: 600 11px var(--font-mono); color: var(--muted); }
 .toc .pending { display: flex; gap: 8px; padding: 6px 10px; font-size: 14px; color: var(--muted); opacity: .6; }
 .toc .pending .n { font-family: var(--font-mono); font-size: 11px; min-width: 18px; }
+
+/* Previous / next unit (appended by js/00-guide.js) */
+.unit-pager { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin: 48px 0 24px; padding-top: 18px; border-top: 1px solid var(--line); }
+.unit-pager a { display: flex; flex-direction: column; gap: 2px; padding: 12px 16px; border: 1px solid var(--line); border-radius: 10px;
+  background: var(--surface); color: var(--ink); text-decoration: none; }
+.unit-pager a:hover { border-color: var(--accent); }
+.unit-pager .pager-next { text-align: right; grid-column: 2; }
+.unit-pager .pager-dir { font: 600 12px var(--font-mono); color: var(--muted); }
+.unit-pager .pager-title { font-weight: 600; }
+#unit-host:focus { outline: none; }
+#unit-host > .unit:first-child { margin-top: 0; }
 
 .fig-missing { border: 2px dashed var(--bad); color: var(--bad); padding: 18px; text-align: center; border-radius: 8px; font: 600 13px var(--font-mono); }
 

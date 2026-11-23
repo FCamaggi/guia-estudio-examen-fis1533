@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Guía de estudio Examen FIS1533 · 2026-2</title>
+<title>Guía de estudio · Examen FIS1533</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin=""><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700;800&family=Source+Sans+3:ital,wght@0,400;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;600&display=swap">
 <link rel="stylesheet" href="css/main.css">
 <link rel="stylesheet" href="css/guia.css">
@@ -11,7 +11,8 @@
 window.MathJax = {
   tex: { inlineMath: [["$", "$"]], displayMath: [["$$", "$$"]], processEscapes: true,
          macros: { dd: "\\mathrm{d}", ui: ["\\hat{\\mathbf{#1}}", 1] } },
-  svg: { fontCache: "global" }
+  svg: { fontCache: "global" },
+  startup: { typeset: false }
 };
 </script>
 <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
@@ -24,15 +25,18 @@ window.MathJax = {
 <div class="bar"><div class="bar-fill" id="prog-bar"></div></div></div></div>
 <nav>
 <div class="toc-block">0 · Antes de estudiar</div>
-<a href="#r01" data-unit="r01"><span class="n">R</span>Mapa del examen, formulario y notación <span class="up" data-unit-progress="r01"></span></a>
+<div class="toc-unit" data-unit="r01">
+<a class="toc-u" href="#r01" data-unit="r01"><span class="n">R</span>Mapa del examen, formulario y notación <span class="up" data-unit-progress="r01"></span></a>
 <a class="sub" href="#r01-mapa">Cómo usar esta guía</a>
 <a class="sub" href="#r01-arquetipos">Índice de arquetipos de examen</a>
 <a class="sub" href="#r01-estrategia">Estrategia sin calculadora</a>
 <a class="sub" href="#r01-memoria">Hoja de memoria</a>
 <a class="sub" href="#r01-formulario">Formulario global</a>
 <a class="sub" href="#r01-notacion">Tabla de notación</a>
+</div>
 <div class="toc-block">A · Electrostática</div>
-<a href="#u01" data-unit="u01"><span class="n">U1</span>Carga, Coulomb y campo eléctrico <span class="up" data-unit-progress="u01"></span></a>
+<div class="toc-unit" data-unit="u01">
+<a class="toc-u" href="#u01" data-unit="u01"><span class="n">U1</span>Carga, Coulomb y campo eléctrico <span class="up" data-unit-progress="u01"></span></a>
 <a class="sub" href="#u01-mapa">Mapa de la unidad</a>
 <a class="sub" href="#u01-s1">Carga eléctrica, conductores, aislantes e inducción</a>
 <a class="sub" href="#u01-s2">Ley de Coulomb en forma vectorial y superposición</a>
@@ -46,7 +50,9 @@ window.MathJax = {
 <a class="sub" href="#u01-practica">Práctica</a>
 <a class="sub" href="#u01-quiz">Autoevaluación</a>
 <a class="sub" href="#u01-formulas">Tarjeta de fórmulas</a>
-<a href="#u02" data-unit="u02"><span class="n">U2</span>Ley de Gauss y conductores <span class="up" data-unit-progress="u02"></span></a>
+</div>
+<div class="toc-unit" data-unit="u02">
+<a class="toc-u" href="#u02" data-unit="u02"><span class="n">U2</span>Ley de Gauss y conductores <span class="up" data-unit-progress="u02"></span></a>
 <a class="sub" href="#u02-mapa">Mapa de la unidad</a>
 <a class="sub" href="#u02-s1">Flujo eléctrico</a>
 <a class="sub" href="#u02-s2">Ley de Gauss y estrategia</a>
@@ -61,7 +67,9 @@ window.MathJax = {
 <a class="sub" href="#u02-practica">Práctica</a>
 <a class="sub" href="#u02-quiz">Autoevaluación</a>
 <a class="sub" href="#u02-formulas">Tarjeta de fórmulas</a>
-<a href="#u03" data-unit="u03"><span class="n">U3</span>Potencial eléctrico <span class="up" data-unit-progress="u03"></span></a>
+</div>
+<div class="toc-unit" data-unit="u03">
+<a class="toc-u" href="#u03" data-unit="u03"><span class="n">U3</span>Potencial eléctrico <span class="up" data-unit-progress="u03"></span></a>
 <a class="sub" href="#u03-mapa">Mapa de la unidad</a>
 <a class="sub" href="#u03-s1">Trabajo eléctrico y energía potencial</a>
 <a class="sub" href="#u03-s2">Potencial eléctrico y conservación de la energía</a>
@@ -76,7 +84,9 @@ window.MathJax = {
 <a class="sub" href="#u03-practica">Práctica</a>
 <a class="sub" href="#u03-quiz">Autoevaluación</a>
 <a class="sub" href="#u03-formulas">Tarjeta de fórmulas</a>
-<a href="#u04" data-unit="u04"><span class="n">U4</span>Capacitancia y dieléctricos <span class="up" data-unit-progress="u04"></span></a>
+</div>
+<div class="toc-unit" data-unit="u04">
+<a class="toc-u" href="#u04" data-unit="u04"><span class="n">U4</span>Capacitancia y dieléctricos <span class="up" data-unit-progress="u04"></span></a>
 <a class="sub" href="#u04-mapa">Mapa de la unidad</a>
 <a class="sub" href="#u04-s1">Capacitancia y geometrías básicas</a>
 <a class="sub" href="#u04-s2">Asociación en serie y en paralelo</a>
@@ -90,8 +100,10 @@ window.MathJax = {
 <a class="sub" href="#u04-practica">Práctica</a>
 <a class="sub" href="#u04-quiz">Autoevaluación</a>
 <a class="sub" href="#u04-formulas">Tarjeta de fórmulas</a>
+</div>
 <div class="toc-block">B · Circuitos</div>
-<a href="#u05" data-unit="u05"><span class="n">U5</span>Corriente, resistencia y fem <span class="up" data-unit-progress="u05"></span></a>
+<div class="toc-unit" data-unit="u05">
+<a class="toc-u" href="#u05" data-unit="u05"><span class="n">U5</span>Corriente, resistencia y fem <span class="up" data-unit-progress="u05"></span></a>
 <a class="sub" href="#u05-mapa">Mapa de la unidad</a>
 <a class="sub" href="#u05-s1">Corriente, velocidad de deriva y densidad de corriente</a>
 <a class="sub" href="#u05-s2">Continuidad, ley de Ohm microscópica y temperatura</a>
@@ -104,7 +116,9 @@ window.MathJax = {
 <a class="sub" href="#u05-practica">Práctica</a>
 <a class="sub" href="#u05-quiz">Autoevaluación</a>
 <a class="sub" href="#u05-formulas">Tarjeta de fórmulas</a>
-<a href="#u06" data-unit="u06"><span class="n">U6</span>Circuitos DC, Kirchhoff y RC <span class="up" data-unit-progress="u06"></span></a>
+</div>
+<div class="toc-unit" data-unit="u06">
+<a class="toc-u" href="#u06" data-unit="u06"><span class="n">U6</span>Circuitos DC, Kirchhoff y RC <span class="up" data-unit-progress="u06"></span></a>
 <a class="sub" href="#u06-mapa">Mapa de la unidad</a>
 <a class="sub" href="#u06-s1">Serie, paralelo y puentes</a>
 <a class="sub" href="#u06-s2">Leyes de Kirchhoff y potencia</a>
@@ -117,8 +131,10 @@ window.MathJax = {
 <a class="sub" href="#u06-practica">Práctica</a>
 <a class="sub" href="#u06-quiz">Autoevaluación</a>
 <a class="sub" href="#u06-formulas">Tarjeta de fórmulas</a>
+</div>
 <div class="toc-block">C · Magnetismo</div>
-<a href="#u07" data-unit="u07"><span class="n">U7</span>Fuerza magnética <span class="up" data-unit-progress="u07"></span></a>
+<div class="toc-unit" data-unit="u07">
+<a class="toc-u" href="#u07" data-unit="u07"><span class="n">U7</span>Fuerza magnética <span class="up" data-unit-progress="u07"></span></a>
 <a class="sub" href="#u07-mapa">Mapa de la unidad</a>
 <a class="sub" href="#u07-s1">Campo magnético y fuerza de Lorentz</a>
 <a class="sub" href="#u07-s2">Líneas de campo y ley de Gauss magnética</a>
@@ -133,7 +149,9 @@ window.MathJax = {
 <a class="sub" href="#u07-practica">Práctica</a>
 <a class="sub" href="#u07-quiz">Autoevaluación</a>
 <a class="sub" href="#u07-formulas">Tarjeta de fórmulas</a>
-<a href="#u08" data-unit="u08"><span class="n">U8</span>Fuentes de campo magnético <span class="up" data-unit-progress="u08"></span></a>
+</div>
+<div class="toc-unit" data-unit="u08">
+<a class="toc-u" href="#u08" data-unit="u08"><span class="n">U8</span>Fuentes de campo magnético <span class="up" data-unit-progress="u08"></span></a>
 <a class="sub" href="#u08-mapa">Mapa de la unidad</a>
 <a class="sub" href="#u08-s1">Carga en movimiento y ley de Biot-Savart</a>
 <a class="sub" href="#u08-s2">Alambre recto y fuerza entre conductores paralelos</a>
@@ -147,8 +165,10 @@ window.MathJax = {
 <a class="sub" href="#u08-practica">Práctica</a>
 <a class="sub" href="#u08-quiz">Autoevaluación</a>
 <a class="sub" href="#u08-formulas">Tarjeta de fórmulas</a>
+</div>
 <div class="toc-block">D · Inducción y CA</div>
-<a href="#u09" data-unit="u09"><span class="n">U9</span>Inducción electromagnética <span class="up" data-unit-progress="u09"></span></a>
+<div class="toc-unit" data-unit="u09">
+<a class="toc-u" href="#u09" data-unit="u09"><span class="n">U9</span>Inducción electromagnética <span class="up" data-unit-progress="u09"></span></a>
 <a class="sub" href="#u09-mapa">Mapa de la unidad</a>
 <a class="sub" href="#u09-s1">Flujo magnético</a>
 <a class="sub" href="#u09-s2">Ley de Faraday y ley de Lenz</a>
@@ -162,7 +182,9 @@ window.MathJax = {
 <a class="sub" href="#u09-practica">Práctica</a>
 <a class="sub" href="#u09-quiz">Autoevaluación</a>
 <a class="sub" href="#u09-formulas">Tarjeta de fórmulas</a>
-<a href="#u10" data-unit="u10"><span class="n">U10</span>Inductancia y circuitos RL, LC, RLC <span class="up" data-unit-progress="u10"></span></a>
+</div>
+<div class="toc-unit" data-unit="u10">
+<a class="toc-u" href="#u10" data-unit="u10"><span class="n">U10</span>Inductancia y circuitos RL, LC, RLC <span class="up" data-unit-progress="u10"></span></a>
 <a class="sub" href="#u10-mapa">Mapa de la unidad</a>
 <a class="sub" href="#u10-s1">Inductancia mutua</a>
 <a class="sub" href="#u10-s2">Autoinductancia e inductores</a>
@@ -176,7 +198,9 @@ window.MathJax = {
 <a class="sub" href="#u10-practica">Práctica</a>
 <a class="sub" href="#u10-quiz">Autoevaluación</a>
 <a class="sub" href="#u10-formulas">Tarjeta de fórmulas</a>
-<a href="#u11" data-unit="u11"><span class="n">U11</span>Corriente alterna y ondas EM <span class="up" data-unit-progress="u11"></span></a>
+</div>
+<div class="toc-unit" data-unit="u11">
+<a class="toc-u" href="#u11" data-unit="u11"><span class="n">U11</span>Corriente alterna y ondas EM <span class="up" data-unit-progress="u11"></span></a>
 <a class="sub" href="#u11-mapa">Mapa de la unidad</a>
 <a class="sub" href="#u11-s1">Fuentes sinusoidales, fasores y elementos R, L, C</a>
 <a class="sub" href="#u11-s2">Impedancia equivalente, circuito RLC y resonancia</a>
@@ -189,29 +213,38 @@ window.MathJax = {
 <a class="sub" href="#u11-practica">Práctica</a>
 <a class="sub" href="#u11-quiz">Autoevaluación</a>
 <a class="sub" href="#u11-formulas">Tarjeta de fórmulas</a>
+</div>
 <div class="toc-block">E · Simulacros y simuladores</div>
-<a href="#s01" data-unit="s01"><span class="n">S1</span>Simulacro de examen 1 <span class="up" data-unit-progress="s01"></span></a>
+<div class="toc-unit" data-unit="s01">
+<a class="toc-u" href="#s01" data-unit="s01"><span class="n">S1</span>Simulacro de examen 1 <span class="up" data-unit-progress="s01"></span></a>
 <a class="sub" href="#s01-instrucciones">Instrucciones</a>
 <a class="sub" href="#s01-enunciados">Enunciados</a>
 <a class="sub" href="#s01-pauta">Pauta y corrección</a>
-<a href="#s02" data-unit="s02"><span class="n">S2</span>Simulacro de examen 2 <span class="up" data-unit-progress="s02"></span></a>
+</div>
+<div class="toc-unit" data-unit="s02">
+<a class="toc-u" href="#s02" data-unit="s02"><span class="n">S2</span>Simulacro de examen 2 <span class="up" data-unit-progress="s02"></span></a>
 <a class="sub" href="#s02-instrucciones">Instrucciones</a>
 <a class="sub" href="#s02-enunciados">Enunciados</a>
 <a class="sub" href="#s02-pauta">Pauta y corrección</a>
-<a href="#t01" data-unit="t01"><span class="n">T</span>Simuladores interactivos: RL, RLC y fasores <span class="up" data-unit-progress="t01"></span></a>
+</div>
+<div class="toc-unit" data-unit="t01">
+<a class="toc-u" href="#t01" data-unit="t01"><span class="n">T</span>Simuladores interactivos: RL, RLC y fasores <span class="up" data-unit-progress="t01"></span></a>
 <a class="sub" href="#t01-rl">Circuito RL</a>
 <a class="sub" href="#t01-rlc">Circuito RLC: amortiguamiento</a>
 <a class="sub" href="#t01-ca">Corriente alterna: fasores y resonancia</a>
+</div>
 </nav>
 </aside>
 <main id="top">
+<div id="unit-host" tabindex="-1"></div>
+<template id="tpl-r01" data-unit="r01">
 <!-- R01 Mapa del examen, formulario y notación. -->
 <section class="unit" id="r01" data-num="R" data-title="Mapa del examen, formulario y notación">
-  <header class="unit-head"><span class="unit-num">R</span><h1>Mapa del examen, formulario y notación</h1><span class="unit-weight">Examen 01-12-2026 · 08:20 · sin calculadora ni formulario</span></header>
+  <header class="unit-head"><span class="unit-num">R</span><h1>Mapa del examen, formulario y notación</h1><span class="unit-weight">Sin calculadora ni formulario</span></header>
 
 <section class="sec" id="r01-mapa" data-block="mapa" data-title="Cómo usar esta guía"><button type="button" class="master" data-sec="r01-mapa" data-unit="r01" aria-pressed="false">Marcar como dominado</button>
   <h2>Cómo usar esta guía</h2>
-  <div class="key"><b>Qué es el examen y cómo se gana.</b> El examen final de FIS1533 (martes <b>01-12-2026 a las 08:20</b>) dura entre <b>120 y 150 minutos</b>, se rinde <b>sin calculadora y sin formulario</b>, y en su formato reciente consta de <b>3 a 6 problemas de desarrollo</b> de <b>6 puntos cada uno</b> (18, 24 o 36 puntos en total). Es acumulativo en todo el curso, pero el núcleo pesado está en la segunda mitad: <b>U7 a U11</b>.</div>
+  <div class="key"><b>Qué es el examen y cómo se gana.</b> El examen final de FIS1533 dura entre <b>120 y 150 minutos</b>, se rinde <b>sin calculadora y sin formulario</b>, y en su formato reciente consta de <b>3 a 6 problemas de desarrollo</b> de <b>6 puntos cada uno</b> (18, 24 o 36 puntos en total). Es acumulativo en todo el curso, pero el núcleo pesado está en la segunda mitad: <b>U7 a U11</b>.</div>
 
   <figure class="fig" data-fig="r01-mapa-materia"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 780 305" style="max-width:1053px" role="img" aria-label="Mapa del curso FIS1533: bloques A, B, C y D conectados por las cuatro ecuaciones de Maxwell y la fuerza de Lorentz">
 
@@ -264,20 +297,20 @@ window.MathJax = {
     <li><b>Cierra cada sesión con la autoevaluación</b> de la unidad (quiz conceptual) y reconstruyendo de memoria las fórmulas clave de la <a href="#r01-memoria">Hoja de memoria</a>.</li>
   </ol>
 
-  <h3>Plan de 8 días (23-11-2026 al 30-11-2026) + mañana del examen</h3>
-  <p>Con 8 días completos desde mañana <b>23-11</b> hasta el <b>30-11</b> (y repaso liviano el <b>01-12</b> antes de las 08:20), el orden sigue el peso del examen: primero el bloque de magnetismo e inducción (<b>U9, U10 y U8, U11, U7</b>); luego <b>U4 y U6</b>; después <b>U1–U3 y U5</b>; y dos días finales de simulacro.</p>
+  <h3>Orden de estudio recomendado</h3>
+  <p>El orden sigue el peso del examen: primero el bloque de magnetismo e inducción (<b>U9, U10, U8, U11 y U7</b>); luego <b>U4 y U6</b>; después <b>U1–U3 y U5</b>; y al final simulacros completos. Avanza al siguiente bloque cuando puedas pautear sus arquetipos sin abrir la solución.</p>
   <div class="tbl-wrap"><table>
-    <thead><tr><th>Día</th><th>Unidades foco</th><th>Qué hacer y pautear</th></tr></thead>
+    <thead><tr><th>Bloque</th><th>Unidades foco</th><th>Qué hacer y pautear</th></tr></thead>
     <tbody>
-      <tr><td><b>Día 1 · Lun 23-11</b></td><td><a href="#u09">U9 · Inducción</a></td><td>Teoría completa + 4 arquetipos (<a href="#u09-x1">X1</a>, <a href="#u09-x2">X2</a>, <a href="#u09-x3">X3</a>, <a href="#u09-x4">X4</a>) cronometrados (25 min c/u) + quiz de U9.</td></tr>
-      <tr><td><b>Día 2 · Mar 24-11</b></td><td><a href="#u10">U10 · Inductancia</a> y <a href="#u08">U8 · Fuentes de $\vec B$</a></td><td>Pautear conmutación RL/LC (<a href="#u10-x1">U10-X1</a>), inductancia mutua (<a href="#u10-x2">U10-X2</a>, <a href="#u10-p1">U10-P1</a>), arcos Biot-Savart (<a href="#u08-x1">U8-X1</a>) y Ampère coaxial (<a href="#u08-x2">U8-X2</a>, <a href="#u08-x3">U8-X3</a>).</td></tr>
-      <tr><td><b>Día 3 · Mié 25-11</b></td><td><a href="#u11">U11 · CA y ondas EM</a></td><td>Fasores, $Z_{\text{eq}}$, resonancia y potencia (<a href="#u11-x1">U11-X1</a>, <a href="#u11-x2">U11-X2</a>, <a href="#u11-p2">U11-P2</a>); ondas EM, $\vec k\times\vec E = \omega\vec B$ y Poynting (<a href="#u11-x3">U11-X3</a>).</td></tr>
-      <tr><td><b>Día 4 · Jue 26-11</b></td><td><a href="#u07">U7 · Fuerza magnética</a> + cruce <a href="#u08">U8</a>/<a href="#u09">U9</a></td><td>Ciclotrón, $q/m$ y selector (<a href="#u07-x1">U7-X1</a>, <a href="#u07-x3">U7-X3</a>); fuerza alambre–espira (<a href="#u07-x2">U7-X2</a>, <a href="#u07-p5">U7-P5</a>) y repaso de espira en campo variable (<a href="#u09-p2">U9-P2</a>).</td></tr>
-      <tr><td><b>Día 5 · Vie 27-11</b></td><td><a href="#u04">U4 · Capacitancia</a> y <a href="#u06">U6 · Circuitos DC</a></td><td>Dieléctricos serie/paralelo, $\vec D$, $\vec P$, $\sigma_b$ (<a href="#u04-x1">U4-X1</a>, <a href="#u04-x2">U4-X2</a>); puente DC + rama RC y descarga (<a href="#u06-x3">U6-X3</a>, <a href="#u06-e3">U6-E3</a>) y Kirchhoff (<a href="#u06-x1">U6-X1</a>).</td></tr>
-      <tr><td><b>Día 6 · Sáb 28-11</b></td><td><a href="#u01">U1</a>, <a href="#u02">U2</a>, <a href="#u03">U3</a> y <a href="#u05">U5</a></td><td>Gauss con $\rho(r)$, cavidades y cascarones a tierra (<a href="#u02-x1">U2-X1</a>, <a href="#u02-x3">U2-X3</a>, <a href="#u02-e4">U2-E4</a>); superposición, potencial y trabajo (<a href="#u01-x1">U1-X1</a>, <a href="#u01-x2">U1-X2</a>, <a href="#u03-x1">U3-X1</a>); cono/resistividad (<a href="#u05-p2">U5-P2</a>).</td></tr>
-      <tr><td><b>Día 7 · Dom 29-11</b></td><td>Simulacro 1 completo</td><td>Elegir 4 arquetipos inéditos o fallados (3 de U7–U11 + 1 de U1–U6), resolver en <b>120 min</b> seguidos sin apuntes ni calculadora y corregir con pauta.</td></tr>
-      <tr><td><b>Día 8 · Lun 30-11</b></td><td>Simulacro 2 + memoria activa</td><td>Rehacer desde cero los 2–3 arquetipos que más costaron; escribir en hoja en blanco toda la <a href="#r01-memoria">Hoja de memoria</a> y verificar derivaciones. Cerrar temprano y dormir bien.</td></tr>
-      <tr><td><b>Mar 01-12 · mañana</b></td><td>Repaso liviano (antes de 08:20)</td><td>Lectura rápida de <a href="#r01-memoria">Hoja de memoria</a>, <a href="#r01-estrategia">checklist pre-recuadro</a> y <a href="#r01-notacion">equivalencias de notación</a>. No hagas problemas nuevos antes de entrar.</td></tr>
+      <tr><td><b>1</b></td><td><a href="#u09">U9 · Inducción</a></td><td>Teoría completa + 4 arquetipos (<a href="#u09-x1">X1</a>, <a href="#u09-x2">X2</a>, <a href="#u09-x3">X3</a>, <a href="#u09-x4">X4</a>) cronometrados (25 min c/u) + quiz de U9.</td></tr>
+      <tr><td><b>2</b></td><td><a href="#u10">U10 · Inductancia</a> y <a href="#u08">U8 · Fuentes de $\vec B$</a></td><td>Pautear conmutación RL/LC (<a href="#u10-x1">U10-X1</a>), inductancia mutua (<a href="#u10-x2">U10-X2</a>, <a href="#u10-p1">U10-P1</a>), arcos Biot-Savart (<a href="#u08-x1">U8-X1</a>) y Ampère coaxial (<a href="#u08-x2">U8-X2</a>, <a href="#u08-x3">U8-X3</a>).</td></tr>
+      <tr><td><b>3</b></td><td><a href="#u11">U11 · CA y ondas EM</a></td><td>Fasores, $Z_{\text{eq}}$, resonancia y potencia (<a href="#u11-x1">U11-X1</a>, <a href="#u11-x2">U11-X2</a>, <a href="#u11-p2">U11-P2</a>); ondas EM, $\vec k\times\vec E = \omega\vec B$ y Poynting (<a href="#u11-x3">U11-X3</a>).</td></tr>
+      <tr><td><b>4</b></td><td><a href="#u07">U7 · Fuerza magnética</a> + cruce <a href="#u08">U8</a>/<a href="#u09">U9</a></td><td>Ciclotrón, $q/m$ y selector (<a href="#u07-x1">U7-X1</a>, <a href="#u07-x3">U7-X3</a>); fuerza alambre–espira (<a href="#u07-x2">U7-X2</a>, <a href="#u07-p5">U7-P5</a>) y repaso de espira en campo variable (<a href="#u09-p2">U9-P2</a>).</td></tr>
+      <tr><td><b>5</b></td><td><a href="#u04">U4 · Capacitancia</a> y <a href="#u06">U6 · Circuitos DC</a></td><td>Dieléctricos serie/paralelo, $\vec D$, $\vec P$, $\sigma_b$ (<a href="#u04-x1">U4-X1</a>, <a href="#u04-x2">U4-X2</a>); puente DC + rama RC y descarga (<a href="#u06-x3">U6-X3</a>, <a href="#u06-e3">U6-E3</a>) y Kirchhoff (<a href="#u06-x1">U6-X1</a>).</td></tr>
+      <tr><td><b>6</b></td><td><a href="#u01">U1</a>, <a href="#u02">U2</a>, <a href="#u03">U3</a> y <a href="#u05">U5</a></td><td>Gauss con $\rho(r)$, cavidades y cascarones a tierra (<a href="#u02-x1">U2-X1</a>, <a href="#u02-x3">U2-X3</a>, <a href="#u02-e4">U2-E4</a>); superposición, potencial y trabajo (<a href="#u01-x1">U1-X1</a>, <a href="#u01-x2">U1-X2</a>, <a href="#u03-x1">U3-X1</a>); cono/resistividad (<a href="#u05-p2">U5-P2</a>).</td></tr>
+      <tr><td><b>7</b></td><td><a href="#s01">Simulacro 1</a></td><td>Resolver completo, seguido, sin apuntes ni calculadora y con cronómetro; corregir con la pauta y anotar en qué inciso se perdieron puntos.</td></tr>
+      <tr><td><b>8</b></td><td><a href="#s02">Simulacro 2</a> + memoria activa</td><td>Rehacer desde cero los 2–3 arquetipos que más costaron; escribir en hoja en blanco toda la <a href="#r01-memoria">Hoja de memoria</a> y verificar derivaciones.</td></tr>
+      <tr><td><b>Antes de entrar</b></td><td>Repaso liviano</td><td>Lectura rápida de <a href="#r01-memoria">Hoja de memoria</a>, <a href="#r01-estrategia">checklist pre-recuadro</a> y <a href="#r01-notacion">equivalencias de notación</a>. No hagas problemas nuevos antes de entrar.</td></tr>
     </tbody>
   </table></div>
 </section>
@@ -741,6 +774,8 @@ window.MathJax = {
 </section>
 </section>
 
+</template>
+<template id="tpl-u01" data-unit="u01">
 <!-- U1 Carga, Coulomb y campo eléctrico. Contract: SPEC-PEDAGOGICO.md. Gate: python3 scripts/check_unit.py unidades/u01-campo-electrico.html -->
 <section class="unit" id="u01" data-num="U1" data-title="Carga, Coulomb y campo eléctrico">
   <header class="unit-head"><span class="unit-num">U1</span><h1>Carga, Coulomb y campo eléctrico</h1><span class="unit-weight">13 problemas en exámenes · 1 en los 4 recientes</span></header>
@@ -1294,6 +1329,8 @@ window.MathJax = {
 </section>
 </section>
 
+</template>
+<template id="tpl-u02" data-unit="u02">
 <!-- U2 Ley de Gauss y conductores. Contract: SPEC-PEDAGOGICO.md. Gate: python3 scripts/check_unit.py unidades/u02-gauss.html -->
 <section class="unit" id="u02" data-num="U2" data-title="Ley de Gauss y conductores">
   <header class="unit-head"><span class="unit-num">U2</span><h1>Ley de Gauss y conductores</h1><span class="unit-weight">15 problemas en exámenes · 2 en los 4 recientes</span></header>
@@ -1941,6 +1978,8 @@ window.MathJax = {
 </section>
 </section>
 
+</template>
+<template id="tpl-u03" data-unit="u03">
 <!-- U3 Potencial eléctrico. Contract: SPEC-PEDAGOGICO.md. Gate: python3 scripts/check_unit.py unidades/u03-potencial.html -->
 <section class="unit" id="u03" data-num="U3" data-title="Potencial eléctrico">
   <header class="unit-head"><span class="unit-num">U3</span><h1>Potencial eléctrico</h1><span class="unit-weight">14 problemas en exámenes · 1 en los 4 recientes</span></header>
@@ -2456,6 +2495,8 @@ window.MathJax = {
 </section>
 </section>
 
+</template>
+<template id="tpl-u04" data-unit="u04">
 <!-- U4 Capacitancia y dieléctricos. Contract: SPEC-PEDAGOGICO.md. Gate: python3 scripts/check_unit.py unidades/u04-capacitancia.html -->
 <section class="unit" id="u04" data-num="U4" data-title="Capacitancia y dieléctricos">
   <header class="unit-head"><span class="unit-num">U4</span><h1>Capacitancia y dieléctricos</h1><span class="unit-weight">11 problemas en exámenes · 2 en los 4 recientes</span></header>
@@ -2997,6 +3038,8 @@ window.MathJax = {
 </section>
 </section>
 
+</template>
+<template id="tpl-u05" data-unit="u05">
 <!-- U5 Corriente, resistencia y fem. Contract: SPEC-PEDAGOGICO.md. Gate: python3 scripts/check_unit.py unidades/u05-corriente.html -->
 <section class="unit" id="u05" data-num="U5" data-title="Corriente, resistencia y fem">
   <header class="unit-head"><span class="unit-num">U5</span><h1>Corriente, resistencia y fem</h1><span class="unit-weight">6 problemas en exámenes · 0 en los 4 recientes</span></header>
@@ -3447,6 +3490,8 @@ window.MathJax = {
 </section>
 </section>
 
+</template>
+<template id="tpl-u06" data-unit="u06">
 <!-- U6 Circuitos DC, Kirchhoff y RC. Contract: SPEC-PEDAGOGICO.md. Gate: python3 scripts/check_unit.py unidades/u06-circuitos-dc.html -->
 <section class="unit" id="u06" data-num="U6" data-title="Circuitos DC, Kirchhoff y RC">
   <header class="unit-head"><span class="unit-num">U6</span><h1>Circuitos DC, Kirchhoff y RC</h1><span class="unit-weight">12 problemas en exámenes · 1 en los 4 recientes</span></header>
@@ -3995,6 +4040,8 @@ window.MathJax = {
 </section>
 </section>
 
+</template>
+<template id="tpl-u07" data-unit="u07">
 <!-- U7 Fuerza magnética. Contract: SPEC-PEDAGOGICO.md. Gate: python3 scripts/check_unit.py unidades/u07-fuerza-magnetica.html -->
 <section class="unit" id="u07" data-num="U7" data-title="Fuerza magnética">
   <header class="unit-head"><span class="unit-num">U7</span><h1>Fuerza magnética</h1><span class="unit-weight">21 problemas en exámenes · 5 en los 4 recientes</span></header>
@@ -4542,6 +4589,8 @@ window.MathJax = {
 </section>
 </section>
 
+</template>
+<template id="tpl-u08" data-unit="u08">
 <!-- U8 Fuentes de campo magnético. Contract: SPEC-PEDAGOGICO.md. Gate: python3 scripts/check_unit.py unidades/u08-fuentes-campo.html -->
 <section class="unit" id="u08" data-num="U8" data-title="Fuentes de campo magnético">
   <header class="unit-head"><span class="unit-num">U8</span><h1>Fuentes de campo magnético</h1><span class="unit-weight">25 problemas en exámenes · 4 en los 4 recientes</span></header>
@@ -5120,6 +5169,8 @@ window.MathJax = {
 </section>
 </section>
 
+</template>
+<template id="tpl-u09" data-unit="u09">
 <!-- U9 Inducción electromagnética. Contract: SPEC-PEDAGOGICO.md. Gate: python3 scripts/check_unit.py unidades/u09-induccion.html -->
 <section class="unit" id="u09" data-num="U9" data-title="Inducción electromagnética">
   <header class="unit-head"><span class="unit-num">U9</span><h1>Inducción electromagnética</h1><span class="unit-weight">22 problemas en exámenes · 5 en los 4 recientes</span></header>
@@ -5731,6 +5782,8 @@ window.MathJax = {
 </section>
 </section>
 
+</template>
+<template id="tpl-u10" data-unit="u10">
 <!-- U10 Inductancia y circuitos RL, LC, RLC. Contract: SPEC-PEDAGOGICO.md. Gate: python3 scripts/check_unit.py unidades/u10-inductancia.html -->
 <section class="unit" id="u10" data-num="U10" data-title="Inductancia y circuitos RL, LC, RLC">
   <header class="unit-head"><span class="unit-num">U10</span><h1>Inductancia y circuitos RL, LC, RLC</h1><span class="unit-weight">15 problemas en exámenes · 3 en los 4 recientes</span></header>
@@ -6317,6 +6370,8 @@ window.MathJax = {
 </section>
 </section>
 
+</template>
+<template id="tpl-u11" data-unit="u11">
 <!-- U11 Corriente alterna y ondas EM. Contract: SPEC-PEDAGOGICO.md. Gate: python3 scripts/check_unit.py unidades/u11-ca-ondas.html -->
 <section class="unit" id="u11" data-num="U11" data-title="Corriente alterna y ondas EM">
   <header class="unit-head"><span class="unit-num">U11</span><h1>Corriente alterna y ondas EM</h1><span class="unit-weight">8 problemas en exámenes · 4 en los 4 recientes</span></header>
@@ -6832,6 +6887,8 @@ window.MathJax = {
 </section>
 </section>
 
+</template>
+<template id="tpl-s01" data-unit="s01">
 <!-- S1 · Simulacro de examen 1. Fragment loaded by scripts/build.py from unidades/manifest.json. -->
 <section class="unit" id="s01" data-num="S1" data-title="Simulacro de examen 1">
   <header class="unit-head"><span class="unit-num">S1</span><h1>Simulacro de examen 1</h1><span class="unit-weight">150 min · 18 pts · sin calculadora</span></header>
@@ -7097,6 +7154,8 @@ window.MathJax = {
   </div>
 </section>
 
+</template>
+<template id="tpl-s02" data-unit="s02">
 <!-- S2 Mock exam 2 (original problems, Examen 2024–2026 style). Timer and self-scoring: js/06-simulacro.js. Figures: figuras/src/s02_figuras.py -->
 <section class="unit" id="s02" data-num="S2" data-title="Simulacro de examen 2">
   <header class="unit-head"><span class="unit-num">S2</span><h1>Simulacro de examen 2</h1><span class="unit-weight">150 min · 18 pts · sin calculadora</span></header>
@@ -7361,6 +7420,8 @@ window.MathJax = {
   </div>
 </section>
 
+</template>
+<template id="tpl-t01" data-unit="t01">
 <section class="unit" id="t01" data-num="T" data-title="Simuladores interactivos: RL, RLC y fasores">
   <header class="unit-head">
     <span class="unit-num">T</span>
@@ -7523,8 +7584,11 @@ window.MathJax = {
   </section>
 </section>
 
+</template>
+<script type="application/json" id="guide-data">{"units":[{"id":"r01","num":"R","title":"Mapa del examen, formulario y notación","sections":["r01-mapa","r01-arquetipos","r01-estrategia","r01-memoria","r01-formulario","r01-notacion"]},{"id":"u01","num":"U1","title":"Carga, Coulomb y campo eléctrico","sections":["u01-mapa","u01-s1","u01-s2","u01-s3","u01-s4","u01-s5","u01-s6","u01-ejemplos","u01-examen","u01-errores","u01-practica","u01-quiz","u01-formulas"]},{"id":"u02","num":"U2","title":"Ley de Gauss y conductores","sections":["u02-mapa","u02-s1","u02-s2","u02-s3","u02-s4","u02-s5","u02-s6","u02-s7","u02-ejemplos","u02-examen","u02-errores","u02-practica","u02-quiz","u02-formulas"]},{"id":"u03","num":"U3","title":"Potencial eléctrico","sections":["u03-mapa","u03-s1","u03-s2","u03-s3","u03-s4","u03-s5","u03-s6","u03-s7","u03-ejemplos","u03-examen","u03-errores","u03-practica","u03-quiz","u03-formulas"]},{"id":"u04","num":"U4","title":"Capacitancia y dieléctricos","sections":["u04-mapa","u04-s1","u04-s2","u04-s3","u04-s4","u04-s5","u04-s6","u04-ejemplos","u04-examen","u04-errores","u04-practica","u04-quiz","u04-formulas"]},{"id":"u05","num":"U5","title":"Corriente, resistencia y fem","sections":["u05-mapa","u05-s1","u05-s2","u05-s3","u05-s4","u05-s5","u05-ejemplos","u05-examen","u05-errores","u05-practica","u05-quiz","u05-formulas"]},{"id":"u06","num":"U6","title":"Circuitos DC, Kirchhoff y RC","sections":["u06-mapa","u06-s1","u06-s2","u06-s3","u06-s4","u06-s5","u06-ejemplos","u06-examen","u06-errores","u06-practica","u06-quiz","u06-formulas"]},{"id":"u07","num":"U7","title":"Fuerza magnética","sections":["u07-mapa","u07-s1","u07-s2","u07-s3","u07-s4","u07-s5","u07-s6","u07-s7","u07-ejemplos","u07-examen","u07-errores","u07-practica","u07-quiz","u07-formulas"]},{"id":"u08","num":"U8","title":"Fuentes de campo magnético","sections":["u08-mapa","u08-s1","u08-s2","u08-s3","u08-s4","u08-s5","u08-s6","u08-ejemplos","u08-examen","u08-errores","u08-practica","u08-quiz","u08-formulas"]},{"id":"u09","num":"U9","title":"Inducción electromagnética","sections":["u09-mapa","u09-s1","u09-s2","u09-s3","u09-s4","u09-s5","u09-s6","u09-ejemplos","u09-examen","u09-errores","u09-practica","u09-quiz","u09-formulas"]},{"id":"u10","num":"U10","title":"Inductancia y circuitos RL, LC, RLC","sections":["u10-mapa","u10-s1","u10-s2","u10-s3","u10-s4","u10-s5","u10-s6","u10-ejemplos","u10-examen","u10-errores","u10-practica","u10-quiz","u10-formulas"]},{"id":"u11","num":"U11","title":"Corriente alterna y ondas EM","sections":["u11-mapa","u11-s1","u11-s2","u11-s3","u11-s4","u11-s5","u11-ejemplos","u11-examen","u11-errores","u11-practica","u11-quiz","u11-formulas"]},{"id":"s01","num":"S1","title":"Simulacro de examen 1","sections":["s01-instrucciones","s01-enunciados","s01-pauta"]},{"id":"s02","num":"S2","title":"Simulacro de examen 2","sections":["s02-instrucciones","s02-enunciados","s02-pauta"]},{"id":"t01","num":"T","title":"Simuladores interactivos: RL, RLC y fasores","sections":["t01-rl","t01-rlc","t01-ca"]}],"ids":{"r01":"r01","r01-mapa":"r01","r01-nota":"r01","r01-arquetipos":"r01","r01-estrategia":"r01","r01-memoria":"r01","r01-formulario":"r01","r01-notacion":"r01","u01":"u01","u01-mapa":"u01","u01-s1":"u01","u01-s2":"u01","u01-s3":"u01","u01-s4":"u01","u01-s5":"u01","u01-s6":"u01","u01-ejemplos":"u01","u01-e1":"u01","u01-e2":"u01","u01-e3":"u01","u01-e4":"u01","u01-examen":"u01","u01-x1":"u01","u01-x2":"u01","u01-errores":"u01","u01-practica":"u01","u01-p1":"u01","u01-p2":"u01","u01-p3":"u01","u01-p4":"u01","u01-p5":"u01","u01-quiz":"u01","u01-quiz-1":"u01","u01-formulas":"u01","u02":"u02","u02-mapa":"u02","u02-s1":"u02","u02-s2":"u02","u02-s3":"u02","u02-s4":"u02","u02-s5":"u02","u02-s6":"u02","u02-s7":"u02","u02-ejemplos":"u02","u02-e1":"u02","u02-e2":"u02","u02-e3":"u02","u02-e4":"u02","u02-examen":"u02","u02-x1":"u02","u02-x2":"u02","u02-x3":"u02","u02-errores":"u02","u02-practica":"u02","u02-p1":"u02","u02-p2":"u02","u02-p3":"u02","u02-p4":"u02","u02-p5":"u02","u02-quiz":"u02","u02-quiz-1":"u02","u02-formulas":"u02","u03":"u03","u03-mapa":"u03","u03-s1":"u03","u03-s2":"u03","u03-s3":"u03","u03-s4":"u03","u03-s5":"u03","u03-s6":"u03","u03-s7":"u03","u03-ejemplos":"u03","u03-e1":"u03","u03-e2":"u03","u03-e3":"u03","u03-examen":"u03","u03-x1":"u03","u03-x2":"u03","u03-errores":"u03","u03-practica":"u03","u03-p1":"u03","u03-p2":"u03","u03-p3":"u03","u03-p4":"u03","u03-p5":"u03","u03-quiz":"u03","u03-quiz-1":"u03","u03-formulas":"u03","u04":"u04","u04-mapa":"u04","u04-s1":"u04","u04-s2":"u04","u04-s3":"u04","u04-s4":"u04","u04-s5":"u04","u04-s6":"u04","u04-ejemplos":"u04","u04-e1":"u04","u04-e2":"u04","u04-e3":"u04","u04-examen":"u04","u04-x1":"u04","u04-x2":"u04","u04-errores":"u04","u04-practica":"u04","u04-p1":"u04","u04-p2":"u04","u04-p3":"u04","u04-p4":"u04","u04-p5":"u04","u04-quiz":"u04","u04-quiz-1":"u04","u04-formulas":"u04","u05":"u05","u05-mapa":"u05","u05-s1":"u05","u05-s2":"u05","u05-s3":"u05","u05-s4":"u05","u05-s5":"u05","u05-ejemplos":"u05","u05-e1":"u05","u05-e2":"u05","u05-e3":"u05","u05-examen":"u05","u05-x1":"u05","u05-x2":"u05","u05-errores":"u05","u05-practica":"u05","u05-p1":"u05","u05-p2":"u05","u05-p3":"u05","u05-p4":"u05","u05-quiz":"u05","u05-quiz-1":"u05","u05-formulas":"u05","u06":"u06","u06-mapa":"u06","u06-s1":"u06","u06-s2":"u06","u06-s3":"u06","u06-s4":"u06","u06-s5":"u06","u06-ejemplos":"u06","u06-e1":"u06","u06-e2":"u06","u06-e3":"u06","u06-examen":"u06","u06-x1":"u06","u06-x2":"u06","u06-x3":"u06","u06-errores":"u06","u06-practica":"u06","u06-p1":"u06","u06-p2":"u06","u06-p3":"u06","u06-p4":"u06","u06-quiz":"u06","u06-quiz-1":"u06","u06-formulas":"u06","u07":"u07","u07-mapa":"u07","u07-s1":"u07","u07-s2":"u07","u07-s3":"u07","u07-s4":"u07","u07-s5":"u07","u07-s6":"u07","u07-s7":"u07","u07-ejemplos":"u07","u07-e1":"u07","u07-e2":"u07","u07-e3":"u07","u07-e4":"u07","u07-examen":"u07","u07-x1":"u07","u07-x2":"u07","u07-x3":"u07","u07-errores":"u07","u07-practica":"u07","u07-p1":"u07","u07-p2":"u07","u07-p3":"u07","u07-p4":"u07","u07-p5":"u07","u07-quiz":"u07","u07-quiz-1":"u07","u07-formulas":"u07","u08":"u08","u08-mapa":"u08","u08-s1":"u08","u08-s2":"u08","u08-s3":"u08","u08-s4":"u08","u08-s5":"u08","u08-s6":"u08","u08-ejemplos":"u08","u08-e1":"u08","u08-e2":"u08","u08-e3":"u08","u08-e4":"u08","u08-examen":"u08","u08-x1":"u08","u08-x2":"u08","u08-x3":"u08","u08-errores":"u08","u08-practica":"u08","u08-p1":"u08","u08-p2":"u08","u08-p3":"u08","u08-p4":"u08","u08-p5":"u08","u08-quiz":"u08","u08-quiz-1":"u08","u08-formulas":"u08","u09":"u09","u09-mapa":"u09","u09-s1":"u09","u09-s2":"u09","u09-s3":"u09","u09-s4":"u09","u09-s5":"u09","u09-s6":"u09","u09-ejemplos":"u09","u09-e1":"u09","u09-e2":"u09","u09-e3":"u09","u09-e4":"u09","u09-examen":"u09","u09-x1":"u09","u09-x2":"u09","u09-x3":"u09","u09-x4":"u09","u09-errores":"u09","u09-practica":"u09","u09-p1":"u09","u09-p2":"u09","u09-p3":"u09","u09-p4":"u09","u09-p5":"u09","u09-quiz":"u09","u09-quiz-1":"u09","u09-formulas":"u09","u10":"u10","u10-mapa":"u10","u10-s1":"u10","u10-s2":"u10","u10-s3":"u10","u10-s4":"u10","u10-s5":"u10","u10-s6":"u10","u10-ejemplos":"u10","u10-e1":"u10","u10-e2":"u10","u10-e3":"u10","u10-e4":"u10","u10-examen":"u10","u10-x1":"u10","u10-x2":"u10","u10-x3":"u10","u10-errores":"u10","u10-practica":"u10","u10-p1":"u10","u10-p2":"u10","u10-p3":"u10","u10-p4":"u10","u10-quiz":"u10","u10-quiz-1":"u10","u10-formulas":"u10","u11":"u11","u11-mapa":"u11","u11-s1":"u11","u11-s2":"u11","u11-s3":"u11","u11-s4":"u11","u11-s5":"u11","u11-ejemplos":"u11","u11-e1":"u11","u11-e2":"u11","u11-e3":"u11","u11-e4":"u11","u11-examen":"u11","u11-x1":"u11","u11-x2":"u11","u11-x3":"u11","u11-errores":"u11","u11-practica":"u11","u11-p1":"u11","u11-p2":"u11","u11-p3":"u11","u11-p4":"u11","u11-quiz":"u11","u11-quiz-1":"u11","u11-formulas":"u11","s01":"s01","s01-sim":"s01","s01-instrucciones":"s01","s01-enunciados":"s01","s01-e-p1a":"s01","s01-e-p1b":"s01","s01-e-p2":"s01","s01-e-p3":"s01","s01-pauta":"s01","s01-p1a":"s01","s01-p1b":"s01","s01-p2":"s01","s01-p3":"s01","s02":"s02","s02-sim":"s02","s02-instrucciones":"s02","s02-enunciados":"s02","s02-e1a":"s02","s02-e1b":"s02","s02-e2":"s02","s02-e3":"s02","s02-pauta":"s02","s02-p1a":"s02","s02-p1b":"s02","s02-p2":"s02","s02-p3":"s02","t01":"t01","t01-rl":"t01","t01-rl-sim":"t01","t01-rl-grow":"t01","t01-rl-decay":"t01","t01-rl-eps-o":"t01","t01-rl-eps":"t01","t01-rl-r-o":"t01","t01-rl-r":"t01","t01-rl-l-o":"t01","t01-rl-l":"t01","t01-rl-read":"t01","t01-rl-canvas":"t01","t01-rlc":"t01","t01-rlc-sim":"t01","t01-rlc-crit":"t01","t01-rlc-r-o":"t01","t01-rlc-r":"t01","t01-rlc-l-o":"t01","t01-rlc-l":"t01","t01-rlc-c-o":"t01","t01-rlc-c":"t01","t01-rlc-q0-o":"t01","t01-rlc-q0":"t01","t01-rlc-read":"t01","t01-rlc-canvas":"t01","t01-rlc-formula":"t01","t01-ca":"t01","t01-ca-sim":"t01","t01-ca-v0-o":"t01","t01-ca-v0":"t01","t01-ca-w-o":"t01","t01-ca-w":"t01","t01-ca-r-o":"t01","t01-ca-r":"t01","t01-ca-l-o":"t01","t01-ca-l":"t01","t01-ca-c-o":"t01","t01-ca-c":"t01","t01-ca-read":"t01","t01-ca-phasor":"t01","t01-ca-res":"t01"}}</script>
 </main>
 </div>
+<script src="js/00-guide.js"></script>
 <script src="js/01-problemas-guiados.js"></script>
 <script src="js/guia.js"></script>
 <script src="js/06-simulacro.js"></script>
