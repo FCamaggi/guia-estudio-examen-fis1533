@@ -212,8 +212,12 @@ async function reload(page) {
     .map(e => parseFloat(getComputedStyle(e).borderLeftWidth)));
   ok(m.length > 0 && Math.max(...m) <= 1, "callouts have no thick left stripe (max " + Math.max(...m) + "px)");
   m = await p.evaluate(() => { const pr = document.querySelector("#unit-host .prob .predict"); const cs = getComputedStyle(pr);
-    return cs.backgroundColor === "rgba(0, 0, 0, 0)" && parseFloat(cs.borderRightWidth) === 0; });
-  ok(m, "prediction inside a problem is not a nested frame");
+    // Not a frame inside the frame: either unfilled, or a full-bleed band (no side borders, edge to edge).
+    const box = pr.getBoundingClientRect(), outer = pr.closest(".prob").getBoundingClientRect();
+    const noSides = parseFloat(cs.borderRightWidth) === 0 && parseFloat(cs.borderLeftWidth) === 0;
+    const fullBleed = Math.abs(box.left - outer.left) <= 3 && Math.abs(box.right - outer.right) <= 3;
+    return noSides && (cs.backgroundColor === "rgba(0, 0, 0, 0)" || fullBleed); });
+  ok(m, "prediction inside a problem is not a nested frame (unfilled or full-bleed band)");
   await p.evaluate(() => { location.hash = "#u11-s2"; });
   await p.waitForTimeout(500);
   m = await p.evaluate(() => [...document.querySelectorAll("#unit-host .eq.key")].filter(e => e.scrollWidth > e.clientWidth + 2).length);

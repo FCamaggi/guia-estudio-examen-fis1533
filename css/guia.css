@@ -63,9 +63,9 @@
 
 /* Quiz feedback per option */
 .quiz { margin: 18px 0; }
-.q .fb { display: none; font-size: 0.9375rem; margin: 6px 0 0; padding: 8px 12px; border-radius: 0; background: var(--paper); border: 1px solid transparent; }
-.q .fb.fb-pick { border-color: var(--bad); }
-.q .fb.fb-correct { border-color: var(--ok); }
+.q .fb { display: none; grid-column: 2; font-size: 0.9375rem; margin: 0 0 10px; padding: 0 0 0 12px; border-radius: 0; background: none; border: 0; border-left: 1px solid var(--line); }
+.q .fb.fb-pick { border-left-color: var(--bad); }
+.q .fb.fb-correct { border-left-color: var(--ok); }
 .fb-tag { display: block; font: 600 0.75rem var(--font-mono); text-transform: uppercase; letter-spacing: .04em; margin-bottom: 2px; }
 .fb-pick .fb-tag { color: var(--bad); }
 .fb-correct .fb-tag { color: var(--ok); }

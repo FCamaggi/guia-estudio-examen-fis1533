@@ -219,26 +219,33 @@ table.duo tbody th { font-family: var(--font-display); font-size: 0.875rem; colo
 .sim-note { font-size: 0.8438rem; color: var(--muted); margin: 8px 0 0; }
 
 /* ---------- Quiz: vertical options with letter badges ---------- */
-.q { border: 0; border-top: 2px solid var(--ink); border-radius: 0; background: transparent; padding: 14px 0; margin: 12px 0; }
-.qt { margin: 0 0 10px; font-weight: 600; }
-.opts { display: grid; grid-template-columns: 1fr; gap: 0; counter-reset: opt; }
+/* Quiz: each option is a row; its feedback sits right under it, marked with a 1px rule in the verdict colour.
+   Options and feedback are interleaved by placing .opts children directly on the .q grid. */
+.q { display: grid; grid-template-columns: 2.25rem minmax(0, 1fr); column-gap: 12px; border: 0; border-top: 2px solid var(--ink); border-radius: 0; background: transparent; padding: 14px 0; margin: 12px 0; }
+.q > * { grid-column: 1 / -1; min-width: 0; }
+.qt { margin: 0 0 8px; font-weight: 700; }
+.opts { display: contents; }
+/* Block button (not grid/flex) so text and inline math wrap as one paragraph; the letter badge is positioned. */
 .opts button {
-  font: 0.9375rem var(--font-body); text-align: left; padding: 10px 8px 10px 52px; border-radius: 0; cursor: pointer;
+  grid-column: 1 / -1; display: block; position: relative;
+  font: 0.9375rem var(--font-body); text-align: left; padding: 11px 0 11px calc(2.25rem + 12px); min-height: 46px; border-radius: 0; cursor: pointer;
   border: 0; border-top: 1px solid var(--line); background: transparent; color: var(--ink);
-  position: relative; min-height: 46px;
 }
 .opts button::before {
-  counter-increment: opt; content: counter(opt, upper-alpha);
-  position: absolute; left: 8px; top: 9px; width: 28px; height: 28px;
-  display: grid; place-items: center; background: var(--ink); color: var(--surface);
-  font: 700 0.875rem var(--font-mono);
+  content: attr(data-o); text-transform: uppercase;
+  position: absolute; left: 0; top: 9px; width: 28px; height: 28px; display: grid; place-items: center;
+  background: var(--ink); color: var(--surface); font: 600 0.875rem var(--font-mono);
 }
 .opts button:hover:not([disabled]) { background: color-mix(in srgb, var(--ink) 4%, transparent); }
 .opts button[disabled] { cursor: default; }
-.opts button.right { background: var(--ok-soft); color: var(--ok); font-weight: 600; }
-.opts button.right::before { background: var(--ok); color: var(--surface); }
-.opts button.wrong { background: var(--bad-soft); color: var(--bad); }
-.opts button.wrong::before { background: var(--bad); color: var(--surface); }
+.opts button.right::before { background: var(--ok); }
+.opts button.wrong::before { background: var(--bad); }
+.q.answered .opts button:not(.right):not(.wrong) { color: var(--muted); }
+.q .opts button[data-o="a"] { grid-row: 2; } .q .fb[data-o="a"] { grid-row: 3; }
+.q .opts button[data-o="b"] { grid-row: 4; } .q .fb[data-o="b"] { grid-row: 5; }
+.q .opts button[data-o="c"] { grid-row: 6; } .q .fb[data-o="c"] { grid-row: 7; }
+.q .opts button[data-o="d"] { grid-row: 8; } .q .fb[data-o="d"] { grid-row: 9; }
+.q .q-retry { grid-column: 2; grid-row: 10; justify-self: start; }
 
 /* ---------- Mobile: top bar + off-canvas index ---------- */
 .topbar, .toc-scrim { display: none; }
@@ -321,21 +328,31 @@ table.duo tbody th { font-family: var(--font-display); font-size: 0.875rem; colo
 .gl { display: block; font-family: var(--font-mono); font-size: 0.75rem; text-transform: uppercase; letter-spacing: .05em; color: var(--muted); }
 .predict { margin-top: 14px; margin-bottom: 4px; padding: 12px 0 0; border: 0; border-top: 2px solid var(--ink); font-size: 1rem; background: transparent; }
 .predict b { color: #121417; background: #ffd43b; padding: 0 4px; }
+/* Inside a problem, "Antes de calcular" is a departure-board band: a pause before any step. */
+.prob .predict { margin: 14px 0 0; padding: 12px 18px; border: 0; background: var(--band); color: var(--band-ink); overflow-x: auto; }
+.prob .predict b { display: inline-block; margin-right: 10px; padding: 2px 8px; font: 600 0.8125rem var(--font-mono); }
 
-.reveal { list-style: none; padding: 0; margin-top: 12px; margin-bottom: 0; display: grid; grid-template-columns: minmax(0, 1fr); gap: 0; }
-.reveal li {
-  border-top: 1px solid var(--line); padding: 10px 0; max-width: none; min-width: 0; overflow-x: auto;
-  display: grid; grid-template-columns: 9rem minmax(0, 1fr); column-gap: 18px;
+/* Steps as timetable rows: big line-coloured number | step title, "Qué hago", then "Por qué" below. */
+.reveal { list-style: none; padding: 0; margin-top: 0; margin-bottom: 0; display: grid; grid-template-columns: minmax(0, 1fr); gap: 0; counter-reset: row; }
+.prob .reveal { margin-left: 0; margin-right: 0; }
+.reveal li { border-top: 1px solid var(--line); padding: 10px 18px; max-width: none; min-width: 0; overflow-x: auto; display: block; }
+.reveal li:has(.rl) {
+  display: grid; grid-template-columns: 3.25rem minmax(0, 1fr); column-gap: 18px; row-gap: 4px;
+  padding: 14px 18px; counter-increment: row;
 }
-.reveal li:not(:has(.rl)) { display: block; }
-.reveal li > :not(.rl) { grid-column: 2; }
+.reveal li:has(.rl):nth-of-type(odd) { background: color-mix(in srgb, var(--ink) 4%, transparent); }
+.reveal li:has(.rl)::before { content: counter(row, decimal-leading-zero); grid-column: 1; grid-row: 1 / span 6; font: 700 1.375rem/1.1 var(--font-mono); color: var(--line-c, var(--ink)); }
+.reveal li:has(.rl) > * { grid-column: 2; min-width: 0; }
 .js .reveal li { display: none; }
-.js .reveal li.shown { display: grid; animation: rise .25s ease; }
-.js .reveal li.shown:not(:has(.rl)) { display: block; }
+.js .reveal li.shown { display: block; animation: rise .25s ease; }
+.js .reveal li.shown:has(.rl) { display: grid; }
 @keyframes rise { from { opacity: .3; transform: translateY(4px); } to { opacity: 1; transform: none; } }
 @media (prefers-reduced-motion: reduce) { .js .reveal li.shown { animation: none; } }
-.rl { color: var(--ink); font-family: var(--font-mono); font-weight: 600; font-size: 0.8125rem; grid-row: span 3; margin-bottom: 2px; }
-.reveal li.final { border-radius: 0; border: 2px solid var(--ok); background: transparent; padding: 10px 14px; }
+.rl { display: block; color: var(--ink); font: 700 0.9375rem var(--font-display); margin-bottom: 2px; }
+.reveal li > .do { margin: 0; }
+.reveal li > .do + p { margin: 6px 0 0; color: var(--muted); font-size: 0.9375rem; }
+.reveal li > .do > b:first-child, .reveal li > .do + p > b:first-child { display: block; margin-bottom: 2px; color: var(--muted); font: 600 0.75rem var(--font-mono); letter-spacing: .04em; text-transform: uppercase; }
+.reveal li.final { border-radius: 0; border: 2px solid var(--ok); background: transparent; padding: 10px 14px; margin: 12px 18px; }
 .reveal li.final .rl { color: var(--ok); }
 .reveal li.check .rl { color: var(--muted); }
 .reveal .fig { margin: 10px 0 2px; }
@@ -363,15 +380,13 @@ table.duo tbody th { font-family: var(--font-display); font-size: 0.875rem; colo
   .src { margin-left: 0; }
 }
 @media (max-width: 640px) {
-  .reveal li { grid-template-columns: 1fr; }
-  .reveal li > :not(.rl) { grid-column: 1; }
-  .rl { grid-row: auto; margin-bottom: 4px; }
+  .reveal li:has(.rl) { grid-template-columns: 2.25rem minmax(0, 1fr); column-gap: 10px; padding: 12px 14px; }
+  .reveal li:has(.rl)::before { font-size: 1.0625rem; }
 }
 
 .why { margin-top: 10px; padding: 10px 14px; border-radius: 0; background: var(--surface); border: 1px dashed var(--line); font-size: 0.9688rem; }
 .why b:first-child { color: var(--copper); }
 .do { margin: 2px 0 8px; }
-.do b { color: var(--accent); }
 .reveal li .tbl-wrap { margin: 8px 0; }
 .eq .note { font-size: 0.9375rem; color: var(--muted); margin-top: 6px; max-width: 68ch; }
 .mini { border: 1px solid var(--ok); background: var(--ok-soft); border-radius: 0; padding: 12px 16px; margin: 16px 0; }
@@ -453,9 +468,9 @@ table.duo tbody th { font-family: var(--font-display); font-size: 0.875rem; colo
 
 /* Quiz feedback per option */
 .quiz { margin: 18px 0; }
-.q .fb { display: none; font-size: 0.9375rem; margin: 6px 0 0; padding: 8px 12px; border-radius: 0; background: var(--paper); border: 1px solid transparent; }
-.q .fb.fb-pick { border-color: var(--bad); }
-.q .fb.fb-correct { border-color: var(--ok); }
+.q .fb { display: none; grid-column: 2; font-size: 0.9375rem; margin: 0 0 10px; padding: 0 0 0 12px; border-radius: 0; background: none; border: 0; border-left: 1px solid var(--line); }
+.q .fb.fb-pick { border-left-color: var(--bad); }
+.q .fb.fb-correct { border-left-color: var(--ok); }
 .fb-tag { display: block; font: 600 0.75rem var(--font-mono); text-transform: uppercase; letter-spacing: .04em; margin-bottom: 2px; }
 .fb-pick .fb-tag { color: var(--bad); }
 .fb-correct .fb-tag { color: var(--ok); }
