@@ -55,8 +55,10 @@
       tEl.textContent = fmtTime(state.left);
       tEl.classList.toggle("low", state.left <= 600);
     }
+    var bar = root.querySelector(".sim-bar");
     function stop() {
       if (timer) { clearInterval(timer); timer = null; }
+      if (bar) bar.classList.remove("running");
       if (bStart) bStart.textContent = state.left <= 0 ? "Tiempo" : state.left < full ? "Reanudar" : "Iniciar";
       save();
     }
@@ -64,6 +66,7 @@
       if (timer) { stop(); return; }
       if (state.left <= 0) return;
       bStart.textContent = "Pausar";
+      if (bar) bar.classList.add("running");
       timer = setInterval(function () {
         state.left -= 1;
         paintTime();

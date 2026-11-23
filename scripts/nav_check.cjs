@@ -91,11 +91,14 @@ const ok = (c, m) => { if (!c) failed = true; console.log((c ? "PASS " : "FAIL "
   await page.click('.toc a.toc-u[data-unit="s01"]');
   await page.click("#unit-host .sim-start");
   const t1 = await page.evaluate(() => document.querySelector("#unit-host .sim-time").textContent);
-  await page.click('.toc a.toc-u[data-unit="t01"]');
+  // Exam mode hides the index while the timer runs, so leave through a link (hash), as a reader would.
+  await page.evaluate(() => { location.hash = "#t01"; });
+  await page.waitForFunction(() => Guide.current === "t01");
   await page.waitForTimeout(2200);
   await page.click('.toc a.toc-u[data-unit="s01"]');
   const t2 = await page.evaluate(() => document.querySelector("#unit-host .sim-time").textContent);
   ok(t1 !== t2, `timer kept running while hidden (${t1} -> ${t2})`);
+  await page.click("#unit-host .sim-start"); // pause: exam mode ends and the index returns
   // pager
   const pg = await page.evaluate(() => [...document.querySelectorAll("#unit-host .unit-pager a")].map(a => a.getAttribute("href")));
   ok(pg.length >= 1, "pager links " + pg.join(","));

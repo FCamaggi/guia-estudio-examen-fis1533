@@ -228,6 +228,24 @@ async function reload(page) {
   ok(m, "active unit is scrolled into view in the desktop TOC");
   await p.close();
 
+  // Exam mode: while the mock-exam timer runs, the index hides; pausing or leaving the unit brings it back.
+  p = await open(ctx, "#s01");
+  const tocShown = () => p.evaluate(() => getComputedStyle(document.getElementById("toc")).display !== "none");
+  const before = await tocShown();
+  await p.click("#unit-host .sim-start");
+  await p.waitForTimeout(300);
+  const running = await tocShown();
+  await p.click("#unit-host .sim-start");
+  await p.waitForTimeout(300);
+  const paused = await tocShown();
+  await p.click("#unit-host .sim-start");
+  await p.evaluate(() => { location.hash = "#u09"; });
+  await p.waitForFunction(() => Guide.current === "u09");
+  const away = await tocShown();
+  ok(before && !running && paused && away, `exam mode hides the index only while the timer runs (before ${before}, running ${running}, paused ${paused}, other unit ${away})`);
+  await p.evaluate(() => localStorage.removeItem("fis1533-ex-sim-s01"));
+  await p.close();
+
   ok(errs.length === 0, "no page errors " + errs.slice(0, 3).join(" | "));
   await b.close();
   process.exit(failed ? 1 : 0);

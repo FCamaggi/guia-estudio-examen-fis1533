@@ -407,6 +407,13 @@ table.duo tbody th { font-family: var(--font-display); font-size: 0.875rem; colo
 
 .layout.no-toc { grid-template-columns: minmax(0, 1fr); }
 .layout.no-toc main { max-width: 1180px; margin: 0 auto; }
+/* Exam mode: while a mounted mock exam's timer runs (.sim-bar.running), the index steps aside.
+   Inactive units are detached from the DOM, so leaving the exam brings the index back. */
+@media (min-width: 901px) {
+  .layout:has(.sim-bar.running) { grid-template-columns: minmax(0, 1fr); }
+  .layout:has(.sim-bar.running) > .toc { display: none; }
+  .layout:has(.sim-bar.running) main { max-width: 1180px; margin: 0 auto; }
+}
 
 /* Section title line: h2 + "dominado" toggle */
 .sec-head h2 { flex: 1 1 18rem; }
@@ -539,20 +546,24 @@ table.duo tbody th { font-family: var(--font-display); font-size: 0.875rem; colo
 /* Mock exams (js/06-simulacro.js) */
 .simulacro { margin: 8px 0; }
 .simulacro .sec, .simulacro [id] { scroll-margin-top: 100px; }
+/* Compact one-line strip: calm during a 150-minute exam, and as short as possible so it covers less. */
 .sim-bar {
-  position: sticky; top: 0; z-index: 5; display: flex; flex-wrap: wrap; gap: 14px 24px; align-items: center; justify-content: space-between;
-  padding: 12px 16px; margin: 12px 0 18px;
-  background: var(--band); color: var(--band-ink); border: 0; border-bottom: 2px solid var(--ink); border-radius: 0;
+  position: sticky; top: 0; z-index: 5; display: flex; flex-wrap: wrap; align-items: center; gap: 8px 20px;
+  min-height: 48px; padding: 6px 16px; margin: 12px 0 18px;
+  background: var(--surface); color: var(--ink); border: 0; border-top: 2px solid var(--ink); border-bottom: 2px solid var(--ink); border-radius: 0;
 }
-.sim-bar .eb-lbl { color: color-mix(in srgb, var(--band-ink) 72%, transparent); }
-.sim-bar .eb-btns button { border-color: color-mix(in srgb, var(--band-ink) 55%, transparent); background: transparent; color: var(--band-ink); }
-.sim-bar .eb-btns button.primary { background: var(--band-ink); border-color: var(--band-ink); color: var(--band); }
+.sim-bar > div:first-child { display: flex; align-items: baseline; gap: 8px; }
+.sim-bar .eb-lbl { font: 600 0.75rem var(--font-mono); letter-spacing: .06em; text-transform: uppercase; color: var(--muted); }
+.sim-bar .eb-btns { display: flex; gap: 6px; }
+.sim-bar .eb-btns button { min-height: 36px; padding: 4px 12px; border: 1px solid var(--ink); background: var(--surface); color: var(--ink); }
+.sim-bar .eb-btns button.primary { background: var(--ink); border-color: var(--ink); color: var(--surface); }
 .sim-bar .eb-btns button.confirming { background: var(--bad-soft); border-color: var(--bad); color: var(--bad); }
-.sim-time { display: block; font: 700 1.5rem var(--font-mono); font-variant-numeric: tabular-nums; color: var(--band-ink); }
-.sim-time.low { color: #ff8776; }
-.sim-pts { font: 700 1.125rem var(--font-mono); font-variant-numeric: tabular-nums; color: var(--band-ink); }
-.sim-nota { font: 600 0.8125rem var(--font-mono); color: color-mix(in srgb, var(--band-ink) 75%, transparent); margin-left: 8px; }
-.sim-nota.ok { color: #69db9e; }
+.sim-bar .eb-score { margin-left: auto; display: flex; align-items: baseline; gap: 8px; }
+.sim-time { display: inline; font: 600 1.25rem var(--font-mono); font-variant-numeric: tabular-nums; color: var(--ink); }
+.sim-time.low { color: var(--bad); }
+.sim-pts { font: 600 1.0625rem var(--font-mono); font-variant-numeric: tabular-nums; color: var(--ink); }
+.sim-nota { font: 600 0.8125rem var(--font-mono); color: var(--muted); margin: 0; }
+.sim-nota.ok { color: var(--ok); }
 .simulacro .score-box { display: block; margin: 12px 0 20px; padding: 12px 16px; border: 1px dashed var(--ink); border-radius: 0; background: var(--paper); overflow-x: auto; }
 .simulacro .score-box .sb-head { display: flex; justify-content: space-between; font: 700 0.8125rem var(--font-mono); color: var(--ink); margin-bottom: 6px; }
 .simulacro .score-box label { display: block; font-size: 0.9375rem; padding: 4px 0 4px 1.6rem; cursor: pointer; }
@@ -9129,8 +9140,10 @@ window.MathJax = {
       tEl.textContent = fmtTime(state.left);
       tEl.classList.toggle("low", state.left <= 600);
     }
+    var bar = root.querySelector(".sim-bar");
     function stop() {
       if (timer) { clearInterval(timer); timer = null; }
+      if (bar) bar.classList.remove("running");
       if (bStart) bStart.textContent = state.left <= 0 ? "Tiempo" : state.left < full ? "Reanudar" : "Iniciar";
       save();
     }
@@ -9138,6 +9151,7 @@ window.MathJax = {
       if (timer) { stop(); return; }
       if (state.left <= 0) return;
       bStart.textContent = "Pausar";
+      if (bar) bar.classList.add("running");
       timer = setInterval(function () {
         state.left -= 1;
         paintTime();
