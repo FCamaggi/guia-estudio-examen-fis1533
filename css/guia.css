@@ -3,57 +3,69 @@
 .layout.no-toc { grid-template-columns: minmax(0, 1fr); }
 .layout.no-toc main { max-width: 980px; margin: 0 auto; }
 
+/* Section title line: h2 + "dominado" toggle */
+.sec-head h2 { flex: 1 1 18rem; }
+.sec-head .master { margin-top: 6px; }
+
 /* Unit header */
 .unit { border-top: 2px solid var(--ink); margin-top: 48px; padding-top: 8px; }
 .unit-head { display: flex; align-items: baseline; gap: 14px; flex-wrap: wrap; margin: 12px 0 4px; }
-.unit-num { font: 700 13px var(--font-mono); color: var(--surface); background: var(--ink); padding: 3px 9px; border-radius: 6px; }
-.unit-head h1 { font-family: var(--font-display); font-weight: 800; font-size: clamp(28px, 4vw, 38px); line-height: 1.1; margin: 0; }
-.unit-weight { font: 600 12px var(--font-mono); color: var(--copper); }
+.unit-num { font: 700 0.8125rem var(--font-mono); color: var(--surface); background: var(--ink); padding: 3px 9px; border-radius: 6px; }
+.unit-head h1 { font-family: var(--font-display); font-weight: 800; font-size: clamp(1.75rem, 4vw, 2.375rem); line-height: 1.1; margin: 0; }
+.unit-weight { font: 600 0.75rem var(--font-mono); color: var(--copper); }
 
 /* Exam map: what the exam asks in this unit */
 .exam-map { border: 1px solid var(--copper); background: var(--copper-soft); border-radius: 10px; padding: 12px 16px; margin: 14px 0; }
-.exam-map h4 { margin: 0 0 6px; font: 700 13px var(--font-mono); text-transform: uppercase; letter-spacing: .04em; color: var(--copper); }
+.exam-map h3 { margin: 0 0 6px; font: 700 0.8125rem var(--font-mono); text-transform: uppercase; letter-spacing: .04em; color: var(--copper); }
 .exam-map ul { margin: 0; padding-left: 18px; }
 
 /* Embedded prerequisites */
 .prereq { border: 1px dashed var(--muted); border-radius: 10px; padding: 10px 16px; margin: 16px 0; background: var(--paper); }
 .prereq > summary { cursor: pointer; font-weight: 700; color: var(--ink); }
-.prereq > summary::before { content: "Repaso exprés · "; font: 600 12px var(--font-mono); color: var(--muted); }
+.prereq > summary::before { content: "Repaso exprés · "; font: 600 0.75rem var(--font-mono); color: var(--muted); }
 
 /* Derivations: full steps, collapsible for review mode */
-.deriv { border-left: 3px solid var(--line); padding: 4px 0 4px 14px; margin: 14px 0; }
+.deriv { border-left: 1px solid var(--line); padding: 4px 0 4px 14px; margin: 14px 0; }
 .deriv > summary { cursor: pointer; font-weight: 600; color: var(--accent); }
 
 /* Formula card */
 .formulas table { width: 100%; border-collapse: collapse; }
 .formulas td, .formulas th { border-bottom: 1px solid var(--line); padding: 8px 10px; vertical-align: top; text-align: left; }
-.formulas th { font: 600 12px var(--font-mono); text-transform: uppercase; color: var(--muted); }
+.formulas th { font: 600 0.75rem var(--font-mono); text-transform: uppercase; color: var(--muted); }
 
 /* Problem kind badges */
 .prob[data-kind="arquetipo"] .tag { background: var(--copper); }
 .prob[data-kind="practica"] .tag { background: var(--muted); }
-.diff { font: 600 11px var(--font-mono); color: var(--muted); margin-left: 6px; }
+.diff { font: 600 0.75rem var(--font-mono); color: var(--muted); margin-left: 6px; }
 
 /* Quiz feedback per option */
 .quiz { margin: 18px 0; }
-.q .fb { display: none; font-size: 15px; margin: 6px 0 0; padding: 6px 10px; border-radius: 6px; background: var(--paper); }
+.q .fb { display: none; font-size: 0.9375rem; margin: 6px 0 0; padding: 6px 10px; border-radius: 6px; background: var(--paper); border: 1px solid transparent; }
+.q .fb.fb-pick { border-color: color-mix(in srgb, var(--bad) 35%, transparent); }
+.q .fb.fb-correct { border-color: color-mix(in srgb, var(--ok) 40%, transparent); }
+.fb-tag { display: block; font: 600 0.75rem var(--font-mono); text-transform: uppercase; letter-spacing: .04em; margin-bottom: 2px; }
+.fb-pick .fb-tag { color: var(--bad); }
+.fb-correct .fb-tag { color: var(--ok); }
+.q-retry { font: 600 0.875rem var(--font-body); background: none; border: 0; padding: 6px 0; margin-top: 6px; color: var(--accent); text-decoration: underline; text-underline-offset: 3px; cursor: pointer; }
 .q .fb.shown { display: block; }
-.quiz-bar { display: flex; gap: 12px; align-items: center; margin-top: 10px; font: 600 13px var(--font-mono); }
+.quiz-bar { display: flex; gap: 12px; align-items: center; margin: 0 0 10px; font: 600 0.8125rem var(--font-mono); }
+.quiz-bar button { font: 600 0.875rem var(--font-body); padding: 6px 12px; border-radius: 8px; border: 1px solid var(--line); background: var(--surface); color: var(--ink); cursor: pointer; }
+.quiz-bar button:hover { border-color: var(--accent); }
 
 /* TOC additions */
-.toc a.sub { padding-left: 34px; font-size: 13px; color: var(--muted); }
+.toc a.sub { padding-left: 34px; font-size: 0.8125rem; color: var(--muted); }
 .toc-unit:not(.open) > a.sub { display: none; }
 .toc-search { margin-top: 12px; }
-.toc-search input { width: 100%; box-sizing: border-box; padding: 7px 10px; font: 14px var(--font-body, inherit); color: var(--ink);
+.toc-search input { width: 100%; box-sizing: border-box; padding: 7px 10px; font: 0.875rem var(--font-body, inherit); color: var(--ink);
   background: var(--surface); border: 1px solid var(--line); border-radius: 8px; }
 .toc-search input:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
-.toc-empty { margin: 8px 2px 0; font-size: 13px; color: var(--muted); }
+.toc-empty { margin: 8px 2px 0; font-size: 0.8125rem; color: var(--muted); }
 .toc.searching .toc-unit > a.sub { display: none; }
 .toc.searching .toc-unit > a.sub.match { display: flex; }
 .toc [hidden] { display: none !important; }
-.toc .up { margin-left: auto; font: 600 11px var(--font-mono); color: var(--muted); }
-.toc .pending { display: flex; gap: 8px; padding: 6px 10px; font-size: 14px; color: var(--muted); opacity: .6; }
-.toc .pending .n { font-family: var(--font-mono); font-size: 11px; min-width: 18px; }
+.toc .up { margin-left: auto; font: 600 0.75rem var(--font-mono); color: var(--muted); }
+.toc .pending { display: flex; gap: 8px; padding: 6px 10px; font-size: 0.875rem; color: var(--muted); opacity: .6; }
+.toc .pending .n { font-family: var(--font-mono); font-size: 0.75rem; min-width: 18px; }
 
 /* Previous / next unit (appended by js/00-guide.js) */
 .unit-pager { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin: 48px 0 24px; padding-top: 18px; border-top: 1px solid var(--line); }
@@ -61,39 +73,64 @@
   background: var(--surface); color: var(--ink); text-decoration: none; }
 .unit-pager a:hover { border-color: var(--accent); }
 .unit-pager .pager-next { text-align: right; grid-column: 2; }
-.unit-pager .pager-dir { font: 600 12px var(--font-mono); color: var(--muted); }
+.unit-pager .pager-dir { font: 600 0.75rem var(--font-mono); color: var(--muted); }
 .unit-pager .pager-title { font-weight: 600; }
 #unit-host:focus { outline: none; }
+
+/* Mobile top bar (built by scripts/build.py, wired in js/00-guide.js) */
+.toc-toggle { display: inline-flex; align-items: center; gap: 6px; min-height: 44px; padding: 0 12px; border-radius: 8px;
+  font: 600 0.9375rem var(--font-body); color: var(--ink); background: var(--surface); border: 1px solid var(--line); cursor: pointer; }
+.toc-toggle:hover { border-color: var(--accent); }
+.topbar-unit { flex: 1; min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; font: 600 0.9375rem var(--font-display); }
+.topbar-prog { font: 600 0.75rem var(--font-mono); color: var(--muted); font-variant-numeric: tabular-nums; }
+
+/* Open / close every derivation of the unit (choice remembered) */
+.deriv-all { font: 600 0.875rem var(--font-body); padding: 6px 12px; border-radius: 8px; border: 1px solid var(--line);
+  background: var(--surface); color: var(--ink); cursor: pointer; }
+.deriv-all:hover { border-color: var(--accent); }
+.deriv-all[aria-pressed="true"] { border-color: var(--accent); color: var(--accent); }
+
+/* Destructive actions ask once more (js/06-simulacro.js) */
+.eb-btns button.confirming { background: var(--bad-soft); border-color: var(--bad); color: var(--bad); }
 #unit-host > .unit:first-child { margin-top: 0; }
 
-.fig-missing { border: 2px dashed var(--bad); color: var(--bad); padding: 18px; text-align: center; border-radius: 8px; font: 600 13px var(--font-mono); }
+.fig-missing { border: 2px dashed var(--bad); color: var(--bad); padding: 18px; text-align: center; border-radius: 8px; font: 600 0.8125rem var(--font-mono); }
 
 /* Mock exams (js/06-simulacro.js) */
 .simulacro { margin: 8px 0; }
 .sim-bar { position: sticky; top: 0; z-index: 5; display: flex; flex-wrap: wrap; gap: 14px 24px; align-items: center; justify-content: space-between;
   padding: 10px 14px; margin: 12px 0 18px; background: var(--surface); border: 1px solid var(--line); border-radius: 10px; }
-.sim-time { display: block; font: 700 24px var(--font-mono); font-variant-numeric: tabular-nums; }
+.sim-time { display: block; font: 700 1.5rem var(--font-mono); font-variant-numeric: tabular-nums; }
 .sim-time.low { color: var(--bad); }
-.sim-pts { font: 700 18px var(--font-mono); font-variant-numeric: tabular-nums; }
-.sim-nota { font: 600 13px var(--font-mono); color: var(--muted); margin-left: 8px; }
+.sim-pts { font: 700 1.125rem var(--font-mono); font-variant-numeric: tabular-nums; }
+.sim-nota { font: 600 0.8125rem var(--font-mono); color: var(--muted); margin-left: 8px; }
 .sim-nota.ok { color: var(--ok); }
 .simulacro .score-box { display: block; margin: 12px 0 4px; padding: 10px 14px; border: 1px dashed var(--line); border-radius: 8px; background: var(--paper); }
-.simulacro .score-box .sb-head { display: flex; justify-content: space-between; font: 600 13px var(--font-mono); color: var(--muted); margin-bottom: 6px; }
-.simulacro .score-box label { display: flex; gap: 8px; align-items: baseline; font-size: 15px; padding: 2px 0; cursor: pointer; }
+.simulacro .score-box .sb-head { display: flex; justify-content: space-between; font: 600 0.8125rem var(--font-mono); color: var(--muted); margin-bottom: 6px; }
+.simulacro .score-box label { display: flex; gap: 8px; align-items: baseline; font-size: 0.9375rem; padding: 2px 0; cursor: pointer; }
 .score-box input.pts { accent-color: var(--ok); }
 
 /* Required exam grade calculator (js/08-nota-necesaria.js) */
 .nota-calc { margin: 10px 0 18px; padding: 12px 16px; border: 1px solid var(--line); border-radius: 10px; background: var(--surface); }
 .nc-inputs { display: flex; flex-wrap: wrap; gap: 10px 18px; margin: 8px 0; }
-.nc-inputs label { display: flex; flex-direction: column; gap: 4px; font: 600 13px var(--font-mono); color: var(--muted); }
-.nc-inputs input { width: 110px; font: 600 16px var(--font-mono); padding: 6px 8px; border: 1px solid var(--line); border-radius: 6px; background: var(--paper); color: var(--ink); }
-.nc-out { font-size: 17px; font-weight: 600; margin: 8px 0 4px; }
+.nc-inputs label { display: flex; flex-direction: column; gap: 4px; font: 600 0.8125rem var(--font-mono); color: var(--muted); }
+.nc-inputs input { width: 110px; font: 600 1rem var(--font-mono); padding: 6px 8px; border: 1px solid var(--line); border-radius: 6px; background: var(--paper); color: var(--ink); }
+.nc-out { font-size: 1.0625rem; font-weight: 600; margin: 8px 0 4px; }
 .nc-out.ok { color: var(--ok); } .nc-out.bad { color: var(--bad); }
-.nc-note { font-size: 13.5px; color: var(--muted); margin: 4px 0 0; }
+.nc-note { font-size: 0.8438rem; color: var(--muted); margin: 4px 0 0; }
 
 @media print {
   .toc, .master, .ctrl, .quiz-bar, .sim-bar, .score-box { display: none !important; }
   .layout { display: block; }
   .reveal > li, .try-ans, .q .fb { display: block !important; }
   details { display: block; }
+}
+
+/* The index header (progress + search) stays visible while the list scrolls */
+.toc-head { position: sticky; top: -22px; z-index: 2; background: var(--surface); padding-top: 22px; margin-top: -22px; }
+
+@media (max-width: 900px) {
+  .sim-bar { top: 52px; gap: 6px 12px; padding: 8px 12px; margin: 8px 0 14px; }
+  .sim-time { font-size: 1.25rem; }
+  .deriv-all, .q-retry, .quiz-bar button, #toc-q { min-height: 44px; }
 }

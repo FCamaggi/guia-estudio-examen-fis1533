@@ -1,16 +1,27 @@
-/* Guided problems (.prob step reveal) and quick answers (.try). Runs once per mounted unit. */
+/* Guided problems (.prob step reveal) and quick answers (.try). Runs once per mounted unit.
+   Revealed steps persist per problem in localStorage, so a reload keeps your place. */
 (function () {
   "use strict";
+  var KEY = "fis1533-examen-steps";
+  var steps = {};
+  try { steps = JSON.parse(localStorage.getItem(KEY) || "{}"); } catch (e) { steps = {}; }
+  function save() { try { localStorage.setItem(KEY, JSON.stringify(steps)); } catch (e) { /* storage blocked */ } }
   window.Guide.onMount(function (root, first) {
     if (first) init(root);
   });
 
   function init(root) {
-    root.querySelectorAll(".prob").forEach(function (p) {
+    var unitId = root.id || (root.querySelector("section.unit") || {}).id || "u";
+    root.querySelectorAll(".prob").forEach(function (p, idx) {
       var items = Array.prototype.slice.call(p.querySelectorAll(".reveal > li"));
       var ctrl = p.querySelector(".ctrl");
       if (!ctrl || !items.length) return;
-      var k = 0;
+      var pid = p.id || unitId + "-p" + idx;
+      var k = Math.min(items.length, steps[pid] || 0);
+      function remember() {
+        if (k) steps[pid] = k; else delete steps[pid];
+        save();
+      }
       var bNext = document.createElement("button"); bNext.type = "button"; bNext.className = "primary";
       var bAll = document.createElement("button"); bAll.type = "button"; bAll.textContent = "Ver solución completa";
       var bHide = document.createElement("button"); bHide.type = "button"; bHide.textContent = "Ocultar todo";
@@ -28,9 +39,9 @@
         bHide.style.display = k === 0 ? "none" : "";
         cnt.textContent = k + "/" + items.length + " visibles";
       }
-      bNext.addEventListener("click", function () { k = Math.min(items.length, k + 1); paint(); });
-      bAll.addEventListener("click", function () { k = items.length; paint(); });
-      bHide.addEventListener("click", function () { k = 0; paint(); });
+      bNext.addEventListener("click", function () { k = Math.min(items.length, k + 1); paint(); remember(); });
+      bAll.addEventListener("click", function () { k = items.length; paint(); remember(); });
+      bHide.addEventListener("click", function () { k = 0; paint(); remember(); });
       paint();
     });
     root.querySelectorAll(".try").forEach(function (t) {

@@ -19,6 +19,7 @@ Examen: **01-12-2026 08:20**. Acumulativo, peso fuerte en U7–U11.
 | `css/`, `js/` | Estilos y módulos interactivos (copiados de `../guia-estudio-i2/`) |
 | `scripts/render_check.mjs` | QA visual: `node scripts/render_check.mjs <svg/html...> [--dark]` → PNG en `qa/render/` + errores MathJax |
 | `js/00-guide.js` | Monta una unidad a la vez desde `<template id="tpl-UNIT">`, tipografía MathJax perezosa, rutas por hash. Los demás módulos se enganchan con `Guide.onMount(fn(root, first))` |
+| `scripts/ui_check.cjs` | Regresión de UI (móvil, derivaciones, estudio persistente, accesibilidad, jerarquía): `node scripts/ui_check.cjs [index.html\|dist/guia-examen.html]` |
 | `scripts/nav_check.cjs` | Regresión de navegación: `node scripts/nav_check.cjs [index.html\|dist/guia-examen.html]` |
 | `qa/` | Salidas de verificación (no se edita a mano) |
 

@@ -19,6 +19,19 @@
     return (Math.round(x * 10) / 10).toString().replace(".", ",");
   }
 
+  /* A destructive button needs a second click within 4 s, but only when there is
+     something to lose (needed() is true). */
+  function confirmable(btn, confirmText, needed, action) {
+    var label = btn.textContent, timer = null;
+    function idle() { btn.classList.remove("confirming"); btn.textContent = label; if (timer) { clearTimeout(timer); timer = null; } }
+    btn.addEventListener("click", function () {
+      if (btn.classList.contains("confirming") || !needed()) { idle(); action(); return; }
+      btn.classList.add("confirming");
+      btn.textContent = confirmText;
+      timer = setTimeout(idle, 4000);
+    });
+  }
+
   function setup(root) {
     var key = "fis1533-ex-sim-" + (root.id || "default");
     var total = parseFloat(root.getAttribute("data-total")) || 18;
@@ -58,7 +71,7 @@
         if (state.left <= 0) stop();
       }, 1000);
     });
-    if (bReset) bReset.addEventListener("click", function () {
+    if (bReset) confirmable(bReset, "Confirmar reinicio", function () { return state.left !== full; }, function () {
       stop();
       state.left = full;
       paintTime();
@@ -96,6 +109,18 @@
       save();
     }
     boxes.forEach(function (b) { b.addEventListener("change", paintScore); });
+    var btns = bReset && bReset.parentNode;
+    if (btns && boxes.length) {
+      var bClear = document.createElement("button");
+      bClear.type = "button";
+      bClear.className = "sim-clear";
+      bClear.textContent = "Limpiar pauta";
+      btns.appendChild(bClear);
+      confirmable(bClear, "Confirmar: borrar pauta", function () { return boxes.some(function (b) { return b.checked; }); }, function () {
+        boxes.forEach(function (b) { b.checked = false; });
+        paintScore();
+      });
+    }
     paintTime();
     stop();
     paintScore();

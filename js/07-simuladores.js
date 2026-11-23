@@ -603,7 +603,12 @@
     }
 
     // Redraw only while the simulators are on screen; the unit may be kept detached in memory.
-    function redraw() { if (root.isConnected) updateAll(); }
+    var queued = false;
+    function redraw() {
+      if (queued || !root.isConnected) return;
+      queued = true;
+      requestAnimationFrame(function () { queued = false; if (root.isConnected) updateAll(); });
+    }
     window.addEventListener("resize", redraw);
     if (window.matchMedia) {
       var mq = window.matchMedia("(prefers-color-scheme: dark)");

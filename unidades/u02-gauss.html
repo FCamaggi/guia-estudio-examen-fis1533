@@ -13,7 +13,7 @@
     <li>Determinar cargas inducidas ($\sigma_{\text{int}}$, $\sigma_{\text{ext}}$), campos y efectos de conexión entre conductores o puesta a tierra en equilibrio electrostático.</li>
     <li>Resolver cavidades descentradas y cilindros traslapados por superposición, y deducir $\rho(\vec r)$ desde $\vec E$ con $\nabla\cdot\vec E = \rho/\varepsilon_0$.</li>
   </ul></div>
-  <div class="exam-map"><h4>Qué pregunta el examen</h4><ul>
+  <div class="exam-map"><h3>Qué pregunta el examen</h3><ul>
     <li><b>Esfera o cilindro con $\rho(r)$ no uniforme y cascarones conductores</b> (2011-1 P14, 2015-2 P5 y P10, 2023-2 Ej. 2, 2025-1 P1): integrar $\rho(r)$ para hallar $Q_{\text{enc}}$, obtener $\sigma_{\text{int}}$ y $\sigma_{\text{ext}}$, calcular $\vec E(r)$ por regiones y analizar conexión a tierra.</li>
     <li><b>Superposición con cavidades o cilindros paralelos</b> (2015-2 P15, 2021-2 Ej. 2, 2022-2 P11): cavidad esférica descentrada tratada con $+\rho$ y $-\rho$, o suma de campos cilíndricos para anular $\vec E$ en un punto.</li>
     <li><b>Flujo en cubos por simetría y ley de Gauss inversa</b> (2011-1 P9, 2014-1 P3 y P5, 2026-1 P1A): flujo en una cara con carga central o en un vértice, y $\rho$ desde $\vec E(r)$.</li>
@@ -109,7 +109,7 @@
     <figure class="fig" data-fig="u02-esfera-gauss"><figcaption>Esfera de radio $R$ con densidad radial $\rho(r)$ y superficies gaussianas esféricas de radios $r_1 \lt R$ y $r_2 \gt R$.</figcaption></figure>
     <figure class="fig" data-fig="u02-esfera-er"><figcaption>Perfil de $E(r)$ para una esfera maciza uniforme de radio $R$: crece linealmente como $r$ adentro y decae como $1/r^2$ afuera, continuo en $r = R$.</figcaption></figure>
   </div>
-  <details class="deriv" open><summary>Derivación paso a paso: esfera maciza uniforme, no uniforme y cascarón esférico</summary>
+  <details class="deriv"><summary>Derivación paso a paso: esfera maciza uniforme, no uniforme y cascarón esférico</summary>
     <p><b>Paso 1 · Simetría y flujo.</b> Si $\rho = \rho(r)$ solo depende de la distancia al centro $O$, el sistema es invariante ante cualquier rotación alrededor de $O$: $\vec E$ solo puede apuntar radialmente ($\vec E = E(r)\,\hat r$). Sobre una esfera gaussiana concéntrica de radio $r$, $d\vec A = dA\,\hat r$, así que $\oint \vec E\cdot d\vec A = E(r)\,4\pi r^2$.</p>
     <p><b>Caso A · Esfera maciza uniforme de radio $R$ y carga total $Q$ ($\rho = \dfrac{Q}{\frac43\pi R^3}$):</b></p>
     <ul>
@@ -135,7 +135,7 @@
   <h2>Simetría cilíndrica</h2>
   <p><b>El problema físico.</b> Un alambre muy largo o un cilindro largo con carga distribuida en su volumen producen un campo eléctrico que solo depende de la distancia perpendicular $r$ al eje. ¿Cómo cambia $\vec E(r)$ respecto del caso esférico?</p>
   <figure class="fig" data-fig="u02-cilindro-gauss"><figcaption>Cilindro infinito de radio $R$ con densidad $\rho$ y superficie gaussiana cilíndrica coaxial de radio $r$ y longitud $L$. En las tapas $\vec E\perp\hat n$ (flujo nulo); en el manto $\vec E\parallel\hat n$.</figcaption></figure>
-  <details class="deriv" open><summary>Derivación paso a paso: línea infinita y cilindro infinito (uniforme y no uniforme)</summary>
+  <details class="deriv"><summary>Derivación paso a paso: línea infinita y cilindro infinito (uniforme y no uniforme)</summary>
     <p><b>Paso 1 · Simetría y flujo en el cilindro gaussiano.</b> Para un cilindro infinito a lo largo del eje $z$ con densidad $\rho(r)$ independiente de $\theta$ y $z$: la invariancia traslacional en $z$ y rotacional en $\theta$ (más la reflexión $z\to -z$ y $\theta\to-\theta$) obligan a que $\vec E = E(r)\,\hat r$, puramente radial perpendicular al eje. Elegimos un cilindro gaussiano coaxial de radio $r$ y longitud $L$:</p>
     <ul>
       <li><b>Tapas superior e inferior:</b> sus normales son $\pm\hat z$, perpendiculares a $\hat r$, así que $\vec E\cdot d\vec A = 0$ en ambas tapas.</li>
@@ -160,7 +160,7 @@
   <h2>Simetría planar: planos infinitos y losas gruesas</h2>
   <p><b>El problema físico.</b> ¿Qué campo crea una lámina cargada muy extensa (como una placa de condensador cerca del centro), o una placa gruesa con densidad volumétrica $\rho$? A diferencia de una carga puntual o una línea, el campo de un plano infinito no decae con la distancia.</p>
   <figure class="fig" data-fig="u02-plano-losa"><figcaption>Losa infinita de espesor $2a$ ($-a\le z\le a$) con densidad $\rho$ y pastillero gaussiano cilíndrico simétrico de área de tapa $A$. El flujo solo sale por las dos tapas.</figcaption></figure>
-  <details class="deriv" open><summary>Derivación paso a paso: plano delgado y losa gruesa</summary>
+  <details class="deriv"><summary>Derivación paso a paso: plano delgado y losa gruesa</summary>
     <p><b>1. Plano infinito delgado ($\sigma$ en $\text{C/m}^2$):</b> situamos el plano en $z = 0$. Por simetría de traslación en $x, y$ y reflexión $z\to -z$, $\vec E$ solo apunta perpendicular al plano: $\vec E(z) = E(|z|)\,\text{sgn}(z)\,\hat k$ (para $\sigma \gt 0$, alejándose a ambos lados). Tomamos un pastillero cilíndrico perpendicular al plano, con tapas de área $A$ ubicadas en $+z$ y $-z$ ($z \gt 0$):</p>
     <ul>
       <li><b>Manto lateral:</b> paralelo a $\vec E$, luego $\vec E\cdot d\vec A = 0$.</li>

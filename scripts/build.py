@@ -69,16 +69,51 @@ def inline_figures(fragment: str, errors: list[str]) -> str:
     return FIG_RE.sub(repl, fragment)
 
 
+STUDY_UNIT_RE = re.compile(r"u\d\d$")
+SEC_H2_RE = re.compile(r'(<section class="sec[^"]*" id="([\w-]+)"([^>]*)>)\s*<h2>(.*?)</h2>', re.S)
+
+
+def is_study(unit_id: str, attrs: str) -> bool:
+    """Progress counts only study sections of U1-U11 (not the unit map, R, S or T)."""
+    return bool(STUDY_UNIT_RE.match(unit_id)) and 'data-block="mapa"' not in attrs
+
+
 def inject_masters(fragment: str, unit_id: str) -> str:
+    """Put a "dominado" toggle on the title line of every study section."""
+
     def repl(m: re.Match) -> str:
-        sec_id = m.group(2)
+        sec_id, attrs, title = m.group(2), m.group(3), m.group(4)
+        if not is_study(unit_id, attrs):
+            return m.group(0)
         btn = (
             f'<button type="button" class="master" data-sec="{sec_id}" data-unit="{unit_id}" '
             f'aria-pressed="false">Marcar como dominado</button>'
         )
-        return m.group(0) + btn
+        return f'{m.group(1)}\n  <div class="sec-head"><h2>{title}</h2>{btn}</div>'
 
-    return SEC_RE.sub(repl, fragment)
+    return SEC_H2_RE.sub(repl, fragment)
+
+
+TABLE_RE = re.compile(r"<table\b.*?</table>", re.S)
+
+
+def wrap_tables(fragment: str) -> str:
+    """Give bare tables a horizontal scroll container so they never widen the page on mobile."""
+    out, pos = [], 0
+    for m in TABLE_RE.finditer(fragment):
+        before = fragment[pos:m.start()]
+        out.append(before)
+        if (fragment[:m.start()].rstrip().endswith('<div class="tbl-wrap">')):
+            out.append(m.group(0))
+        else:
+            out.append(f'<div class="tbl-scroll">{m.group(0)}</div>')
+        pos = m.end()
+    out.append(fragment[pos:])
+    return "".join(out)
+
+
+def study_sections(fragment: str, unit_id: str) -> list[str]:
+    return [m.group(2) for m in SEC_RE.finditer(fragment) if is_study(unit_id, m.group(3))]
 
 
 def section_titles(fragment: str) -> list[tuple[str, str]]:
@@ -98,8 +133,9 @@ def build_toc(units: list[dict], present: dict[str, str]) -> str:
         '<div class="bar"><div class="bar-fill" id="prog-bar"></div></div></div>',
         '<div class="toc-search"><input type="search" id="toc-q" placeholder="Buscar sección…" '
         'aria-label="Buscar sección en todas las unidades" aria-controls="toc-nav" autocomplete="off">',
-        '<p class="toc-empty" id="toc-empty" hidden>Sin resultados</p></div></div>',
-        '<nav id="toc-nav">',
+        '<p class="toc-empty" id="toc-empty" hidden>Sin resultados. Se buscan títulos de unidades y secciones; '
+        'prueba con otra palabra.</p></div></div>',
+        '<nav id="toc-nav" aria-label="Unidades y secciones">',
     ]
     block = None
     for u in units:
@@ -134,11 +170,25 @@ def guide_data(units: list[dict], present: dict[str, str]) -> str:
         if uid not in present:
             continue
         secs = section_titles(present[uid])
-        data["units"].append({"id": uid, "num": u["num"], "title": u["title"], "sections": [s for s, _ in secs]})
+        data["units"].append({"id": uid, "num": u["num"], "title": u["title"], "sections": [s for s, _ in secs],
+                              "study": study_sections(present[uid], uid)})
         for i in ID_RE.findall(present[uid]):
             data["ids"].setdefault(i, uid)
     raw = json.dumps(data, ensure_ascii=False, separators=(",", ":")).replace("</", "<\\/")
     return f'<script type="application/json" id="guide-data">{raw}</script>'
+
+
+TOPBAR = (
+    '<header class="topbar">'
+    '<button type="button" class="toc-toggle" aria-controls="toc" aria-expanded="false">'
+    '<svg viewBox="0 0 20 20" width="20" height="20" aria-hidden="true" focusable="false">'
+    '<path d="M3 5.5h14M3 10h14M3 14.5h14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>'
+    '<span>Índice</span></button>'
+    '<span class="topbar-unit" id="topbar-unit"></span>'
+    '<span class="topbar-prog" id="topbar-prog"></span>'
+    '</header>'
+    '<p class="sr-only" id="sr-status" aria-live="polite"></p>'
+)
 
 
 def page(head_assets: str, toc: str, body: str, tail_assets: str) -> str:
@@ -155,8 +205,10 @@ def page(head_assets: str, toc: str, body: str, tail_assets: str) -> str:
             MATHJAX,
             "</head>",
             "<body>",
+            TOPBAR if toc else "",
             '<div class="layout">' if toc else '<div class="layout no-toc">',
             toc,
+            '<div class="toc-scrim" hidden></div>' if toc else "",
             '<main id="top">',
             body,
             "</main>",
@@ -174,7 +226,7 @@ def preview(fragment_path: Path) -> int:
     errors: list[str] = []
     frag = inline_figures(fragment_path.read_text(encoding="utf-8"), errors)
     uid = re.search(r'<section class="unit" id="([\w-]+)"', frag)
-    frag = inject_masters(frag, uid.group(1) if uid else "u00")
+    frag = wrap_tables(inject_masters(frag, uid.group(1) if uid else "u00"))
     out_dir = BASE / "qa" / "preview"
     out_dir.mkdir(parents=True, exist_ok=True)
     doc = page(
@@ -207,7 +259,7 @@ def main() -> int:
     parts.append('<div id="unit-host" tabindex="-1"></div>')
     for u in units:
         if u["id"] in present:
-            frag = inject_masters(inline_figures(present[u["id"]], errors), u["id"])
+            frag = wrap_tables(inject_masters(inline_figures(present[u["id"]], errors), u["id"]))
             parts.append(f'<template id="tpl-{u["id"]}" data-unit="{u["id"]}">\n{frag}\n</template>')
     parts.append(guide_data(units, present))
     body = "\n".join(parts)

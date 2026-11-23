@@ -159,10 +159,98 @@
     });
     var u = Guide.data.units.find(function (x) { return x.id === uid; });
     if (u) document.title = u.num + " · " + u.title + " — Guía de estudio FIS1533";
+    syncShell(u, cache[uid], first);
     runHooks(cache[uid], first);
     observeMath(cache[uid]);
     document.dispatchEvent(new CustomEvent("guide:unit", { detail: { unit: uid, root: cache[uid], first: first } }));
     return cache[uid];
+  }
+
+  /* ---------- Shell: top bar, announcements, TOC position, derivations ---------- */
+  var booted = false;
+  var DERIV_KEY = "fis1533-deriv-open";
+
+  function syncShell(u, root, first) {
+    if (!u) return;
+    var label = u.num + " · " + u.title;
+    var top = document.getElementById("topbar-unit");
+    if (top) top.textContent = label;
+    var sr = document.getElementById("sr-status");
+    if (sr && booted) sr.textContent = "Unidad " + label;
+    revealTocUnit(u.id);
+    setupDerivations(root, first);
+  }
+
+  function revealTocUnit(uid) {
+    var toc = document.getElementById("toc");
+    var item = toc && toc.querySelector('.toc-unit[data-unit="' + uid + '"]');
+    if (!item) return;
+    var head = toc.querySelector(".toc-head");
+    var off = (head ? head.offsetHeight : 0) + 12; // the sticky header covers the top of the list
+    var tr = toc.getBoundingClientRect(), r = item.getBoundingClientRect();
+    if (r.top < tr.top + off || r.top > tr.bottom - 120) toc.scrollTop += r.top - tr.top - off;
+  }
+
+  // Derivations are closed by default; one button per unit opens or closes them all and the
+  // choice is remembered across units and visits.
+  function derivPref() { try { return localStorage.getItem(DERIV_KEY) === "1"; } catch (e) { return false; } }
+  function setupDerivations(root, first) {
+    var list = root.querySelectorAll("details.deriv");
+    if (!list.length) return;
+    var btn = root.querySelector(".deriv-all");
+    if (first && !btn) {
+      btn = document.createElement("button");
+      btn.type = "button";
+      btn.className = "deriv-all";
+      btn.addEventListener("click", function () {
+        var open = btn.getAttribute("aria-pressed") !== "true";
+        try { localStorage.setItem(DERIV_KEY, open ? "1" : "0"); } catch (e) { /* storage blocked */ }
+        apply(root, open);
+      });
+      var head = root.querySelector(".unit-head") || root;
+      head.appendChild(btn);
+    }
+    apply(root, derivPref());
+  }
+  function apply(root, open) {
+    root.querySelectorAll("details.deriv").forEach(function (d) { d.open = open; });
+    var btn = root.querySelector(".deriv-all");
+    if (!btn) return;
+    btn.setAttribute("aria-pressed", open ? "true" : "false");
+    btn.textContent = open ? "Cerrar todas las derivaciones" : "Abrir todas las derivaciones";
+  }
+
+  /* ---------- Mobile index panel ---------- */
+  function setupDrawer() {
+    var btn = document.querySelector(".toc-toggle");
+    var toc = document.getElementById("toc");
+    var scrim = document.querySelector(".toc-scrim");
+    if (!btn || !toc) return;
+    var main = document.querySelector("main");
+    function isOpen() { return document.body.classList.contains("toc-open"); }
+    function set(open, focusBack) {
+      document.body.classList.toggle("toc-open", open);
+      btn.setAttribute("aria-expanded", open ? "true" : "false");
+      if (scrim) scrim.hidden = !open;
+      if (main) main.inert = open;
+      if (open) {
+        var cur = toc.querySelector(".toc-unit.open a.toc-u") || toc.querySelector("a");
+        if (cur) setTimeout(function () { cur.focus({ preventScroll: true }); }, 30);
+        if (Guide.current) revealTocUnit(Guide.current);
+      } else if (focusBack) {
+        btn.focus();
+      }
+    }
+    btn.addEventListener("click", function () { set(!isOpen(), true); });
+    if (scrim) scrim.addEventListener("click", function () { set(false, true); });
+    document.addEventListener("keydown", function (e) {
+      if (e.key === "Escape" && isOpen() && !e.defaultPrevented) set(false, true);
+    });
+    toc.addEventListener("click", function (e) {
+      if (isOpen() && e.target.closest && e.target.closest('a[href^="#"]')) set(false, false);
+    });
+    var mq = window.matchMedia && window.matchMedia("(max-width: 900px)");
+    if (mq && mq.addEventListener) mq.addEventListener("change", function () { if (!mq.matches) set(false, false); });
   }
 
   /* ---------- Reading position ---------- */
@@ -270,6 +358,8 @@
     window.addEventListener("popstate", onPop);
     window.addEventListener("hashchange", onHashChange);
     document.addEventListener("click", onClick);
+    setupDrawer();
+    booted = true;
   }
 
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", boot);

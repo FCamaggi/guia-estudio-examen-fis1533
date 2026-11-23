@@ -13,7 +13,7 @@
     <li>Integrar densidades de corriente no uniformes $\vec J(r)$ con el jacobiano $r\,dr\,d\theta$ para hallar constantes de normalización e $I_{\text{enc}}$.</li>
     <li>Aplicar la estrategia de Ampère al cilindro grueso, al cable coaxial de 3 o 4 regiones (graficando $|B(r)|$), al solenoide ideal, al toroide y a la lámina infinita.</li>
   </ul></div>
-  <div class="exam-map"><h4>Qué pregunta el examen</h4><ul>
+  <div class="exam-map"><h3>Qué pregunta el examen</h3><ul>
     <li><b>Biot-Savart en arcos circulares concéntricos + segmentos rectos</b> (2011-1 P7, 2017-2 P2, 2018-2 P4, 2022-2 P4, 2023-1 P1, 2024-2 P2): justificar contribución nula de los tramos rectos colineales con $P$, sumar o restar $\vec B$ de cada arco con la regla de la mano derecha y calcular $\vec\mu$.</li>
     <li><b>Ley de Ampère en cable coaxial / cilindro con $\vec J(r)$ no uniforme</b> (2015-2 P2 y P15, 2022-2 P2, 2023-2 Ej. 3, 2024-1 P1, 2025-1 P3): hallar constantes $\alpha, \beta$ integrando $I_0 = \int\vec J\cdot d\vec A$, calcular $\vec B(r)$ en 3 o 4 regiones y graficar $|B(r)|$.</li>
     <li><b>Fuerza magnética entre alambre infinito (o cilindro) y espira coplanar</b> (2021-2 Ej. 4, 2022-2 P6, 2023-2 Ej. 3, 2024-2 P1): $\vec B(r)$ por Ampère y fuerza neta sumando $I_2\int d\vec\ell\times\vec B$ sobre los cuatro lados.</li>
@@ -56,7 +56,7 @@
   <h2>Alambre recto y fuerza entre conductores paralelos</h2>
   <p><b>El problema físico.</b> ¿Cuál es el campo magnético de un alambre recto de largo finito, y qué ocurre en el límite de alambre muy largo? Además, si ponemos un segundo cable paralelo con corriente dentro de ese campo, los dos cables se ejercen fuerza mutua.</p>
   <figure class="fig" data-fig="u08-alambre-finito"><figcaption>Alambre recto sobre el eje $x$ desde $x_1$ hasta $x_2$ y punto $P$ a distancia perpendicular $R$. Los extremos subtienden los ángulos $\theta_1$ y $\theta_2$ medidos desde la perpendicular.</figcaption></figure>
-  <details class="deriv" open><summary>Derivación paso a paso: campo de un alambre recto finito e infinito</summary>
+  <details class="deriv"><summary>Derivación paso a paso: campo de un alambre recto finito e infinito</summary>
     <p><b>Paso 1 · Geometría y producto cruz.</b> Ponemos el alambre sobre el eje $x$ con corriente $I$ en $+\hat x$ y el punto $P$ en $(0, R, 0)$. Un elemento en $(x, 0, 0)$ tiene $d\vec\ell = dx\,\hat x$ y vector hacia $P$ dado por $\vec r - \vec r\,' = -x\,\hat x + R\,\hat y$, de módulo $\sqrt{x^2+R^2}$. Entonces:</p>
     $$d\vec\ell\times(\vec r - \vec r\,') = dx\,\hat x\times(-x\,\hat x + R\,\hat y) = R\,dx\,(\hat x\times\hat y) = R\,dx\,\hat z$$
     <p>Todos los elementos apuntan en $+\hat z$ (saliendo de la hoja, regla de la mano derecha), así que integramos la componente $z$.</p>
@@ -78,7 +78,7 @@
   <h2>Espira circular, arcos y momento dipolar magnético</h2>
   <p><b>El problema físico.</b> Un alambre doblado en círculo concentra las líneas de campo en su interior. ¿Cuánto vale $\vec B$ en el centro y sobre el eje de una espira, y cómo se calcula el campo de espiras formadas por arcos circulares y tramos rectos, el clásico problema de examen?</p>
   <figure class="fig" data-fig="u08-espira-eje"><figcaption>Espira circular de radio $R$ con corriente $I$ en el plano $xy$ y punto $P$ sobre el eje $z$. Las componentes perpendiculares al eje se cancelan por pares diametrales.</figcaption></figure>
-  <details class="deriv" open><summary>Derivación paso a paso: campo en el eje de una espira circular</summary>
+  <details class="deriv"><summary>Derivación paso a paso: campo en el eje de una espira circular</summary>
     <p><b>Paso 1 · Vectores en polares.</b> Colocamos la espira de radio $R$ en el plano $xy$ (centrada en el origen, corriente antihoraria vista desde $+z$) y el punto $P$ en $\vec r = z\,\hat z$. Un elemento en el ángulo $\phi$ está en $\vec r\,' = R\cos\phi\,\hat x + R\sin\phi\,\hat y$, y su diferencial de línea es $d\vec\ell = R\,d\phi\,(-\sin\phi\,\hat x + \cos\phi\,\hat y)$.</p>
     <p><b>Paso 2 · Vector relativo y producto cruz.</b> $\vec r - \vec r\,' = -R\cos\phi\,\hat x - R\sin\phi\,\hat y + z\,\hat z$, con módulo constante $|\vec r - \vec r\,'| = \sqrt{R^2 + z^2}$.</p>
     $$d\vec\ell\times(\vec r - \vec r\,') = R\,d\phi\begin{vmatrix}\hat x & \hat y & \hat z\\ -\sin\phi & \cos\phi & 0\\ -R\cos\phi & -R\sin\phi & z\end{vmatrix} = R\,d\phi\left(z\cos\phi\,\hat x + z\sin\phi\,\hat y + R\,\hat z\right)$$
@@ -117,7 +117,7 @@
   <h2>Cilindro con corriente y cable coaxial</h2>
   <p><b>El problema físico.</b> Un cable real tiene radio finito $R$, y un cable coaxial lleva corriente $I_0$ por un núcleo interno y la retorna en sentido opuesto por una funda exterior. ¿Cómo varía $\vec B(r)$ dentro de los conductores, en el espacio intermedio y afuera del cable?</p>
   <figure class="fig" data-fig="u08-cilindro-ampere"><figcaption>Sección transversal de un conductor cilíndrico de radio $R$ con corriente saliente y dos curvas amperianas circulares concéntricas ($r_1 \lt R$ y $r_2 \gt R$).</figcaption></figure>
-  <details class="deriv" open><summary>Derivación paso a paso: cilindro macizo con corriente uniforme</summary>
+  <details class="deriv"><summary>Derivación paso a paso: cilindro macizo con corriente uniforme</summary>
     <p><b>Paso 1 · Simetría y circulación.</b> El cilindro es infinito en $z$ y simétrico bajo rotaciones en $\theta$, así que $\vec B = B(r)\,\hat\theta$ (se descarta componente radial por $\nabla\cdot\vec B = 0$ y componente axial por Biot-Savart, pues $d\vec\ell\times\hat r\perp\hat z$). Sobre una circunferencia concéntrica de radio $r$ recorrida en $+\hat\theta$, $\oint\vec B\cdot d\vec\ell = B(r)\,2\pi r$.</p>
     <p><b>Paso 2 · Región exterior ($r \gt R$).</b> La curva encierra toda la corriente $I$: $B\,2\pi r = \mu_0 I \implies \vec B = \dfrac{\mu_0 I}{2\pi r}\,\hat\theta$.</p>
     <p><b>Paso 3 · Región interior ($r \lt R$).</b> Con densidad uniforme $J = \dfrac{I}{\pi R^2}$, la corriente encerrada en el disco de radio $r$ es $I_{\text{enc}}(r) = J(\pi r^2) = I\dfrac{r^2}{R^2}$. Igualando:</p>
@@ -144,7 +144,7 @@
   <h2>Solenoide, toroide y lámina infinita</h2>
   <p><b>El problema físico.</b> ¿Cómo generar un campo magnético uniforme y confinado en el laboratorio o en un circuito? Enrollando un alambre en hélice apretada (solenoide o toroide), o extendiendo corriente sobre una superficie plana (lámina).</p>
   <figure class="fig" data-fig="u08-solenoide-ampere"><figcaption>Solenoide ideal de largo $\ell$ con $n = N/\ell$ vueltas por metro: $\vec B$ uniforme en el interior, $B \approx 0$ afuera, y lazo amperiano rectangular $abcd$.</figcaption></figure>
-  <details class="deriv" open><summary>Derivación paso a paso: solenoide ideal, toroide y lámina infinita</summary>
+  <details class="deriv"><summary>Derivación paso a paso: solenoide ideal, toroide y lámina infinita</summary>
     <p><b>1. Solenoide ideal.</b> Para un solenoide muy largo de longitud $\ell$ ($\text{m}$) con $n = N/\ell$ vueltas por metro (en $\text{m}^{-1}$) y corriente $I$ ($\text{A}$), los campos de las espiras se suman dentro a lo largo del eje y se dispersan afuera ($B_{\text{ext}}\approx 0$). Sobre el rectángulo $abcd$ (lado $ab$ de largo $L$ en $\text{m}$ dentro, paralelo al eje; $cd$ afuera; $bc$ y $da$ perpendiculares al eje): solo aporta $ab$, dando $\oint\vec B\cdot d\vec\ell = BL$. El rectángulo encierra $nL$ vueltas, así que $I_{\text{enc}} = nLI$:</p>
     $$BL = \mu_0 nLI \quad\Longrightarrow\quad B = \mu_0 nI = \frac{\mu_0 NI}{\ell}\ \text{(interior)},\qquad B = 0\ \text{(exterior)}$$
     <p>En un solenoide real (finito), justo en la boca del extremo el campo cae a aproximadamente la mitad: $B_{\text{boca}}\approx \tfrac12\mu_0 nI$.</p>
