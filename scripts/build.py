@@ -23,7 +23,7 @@ UNITS_DIR = BASE / "unidades"
 FIG_DIR = BASE / "figuras" / "svg"
 CSS = ["css/main.css", "css/guia.css"]
 JS = ["js/01-problemas-guiados.js", "js/guia.js", "js/06-simulacro.js", "js/07-simuladores.js", "js/08-nota-necesaria.js"]
-TITLE = "Guía de estudio Examen FIS1533 · 2026-2"
+TITLE = "Guía de estudio · Examen FIS1533"
 
 MATHJAX = """<script>
 window.MathJax = {
