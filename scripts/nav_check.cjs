@@ -62,12 +62,17 @@ const ok = (c, m) => { if (!c) failed = true; console.log((c ? "PASS " : "FAIL "
   ok(s.shown === shownBefore && shownBefore === 2, "revealed steps kept: " + s.shown);
   // reload restores
   await page.waitForTimeout(400);
-  const yR = await page.evaluate(() => scrollY);
+  // Compare what the reader sees (the block at a fixed viewport point), not scrollY:
+  // lazy typesetting changes the height of content above, so scrollY may legitimately differ.
+  const VIEW = () => { const e = document.elementFromPoint(640, 200); const b = e.closest("p,li,h2,h3,td,div") || e;
+    return { y: scrollY, top: Math.round(b.getBoundingClientRect().top), t: b.textContent.trim().slice(0, 60) }; };
+  const vR = await page.evaluate(VIEW);
   await page.reload();
   await page.waitForFunction(() => window.Guide && Guide.current, null, { timeout: 30000 });
   await page.waitForTimeout(2500);
-  s = await page.evaluate(() => ({ cur: Guide.current, y: scrollY }));
-  ok(s.cur === "u09" && Math.abs(s.y - yR) < 60, `reload restores u09 position (${yR} -> ${s.y})`);
+  s = await page.evaluate(VIEW); s.cur = await page.evaluate(() => Guide.current);
+  ok(s.cur === "u09" && s.t === vR.t && Math.abs(s.top - vR.top) < 40,
+    `reload restores u09 position (same block "${vR.t.slice(0, 24)}…", top ${vR.top} -> ${s.top}, y ${vR.y} -> ${s.y})`);
   // in-content link: r01 links
   await page.click('.toc a.toc-u[data-unit="r01"]');
   const link = await page.evaluate(() => { const a = [...document.querySelectorAll('#unit-host a[href^="#u"]')].find(a => /#u\d\d-/.test(a.getAttribute("href"))); return a && a.getAttribute("href"); });
