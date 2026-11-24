@@ -73,7 +73,8 @@
 * { box-sizing: border-box; }
 /* Fluid scale: 16px up to 1440px wide, growing to 20px at ~2440px, so large monitors get
    proportionally larger text and columns instead of a fixed notebook-sized page. */
-:root { --gutter: clamp(16px, 5vw, 64px); --content-max: 68rem; --toc-w: 17.5rem; }
+/* --measure caps only free-standing prose; components (callouts, derivations, problems) use the full width. */
+:root { --gutter: clamp(16px, 5vw, 64px); --measure: 80ch; --toc-w: 17.5rem; }
 html { font-size: clamp(100%, calc(100% + (100vw - 1440px) * 0.004), 125%); }
 html { scroll-behavior: smooth; scroll-padding-top: 16px; }
 html:has(.simulacro) { scroll-padding-top: 100px; }
@@ -146,19 +147,17 @@ a { color: var(--accent); }
 .toc a .n { font-family: var(--font-mono); font-size: 0.75rem; color: var(--ink); font-weight: 600; min-width: 18px; }
 
 /* ---------- Reading column ---------- */
-/* main fills its grid column; the unit is centered inside it, capped at --content-max. */
-main { padding: 40px var(--gutter) 80px; width: 100%; min-width: 0; container-type: inline-size; }
-#unit-host { max-width: var(--content-max); margin-inline: auto; }
+/* main and the mounted unit fill the whole grid column at any viewport width. */
+main { padding: 40px var(--gutter) 80px; width: 100%; min-width: 0; }
 h1 { font-family: var(--font-display); font-weight: 800; font-size: clamp(2rem, 4.5vw, 2.75rem); line-height: 1.08; letter-spacing: -0.015em; margin: 8px 0 14px; text-wrap: balance; }
-.lead { font-size: 1.1875rem; color: var(--muted); max-width: 68ch; margin: 0 0 22px; }
+.lead { font-size: 1.1875rem; color: var(--muted); max-width: var(--measure); margin: 0 0 22px; }
 
 .sec { padding: 28px 0 8px; border-bottom: 1px solid var(--line); max-width: none; }
 .sec:last-of-type { border-bottom: 0; }
 .sec-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; flex-wrap: wrap; border-top: 2px solid var(--ink); padding-top: 10px; margin-top: 8px; }
 .sec h2 { font-family: var(--font-display); font-weight: 800; font-size: 1.625rem; line-height: 1.15; letter-spacing: -0.01em; margin: 2px 0 12px; text-wrap: balance; }
 .sec h3 { font-family: var(--font-display); font-weight: 700; font-size: 1.125rem; margin: 26px 0 8px; text-wrap: balance; }
-.sec > p, .sec > ul, .sec > ol:not(.reveal), .sec > .key, .sec > .trap, .sec > .note, .sec > .why, .sec > .goals, .sec > .exam-map, .sec > .prereq, .sec > .deriv, .sec > .nota-calc { max-width: 68ch; }
-.sec p, .sec li { max-width: 68ch; }
+.sec > p, .sec > ul, .sec > ol:not(.reveal) { max-width: var(--measure); }
 .small { font-size: 0.9375rem; color: var(--muted); }
 
 .master {
@@ -282,7 +281,7 @@ table.duo tbody th { font-family: var(--font-display); font-size: 0.875rem; colo
 /* ---------- Figures (semantic palette kept intact) ---------- */
 .fig { margin: 14px 0; background: var(--surface); border: 1px solid var(--line); border-radius: 0; padding: 12px; }
 .fig > svg { display: block; width: 100%; height: auto; max-height: 340px; margin: 0 auto; overflow: visible; }
-.fig figcaption { font-size: 0.875rem; color: var(--muted); margin: 6px auto 0; text-align: center; max-width: 68ch; }
+.fig figcaption { font-size: 0.875rem; color: var(--muted); margin: 6px auto 0; text-align: center; max-width: var(--measure); }
 .fig .w { stroke: var(--ink); stroke-width: 1.8; fill: none; stroke-linecap: round; stroke-linejoin: round; }
 .fig .wk { stroke: var(--ink); stroke-width: 3.2; fill: none; stroke-linecap: round; stroke-linejoin: round; }
 .fig .m { stroke: var(--muted); stroke-width: 1.2; fill: none; }
@@ -394,7 +393,7 @@ table.duo tbody th { font-family: var(--font-display); font-size: 0.875rem; colo
 .why b:first-child { color: var(--copper); }
 .do { margin: 2px 0 8px; }
 .reveal li .tbl-wrap { margin: 8px 0; }
-.eq .note { font-size: 0.9375rem; color: var(--muted); margin-top: 6px; max-width: 68ch; }
+.eq .note { font-size: 0.9375rem; color: var(--muted); margin-top: 6px; max-width: var(--measure); }
 .mini { border: 1px solid var(--ok); background: var(--ok-soft); border-radius: 0; padding: 12px 16px; margin: 16px 0; }
 .mini-h { font: 600 0.75rem var(--font-mono); text-transform: uppercase; letter-spacing: .04em; color: var(--ok); margin-bottom: 6px; }
 .mini ol { margin: 0; padding-left: 20px; } .mini p { margin: 0; }
@@ -432,10 +431,8 @@ table.duo tbody th { font-family: var(--font-display); font-size: 0.875rem; colo
 .unit-head {
   display: flex; align-items: baseline; gap: 18px; flex-wrap: wrap;
   background: var(--band); color: var(--band-ink);
-  /* Bleed to main's edges: gutter plus the space left on each side of the centered unit. */
-  --bleed: calc(var(--gutter) + max(0px, (100cqi - var(--content-max)) / 2));
-  margin: -40px calc(-1 * var(--bleed)) 0;
-  padding: 28px var(--bleed) 22px;
+  margin: -40px calc(-1 * var(--gutter)) 0;
+  padding: 28px var(--gutter) 22px;
   border-bottom: 8px solid var(--line-c);
 }
 .unit-num {
