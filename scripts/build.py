@@ -26,7 +26,7 @@ BASE = Path(__file__).resolve().parent.parent
 UNITS_DIR = BASE / "unidades"
 FIG_DIR = BASE / "figuras" / "svg"
 CSS = ["css/main.css", "css/guia.css"]
-JS = ["js/00-guide.js", "js/01-problemas-guiados.js", "js/guia.js", "js/06-simulacro.js", "js/07-simuladores.js", "js/08-nota-necesaria.js"]
+JS = ["js/00-guide.js", "js/01-problemas-guiados.js", "js/guia.js", "js/06-simulacro.js", "js/07-simuladores.js", "js/08-nota-necesaria.js", "js/09-prompt-ia.js"]
 TITLE = "Guía de estudio · Examen FIS1533"
 
 MATHJAX = """<script>
