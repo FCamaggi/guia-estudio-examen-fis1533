@@ -1,13 +1,11 @@
 /* Exam guide components layered on top of main.css ("Andén" direction). */
 
 .layout.no-toc { grid-template-columns: minmax(0, 1fr); }
-.layout.no-toc main { max-width: 1180px; margin: 0 auto; }
 /* Exam mode: while a mounted mock exam's timer runs (.sim-bar.running), the index steps aside.
    Inactive units are detached from the DOM, so leaving the exam brings the index back. */
 @media (min-width: 901px) {
   .layout:has(.sim-bar.running) { grid-template-columns: minmax(0, 1fr); }
   .layout:has(.sim-bar.running) > .toc { display: none; }
-  .layout:has(.sim-bar.running) main { max-width: 1180px; margin: 0 auto; }
 }
 
 /* Section title line: h2 + "dominado" toggle */
@@ -23,8 +21,10 @@
 .unit-head {
   display: flex; align-items: baseline; gap: 18px; flex-wrap: wrap;
   background: var(--band); color: var(--band-ink);
-  margin: -40px calc(-1 * clamp(16px, 5vw, 64px)) 0;
-  padding: 28px clamp(16px, 5vw, 64px) 22px;
+  /* Bleed to main's edges: gutter plus the space left on each side of the centered unit. */
+  --bleed: calc(var(--gutter) + max(0px, (100cqi - var(--content-max)) / 2));
+  margin: -40px calc(-1 * var(--bleed)) 0;
+  padding: 28px var(--bleed) 22px;
   border-bottom: 8px solid var(--line-c);
 }
 .unit-num {

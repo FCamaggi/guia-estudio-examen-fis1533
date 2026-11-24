@@ -71,6 +71,10 @@
 #s01, #s02, #t01 { --line-c: var(--lE); }
 
 * { box-sizing: border-box; }
+/* Fluid scale: 16px up to 1440px wide, growing to 20px at ~2440px, so large monitors get
+   proportionally larger text and columns instead of a fixed notebook-sized page. */
+:root { --gutter: clamp(16px, 5vw, 64px); --content-max: 68rem; --toc-w: 17.5rem; }
+html { font-size: clamp(100%, calc(100% + (100vw - 1440px) * 0.004), 125%); }
 html { scroll-behavior: smooth; scroll-padding-top: 16px; }
 html:has(.simulacro) { scroll-padding-top: 100px; }
 @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } .bar-fill, .toc { transition: none !important; } }
@@ -88,7 +92,7 @@ body {
 a { color: var(--accent); }
 :focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 0; }
 
-.layout { display: grid; grid-template-columns: 280px minmax(0, 1fr); min-height: 100vh; }
+.layout { display: grid; grid-template-columns: var(--toc-w) minmax(0, 1fr); min-height: 100vh; }
 
 /* ---------- Index as a vertical line diagram ---------- */
 .toc {
@@ -142,7 +146,9 @@ a { color: var(--accent); }
 .toc a .n { font-family: var(--font-mono); font-size: 0.75rem; color: var(--ink); font-weight: 600; min-width: 18px; }
 
 /* ---------- Reading column ---------- */
-main { padding: 40px clamp(16px, 5vw, 64px) 80px; max-width: 1180px; width: 100%; }
+/* main fills its grid column; the unit is centered inside it, capped at --content-max. */
+main { padding: 40px var(--gutter) 80px; width: 100%; min-width: 0; container-type: inline-size; }
+#unit-host { max-width: var(--content-max); margin-inline: auto; }
 h1 { font-family: var(--font-display); font-weight: 800; font-size: clamp(2rem, 4.5vw, 2.75rem); line-height: 1.08; letter-spacing: -0.015em; margin: 8px 0 14px; text-wrap: balance; }
 .lead { font-size: 1.1875rem; color: var(--muted); max-width: 68ch; margin: 0 0 22px; }
 
@@ -406,13 +412,11 @@ table.duo tbody th { font-family: var(--font-display); font-size: 0.875rem; colo
 /* Exam guide components layered on top of main.css ("Andén" direction). */
 
 .layout.no-toc { grid-template-columns: minmax(0, 1fr); }
-.layout.no-toc main { max-width: 1180px; margin: 0 auto; }
 /* Exam mode: while a mounted mock exam's timer runs (.sim-bar.running), the index steps aside.
    Inactive units are detached from the DOM, so leaving the exam brings the index back. */
 @media (min-width: 901px) {
   .layout:has(.sim-bar.running) { grid-template-columns: minmax(0, 1fr); }
   .layout:has(.sim-bar.running) > .toc { display: none; }
-  .layout:has(.sim-bar.running) main { max-width: 1180px; margin: 0 auto; }
 }
 
 /* Section title line: h2 + "dominado" toggle */
@@ -428,8 +432,10 @@ table.duo tbody th { font-family: var(--font-display); font-size: 0.875rem; colo
 .unit-head {
   display: flex; align-items: baseline; gap: 18px; flex-wrap: wrap;
   background: var(--band); color: var(--band-ink);
-  margin: -40px calc(-1 * clamp(16px, 5vw, 64px)) 0;
-  padding: 28px clamp(16px, 5vw, 64px) 22px;
+  /* Bleed to main's edges: gutter plus the space left on each side of the centered unit. */
+  --bleed: calc(var(--gutter) + max(0px, (100cqi - var(--content-max)) / 2));
+  margin: -40px calc(-1 * var(--bleed)) 0;
+  padding: 28px var(--bleed) 22px;
   border-bottom: 8px solid var(--line-c);
 }
 .unit-num {
