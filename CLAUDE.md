@@ -1,6 +1,6 @@
 # guia-estudio-examen — Guía de estudio Examen FIS1533 (2026-2)
 
-Examen: **01-12-2026 08:20**. Acumulativo, peso fuerte en U7–U11.
+Examen: **01-12-2026 08:20**, 150 min, sin calculadora. 4 preguntas, se responden 3: P3 y P4 obligatorias (materia no evaluada: U9–U11, sin ondas EM); P1 (I1) o P2 (I2) a elección. Fuente: `../Electro/2026-2/Informacion-examen.md`; análisis en `mapa/banco-examenes.md` §5.
 
 ## Leer primero
 

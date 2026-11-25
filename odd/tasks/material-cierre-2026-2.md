@@ -5,7 +5,7 @@ Objetivo: integrar la I2 2026-2 y las ayudantías 26–28 en el análisis del ex
 ## Specs
 
 - S1 (usuario, literal): "Acabo de agregar ayudantias nuevas de este semestre y el escaneo de lo que preguntaron en la I2, quizas con este material cambia el analisis de lo que esperariamos en el examen, no lo sé, pero integralo como si siempre hubieramos tenido este material, no quiero leer algo sobre de que agregue recien esto o con este cambio, etc."
-- S2 (supuesto): fuentes = `Electro/2026-2/Pautas/interrogacion_2_FIS1533_escaneada.pdf` (13-11-2026, sin pauta), `Ayudantias/Enunciados/Ay26–28`, `Ayudantias/Soluciones/Ay26, Ay28`.
+- S2 (supuesto): fuentes = `Electro/pruebas-anteriores/I2/I2 2026-2 (enunciado escaneado).pdf` (13-11-2026, sin pauta), `Ayudantias/Enunciados/Ay26–28`, `Ayudantias/Soluciones/Ay26, Ay28`.
 - S3 (supuesto): la I2 entra como arquetipos (U6-X4, U7-X4, U8-X4) con puntaje del enunciado; de Ay27–28 entran como práctica los temas sin cobertura (disco de Faraday, espira que se expande con B(t), toroide L y U, filtro pasa-altos).
 - S4 (supuesto): el análisis (banco, mapa de fuentes, R01, "Qué pregunta el examen") se reescribe en tiempo presente, sin lenguaje de cambio.
 

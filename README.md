@@ -4,6 +4,8 @@ Guía interactiva para preparar el examen final de FIS1533: 11 unidades autosufi
 
 **Ver la guía:** https://fcamaggi.github.io/guia-estudio-examen-fis1533/
 
+**Material del curso (pruebas anteriores con pauta, clases, ayudantías y apuntes):** https://github.com/FCamaggi/material-fis1533. Los enlaces de `mapa/` apuntan a ese repositorio.
+
 - `index.html`: guía completa (usa `css/` y `js/`).
 - `dist/guia-examen.html`: versión en un solo archivo.
 - Las fórmulas se renderizan con MathJax desde CDN, así que se necesita conexión a internet.
