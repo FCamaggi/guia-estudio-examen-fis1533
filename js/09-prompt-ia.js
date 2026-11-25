@@ -150,6 +150,7 @@
   function clearAll() {
     picks.slice().forEach(function (p) { remove(p.el); });
     stuck = null;
+    if (note) note.value = "";
     render();
   }
 
