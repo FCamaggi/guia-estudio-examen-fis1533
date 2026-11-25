@@ -1,0 +1,474 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-11-23T13:05:00-03:00",
+  "title": "Design System: FIS1533 Study Guide (Andén)",
+  "extensions": {
+    "colorMeta": {
+      "paper": {
+        "role": "neutral",
+        "displayName": "Paper White",
+        "canonical": "#ffffff",
+        "tonalRamp": ["#16181b", "#303439", "#4c5158", "#6b7178", "#8d939a", "#b2b7bd", "#d9dcdf", "#ffffff"]
+      },
+      "paper-dark": {
+        "role": "neutral",
+        "displayName": "Night Paper",
+        "canonical": "#0f1113",
+        "tonalRamp": ["#0f1113", "#22262a", "#373d43", "#505760", "#6c747e", "#8e96a0", "#b6bcc4", "#eceef0"]
+      },
+      "surface": {
+        "role": "neutral",
+        "displayName": "Surface White",
+        "canonical": "#ffffff",
+        "tonalRamp": ["#16181b", "#303439", "#4c5158", "#6b7178", "#8d939a", "#b2b7bd", "#d9dcdf", "#ffffff"]
+      },
+      "surface-dark": {
+        "role": "neutral",
+        "displayName": "Night Surface",
+        "canonical": "#0f1113",
+        "tonalRamp": ["#0f1113", "#22262a", "#373d43", "#505760", "#6c747e", "#8e96a0", "#b6bcc4", "#eceef0"]
+      },
+      "ink": {
+        "role": "neutral",
+        "displayName": "Carbon Ink",
+        "canonical": "#121417",
+        "tonalRamp": ["#121417", "#292d33", "#434850", "#5f656e", "#7d848d", "#9ea4ac", "#c4c8ce", "#eceef0"]
+      },
+      "ink-dark": {
+        "role": "neutral",
+        "displayName": "Chalk Ink",
+        "canonical": "#eceef0",
+        "tonalRamp": ["#121417", "#292d33", "#434850", "#5f656e", "#7d848d", "#9ea4ac", "#c4c8ce", "#eceef0"]
+      },
+      "muted": {
+        "role": "neutral",
+        "displayName": "Timetable Slate",
+        "canonical": "#555b63",
+        "tonalRamp": ["#181b1f", "#30353b", "#494f57", "#555b63", "#777e86", "#9ca2a9", "#c4c8cd", "#eceef0"]
+      },
+      "muted-dark": {
+        "role": "neutral",
+        "displayName": "Night Slate",
+        "canonical": "#a2a8b0",
+        "tonalRamp": ["#181b1f", "#30353b", "#494f57", "#676e77", "#848b94", "#a2a8b0", "#c8ccd1", "#eceef0"]
+      },
+      "line": {
+        "role": "neutral",
+        "displayName": "Hairline Grey",
+        "canonical": "#d9dcdf",
+        "tonalRamp": ["#1c1e21", "#35393e", "#52575e", "#727880", "#959ba2", "#b8bdc2", "#d9dcdf", "#f4f5f6"]
+      },
+      "line-dark": {
+        "role": "neutral",
+        "displayName": "Night Hairline",
+        "canonical": "#2c3035",
+        "tonalRamp": ["#111315", "#2c3035", "#434850", "#5f656e", "#7e858e", "#9fa5ad", "#c5c9cf", "#eceef0"]
+      },
+      "accent": {
+        "role": "primary",
+        "displayName": "Electric Field Blue",
+        "canonical": "#1f4fd1",
+        "tonalRamp": ["#0c1d52", "#133185", "#1f4fd1", "#3b6ae0", "#6189ea", "#8aa8ff", "#bbd0ff", "#eef2fc"]
+      },
+      "accent-dark": {
+        "role": "primary",
+        "displayName": "Night Electric Blue",
+        "canonical": "#8aa8ff",
+        "tonalRamp": ["#0c1d52", "#133185", "#1f4fd1", "#3b6ae0", "#6189ea", "#8aa8ff", "#bbd0ff", "#eef2fc"]
+      },
+      "accent-soft": {
+        "role": "primary",
+        "displayName": "Blue Wash",
+        "canonical": "#eef2fc",
+        "tonalRamp": ["#10162b", "#18203a", "#26345d", "#3c518b", "#5c75b8", "#8ca3da", "#c1cff0", "#eef2fc"]
+      },
+      "accent-soft-dark": {
+        "role": "primary",
+        "displayName": "Night Blue Wash",
+        "canonical": "#18203a",
+        "tonalRamp": ["#10162b", "#18203a", "#26345d", "#3c518b", "#5c75b8", "#8ca3da", "#c1cff0", "#eef2fc"]
+      },
+      "copper": {
+        "role": "secondary",
+        "displayName": "Magnetic Copper",
+        "canonical": "#9e5416",
+        "tonalRamp": ["#3b1d05", "#69360c", "#9e5416", "#bd6d2a", "#d3884a", "#e2a26b", "#eec7a3", "#f8efe6"]
+      },
+      "copper-dark": {
+        "role": "secondary",
+        "displayName": "Night Magnetic Copper",
+        "canonical": "#e2a26b",
+        "tonalRamp": ["#3b1d05", "#69360c", "#9e5416", "#bd6d2a", "#d3884a", "#e2a26b", "#eec7a3", "#f8efe6"]
+      },
+      "copper-soft": {
+        "role": "secondary",
+        "displayName": "Copper Wash",
+        "canonical": "#f8efe6",
+        "tonalRamp": ["#1c150f", "#2a2119", "#463628", "#69513c", "#907257", "#b7987c", "#dcc5b0", "#f8efe6"]
+      },
+      "copper-soft-dark": {
+        "role": "secondary",
+        "displayName": "Night Copper Wash",
+        "canonical": "#2a2119",
+        "tonalRamp": ["#1c150f", "#2a2119", "#463628", "#69513c", "#907257", "#b7987c", "#dcc5b0", "#f8efe6"]
+      },
+      "ok": {
+        "role": "tertiary",
+        "displayName": "Mastery Green",
+        "canonical": "#17784c",
+        "tonalRamp": ["#082c1b", "#0f4e31", "#17784c", "#249661", "#3db47c", "#5fcf98", "#9be3be", "#e6f4ec"]
+      },
+      "ok-dark": {
+        "role": "tertiary",
+        "displayName": "Night Mastery Green",
+        "canonical": "#5fcf98",
+        "tonalRamp": ["#082c1b", "#0f4e31", "#17784c", "#249661", "#3db47c", "#5fcf98", "#9be3be", "#e6f4ec"]
+      },
+      "ok-soft": {
+        "role": "tertiary",
+        "displayName": "Mastery Wash",
+        "canonical": "#e6f4ec",
+        "tonalRamp": ["#0b1a13", "#12271d", "#1e4130", "#30644b", "#498a6b", "#71b192", "#a9d6bf", "#e6f4ec"]
+      },
+      "ok-soft-dark": {
+        "role": "tertiary",
+        "displayName": "Night Mastery Wash",
+        "canonical": "#12271d",
+        "tonalRamp": ["#0b1a13", "#12271d", "#1e4130", "#30644b", "#498a6b", "#71b192", "#a9d6bf", "#e6f4ec"]
+      },
+      "bad": {
+        "role": "tertiary",
+        "displayName": "Trap Vermilion",
+        "canonical": "#b23b2a",
+        "tonalRamp": ["#45130c", "#782317", "#b23b2a", "#cd5341", "#e06e5d", "#f08a7a", "#f7b8ae", "#fbeae7"]
+      },
+      "bad-dark": {
+        "role": "tertiary",
+        "displayName": "Night Trap Vermilion",
+        "canonical": "#f08a7a",
+        "tonalRamp": ["#45130c", "#782317", "#b23b2a", "#cd5341", "#e06e5d", "#f08a7a", "#f7b8ae", "#fbeae7"]
+      },
+      "bad-soft": {
+        "role": "tertiary",
+        "displayName": "Trap Wash",
+        "canonical": "#fbeae7",
+        "tonalRamp": ["#20100e", "#321a17", "#532b26", "#7a423a", "#a36056", "#c9897f", "#e8bcb5", "#fbeae7"]
+      },
+      "bad-soft-dark": {
+        "role": "tertiary",
+        "displayName": "Night Trap Wash",
+        "canonical": "#321a17",
+        "tonalRamp": ["#20100e", "#321a17", "#532b26", "#7a423a", "#a36056", "#c9897f", "#e8bcb5", "#fbeae7"]
+      },
+      "band": {
+        "role": "neutral",
+        "displayName": "Departure Board Ink",
+        "canonical": "#121417",
+        "tonalRamp": ["#000000", "#121417", "#272b31", "#414750", "#5f6670", "#828993", "#adb2ba", "#dee1e5"]
+      },
+      "band-dark": {
+        "role": "neutral",
+        "displayName": "Night Departure Board",
+        "canonical": "#000000",
+        "tonalRamp": ["#000000", "#141619", "#282c32", "#414750", "#5f6670", "#828993", "#adb2ba", "#dee1e5"]
+      },
+      "band-ink": {
+        "role": "neutral",
+        "displayName": "Departure Board Chalk",
+        "canonical": "#ffffff",
+        "tonalRamp": ["#16181b", "#303439", "#4c5158", "#6b7178", "#8d939a", "#b2b7bd", "#d9dcdf", "#ffffff"]
+      },
+      "l0": {
+        "role": "tertiary",
+        "displayName": "Line 0 Map Ink",
+        "canonical": "#121417",
+        "tonalRamp": ["#121417", "#292d33", "#434850", "#5f656e", "#7d848d", "#9ea4ac", "#c4c8ce", "#eceef0"]
+      },
+      "l0-dark": {
+        "role": "tertiary",
+        "displayName": "Night Line 0 Map",
+        "canonical": "#eceef0",
+        "tonalRamp": ["#121417", "#292d33", "#434850", "#5f656e", "#7d848d", "#9ea4ac", "#c4c8ce", "#eceef0"]
+      },
+      "lA": {
+        "role": "tertiary",
+        "displayName": "Line A Electrostatics Amber",
+        "canonical": "#d99a00",
+        "tonalRamp": ["#452f00", "#755100", "#a67500", "#d99a00", "#f2b81d", "#f6cb52", "#fae095", "#fef5da"]
+      },
+      "lA-dark": {
+        "role": "tertiary",
+        "displayName": "Night Line A Amber",
+        "canonical": "#f2b81d",
+        "tonalRamp": ["#452f00", "#755100", "#a67500", "#d99a00", "#f2b81d", "#f6cb52", "#fae095", "#fef5da"]
+      },
+      "lB": {
+        "role": "tertiary",
+        "displayName": "Line B Circuits Green",
+        "canonical": "#28803a",
+        "tonalRamp": ["#0c2d13", "#175223", "#28803a", "#389e4d", "#51cf66", "#7be08c", "#adefb8", "#e3fae7"]
+      },
+      "lB-dark": {
+        "role": "tertiary",
+        "displayName": "Night Line B Green",
+        "canonical": "#51cf66",
+        "tonalRamp": ["#0c2d13", "#175223", "#28803a", "#389e4d", "#51cf66", "#7be08c", "#adefb8", "#e3fae7"]
+      },
+      "lC": {
+        "role": "tertiary",
+        "displayName": "Line C Magnetism Magenta",
+        "canonical": "#c2255c",
+        "tonalRamp": ["#45091e", "#7a1438", "#c2255c", "#da4175", "#f06595", "#f58db1", "#f9bad0", "#fde6ee"]
+      },
+      "lC-dark": {
+        "role": "tertiary",
+        "displayName": "Night Line C Magenta",
+        "canonical": "#f06595",
+        "tonalRamp": ["#45091e", "#7a1438", "#c2255c", "#da4175", "#f06595", "#f58db1", "#f9bad0", "#fde6ee"]
+      },
+      "lD": {
+        "role": "tertiary",
+        "displayName": "Line D Induction Violet",
+        "canonical": "#6741d9",
+        "tonalRamp": ["#211254", "#3d2291", "#6741d9", "#7f5ce8", "#9775fa", "#b49bfc", "#d3c4fd", "#f1ecfe"]
+      },
+      "lD-dark": {
+        "role": "tertiary",
+        "displayName": "Night Line D Violet",
+        "canonical": "#9775fa",
+        "tonalRamp": ["#211254", "#3d2291", "#6741d9", "#7f5ce8", "#9775fa", "#b49bfc", "#d3c4fd", "#f1ecfe"]
+      },
+      "lE": {
+        "role": "tertiary",
+        "displayName": "Line E Mock Exams Grey",
+        "canonical": "#6b7178",
+        "tonalRamp": ["#1d2023", "#363a3f", "#50555c", "#6b7178", "#868c94", "#a2a8b0", "#c6cacf", "#ebedf0"]
+      },
+      "lE-dark": {
+        "role": "tertiary",
+        "displayName": "Night Line E Grey",
+        "canonical": "#a2a8b0",
+        "tonalRamp": ["#1d2023", "#363a3f", "#50555c", "#6b7178", "#868c94", "#a2a8b0", "#c6cacf", "#ebedf0"]
+      },
+      "line-ink": {
+        "role": "neutral",
+        "displayName": "Line Badge Ink",
+        "canonical": "#ffffff",
+        "tonalRamp": ["#16181b", "#303439", "#4c5158", "#6b7178", "#8d939a", "#b2b7bd", "#d9dcdf", "#ffffff"]
+      },
+      "line-ink-dark": {
+        "role": "neutral",
+        "displayName": "Night Line Badge Ink",
+        "canonical": "#0f1113",
+        "tonalRamp": ["#0f1113", "#22262a", "#373d43", "#505760", "#6c747e", "#8e96a0", "#b6bcc4", "#eceef0"]
+      },
+      "lA-ink": {
+        "role": "neutral",
+        "displayName": "Amber Badge Ink",
+        "canonical": "#121417",
+        "tonalRamp": ["#121417", "#292d33", "#434850", "#5f656e", "#7d848d", "#9ea4ac", "#c4c8ce", "#eceef0"]
+      },
+      "predict-highlight": {
+        "role": "tertiary",
+        "displayName": "Prediction Pause Yellow",
+        "canonical": "#ffd43b",
+        "tonalRamp": ["#4d3d00", "#7d6409", "#b08e16", "#dfb828", "#ffd43b", "#ffe06b", "#ffec9e", "#fff7d6"]
+      },
+      "sim-time-low": {
+        "role": "tertiary",
+        "displayName": "Low Time Coral",
+        "canonical": "#ff8776",
+        "tonalRamp": ["#4d1710", "#80281c", "#b83e2d", "#e35f4d", "#ff8776", "#ffa79b", "#ffc8c0", "#ffeae7"]
+      },
+      "sim-nota-ok": {
+        "role": "tertiary",
+        "displayName": "Passing Grade Mint",
+        "canonical": "#69db9e",
+        "tonalRamp": ["#0b3820", "#145e36", "#218a52", "#3bb574", "#69db9e", "#8ee6b6", "#b9f0d2", "#e5faee"]
+      },
+      "toc-scrim": {
+        "role": "neutral",
+        "displayName": "Drawer Scrim",
+        "canonical": "rgba(8, 14, 22, 0.45)",
+        "tonalRamp": ["rgba(8, 14, 22, 0.90)", "rgba(8, 14, 22, 0.75)", "rgba(8, 14, 22, 0.60)", "rgba(8, 14, 22, 0.45)", "rgba(8, 14, 22, 0.30)", "rgba(8, 14, 22, 0.20)", "rgba(8, 14, 22, 0.10)", "rgba(8, 14, 22, 0.04)"]
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Display",
+        "purpose": "Page h1 and unit opener titles (.unit-head h1 at clamp(1.75rem, 4vw, 2.375rem))."
+      },
+      "headline": {
+        "displayName": "Headline",
+        "purpose": "Section headers (.sec h2) anchored by 2px ink top rules."
+      },
+      "title": {
+        "displayName": "Title",
+        "purpose": "Subsection headings (.sec h3), simulator headers (.sim-title), and problem titles (.ptitle)."
+      },
+      "body": {
+        "displayName": "Body",
+        "purpose": "Primary instructional prose, constrained to a 68ch reading measure."
+      },
+      "label": {
+        "displayName": "Label / Mono",
+        "purpose": "Station tags, step labels, given-data keys, citations, and tabular numeric counters."
+      }
+    },
+    "shadows": [],
+    "motion": [
+      {
+        "name": "bar-fill",
+        "value": "width 0.3s",
+        "purpose": "Global mastery progress bar width update inside .toc-head."
+      },
+      {
+        "name": "toc-drawer",
+        "value": "transform 0.28s cubic-bezier(0.16, 1, 0.3, 1)",
+        "purpose": "Off-canvas mobile index slide-in/out on viewports <= 900px (disabled under prefers-reduced-motion)."
+      },
+      {
+        "name": "step-rise",
+        "value": "rise 0.25s ease",
+        "purpose": "Subtle 4px upward reveal for newly shown problem solution steps (disabled under prefers-reduced-motion)."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "sm",
+        "value": "640px",
+        "purpose": "Problem step rows (.reveal li) collapse from 9rem label + content grid to single-column stack."
+      },
+      {
+        "name": "md",
+        "value": "760px",
+        "purpose": "Problem two-column grid (.prob-grid) collapses to 1fr and sticky figures revert to static flow."
+      },
+      {
+        "name": "lg",
+        "value": "900px",
+        "purpose": "Sidebar TOC moves off-canvas behind sticky 52px mobile .topbar and 44px touch-target floor activates."
+      }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary & Secondary Action Buttons",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Square 1px-ruled action buttons used in problem step controls, quiz bars, and quick checks.",
+      "html": "<div class=\"ds-ctrl\"><button type=\"button\" class=\"ds-btn-primary\">Siguiente paso</button><button type=\"button\" class=\"ds-btn-secondary\">Ver solución completa</button></div>",
+      "css": ".ds-ctrl { display: flex; flex-wrap: wrap; gap: 8px; } .ds-btn-primary, .ds-btn-secondary { font: 600 0.875rem var(--font-body, \"Atkinson Hyperlegible Next\", sans-serif); padding: 7px 14px; border-radius: 0; cursor: pointer; border: 1px solid var(--ink, #121417); } .ds-btn-primary { background: var(--ink, #121417); color: var(--surface, #ffffff); } .ds-btn-secondary { background: var(--surface, #ffffff); color: var(--ink, #121417); } .ds-btn-primary:hover, .ds-btn-secondary:hover { border-color: var(--accent, #1f4fd1); } .ds-btn-primary:focus-visible, .ds-btn-secondary:focus-visible { outline: 2px solid var(--accent, #1f4fd1); outline-offset: 2px; }"
+    },
+    {
+      "name": "Section Mastery Toggle",
+      "kind": "button",
+      "refersTo": "button-master",
+      "description": "Stateful section toggle transitioning from hollow dot to solid green checkmark on mastery.",
+      "html": "<div style=\"display:flex;gap:8px;flex-wrap:wrap;\"><button type=\"button\" class=\"ds-master\" aria-pressed=\"false\">Marcar como dominado</button><button type=\"button\" class=\"ds-master\" aria-pressed=\"true\">Dominado</button></div>",
+      "css": ".ds-master { display: inline-flex; align-items: center; gap: 7px; font: 600 0.8125rem var(--font-body, \"Atkinson Hyperlegible Next\", sans-serif); padding: 6px 12px; border-radius: 0; cursor: pointer; border: 1px solid var(--ink, #121417); background: var(--surface, #ffffff); color: var(--ink, #121417); } .ds-master::before { content: \"\"; width: 0.8em; height: 0.8em; border-radius: 50%; border: 1.5px solid currentColor; box-sizing: border-box; } .ds-master:hover { border-color: var(--accent, #1f4fd1); } .ds-master:focus-visible { outline: 2px solid var(--accent, #1f4fd1); outline-offset: 2px; } .ds-master[aria-pressed=\"true\"] { background: var(--ok-soft, #e6f4ec); border-color: var(--ok, #17784c); color: var(--ok, #17784c); } .ds-master[aria-pressed=\"true\"]::before { border: 0; border-radius: 0; background: currentColor; -webkit-mask: url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12'%3E%3Cpath d='M2.5 6.4l2.2 2.2 4.8-5' fill='none' stroke='black' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E\") center / 100% no-repeat; mask: url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12'%3E%3Cpath d='M2.5 6.4l2.2 2.2 4.8-5' fill='none' stroke='black' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E\") center / 100% no-repeat; }"
+    },
+    {
+      "name": "TOC Search Input",
+      "kind": "input",
+      "refersTo": "input-search",
+      "description": "Square-corner full-width section search input inside the departure-board TOC head.",
+      "html": "<div class=\"ds-search\"><input type=\"search\" placeholder=\"Buscar sección…\" aria-label=\"Buscar sección\"></div>",
+      "css": ".ds-search input { width: 100%; box-sizing: border-box; padding: 7px 10px; font: 0.875rem var(--font-body, \"Atkinson Hyperlegible Next\", sans-serif); color: var(--ink, #121417); background: var(--surface, #ffffff); border: 1px solid var(--ink, #121417); border-radius: 0; caret-color: var(--accent, #1f4fd1); } .ds-search input::placeholder { color: var(--muted, #555b63); opacity: 1; } .ds-search input:focus-visible { outline: 2px solid var(--accent, #1f4fd1); outline-offset: 1px; }"
+    },
+    {
+      "name": "Index Line Diagram",
+      "kind": "nav",
+      "description": "Vertical rail-line TOC showing default, current (thick ring), and mastered (filled stop) stations.",
+      "html": "<div class=\"ds-toc\"><div class=\"ds-toc-block\">D · Inducción y CA</div><div class=\"ds-toc-unit ds-open\"><a href=\"#u09\" class=\"ds-active\"><span class=\"ds-n\">U9</span>Inducción electromagnética<span class=\"ds-up\">3/5</span></a></div><div class=\"ds-toc-unit\"><a href=\"#u10\" class=\"ds-done\"><span class=\"ds-n\">U10</span>Inductancia y RL/RLC<span class=\"ds-up\">4/4</span></a></div><div class=\"ds-toc-unit\"><a href=\"#u11\"><span class=\"ds-n\">U11</span>Corriente alterna<span class=\"ds-up\">0/4</span></a></div></div>",
+      "css": ".ds-toc { width: 260px; font-family: var(--font-body, \"Atkinson Hyperlegible Next\", sans-serif); background: var(--surface, #ffffff); color: var(--ink, #121417); --ds-lc: var(--lD, #6741d9); } .ds-toc-block { font-family: var(--font-display, \"Atkinson Hyperlegible Next\", sans-serif); font-weight: 700; font-size: 0.8125rem; letter-spacing: 0.02em; padding: 12px 0 6px; border-bottom: 2px solid var(--ink, #121417); margin-bottom: 4px; } .ds-toc-unit { position: relative; padding-left: 26px; } .ds-toc-unit::before { content: \"\"; position: absolute; left: 8px; top: 0; bottom: 0; width: 4px; background: var(--ds-lc); } .ds-toc-unit::after { content: \"\"; position: absolute; left: 3px; top: 13px; width: 10px; height: 10px; border-radius: 50%; background: var(--surface, #ffffff); border: 2px solid var(--ds-lc); } .ds-toc-unit.ds-open::after { width: 16px; height: 16px; left: 0; top: 10px; border-width: 4px; } .ds-toc-unit:has(a.ds-done)::after { background: var(--ds-lc); } .ds-toc a { display: flex; gap: 10px; align-items: baseline; padding: 7px 6px; color: var(--ink, #121417); text-decoration: none; font-size: 0.9062rem; line-height: 1.35; } .ds-toc a:hover { background: color-mix(in srgb, var(--ink, #121417) 5%, transparent); } .ds-toc a:focus-visible { outline: 2px solid var(--accent, #1f4fd1); outline-offset: 2px; } .ds-toc a.ds-active { font-weight: 700; background-image: linear-gradient(var(--ds-lc), var(--ds-lc)); background-size: 100% 2px; background-position: bottom; background-repeat: no-repeat; } .ds-n { font-family: var(--font-mono, monospace); font-size: 0.75rem; font-weight: 600; min-width: 18px; } .ds-up { margin-left: auto; font: 600 0.75rem var(--font-mono, monospace); color: var(--muted, #555b63); font-variant-numeric: tabular-nums; }"
+    },
+    {
+      "name": "Unit Opener Band",
+      "kind": "custom",
+      "refersTo": "unit-opener",
+      "description": "Black departure-board header with block-coloured badge and 8px line-colour bottom rule.",
+      "html": "<header class=\"ds-unit-head\"><span class=\"ds-unit-num\">U9</span><h1>Inducción electromagnética</h1><span class=\"ds-unit-weight\">22 problemas en exámenes · 5 en los 4 recientes</span></header>",
+      "css": ".ds-unit-head { display: flex; align-items: baseline; gap: 18px; flex-wrap: wrap; background: var(--band, #121417); color: var(--band-ink, #ffffff); padding: 24px 28px 20px; border-bottom: 8px solid var(--lD, #6741d9); font-family: var(--font-display, \"Atkinson Hyperlegible Next\", sans-serif); } .ds-unit-num { background: var(--lD, #6741d9); color: var(--line-ink, #ffffff); font: 800 1.25rem var(--font-display, \"Atkinson Hyperlegible Next\", sans-serif); padding: 6px 12px; border-radius: 0; } .ds-unit-head h1 { font-weight: 800; font-size: 1.75rem; line-height: 1.1; letter-spacing: -0.01em; margin: 0; color: var(--band-ink, #ffffff); } .ds-unit-weight { font: 600 0.8125rem var(--font-mono, monospace); color: color-mix(in srgb, var(--band-ink, #ffffff) 75%, transparent); }"
+    },
+    {
+      "name": "Problem Ticket",
+      "kind": "card",
+      "refersTo": "problem-ticket",
+      "description": "2px ink-framed problem card with departure-board head, prediction pause, step columns, and green final box.",
+      "html": "<div class=\"ds-prob\"><div class=\"ds-prob-head\"><span class=\"ds-tag\">Arquetipo 1</span><span class=\"ds-ptitle\">Espira rectangular frente a alambre</span><span class=\"ds-src\">2025-1 P4</span></div><div class=\"ds-predict\"><b>Antes de calcular:</b> ¿el flujo aumenta o disminuye al alejar la espira?</div><ol class=\"ds-reveal\"><li><span class=\"ds-rl\">Paso 1 · Flujo</span><p class=\"ds-do\"><b>Qué hago:</b> integrar B(s) entre r y r + w.</p><p><b>Por qué:</b> el campo del alambre decae como 1/s.</p></li><li class=\"ds-final\"><b>Resultado:</b> Φ_B = (μ₀ I ℓ / 2π) ln((r+w)/r)</li></ol></div>",
+      "css": ".ds-prob { border: 2px solid var(--ink, #121417); border-radius: 0; background: var(--surface, #ffffff); color: var(--ink, #121417); font-family: var(--font-body, \"Atkinson Hyperlegible Next\", sans-serif); } .ds-prob-head { display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 12px; padding: 10px 16px; background: var(--band, #121417); color: var(--band-ink, #ffffff); } .ds-tag { font-family: var(--font-mono, monospace); font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; color: var(--line-ink, #ffffff); background: var(--lD, #6741d9); padding: 2px 8px; } .ds-ptitle { font-family: var(--font-display, \"Atkinson Hyperlegible Next\", sans-serif); font-weight: 700; font-size: 1.0625rem; color: var(--band-ink, #ffffff); } .ds-src { font-family: var(--font-mono, monospace); font-size: 0.75rem; color: color-mix(in srgb, var(--band-ink, #ffffff) 72%, transparent); margin-left: auto; } .ds-predict { margin: 14px 18px 4px; padding: 12px 0 0; border-top: 2px solid var(--ink, #121417); font-size: 1rem; } .ds-predict b { color: #121417; background: #ffd43b; padding: 0 4px; } .ds-reveal { list-style: none; padding: 0; margin: 12px 18px 14px; } .ds-reveal li { border-top: 1px solid var(--line, #d9dcdf); padding: 10px 0; display: grid; grid-template-columns: 9rem minmax(0, 1fr); column-gap: 18px; } .ds-reveal li > :not(.ds-rl) { grid-column: 2; margin: 0 0 6px; } .ds-rl { font-family: var(--font-mono, monospace); font-weight: 600; font-size: 0.8125rem; grid-row: span 3; } .ds-do b { color: var(--accent, #1f4fd1); } .ds-reveal li.ds-final { border: 2px solid var(--ok, #17784c); padding: 10px 14px; display: block; }"
+    },
+    {
+      "name": "Quiz Option List",
+      "kind": "custom",
+      "refersTo": "quiz-option",
+      "description": "Vertical multiple-choice list with auto-countered square letter badges and right/wrong states.",
+      "html": "<div class=\"ds-q\"><p class=\"ds-qt\">1. Al acercar el polo norte de un imán a una espira, la corriente inducida vista desde arriba es:</p><div class=\"ds-opts\"><button type=\"button\" class=\"ds-wrong\">horario</button><button type=\"button\" class=\"ds-right\">antihorario</button><button type=\"button\">nula</button></div></div>",
+      "css": ".ds-q { border-top: 2px solid var(--ink, #121417); padding: 14px 0; font-family: var(--font-body, \"Atkinson Hyperlegible Next\", sans-serif); color: var(--ink, #121417); } .ds-qt { margin: 0 0 10px; font-weight: 600; } .ds-opts { display: grid; grid-template-columns: 1fr; counter-reset: dsopt; } .ds-opts button { font: 0.9375rem var(--font-body, \"Atkinson Hyperlegible Next\", sans-serif); text-align: left; padding: 10px 8px 10px 52px; border-radius: 0; cursor: pointer; border: 0; border-top: 1px solid var(--line, #d9dcdf); background: transparent; color: var(--ink, #121417); position: relative; min-height: 46px; } .ds-opts button::before { counter-increment: dsopt; content: counter(dsopt, upper-alpha); position: absolute; left: 8px; top: 9px; width: 28px; height: 28px; display: grid; place-items: center; background: var(--ink, #121417); color: var(--surface, #ffffff); font: 700 0.875rem var(--font-mono, monospace); } .ds-opts button:hover { background: color-mix(in srgb, var(--ink, #121417) 4%, transparent); } .ds-opts button:focus-visible { outline: 2px solid var(--accent, #1f4fd1); outline-offset: 2px; } .ds-opts button.ds-right { background: var(--ok-soft, #e6f4ec); color: var(--ok, #17784c); font-weight: 600; } .ds-opts button.ds-right::before { background: var(--ok, #17784c); color: var(--surface, #ffffff); } .ds-opts button.ds-wrong { background: var(--bad-soft, #fbeae7); color: var(--bad, #b23b2a); } .ds-opts button.ds-wrong::before { background: var(--bad, #b23b2a); color: var(--surface, #ffffff); }"
+    },
+    {
+      "name": "Callouts (Key & Trap)",
+      "kind": "card",
+      "refersTo": "callout-key",
+      "description": "Semantic instructional callout boxes for core principles (.key) and common exam mistakes (.trap).",
+      "html": "<div class=\"ds-callouts\"><div class=\"ds-key\"><b>Idea central.</b> El flujo cambia en el tiempo y genera una fem opuesta al cambio.</div><div class=\"ds-trap\"><b>Error típico:</b> usar el ángulo con el plano en lugar del ángulo con la normal.</div></div>",
+      "css": ".ds-callouts { display: grid; gap: 12px; font-family: var(--font-body, \"Atkinson Hyperlegible Next\", sans-serif); color: var(--ink, #121417); } .ds-key { background: var(--accent-soft, #eef2fc); padding: 12px 16px; border-radius: 0; } .ds-key > b:first-child { display: block; color: var(--accent, #1f4fd1); font-weight: 700; margin-bottom: 2px; } .ds-trap { background: var(--bad-soft, #fbeae7); border: 1px solid color-mix(in srgb, var(--bad, #b23b2a) 30%, transparent); padding: 12px 16px; border-radius: 0; } .ds-trap > b:first-child { display: block; color: var(--bad, #b23b2a); margin-bottom: 2px; }"
+    },
+    {
+      "name": "Mock Exam Bar",
+      "kind": "custom",
+      "refersTo": "sim-bar",
+      "description": "Sticky departure-board timer and self-scoring bar for timed mock exams.",
+      "html": "<div class=\"ds-sim-bar\"><div><span class=\"ds-eb-lbl\">Tiempo</span><span class=\"ds-sim-time\">2:30:00</span></div><div class=\"ds-eb-btns\"><button type=\"button\" class=\"ds-eb-primary\">Iniciar</button><button type=\"button\">Reiniciar</button></div><div class=\"ds-eb-score\"><span class=\"ds-eb-lbl\">Puntaje</span><span class=\"ds-sim-pts\">12 / 18</span><span class=\"ds-sim-nota ds-nota-ok\">nota 5,0</span></div></div>",
+      "css": ".ds-sim-bar { display: flex; flex-wrap: wrap; gap: 14px 24px; align-items: center; justify-content: space-between; padding: 12px 16px; background: var(--band, #121417); color: var(--band-ink, #ffffff); border-bottom: 2px solid var(--ink, #121417); border-radius: 0; font-family: var(--font-body, \"Atkinson Hyperlegible Next\", sans-serif); } .ds-eb-lbl { display: block; font: 600 0.75rem var(--font-mono, monospace); text-transform: uppercase; letter-spacing: 0.05em; color: color-mix(in srgb, var(--band-ink, #ffffff) 72%, transparent); } .ds-sim-time { display: block; font: 700 1.5rem var(--font-mono, monospace); font-variant-numeric: tabular-nums; color: var(--band-ink, #ffffff); } .ds-eb-btns { display: flex; gap: 8px; } .ds-eb-btns button { font: 600 0.875rem var(--font-body, \"Atkinson Hyperlegible Next\", sans-serif); padding: 7px 16px; border-radius: 0; border: 1px solid color-mix(in srgb, var(--band-ink, #ffffff) 55%, transparent); background: transparent; color: var(--band-ink, #ffffff); cursor: pointer; } .ds-eb-btns button.ds-eb-primary { background: var(--band-ink, #ffffff); border-color: var(--band-ink, #ffffff); color: var(--band, #121417); } .ds-eb-btns button:focus-visible { outline: 2px solid var(--accent, #1f4fd1); outline-offset: 2px; } .ds-eb-score { text-align: right; } .ds-sim-pts { font: 700 1.125rem var(--font-mono, monospace); font-variant-numeric: tabular-nums; color: var(--band-ink, #ffffff); } .ds-sim-nota { font: 600 0.8125rem var(--font-mono, monospace); margin-left: 8px; } .ds-nota-ok { color: #69db9e; }"
+    }
+  ],
+  "narrative": {
+    "northStar": "Andén — Rail Timetable and Station Wayfinding",
+    "overview": "The visual system models the FIS1533 Electricity and Magnetism study guide as a rail transit network (\"Andén\"): each course block is a colour-coded line, each unit is a station along that line, and high-contrast black departure-board bands anchor the index head, unit openers, and problem tickets. Designed for long desktop study sessions with paper beside the screen—and secondary mobile lookups—it prioritizes high legibility, fixed reading geometry, and unmistakable positional wayfinding over decorative chrome (inferred).\n\nRather than a generic documentation shell with rounded cards, uniform blue action buttons, and floating shadows, the interface stays completely flat on a stark white (or near-black dark mode) canvas ruled by 1 px hairlines and 2 px ink dividers (inferred). Line colours appear strictly inside structural navigation and ticket framing, leaving the reading column neutral and preserving blue and copper exclusively for physics vector semantics and pedagogical signals.",
+    "keyCharacteristics": [
+      "High-contrast black departure-board bands (--band / --band-ink) for the index head, unit openers, problem heads, mobile top bar, and mock-exam timer bar.",
+      "Per-block transit line colours (--l0, --lA–--lE) confined strictly to the frame (index diagram, unit opener badge and 8 px rule, problem tag).",
+      "Semantic physics colour pairing: --accent (blue) for electric fields, current, and key ideas; --copper for magnetic fields, forces, magnetic moments, and exam maps.",
+      "Square corners (0px radius), 1 px–2 px ink rules, and zero box shadows across all containers and controls.",
+      "Fixed 68ch reading measure with excess horizontal space allocated to two-column problem grids, equation grids, and sticky SVG figures."
+    ],
+    "rules": [
+      {
+        "name": "The Meaning-Only Colour Rule",
+        "body": "Colour carries meaning only—never decoration. Per-block line colours (--l0, --lA–--lE) live exclusively in the frame (TOC line diagram, unit opener badge and 8 px rule, problem .tag), while --accent (blue: E, I) and --copper (copper: B, F, mu) keep their physical meaning inside figures and derivations.",
+        "section": "colors"
+      },
+      {
+        "name": "The Fixed-Measure Rule",
+        "body": "Reading prose, lists, callouts, and figure captions never exceed 68ch (max-width: 68ch). Extra viewport width expands outer margins, two-column problem grids, equation grids, and sticky figures—never the character measure of body text.",
+        "section": "typography"
+      },
+      {
+        "name": "The Square-Ink-No-Shadow Rule",
+        "body": "Surfaces stay flat at rest and in motion: zero box shadows, zero blur elevation, and 0px corner radii across every interactive and structural element. Hierarchy comes from ink rule weight (1px vs. 2px vs. 8px) and --band contrast polarity.",
+        "section": "elevation"
+      },
+      {
+        "name": "The Mark-Not-Hue State Rule",
+        "body": "Navigation state in the index line diagram is conveyed by geometric mark rather than hue shifts: unstudied units sit as hollow 10px stops, the active/open unit expands to a 16px ring (4px stroke), and a mastered unit fills solid in its line colour.",
+        "section": "components"
+      }
+    ],
+    "dos": [
+      "Do restrict per-block line colours (--l0, --lA–--lE) strictly to the navigation and ticket frame (TOC line diagram, unit opener badge and 8 px rule, problem .tag).",
+      "Do preserve --accent for electric fields/currents and --copper for magnetic fields/forces inside every SVG figure and derivation.",
+      "Do constrain prose, lists, callouts, and captions to 68ch (max-width: 68ch) and route extra horizontal space to margins, .prob-grid, .eqgrid, and sticky figures.",
+      "Do encode transit index state with geometric marks (hollow stop, thick 16px ring, filled stop) and tabular monospace counters (font-variant-numeric: tabular-nums).",
+      "Do keep corners at 0px, rules at 1px/2px/8px, box shadows at none, and mobile touch targets at >= 44px."
+    ],
+    "donts": [
+      "Don't add border-radius (other than 50% on TOC station stops and unpressed .master dots) or box-shadow to cards, buttons, inputs, tables, or drawers.",
+      "Don't reuse --lA–--lE line colours inside prose, callouts, or physics vector diagrams, or repurpose --accent/--copper in figures for decorative UI accents.",
+      "Don't render the .toc sidebar during mock-exam mode (.layout.no-toc), or allow .sim-bar to overlap content or headings (scroll-margin-top must clear both .topbar and .sim-bar).",
+      "Don't widen text paragraphs past 68ch on large monitors.",
+      "Don't place un-contrasted --line-ink on Block A amber (u01–u04 must keep #121417 ink)."
+    ]
+  }
+}

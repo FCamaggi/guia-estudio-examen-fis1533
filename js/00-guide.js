@@ -47,9 +47,54 @@
         el.removeAttribute("data-typeset");
         return false;
       });
-      return live.length ? window.MathJax.typesetPromise(live) : null;
+      return live.length ? window.MathJax.typesetPromise(live).then(function () { live.forEach(markPunctuation); }) : null;
     }).then(function () { applyPin(); }).catch(function (e) { console.error("MathJax", e); });
     return mathChain;
+  }
+
+  /* Readability: punctuation glued to an inline formula reads as part of it, and sentence
+     breaks get lost in formula-dense prose. After typesetting, wrap that punctuation in
+     <span class="pn"> so CSS can separate it (.pn-math) and widen sentence gaps (.pn-gap).
+     Runs only after MathJax, because splitting text nodes earlier would break $...$ delimiters. */
+  var SKIP = /^(MJX-CONTAINER|CODE|PRE|SCRIPT|STYLE|SVG|TEXTAREA|INPUT|BUTTON|SELECT)$/;
+  function markPunctuation(block) {
+    if (!block.isConnected) return;
+    var walker = document.createTreeWalker(block, NodeFilter.SHOW_TEXT, {
+      acceptNode: function (n) {
+        for (var p = n.parentNode; p && p !== block; p = p.parentNode) {
+          if (SKIP.test(p.nodeName.toUpperCase()) || (p.classList && p.classList.contains("pn"))) return NodeFilter.FILTER_REJECT;
+        }
+        return /[.,;:]/.test(n.nodeValue) ? NodeFilter.FILTER_ACCEPT : NodeFilter.FILTER_SKIP;
+      }
+    });
+    var nodes = [];
+    while (walker.nextNode()) nodes.push(walker.currentNode);
+    nodes.forEach(function (node) {
+      var text = node.nodeValue;
+      var prev = node.previousSibling;
+      var afterMath = prev && prev.nodeName.toUpperCase() === "MJX-CONTAINER" && prev.getAttribute("display") !== "true";
+      var cuts = [];
+      if (afterMath && /^[.,;:]/.test(text)) cuts.push({ i: 0, math: true, gap: /^[.;:](\s|$)/.test(text) });
+      // Sentence gaps: ". X" (capital next, so "Ej. 3" stays tight), and every "; " or ": ".
+      var re = /([.;:])(\s+)(\S)/g, m;
+      while ((m = re.exec(text))) {
+        if (m[1] === "." && !/[A-ZÁÉÍÓÚÑ¿¡(]/.test(m[3])) continue;
+        if (cuts.length && cuts[0].i === m.index) continue;
+        cuts.push({ i: m.index, math: false, gap: true });
+      }
+      if (!cuts.length) return;
+      var frag = document.createDocumentFragment(), last = 0;
+      cuts.forEach(function (c) {
+        if (c.i > last) frag.appendChild(document.createTextNode(text.slice(last, c.i)));
+        var s = document.createElement("span");
+        s.className = "pn" + (c.math ? " pn-math" : "") + (c.gap ? " pn-gap" : "");
+        s.textContent = text.charAt(c.i);
+        frag.appendChild(s);
+        last = c.i + 1;
+      });
+      if (last < text.length) frag.appendChild(document.createTextNode(text.slice(last)));
+      node.parentNode.replaceChild(frag, node);
+    });
   }
 
   function mathBlocks(root) {

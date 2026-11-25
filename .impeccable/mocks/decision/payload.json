@@ -1,0 +1,110 @@
+{
+  "title": "Elegir la dirección visual de la guía FIS1533",
+  "question": "Tres direcciones aplicadas a la guía real (U9 Inducción): capturas de índice, paso a paso, modo oscuro y fórmulas. Elige una, pide otra mano o quédate con el estándar.",
+  "options": [
+    {
+      "id": "assigned",
+      "kind": "assigned",
+      "label": "Andén",
+      "kicker": "THE ROLL",
+      "lineage": "Horarios de tren y señalética de estaciones",
+      "thesis": "La guía como red de líneas: cada bloque del curso es una línea con su color, cada unidad una estación, y tú sabes en qué andén estás.",
+      "palette": ["#ffffff", "#121417", "#d99a00", "#2b8a3e", "#c2255c", "#6741d9"],
+      "materials": ["franjas negras de tablero de salidas", "diagrama de líneas en el índice", "tipografía de alta legibilidad (Atkinson Hyperlegible)"],
+      "viewport": "Índice como diagrama de líneas con la estación actual marcada; cabecera de unidad en franja negra con el número en el color de su línea; columna de lectura a 68 caracteres; problemas con cabecera de boleto y figura fija al lado de los pasos.",
+      "risk": "Los colores de línea pueden leerse como arcoíris si se usan fuera del marco; viven solo en índice y cabeceras.",
+      "raised": [
+        { "from": "challenger-cutting-bench", "raise": "El estado es una marca, no un color: dominado es un punto lleno, la estación actual un anillo grueso, y 'donde quedaste' una bandera." },
+        { "from": "challenger-provenance", "raise": "Problemas de examen real y ejercicios originales se distinguen por tipografía (cita sólida vs. trazo fino), no solo por etiqueta." },
+        { "from": "challenger-ice-press", "raise": "La medida de lectura es fija (68 caracteres); el ancho extra lo absorben márgenes y figuras, nunca el texto." },
+        { "from": "challenger-datamatics", "raise": "El color solo carga significado: líneas en el marco, E azul y B cobre en figuras; nada decorativo." }
+      ],
+      "comp": ".impeccable/mocks/decision/anden.png"
+    },
+    {
+      "id": "model-pick",
+      "kind": "pick",
+      "label": "Aparato",
+      "kicker": "IMPECCABLE’S PICK",
+      "lineage": "Libros de física (Purcell, Feynman Lectures): impresión a dos tintas y notas al margen",
+      "thesis": "La guía como un buen libro de física: texto serif cómodo, números de unidad grandes, y el 'por qué' de cada paso en el margen, donde hoy hay espacio vacío.",
+      "palette": ["#fcfcfb", "#1a1a1a", "#1d4fb8", "#9e5416"],
+      "materials": ["serif de lectura (Source Serif 4)", "tablas estilo booktabs", "notas al margen", "resultado recuadrado"],
+      "viewport": "Apertura de capítulo con 'U9' grande en azul; texto a 40rem con columna de margen; ejemplos sin caja, con la figura a ancho completo arriba y el 'Por qué' de cada paso en el margen.",
+      "risk": "Es la dirección más familiar: muchas guías académicas terminan aquí. La figura deja de estar fija al lado de los pasos.",
+      "comp": ".impeccable/mocks/decision/aparato.png"
+    },
+    {
+      "id": "challenger-cutting-bench",
+      "kind": "challenger",
+      "catalogId": "operate-a-cutting-bench-select-rail",
+      "label": "Mesa de corte",
+      "verdict": "declined",
+      "lineage": "Mesa de montaje de cine",
+      "case": "Se funde mal: naranja sobre negro en un tercio de la pantalla cansa en sesiones largas, y el montaje de cine no es el mundo del curso.",
+      "kept": "El estado como marca (hecho, actual, donde quedaste)."
+    },
+    {
+      "id": "challenger-provenance",
+      "kind": "challenger",
+      "catalogId": "exhibition-museum-curation-provenance-ribbon",
+      "label": "Cinta de procedencia",
+      "verdict": "declined",
+      "lineage": "Curaduría de museo",
+      "case": "Se funde mal: la metáfora de custodia no ayuda a resolver problemas.",
+      "kept": "Distinguir lo citado de lo inferido con tipografía."
+    },
+    {
+      "id": "challenger-ice-press",
+      "kind": "challenger",
+      "catalogId": "graphic-worlds-publishing-expedition-ice-press",
+      "label": "Prensa en el hielo",
+      "verdict": "declined",
+      "lineage": "Periódico impreso a mano en una expedición polar",
+      "case": "Se funde mal: errores a la vista y papel deformado contradicen una guía que se verifica.",
+      "kept": "La medida fija; los márgenes absorben el ancho."
+    },
+    {
+      "id": "challenger-datamatics",
+      "kind": "challenger",
+      "catalogId": "ikeda-datamatics",
+      "label": "Datamatics",
+      "verdict": "declined",
+      "lineage": "Campos de datos en blanco y negro",
+      "case": "Se funde mal: monoespaciada densa y parpadeo no sirven para leer horas.",
+      "kept": "Compromiso total: el color solo significa algo."
+    },
+    {
+      "id": "challenger-calendar",
+      "kind": "challenger",
+      "catalogId": "vernacular-ephemera-calendar-pinup-pad",
+      "label": "Calendario de imprenta",
+      "verdict": "declined",
+      "lineage": "Calendario publicitario con taco",
+      "case": "Se funde mal: el tiempo como único eje choca con una guía atemporal.",
+      "kept": "Nada que no tenga ya la dirección."
+    },
+    {
+      "id": "challenger-deep-dive",
+      "kind": "challenger",
+      "catalogId": "rivers-tides-ocean-depths-mesophotic-deep-dive",
+      "label": "Inmersión profunda",
+      "verdict": "declined",
+      "lineage": "Buceo técnico",
+      "case": "Se funde mal: fondo azul profundo y metáfora de profundidad no ayudan a leer fórmulas.",
+      "kept": "Un solo eje de avance visible (aquí, la línea del índice)."
+    }
+  ],
+  "reroll": { "registers": ["safer", "bolder"] },
+  "canon": true,
+  "canonCard": {
+    "kind": "canon",
+    "label": "El estándar (lo actual, pulido)",
+    "thesis": "La documentación técnica de siempre, bien hecha: lo que hay hoy con las fuentes cargadas de verdad y los arreglos del brief.",
+    "palette": ["#f4f6f9", "#142030", "#1f4fd1", "#9e5416"],
+    "materials": ["sans de interfaz (Archivo, Source Sans 3)", "tarjetas con borde", "botones azules"],
+    "viewport": "El mismo diseño actual: índice con barra lateral, cajas de color, quiz en lista vertical, figura fija.",
+    "risk": "Se parece a cualquier documentación; no hay nada que diga 'esta guía es de FIS1533'.",
+    "comp": ".impeccable/mocks/decision/canon.png"
+  }
+}

@@ -180,6 +180,9 @@ h1 { font-family: var(--font-display); font-weight: 800; font-size: clamp(2rem, 
 .eq.key .lbl { color: var(--copper); }
 mjx-container[display="true"] { margin: 6px 0 !important; max-width: 100%; overflow-x: auto; overflow-y: hidden; }
 mjx-container { color: inherit; }
+/* Punctuation readability (spans added by js/00-guide.js after typesetting). */
+.pn-math { margin-left: 0.14em; font-weight: 800; }
+.pn-gap { margin-right: 0.22em; }
 
 .facts { padding-left: 20px; }
 .facts li { margin: 6px 0; }

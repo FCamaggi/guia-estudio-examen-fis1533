@@ -1,0 +1,102 @@
+/* Direction A, "Andén": rail timetable and station wayfinding. Prototype override over main.css + guia.css. */
+@import url("https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible+Next:wght@400;600;700;800&family=Atkinson+Hyperlegible+Mono:wght@400;600&display=swap");
+:root, :root[data-theme="light"] {
+  --paper: #ffffff; --surface: #ffffff; --ink: #121417; --muted: #555b63; --line: #d9dcdf;
+  --accent: #1f4fd1; --accent-soft: #eef2fc; --copper: #9e5416; --copper-soft: #f8efe6;
+  --ok: #17784c; --ok-soft: #e6f4ec; --bad: #b23b2a; --bad-soft: #fbeae7;
+  --band: #121417; --band-ink: #ffffff;
+  --l0: #121417; --lA: #d99a00; --lB: #2b8a3e; --lC: #c2255c; --lD: #6741d9; --lE: #6b7178;
+  --font-display: "Atkinson Hyperlegible Next", "Helvetica Neue", Arial, sans-serif;
+  --font-body: "Atkinson Hyperlegible Next", "Helvetica Neue", Arial, sans-serif;
+  --font-mono: "Atkinson Hyperlegible Mono", ui-monospace, Menlo, monospace;
+}
+:root[data-theme="dark"] {
+  --paper: #0f1113; --surface: #0f1113; --ink: #eceef0; --muted: #a2a8b0; --line: #2c3035;
+  --accent: #8aa8ff; --accent-soft: #18203a; --copper: #e2a26b; --copper-soft: #2a2119;
+  --ok: #5fcf98; --ok-soft: #12271d; --bad: #f08a7a; --bad-soft: #321a17;
+  --band: #000000; --band-ink: #ffffff;
+  --l0: #eceef0; --lA: #f2b81d; --lB: #51cf66; --lC: #f06595; --lD: #9775fa; --lE: #a2a8b0;
+}
+/* line colour per unit */
+[data-unit="r01"] { --line-c: var(--l0); }
+[data-unit="u01"], [data-unit="u02"], [data-unit="u03"], [data-unit="u04"] { --line-c: var(--lA); }
+[data-unit="u05"], [data-unit="u06"] { --line-c: var(--lB); }
+[data-unit="u07"], [data-unit="u08"] { --line-c: var(--lC); }
+[data-unit="u09"], [data-unit="u10"], [data-unit="u11"] { --line-c: var(--lD); }
+[data-unit="s01"], [data-unit="s02"], [data-unit="t01"] { --line-c: var(--lE); }
+#u09, #u10, #u11 { --line-c: var(--lD); } #s01, #s02 { --line-c: var(--lE); }
+
+body { font-size: 1.0625rem; line-height: 1.62; }
+main { max-width: 1180px; }
+/* ---- index as a line diagram ---- */
+.toc { background: var(--surface); border-right: 2px solid var(--ink); padding: 0 0 32px; }
+.toc-head { background: var(--band); color: var(--band-ink); padding: 18px 20px 16px; margin: 0 0 6px; border: 0; }
+.toc-course { font-weight: 800; font-size: 1.125rem; letter-spacing: 0; }
+.toc-progress { color: color-mix(in srgb, var(--band-ink) 72%, transparent); font-family: var(--font-mono); }
+.toc-head .bar { background: color-mix(in srgb, var(--band-ink) 25%, transparent); border-radius: 0; height: 4px; }
+.toc-head .bar-fill { background: var(--band-ink); }
+.toc-search { padding: 0 16px; }
+.toc-search input { border-radius: 0; border: 1px solid var(--ink); }
+.toc nav { gap: 0; padding: 0 12px 0 16px; }
+.toc-block { font-family: var(--font-display); font-weight: 700; font-size: 0.8125rem; letter-spacing: .02em; text-transform: none; color: var(--ink); padding: 18px 0 6px; border-bottom: 2px solid var(--ink); margin-bottom: 4px; }
+.toc-unit { position: relative; padding-left: 26px; }
+.toc-unit::before { content: ""; position: absolute; left: 8px; top: 0; bottom: 0; width: 4px; background: var(--line-c); }
+.toc-unit::after { content: ""; position: absolute; left: 3px; top: 13px; width: 10px; height: 10px; border-radius: 50%; background: var(--surface); border: 2px solid var(--line-c); }
+.toc-unit.open::after, .toc-unit:has(a.active)::after { width: 16px; height: 16px; left: 0; top: 10px; border-width: 4px; }
+.toc a { border-radius: 0; padding: 7px 6px; }
+.toc a.active { background: transparent; color: var(--ink); font-weight: 700; box-shadow: inset 0 -2px 0 var(--line-c); }
+.toc a .n { font-family: var(--font-mono); color: var(--ink); font-weight: 600; }
+.toc a.sub { font-size: 0.875rem; padding: 4px 6px; }
+/* ---- unit opener: departure-board band ---- */
+.unit-head { background: var(--band); color: var(--band-ink); margin: -40px calc(-1 * clamp(16px, 5vw, 64px)) 0; padding: 28px clamp(16px, 5vw, 64px) 22px; border-bottom: 8px solid var(--line-c); gap: 18px; }
+#unit-host > .unit:first-child::before { display: none; }
+.unit-num { background: var(--line-c); color: #fff; font: 800 1.25rem var(--font-display); padding: 6px 12px; border-radius: 0; }
+.unit-head h1 { color: var(--band-ink); font-weight: 800; letter-spacing: -0.01em; }
+.unit-weight { font-family: var(--font-mono); }
+.unit .unit-weight, .unit-head + * .deriv-all { }
+.deriv-all { border-radius: 0; border: 1px solid var(--ink); }
+/* ---- reading column: fixed measure, wide margin absorbs width ---- */
+.sec { max-width: none; }
+.sec > p, .sec > ul, .sec > ol, .sec > .key, .sec > .trap, .sec > .note { max-width: 68ch; }
+.sec-head { border-top: 2px solid var(--ink); padding-top: 10px; margin-top: 8px; }
+.sec h2 { font-weight: 800; font-size: 1.625rem; letter-spacing: -0.01em; }
+.eyebrow, .gl, .lbl { color: var(--muted); }
+.key { border-radius: 0; border: 0; border-left: 0; background: var(--accent-soft); }
+.trap { border-radius: 0; }
+.master { border-radius: 0; border: 1px solid var(--ink); }
+/* ---- problems: ticket with a numbered platform head ---- */
+.prob { border: 2px solid var(--ink); border-radius: 0; }
+.prob-head { background: var(--band); color: var(--band-ink); border: 0; padding: 10px 16px; }
+.prob-head .ptitle { color: var(--band-ink); }
+.prob-head .diff, .prob-head .src { color: color-mix(in srgb, var(--band-ink) 70%, transparent); }
+.tag { border-radius: 0; background: var(--line-c) !important; color: #fff; font-weight: 600; }
+.prob-grid { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+.prob-grid .fig { background: var(--surface); border: 1px solid var(--line); border-radius: 0; position: sticky; top: 12px; }
+.given > div { border-radius: 0; background: transparent; border-top: 1px solid var(--line); padding: 7px 0; }
+.predict { border-top: 2px solid var(--ink); }
+.predict b { color: var(--ink); background: #ffd43b; padding: 0 4px; }
+:root[data-theme="dark"] .predict b { color: #121417; }
+.reveal li { border-top: 1px solid var(--line); display: grid; grid-template-columns: 9rem minmax(0, 1fr); column-gap: 18px; }
+.js .reveal li.shown { display: grid; }
+.rl { color: var(--ink); font-family: var(--font-mono); font-weight: 600; font-size: 0.8125rem; grid-row: span 3; }
+.reveal li.final { border-radius: 0; border: 2px solid var(--ok); background: transparent; }
+.ctrl button, .ctrl .btn, .quiz-bar button { border-radius: 0; }
+/* ---- formulas: timetable rows ---- */
+.formulas table { border-top: 2px solid var(--ink); }
+.formulas th { font: 700 0.8125rem var(--font-display); text-transform: none; color: var(--ink); border-bottom: 2px solid var(--ink); }
+.formulas td { padding: 10px 12px; }
+.formulas tbody tr:nth-child(even) td { background: color-mix(in srgb, var(--ink) 4%, transparent); }
+.formulas td:first-child { font-size: 1.05em; }
+/* ---- quiz: vertical options with key badges ---- */
+.q { border-radius: 0; border: 0; border-top: 2px solid var(--ink); background: transparent; padding-left: 0; padding-right: 0; }
+.opts { grid-template-columns: 1fr; gap: 0; counter-reset: opt; }
+.opts button { border-radius: 0; border: 0; border-top: 1px solid var(--line); background: transparent; text-align: left; padding: 10px 8px 10px 52px; position: relative; min-height: 46px; }
+.opts button::before { counter-increment: opt; content: counter(opt, upper-alpha); position: absolute; left: 8px; top: 9px; width: 28px; height: 28px; display: grid; place-items: center; background: var(--ink); color: var(--surface); font: 700 0.875rem var(--font-mono); }
+/* ---- mock exam bar never covers headings ---- */
+.sim-bar { border-radius: 0; border: 0; border-bottom: 2px solid var(--ink); background: var(--band); color: var(--band-ink); }
+.simulacro .sec { scroll-margin-top: 96px; }
+.reveal li:not(:has(.rl)) { display: block; }
+.js .reveal li.shown:not(:has(.rl)) { display: block; }
+.reveal li > :not(.rl) { grid-column: 2; }
+.sec ul, .sec ol:not(.reveal), .exam-map { max-width: 72ch; }
+.unit-weight { color: color-mix(in srgb, var(--band-ink) 75%, transparent); }
