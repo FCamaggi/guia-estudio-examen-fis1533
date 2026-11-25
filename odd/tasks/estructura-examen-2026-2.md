@@ -17,7 +17,7 @@ Objetivo: rehacer el análisis de qué entra y cómo estudiar con la estructura 
 | ID | S# | Ruta | Estado |
 |---|---|---|---|
 | T1 | S1,S4,S5,S7 | inline | hecho: §4 estructura oficial; §5.3 precedente 2026-1; §5.4 predicción; §5.5 Carlos; §5.6 Ay18/19 |
-| T2 | S1,S2,S4-S7 | inline | hecho: key, exam-map, tabla de prioridad por pregunta, #r01-carlos, timer 40 min, plan 25–30 nov |
+| T2 | S1,S2,S4-S7 | inline | hecho: key, exam-map, tabla de prioridad por pregunta, #r01-carlos, timer 40 min, plan paso a paso (sin fechas, pedido del usuario 2026-11-25) |
 | T3 | S4 | inline | hecho |
 | T4 | S1 | inline | hecho: build 15/15; check_unit U9–U11 PASS (R01: mismos 7 errores que la base); MathJax 0 errores, 0 enlaces rotos; ui_check y nav_check 0 FAIL |
 
