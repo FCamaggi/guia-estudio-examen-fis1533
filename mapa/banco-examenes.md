@@ -1,6 +1,6 @@
 # Banco de Problemas de Examen — FIS1533 (Electricidad y Magnetismo)
 
-> **Nota de alcance:** Debido a la restricción de entorno sin comandos de shell ni listado de directorios, se analizaron los **14 exámenes finales únicos** (más 2 pautas corregidas) localizados directamente por ruta en el repositorio: `2011-1`, `2014-1`, `2015-2`, `2017-2`, `2018-2`, `2021-2`, `2022-2`, `2023-1`, `2023-2`, `2024-1`, `2024-2`, `2025-1`, `2025-2` y `2026-1` (**123 problemas** en total). No fue posible listar archivos con nombres no estándar (p. ej. `2010-2` o 2 posibles archivos adicionales en `drive-solidaridad/Pruebas Anteriores/Examen/markdown/`).
+> **Nota de alcance:** Debido a la restricción de entorno sin comandos de shell ni listado de directorios, se analizaron los **14 exámenes finales únicos** (más 2 pautas corregidas) localizados directamente por ruta en el repositorio: `2011-1`, `2014-1`, `2015-2`, `2017-2`, `2018-2`, `2021-2`, `2022-2`, `2023-1`, `2023-2`, `2024-1`, `2024-2`, `2025-1`, `2025-2` y `2026-1` (**123 problemas** en total). La sección 5 cruza ese banco con lo que el semestre 2026-2 ya evaluó (I1 e I2) y con las ayudantías de cierre (Ay26–Ay28). No fue posible listar archivos con nombres no estándar (p. ej. `2010-2` o 2 posibles archivos adicionales en `drive-solidaridad/Pruebas Anteriores/Examen/markdown/`).
 
 ---
 
@@ -152,7 +152,7 @@ Conteo de apariciones por unidad (un problema multi-unidad suma 1 por cada unida
 | **U10** | Inductancia mutua/propia, energía magnética, RL, LC, RLC | 15 | 3 |
 | **U11** | Circuitos AC (impedancia, fasores, resonancia, potencia) y ondas EM | 8 | 4 |
 
-**Lectura clave:** Históricamente y en los **4 exámenes más recientes**, el núcleo duro del examen final es **U7–U11** (magnetismo, inducción, inductancia y AC/ondas EM), mientras que **U1–U6** aparecen sobre todo en pruebas de selección múltiple antiguas o en preguntas de recuperación/elección (como P1A/P1B en `2026-1`) o dieléctricos (`2025-2 P1`).
+**Lectura clave:** Históricamente y en los **4 exámenes más recientes**, el núcleo duro del examen final es **U7–U11** (magnetismo, inducción, inductancia y CA/ondas EM), mientras que **U1–U6** aparecen sobre todo en pruebas de selección múltiple antiguas o en preguntas de recuperación/elección (como P1A/P1B en `2026-1`) o dieléctricos (`2025-2 P1`). En 2026-2 el sesgo es todavía más marcado: **U9 (inducción), U10 (inductancia) y la parte de CA de U11 no se evaluaron en ninguna interrogación**, de modo que el examen es su única evaluación (sección 5).
 
 ---
 
@@ -184,12 +184,12 @@ Conteo de apariciones por unidad (un problema multi-unidad suma 1 por cada unida
    - **Trampas típicas:** olvidar el factor $\frac{1}{2}$ en la potencia media con amplitudes pico ($V_0 I_0 / 2$); error de signo en $Z_C = \frac{1}{i\omega C} = -\frac{i}{\omega C}$ o en el ángulo de fase $\varphi$.
 
 6. **Capacitores con múltiples dieléctricos, polarización $\vec{P}$ y carga ligada $\sigma_b$** *(U4, U2)*
-   - **Exámenes:** `2011-1 P8/P18`, `2014-1 P8/P9`, `2015-2 P4`, `2018-2 P2`, `2022-2 P12`, `2023-1 P2`, `2023-2 Ej 2`, `2025-2 P1`.
+   - **Exámenes:** `2011-1 P8/P18`, `2014-1 P8/P9`, `2015-2 P4`, `2018-2 P2`, `2022-2 P12`, `2023-1 P2`, `2023-2 Ej 2`, `2025-2 P1`. **Interrogación 2026-2:** `I1 P3` (capacitor esférico con la mitad inferior llena de dieléctrico: $C$, $E(r)$ y $\sigma_b$).
    - **Sub-preguntas típicas:** identificar si los dieléctricos están en serie o en paralelo; $C_T$ o $C/L$; aplicar Gauss para $\vec{D}$ y $\vec{E}$; calcular $\vec{P} = (\varepsilon-\varepsilon_0)\vec{E}$ y $\sigma_b = \vec{P}\cdot\hat{n}$.
    - **Trampas típicas:** signo de $\sigma_b = \vec{P}\cdot\hat{n}$ (la normal $\hat{n}$ apunta *hacia afuera del dieléctrico*, opuesta a $\vec{E}$ en la placa positiva); confundir serie vs paralelo al repartir carga o voltaje.
 
 7. **Conmutación de circuitos RL/LC/RC (regímenes $t=0^+$, $t\to\infty$ y oscilación)** *(U10, U6)*
-   - **Exámenes:** `2011-1 P6/P23`, `2015-2 P8/P9/P14`, `2018-2 P5`, `2023-2 Ej 1.3/1.5`, `2026-1 P1B/P3`.
+   - **Exámenes:** `2011-1 P6/P23`, `2015-2 P8/P9/P14`, `2018-2 P5`, `2023-2 Ej 1.3/1.5`, `2026-1 P1B/P3`. **Interrogación 2026-2:** `I2 P1` (descarga RC periódica con interruptor: $\tau = (R_1+R_2)(C_1+C_2)$, diente de sierra y despeje de $T$).
    - **Sub-preguntas típicas:** $t=0^+$ ($L$ es circuito abierto si $I_L(0^-)=0$, $C$ descargado es cortocircuito); $t\to\infty$ ($L$ es cortocircuito, $C$ es circuito abierto); al conmutar a malla $LC$ ideal, hallar $i_C(t), v_C(t)$ con $\omega = 1/\sqrt{LC}$ y justificar ausencia de régimen permanente por conservación de energía.
    - **Trampas típicas:** olvidar que la corriente en $L$ y el voltaje en $C$ son continuos en $t=0$; calcular mal la $R_{\text{eq}}$ vista desde $C$ durante la descarga (`2026-1 P1B`).
 
@@ -199,12 +199,12 @@ Conteo de apariciones por unidad (un problema multi-unidad suma 1 por cada unida
    - **Trampas típicas:** olvidar que en $\vec{B}(z) = (B_0 - \alpha z)\hat{x}$ los lados horizontales sienten distinto campo magnético, produciendo una fuerza neta proporcional a $\alpha a^2$.
 
 9. **Ley de Gauss esférica/cilíndrica con $\rho(r)$ no uniforme y cascarones conductores (con o sin tierra)** *(U2, U3)*
-   - **Exámenes:** `2011-1 P14`, `2014-1 P3`, `2015-2 P5/P10`, `2021-2 Ej 2`, `2022-2 P11`, `2023-2 Ej 2`, `2025-1 P1`.
+   - **Exámenes:** `2011-1 P14`, `2014-1 P3`, `2015-2 P5/P10`, `2021-2 Ej 2`, `2022-2 P11`, `2023-2 Ej 2`, `2025-1 P1`. **Interrogación 2026-2:** `I1 P1` (esfera con $\rho = \beta r^2$ y dos cascarones conductores, conexión con cable).
    - **Sub-preguntas típicas:** integrar $\rho(r)$ para $Q_{\text{enc}}(r)$; densidades $\sigma_{\text{int}}, \sigma_{\text{ext}}$ en conductor hueco; $\vec{E}(r)$ por tramos; potencial respecto a tierra ($V(R_{\text{ext}})=0$).
    - **Trampas típicas:** olvidar que $\vec{E}=0$ dentro del metal obliga a $q_{\text{int}} = -Q_{\text{enc}}$; al conectar a tierra, la carga externa pasa a ser cero (si no hay carga exterior) o fija $V=0$ en el cascarón.
 
 10. **Movimiento de partículas cargadas en $\vec{B}$ (radio ciclotrón, $q/m$, selector de velocidades)** *(U7, U1, U3)*
-    - **Exámenes:** `2011-1 P2/P20`, `2014-1 P11`, `2018-2 P3`, `2022-2 P9`, `2023-2 Ej 1.2`, `2025-1 P2`.
+    - **Exámenes:** `2011-1 P2/P20`, `2014-1 P11`, `2018-2 P3`, `2022-2 P9`, `2023-2 Ej 1.2`, `2025-1 P2`. **Interrogación 2026-2:** `I2 P2` (espectrómetro completo: selector, semicircunferencia, $t_f$ y especies con igual $q/m$).
     - **Sub-preguntas típicas:** igualar $qvB = mv^2/r$ (a veces tras acelerar con $q\Delta V = \frac{1}{2}mv^2$); determinar signo de $q$ por regla de la mano derecha; selector $\vec{E} + \vec{v}\times\vec{B} = 0$.
     - **Trampas típicas:** confundir radio $r$ con diámetro $d = 2r$ (`2025-1 P2`); olvidar que $\vec{F}_B$ no cambia la rapidez ($W_B = 0$).
 
@@ -226,13 +226,55 @@ Conteo de apariciones por unidad (un problema multi-unidad suma 1 por cada unida
   - **2011–2015 y 2022-2 / 2023-1:** Pruebas de **selección múltiple** (12 a 24 preguntas, sin desarrollo corregido; en `2011-1` descontaban 1 buena cada 5 malas; en `2023-1` explícitamente sin descuento).
   - **2017-2, 2018-2, 2021-2 y desde 2023-2 hasta 2026-1:** Formato de **desarrollo** (salvo `2023-2` que mezcló 6 MCQs + 2 desarrollos). Los exámenes recientes (`2024-1` a `2026-1`) constan de **3 a 6 problemas de desarrollo** de **6 puntos cada uno** (total típico: **18 pts**, **24 pts** o **36 pts**).
   - **Innovación en `2026-1`:** El Problema 1 se divide en **1A** (I1) y **1B** (I2) —obligatorio para quien faltó a esa interrogación y libre elección para quien rindió ambas—, seguido de Problemas 2 y 3 obligatorios (3 problemas corregidos = 18 pts).
+- **Estructura esperada en 2026-2:** si se repite el formato de `2026-1`, el **P1** se divide en **P1A** (materia de la I1: U1–U4) y **P1B** (materia de la I2: U5–U8), y los problemas obligatorios salen de **U9–U11**, la materia que ninguna interrogación cubrió (detalle en la sección 5).
 - **Duración:** **120 a 150 minutos** (2 a 2.5 horas).
 - **Material permitido y formulario:** En la gran mayoría (`2011-1`, `2015-2`, `2018-2`, `2022-2`, `2023-1`, `2023-2`) está **prohibido** el uso de calculadora y apuntes (excepciones: `2014-1` permitió calculadora; `2021-2` permitió apuntes y material impreso). **No incluyen formulario** impreso general (solo `2017-2` incluyó un breve bloque de "Datos útiles" con Taylor y 3 integrales estándar).
 - **Carácter acumulativo:** **Sí, es acumulativo** en todo el semestre, pero con fuerte sesgo práctico hacia la segunda mitad del curso (**U7–U11**), especialmente en los 4 exámenes más recientes.
 
 ---
 
-## 5. Archivos con ruido OCR, figuras faltantes o problemas de legibilidad
+## 5. Lo que anticipa el semestre 2026-2
+
+### 5.1 Qué evaluaron las interrogaciones
+
+| Evaluación | Problema | Unidades | Sub-skill | Arquetipo | Dónde está en la guía |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| I1 2026-2 | P1 | U2, U3 | Esfera con $\rho = \beta r^2$ + dos cascarones conductores: $\sigma$ inducidas, $\vec E(r)$, $V(r)$, conexión con cable | 9 | `u02` (práctica), `u03` (práctica) |
+| I1 2026-2 | P2 | U1 | Disco con $\sigma(r) = \sigma_0(1 - r^2/R^2)$: $\vec E$ en el eje y fuerza sobre $-e$ | 12 (continua) | `u01` (práctica) |
+| I1 2026-2 | P3 | U4 | Capacitor esférico con la mitad inferior llena de dieléctrico: $C$, $E(r)$, $\sigma_b$ | 6 | `u04` (teoría: dieléctrico que ocupa media región) |
+| I2 2026-2 | P1 | U6 | Descarga RC periódica con interruptor: gráfico, $\tau$, $V_{\text{out}}(t)$, despeje de $T$ | 7 | `u06-x4` |
+| I2 2026-2 | P2 | U7 | Espectrómetro: selector $v_0 = E/B_1$, $r$, $\omega$, $t_f$, $d = 2mE/(qB_1B_2)$, igual $q/m$ | 10 | `u07-x4` |
+| I2 2026-2 | P3 | U8 | Alambre semi-infinito + plano con corriente radial: Biot-Savart, límites, Ampère y superposición | — (Biot-Savart + Ampère combinados) | `u08-x4` |
+
+La I2 (13-11-2026, 3 problemas de 6 puntos) evaluó la materia de las clases 08 a 12 (corriente, circuitos RC, fuerza magnética, Biot-Savart y Ampère), la misma del repaso de la Ay25. **Faraday, inductancia y corriente alterna (Ay21–Ay24) no entraron en la I2.**
+
+### 5.2 Qué trabajaron las ayudantías de cierre (después de la I2)
+
+| Ayudantía | Problema | Unidades | Sub-skill | Arquetipo más cercano |
+| :--- | :--- | :--- | :--- | :--- |
+| Ay26 | P1 | U10, U7 | Dos alambres con corrientes opuestas y espira cuadrada coplanar: $M$, sentido por Lenz, fuerza sobre la espira | 4 |
+| Ay26 | P2 | U10 | RL por inspección: $I(0)$ e $I(\infty)$ al cerrar un interruptor, $I(t) = 8 - 4e^{-300t}$ A | 7 |
+| Ay26 | P3 | U11 | RLC serie numérico: $C$ desde $f_0$, $\lvert Z\rvert$ a otra frecuencia, corriente y potencia media | 5 |
+| Ay27 | P1 | U9 | Espira rectangular que gira en $\vec B$ uniforme (generador): fem y corriente | 11 |
+| Ay27 | P2 | U11 | Filtro RC pasa-altos: $V_R$, desfase y regímenes $\omega \ll, =, \gg 1/RC$ | 5 (variante) |
+| Ay28 | P1 | U9 | Cuatro alambres que forman un cuadrado creciente en $B_0\cos\omega t$: flujo, fem, $R(t)$, $I(t)$ | 1 / 11 |
+| Ay28 | P2 | U9 | Disco de Faraday: $\lvert\varepsilon\rvert = \tfrac12 B_0\Omega R^2$ | — (fem de movimiento) |
+| Ay28 | P3 | U10 | Toroide de sección rectangular: $L = \frac{\mu_0N^2h}{2\pi}\ln\frac ba$ y $U_B$ | — (inductancia por Ampère + flujo) |
+| Ay28 | P4 | U11 | RLC con dos condensadores en serie: EDO, $Z$, $I(t)$ y $C$ que maximiza la amplitud | 5 |
+
+### 5.3 Predicción para el examen 2026-2
+
+1. **P1 de elección (si se repite el formato de 2026-1):** P1A sobre U1–U4 (Gauss con conductores, distribuciones continuas, capacitores con dieléctrico) y P1B sobre U5–U8 (transitorio RC, partícula en $\vec B$, Biot-Savart y Ampère). Quien rindió ambas interrogaciones elige el que mejor domine.
+2. **Problemas obligatorios en U9–U11**, con tres candidatos fuertes según el banco y las ayudantías de cierre:
+   - **Inducción:** flujo que cambia por movimiento, por $\vec B(t)$ o por ambos (espira frente a alambre, espira que entra a una zona, espira que gira o se expande), con sentido por Lenz y fuerza o potencia.
+   - **Inductancia:** $M$ entre alambres y espira o $L$ por Ampère + flujo (toroide, solenoide, coaxial), energía magnética y transitorios RL/LC con $t = 0^+$ y $t \to \infty$.
+   - **Corriente alterna:** RLC serie o mixto con impedancia compleja, resonancia, potencia media con amplitudes pico y, como variante, filtros RC.
+3. **Ondas EM: prioridad baja.** Solo aparecen en `2025-1 P6` del banco reciente, y ninguna clase ni ayudantía de 2026-2 las trabaja.
+4. **Estilo:** problemas de 6 puntos con 3 a 4 incisos, resultados simbólicos o numéricos limpios (Ay26 P2 y P3 usan valores que salen a mano), y en cada problema al menos un inciso conceptual (justificar un sentido, un límite o la forma de un gráfico).
+
+---
+
+## 6. Archivos con ruido OCR, figuras faltantes o problemas de legibilidad
 
 1. [Examen 2023-2.md](../../Electro/2026-1/Material_Extra/Interrogaciones%20Anteriores/Examen/markdown/Examen%202023-2.md#L234-L500): **Pauta del Ejercicio 2 (p. 7)** proviene de OCR sobre texto manuscrito con fórmulas severamente corrompidas (`"simetría erférica"`, `"4TRD"`, `"acrec"`, etc.) y **páginas 8–9** sin texto extraíble (solo escaneo).
 2. [Examen 2017-2.md](../../Electro/drive-solidaridad/Pruebas%20Anteriores/Examen/markdown/Examen%202017-2.md#L64-L175): **Páginas 2, 4, 6, 8 y 9** sin texto extraíble (contienen solo figuras o contenido escaneado); sin pauta.

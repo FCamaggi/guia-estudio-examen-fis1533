@@ -381,6 +381,32 @@ def ex_2021_2_ej4():
     return d
 
 
+def prac_toroide_rect():
+    d = FieldGeometryDiagram(480, 260, "Toroide de N vueltas con sección rectangular: radio interior a, exterior b y altura h; franja de ancho dr para el flujo")
+    cx, cy = 130, 130
+    d.toroid_2d((cx, cy), r_in=48, r_out=100, turns=16)
+    import math as _m
+    for deg, r, t, lr in ((200, 48, "a", 26), (20, 100, "b", 72)):
+        ex, ey = cx + r * _m.cos(_m.radians(deg)), cy - r * _m.sin(_m.radians(deg))
+        d.raw(f'<line class="md" x1="{cx}" y1="{cy}" x2="{ex:.1f}" y2="{ey:.1f}"/>', layer="overlay")
+        lx, ly = cx + lr * _m.cos(_m.radians(deg)), cy - lr * _m.sin(_m.radians(deg))
+        d.text(lx, ly - 6, t, cls="s")
+    d.text(cx, 252, "Vista superior", cls="t")
+    x0, y0, s = 270, 70, 1.6
+    xa, xb = x0 + 48 * s * 0.6, x0 + 100 * s * 0.6 + 40
+    d.line((x0, y0 + 130), (x0, y0 - 20), cls="md")
+    d.text(x0, y0 - 28, "eje", cls="t")
+    d.raw(f'<rect class="soft w" x="{xa:.0f}" y="{y0}" width="{xb - xa:.0f}" height="110"/>', layer="bg")
+    xr = xa + 0.45 * (xb - xa)
+    d.raw(f'<rect class="csoft c" x="{xr:.0f}" y="{y0}" width="10" height="110"/>', layer="overlay")
+    d.text(xr + 5, y0 - 8, "ds", cls="sc")
+    d.dimension((x0, y0 + 128), (xa, y0 + 128), text="a", label_side="bottom")
+    d.dimension((x0, y0 + 150), (xb, y0 + 150), text="b", label_side="bottom")
+    d.dimension((xb + 14, y0), (xb + 14, y0 + 110), text="h", label_side="right")
+    d.text((xa + xb) / 2, 252, "Sección transversal", cls="t")
+    return d
+
+
 def figures():
     return {
         "u10-inductancia-mutua": inductancia_mutua(),
@@ -396,4 +422,5 @@ def figures():
         "u10-rl-dos-mallas": rl_dos_mallas(),
         "u10-ex-2026-1-p3": ex_2026_1_p3(),
         "u10-ex-2021-2-ej4": ex_2021_2_ej4(),
-    }
+            "u10-prac-toroide-rect": prac_toroide_rect(),
+}

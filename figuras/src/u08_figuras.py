@@ -367,6 +367,28 @@ def cilindro_cavidad():
     return d
 
 
+def ex_2026_2_i2_p3():
+    d = FieldGeometryDiagram(470, 285, "Alambre semi-infinito sobre el eje z con corriente I hacia el origen que se reparte radialmente en el plano conductor z = 0; lazo amperiano C de radio s a altura z")
+    ox, oy = 225, 222
+    d.raw(f'<path class="soft w" d="M 50 252 L 330 252 L 410 192 L 130 192 Z"/>', layer="bg")
+    d.raw(f'<line class="wk" x1="{ox}" y1="{oy}" x2="{ox}" y2="26"/>', layer="overlay")
+    d.current_arrow((ox + 12, 34), (ox + 12, 76), text="I", cls="a", label_side="right", offset=8)
+    for dx, dy in ((78, 0), (-78, 0), (52, -20), (-52, 20), (40, 22), (-40, -22)):
+        d.current_arrow((ox + dx * 0.28, oy + dy * 0.28), (ox + dx, oy + dy), cls="a")
+    d.text(ox - 92, oy + 5, "I", cls="sa", anchor="end")
+    zc = 112
+    d.raw(f'<ellipse class="c nofill" stroke-dasharray="5 4" cx="{ox}" cy="{zc}" rx="72" ry="22"/>', layer="overlay")
+    d.node("P", ox + 72, zc, text="P", label_dir="right", offset=10)
+    d.line((ox, zc), (ox + 72, zc), cls="md")
+    d.text(ox + 40, zc - 5, "s", cls="s")
+    d.text(ox - 82, zc - 8, "C", cls="sc", anchor="end")
+    d.dimension((ox + 112, zc), (ox + 112, oy), text="z", label_side="right")
+    d.text(ox, 18, "z", cls="s")
+    d.node("O", ox, oy, text="O", label_dir="bottom", offset=4)
+    d.text(80, 244, "z = 0", cls="t", anchor="start")
+    return d
+
+
 def figures():
     return {
         "u08-biot-savart": biot_savart(),
@@ -386,4 +408,5 @@ def figures():
         "u08-arq-arcos": arq_arcos(),
         "u08-coaxial-3reg-br": coaxial_3reg_br(),
         "u08-cilindro-cavidad": cilindro_cavidad(),
-    }
+            "u08-ex-2026-2-i2-p3": ex_2026_2_i2_p3(),
+}

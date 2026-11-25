@@ -218,6 +218,43 @@ def condensador_maxwell():
     return d
 
 
+def prac_cuatro_alambres():
+    d = FieldGeometryDiagram(500, 300, "Cuatro alambres que parten del origen y se alejan con rapidez v, formando una espira cuadrada de lado 2vt en un campo B0 cos(wt) saliente")
+    cx, cy, h = 200, 150, 64
+    d.field_region(150, 100, 254, 204, step=34, direction="out")
+    for x in (cx - h, cx + h):
+        d.raw(f'<line class="wk" x1="{x}" y1="30" x2="{x}" y2="270"/>', layer="overlay")
+    for y in (cy - h, cy + h):
+        d.raw(f'<line class="wk" x1="60" y1="{y}" x2="340" y2="{y}"/>', layer="overlay")
+    d.current_arrow((cx + h, 190), (cx + h + 40, 190), text="v", cls="a", label_side="top", offset=6)
+    d.current_arrow((cx - h, 110), (cx - h - 40, 110), text="v", cls="a", label_side="top", offset=6)
+    d.current_arrow((160, cy - h), (160, cy - h - 36), text="v", cls="a", label_side="right", offset=6)
+    d.current_arrow((240, cy + h), (240, cy + h + 36), text="v", cls="a", label_side="right", offset=6)
+    d.node("o", cx, cy, text="O", label_dir="right", offset=6)
+    d.dimension((cx - h - 2, cy), (cx - h - 2, cy + h), text="ℓ/2 = vt", label_side="left")
+    d.text(352, 120, "B⃗ = B₀ cos(ωt) ẑ", cls="sc", anchor="start")
+    d.text(352, 144, "(saliente)", cls="t", anchor="start")
+    return d
+
+
+def prac_disco_faraday():
+    d = FieldGeometryDiagram(440, 260, "Disco de Faraday: disco conductor de radio R que gira con velocidad angular Omega en un campo B0 uniforme paralelo al eje")
+    cx, cy = 200, 150
+    for x in (70, 120, 280, 330):
+        d.current_arrow((x, 240), (x, 40), cls="c")
+    d.text(345, 52, "B⃗ = B₀ k̂", cls="sc", anchor="start")
+    d.raw(f'<ellipse class="soft w" cx="{cx}" cy="{cy}" rx="130" ry="38"/>', layer="overlay")
+    d.raw(f'<line class="wk" x1="{cx}" y1="{cy}" x2="{cx}" y2="40"/>', layer="overlay")
+    d.raw(f'<path class="a nofill" d="M {cx - 26} 70 A 26 8 0 1 0 {cx + 26} 70"/>', layer="overlay")
+    d.current_arrow((cx + 22, 66), (cx + 27, 70), cls="a")
+    d.text(cx + 34, 64, "Ω k̂", cls="sa", anchor="start")
+    d.raw(f'<line class="md" x1="{cx}" y1="{cy}" x2="{cx + 130}" y2="{cy}"/>', layer="overlay")
+    d.text(cx + 66, cy - 6, "R", cls="s")
+    d.node("c", cx, cy, text="centro", label_dir="bottom", offset=4)
+    d.node("b", cx + 130, cy, text="borde", label_dir="right", offset=8)
+    return d
+
+
 def figures():
     return {
         "u09-flujo-angulo": flujo_angulo(),
@@ -233,4 +270,6 @@ def figures():
         "u09-espiras-coaxiales": espiras_coaxiales(),
         "u09-generador": generador(),
         "u09-condensador-maxwell": condensador_maxwell(),
-    }
+            "u09-prac-cuatro-alambres": prac_cuatro_alambres(),
+        "u09-prac-disco-faraday": prac_disco_faraday(),
+}

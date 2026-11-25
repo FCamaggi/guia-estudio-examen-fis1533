@@ -542,6 +542,36 @@ def prac4_dos_cap():
     return d
 
 
+def ex_2026_2_i2_p1():
+    d = FieldGeometryDiagram(500, 250, "Circuito de la I2 2026-2 P1: fuente V0 con interruptor S que carga C1 y C2 en paralelo, que se descargan por R1 y R2; Vout se mide en R2")
+    yt, yb = 52, 200
+    d.node("src_t", 62, yt, draw_dot=False)
+    d.node("src_b", 62, yb, draw_dot=False)
+    d.battery("src_t", "src_b", text="V₀", positive_at="p1", label_side="left", offset=24)
+    d.wire("src_t", (118, yt))
+    d.node("sw_p", 118, yt, draw_dot=True)
+    d.node("sw_c", 168, yt, draw_dot=True)
+    d.switch_spdt("sw_p", (162, yt - 24), text="S", label_offset=(18, -30))
+    d.wire("sw_c", (232, yt))
+    d.node("n1", 232, yt, draw_dot=True)
+    d.capacitor("n1", (232, yb), text="C₁", label_side="left", offset=22)
+    d.wire("n1", (302, yt))
+    d.node("n2", 302, yt, draw_dot=True)
+    d.capacitor("n2", (302, yb), text="C₂", label_side="left", offset=22)
+    d.resistor("n2", (402, yt), text="R₁", label_side="top", offset=20)
+    d.node("n3", 402, yt, draw_dot=True)
+    d.resistor("n3", (402, yb), text="R₂", label_side="left", offset=22)
+    d.wire("src_b", (232, yb), (302, yb), (402, yb))
+    d.node("n4", 402, yb, draw_dot=True)
+    d.wire("n3", (452, yt))
+    d.wire("n4", (452, yb))
+    d.terminal_open("op", 452, yt, text="+", label_dir="right", offset=10)
+    d.terminal_open("om", 452, yb, text="−", label_dir="right", offset=10)
+    d.text(472, 132, "Vₒᵤₜ", cls="sa", anchor="middle")
+    d.text(143, 238, "S se cierra un instante cada T", cls="t")
+    return d
+
+
 def figures():
     return {
         "u06-serie-paralelo": serie_paralelo(),
@@ -560,4 +590,5 @@ def figures():
         "u06-prac2-rc-2mallas": prac2_rc_2mallas(),
         "u06-prac3-c2-2026": prac3_c2_2026(),
         "u06-prac4-dos-cap": prac4_dos_cap(),
-    }
+            "u06-ex-2026-2-i2-p1": ex_2026_2_i2_p1(),
+}

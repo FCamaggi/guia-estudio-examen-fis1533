@@ -17,6 +17,7 @@
     <li><b>Conmutación de circuitos RL/LC/RC</b> (2015-2 P8/P9/P14, 2018-2 P5, 2023-2 Ej. 1.3/1.5, 2026-1 P3): comportamiento de $L$ en $t = 0^+$ (circuito abierto si $i_L(0^-) = 0$) y $t \to \infty$ (cortocircuito), conservación de $i_L$ al conmutar, EDO de segundo orden al pasar a malla $LC$ y justificación energética de por qué no hay régimen permanente.</li>
     <li><b>Inductancia mutua $M$ entre alambre infinito y espira, o entre solenoides</b> (2011-1 P10, 2021-2 Ej. 4, 2023-1 P7, 2024-2 P1): $\vec B$ por ley de Ampère, flujo $\Phi_B$ integrando $1/r$ (con $r$ distancia en m; da un logaritmo) o usando el área interior del solenoide pequeño, fem $\varepsilon = -M\,\dot I$ (con $\dot I = dI/dt$ en A/s), sentido por Lenz y fuerza magnética sobre la espira.</li>
     <li><b>Ecuación diferencial de 2.º orden e identificación de parámetros en $RLC$</b> (2024-2 P3, y transitorios $RLC$): escribir la EDO desde Kirchhoff o balance de potencia, identificar $\omega_0$ o la frecuencia amortiguada $\omega_d$ (rad/s) y comparar $R$ con la resistencia crítica $R_{\text{crít}} = 2\sqrt{L/C}$ ($\Omega$).</li>
+    <li><b>Inductancia por Ampère + flujo y energía magnética</b> (ayudantías de cierre 2026-2: Ay26 P1–P2, Ay28 P3 → <a href="#u10-p5">Práctica 5</a>, <a href="#u10-x3">Arquetipo 3</a>, <a href="#u10-e2">Ejemplo 2</a>): $M$ de alambres con corrientes opuestas sobre una espira, $L$ de un toroide rectangular con $\ln(b/a)$ y transitorio RL resuelto por inspección. Ninguna interrogación de 2026-2 evaluó inductancia: es materia exclusiva del examen.</li>
     <li>Formato reciente: 3 a 6 problemas de desarrollo de 6 puntos cada uno, sin calculadora ni formulario. Por eso los ejemplos de esta unidad usan datos que se calculan a mano y privilegian expresiones simbólicas.</li>
   </ul></div>
   <details class="prereq"><summary>Repaso exprés: Faraday, Ampère, fuerza magnética, producto cruz y coordenadas cilíndricas</summary>
@@ -477,6 +478,27 @@
       <li><span class="rl">Paso 3 · Amplitud y fracción de energía (envolvente) en $t = 1/\gamma$</span><p class="do"><b>Qué hago:</b> la aproximación $q(t) \approx Q_0 e^{-\gamma t}\cos(\omega_d t)$ es válida para amortiguamiento débil ($\gamma \ll \omega_d$, aunque aquí sirve para estimar el decaimiento de la envolvente). En $t = 1/\gamma = 1/600\ \text{s}$, la envolvente vale $Q_{\text{env}} = Q_0 e^{-1} \approx (100\ \mu\text{C})(0{,}37) = 37\ \mu\text{C}$. Como $U_E = \dfrac{q^2}{2C}$, la energía asociada a la envolvente cae como $U_{\text{env}}/U_0 = (e^{-1})^2 = e^{-2} \approx (0{,}37)^2 \approx 0{,}14$ ($14\,\%$).</p><p><b>Por qué:</b> la energía es cuadrática en la carga, así que la envolvente energética decae el doble de rápido ($e^{-2\gamma t}$) que la envolvente de carga ($e^{-\gamma t}$).</p></li>
       <li class="final">$$\boxed{\omega_0 = 1000\ \text{rad/s},\quad I_{\text{máx}} = 0{,}10\ \text{A},\quad U_0 = 250\ \mu\text{J}}$$ $$\boxed{\ddot q + 1200\,\dot q + 10^6\,q = 0\ \text{(subamortiguado)},\quad \omega_d = 800\ \text{rad/s},\quad Q_{\text{env}}(1/\gamma) \approx 37\ \mu\text{C},\quad \frac{U_{\text{env}}}{U_0} \approx 14\,\%\ \text{(envolvente)}}$$</li>
       <li class="check"><b>Verificación:</b> $\frac{1}{2}LI_{\text{máx}}^2 = \frac{1}{2}(0{,}050)(0{,}10)^2 = 250\ \mu\text{J} = U_0$. Unidades de la EDO: $\text{C/s}^2 + (\text{s}^{-1})(\text{C/s}) + (\text{s}^{-2})\text{C} = 0$, homogénea. Límite: si $R \to 0$, $\gamma \to 0$ y $\omega_d \to \omega_0$.</li>
+    </ol>
+    <div class="ctrl"></div>
+  </div>
+
+  <div class="prob" id="u10-p5" data-kind="practica" data-diff="1">
+    <div class="prob-head"><span class="tag">Práctica 5</span><span class="ptitle">Toroide de sección rectangular: autoinductancia y energía</span><span class="diff">dificultad 1/3</span></div>
+    <div class="prob-grid">
+      <div>
+        <p class="stmt">Considera un toroide de sección transversal rectangular con $N$ vueltas, radio interior $a$ (m), radio exterior $b$ (m) y altura $h$ (m), por el que circula una corriente $I$ (A). a) Determina la autoinductancia $L$ del toroide. b) Calcula la energía magnética almacenada en el toroide. (Ayudantía 28 P3, 2026-2.)</p>
+        <div class="given"><div><b>Datos</b> $N$, $a$, $b$, $h$, corriente $I$</div><div><b>Piden</b> $L$ y $U_B$</div></div>
+      </div>
+      <figure class="fig" data-fig="u10-prac-toroide-rect"><figcaption>Vista superior del toroide y su sección transversal rectangular, de $s = a$ a $s = b$ y altura $h$. La franja de ancho $ds$ tiene área $h\,ds$.</figcaption></figure>
+    </div>
+    <div class="predict"><b>Antes de calcular:</b> ¿el campo dentro del toroide es uniforme en la sección? Si no lo es, ¿qué forma va a tener el flujo por una vuelta?</div>
+    <ol class="reveal">
+      <li class="hint">Ampère da $B(s)$ dentro del toroide. Integra el flujo en franjas $dA = h\,ds$, multiplica por $N$ y divide por $I$. Para la energía, usa $U = \tfrac12 LI^2$ y compruébala integrando $B^2/(2\mu_0)$.</li>
+      <li><span class="rl">Paso 1 · Campo por Ampère</span><p class="do"><b>Qué hago:</b> por simetría $\vec B = B(s)\hat\varphi$. Una circunferencia de radio $s$ con $a \lt s \lt b$ encierra las $N$ vueltas: $B(s)\,2\pi s = \mu_0NI \implies B(s) = \dfrac{\mu_0NI}{2\pi s}$. Fuera del toroide ($s \lt a$ o $s \gt b$) la corriente encerrada neta es cero y $B = 0$.</p><p><b>Por qué:</b> en $s \gt b$ el lazo encierra $N$ corrientes que suben y $N$ que bajan.</p></li>
+      <li><span class="rl">Paso 2 · Flujo y autoinductancia</span><p class="do"><b>Qué hago:</b> flujo por una vuelta: $\Phi_1 = \displaystyle\int_a^b B(s)\,h\,ds = \frac{\mu_0NIh}{2\pi}\ln\frac ba$. El flujo concatenado es $N\Phi_1 = LI$: $$L = \frac{\mu_0N^2h}{2\pi}\ln\frac ba.$$</p><p><b>Por qué:</b> $B$ cae como $1/s$ dentro de la sección; por eso aparece un logaritmo y no un simple producto $BA$.</p></li>
+      <li><span class="rl">Paso 3 · Energía</span><p class="do"><b>Qué hago:</b> $U_B = \tfrac12LI^2 = \dfrac{\mu_0N^2hI^2}{4\pi}\ln\dfrac ba$.</p><p><b>Por qué:</b> es la energía que la fuente entregó para establecer la corriente contra la fem autoinducida.</p></li>
+      <li class="final">$$\boxed{L = \frac{\mu_0N^2h}{2\pi}\ln\frac ba,\qquad U_B = \frac{\mu_0N^2hI^2}{4\pi}\ln\frac ba}$$</li>
+      <li class="check"><b>Verificación:</b> con la densidad de energía, $U_B = \displaystyle\int\frac{B^2}{2\mu_0}\,d\mathcal V = \int_a^b\frac{1}{2\mu_0}\left(\frac{\mu_0NI}{2\pi s}\right)^2 2\pi s\,h\,ds = \frac{\mu_0N^2I^2h}{4\pi}\ln\frac ba$, igual. Límite de toroide delgado ($b = a + w$, $w \ll a$): $\ln(b/a) \approx w/a$ y $L \approx \dfrac{\mu_0N^2(hw)}{2\pi a}$, la fórmula $\mu_0N^2A/(2\pi r)$ del toroide delgado.</li>
     </ol>
     <div class="ctrl"></div>
   </div>

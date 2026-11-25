@@ -360,6 +360,26 @@ def prac_dos_c():
     return d
 
 
+def prac_pasa_altos():
+    d = FieldGeometryDiagram(440, 230, "Filtro RC pasa-altos: fuente Vin en serie con C; la salida Vout se toma sobre R")
+    yt, yb = 50, 180
+    d.node("s_t", 70, yt, draw_dot=False)
+    d.node("s_b", 70, yb, draw_dot=False)
+    d.ac_source("s_b", "s_t", text="Vᵢₙ", label_side="left", offset=26)
+    d.capacitor("s_t", (260, yt), text="C", label_side="top", offset=20)
+    d.node("n1", 260, yt, draw_dot=True)
+    d.resistor("n1", (260, yb), text="R", label_side="left", offset=22)
+    d.node("n2", 260, yb, draw_dot=True)
+    d.wire("s_b", "n2")
+    d.wire("n1", (350, yt))
+    d.wire("n2", (350, yb))
+    d.terminal_open("op", 350, yt, text="+", label_dir="right", offset=10)
+    d.terminal_open("om", 350, yb, text="−", label_dir="right", offset=10)
+    d.text(382, 120, "Vₒᵤₜ", cls="sa")
+    d.current_arrow((84, yt - 16), (128, yt - 16), text="I", cls="a", label_side="top", offset=6)
+    return d
+
+
 def figures():
     return {
         "u11-fasores-rlc": fasores_rlc(),
@@ -373,4 +393,5 @@ def figures():
         "u11-arq2-2025-2-p3": arq2_2025_2_p3(),
         "u11-prac-mixto": prac_mixto(),
         "u11-prac-dos-c": prac_dos_c(),
-    }
+            "u11-prac-pasa-altos": prac_pasa_altos(),
+}

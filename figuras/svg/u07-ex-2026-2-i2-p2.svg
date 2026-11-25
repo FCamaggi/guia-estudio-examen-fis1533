@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 285" style="max-width:675px" role="img" aria-label="Espectrómetro de la I2 2026-2 P2: selector con E hacia arriba y B1 saliente, y analizador con B2 saliente donde la partícula describe media circunferencia hasta el detector en x = 0">
+<style>
+  :root {
+    --surface: #ffffff; --ink: #142030; --muted: #566273; --line: #d8dee7;
+    --accent: #1f4fd1; --accent-soft: #e7edfc; --copper: #a85a18; --copper-soft: #f8eee4;
+    --font-body: "Source Sans 3", "Segoe UI", Roboto, sans-serif;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --surface: #151c26; --ink: #e5eaf1; --muted: #9aa6b6; --line: #29323f;
+      --accent: #84a6ff; --accent-soft: #1b2640; --copper: #e2a26b; --copper-soft: #2a2119;
+    }
+  }
+  svg { background: var(--surface); font-family: var(--font-body); }
+  .w { stroke: var(--ink); stroke-width: 1.8; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+  .wk { stroke: var(--ink); stroke-width: 3.2; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+  .m { stroke: var(--muted); stroke-width: 1.2; fill: none; }
+  .md { stroke: var(--muted); stroke-width: 1.3; stroke-dasharray: 4 4; fill: none; }
+  .a { stroke: var(--accent); stroke-width: 2.2; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+  .ad { stroke: var(--accent); stroke-width: 1.6; stroke-dasharray: 5 4; fill: none; }
+  .c { stroke: var(--copper); stroke-width: 2.2; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+  .cd { stroke: var(--copper); stroke-width: 1.4; stroke-dasharray: 4 3; fill: none; }
+  .fld { stroke: var(--muted); stroke-width: 1.3; opacity: .38; }
+  .fldl { stroke: var(--muted); stroke-width: 1.4; opacity: .6; fill: none; }
+  .af { fill: var(--accent); } .cf { fill: var(--copper); } .wf, .inkf, .wkf { fill: var(--ink); }
+  .mf, .mdf { fill: var(--muted); } .fldlf { fill: var(--muted); opacity: .6; }
+  .adf { fill: var(--accent); } .cdf { fill: var(--copper); }
+  .soft { fill: var(--accent-soft); } .csoft { fill: var(--copper-soft); } .paperf { fill: var(--surface); }
+  .nostroke { stroke: none; } .nofill { fill: none; }
+  .s, .sa, .sc { font: italic 17px "Times New Roman", "STIX Two Text", serif; fill: var(--ink); }
+  .sa { fill: var(--accent); } .sc { fill: var(--copper); }
+  .t { font: 12.5px var(--font-body); fill: var(--muted); }
+  .tb { font: 600 14px var(--font-body); fill: var(--ink); }
+  .tc { font: 600 13px var(--font-body); fill: var(--copper); }
+  .ta { font: 600 13px var(--font-body); fill: var(--accent); }
+  .tw { font: 700 13px var(--font-body); fill: var(--surface); }
+  .gl-ink, .gl-acc, .gl-cop, .gl-mut, .gl-srf { fill: none; stroke-width: 1.2; stroke-linecap: round; }
+  .gl-ink { stroke: var(--ink); } .gl-acc { stroke: var(--accent); } .gl-cop { stroke: var(--copper); }
+  .gl-mut { stroke: var(--muted); } .gl-srf { stroke: var(--surface); }
+  .glf-ink { fill: var(--ink); } .glf-acc { fill: var(--accent); } .glf-cop { fill: var(--copper); }
+  .glf-mut { fill: var(--muted); } .glf-srf { fill: var(--surface); }
+  .sb { font-size: 72%; }
+</style>
+<rect class="soft w" x="28" y="64" width="152" height="96"/><rect class="soft w" x="206" y="34" width="270" height="228"/><circle class="fld nofill" cx="66" cy="80" r="5"/><circle class="mf" cx="66" cy="80" r="1.6"/><circle class="fld nofill" cx="112" cy="80" r="5"/><circle class="mf" cx="112" cy="80" r="1.6"/><circle class="fld nofill" cx="158" cy="80" r="5"/><circle class="mf" cx="158" cy="80" r="1.6"/><circle class="fld nofill" cx="66" cy="126" r="5"/><circle class="mf" cx="66" cy="126" r="1.6"/><circle class="fld nofill" cx="112" cy="126" r="5"/><circle class="mf" cx="112" cy="126" r="1.6"/><circle class="fld nofill" cx="158" cy="126" r="5"/><circle class="mf" cx="158" cy="126" r="1.6"/><circle class="fld nofill" cx="262" cy="84" r="5"/><circle class="mf" cx="262" cy="84" r="1.6"/><circle class="fld nofill" cx="314" cy="84" r="5"/><circle class="mf" cx="314" cy="84" r="1.6"/><circle class="fld nofill" cx="366" cy="84" r="5"/><circle class="mf" cx="366" cy="84" r="1.6"/><circle class="fld nofill" cx="418" cy="84" r="5"/><circle class="mf" cx="418" cy="84" r="1.6"/><circle class="fld nofill" cx="470" cy="84" r="5"/><circle class="mf" cx="470" cy="84" r="1.6"/><circle class="fld nofill" cx="262" cy="136" r="5"/><circle class="mf" cx="262" cy="136" r="1.6"/><circle class="fld nofill" cx="314" cy="136" r="5"/><circle class="mf" cx="314" cy="136" r="1.6"/><circle class="fld nofill" cx="366" cy="136" r="5"/><circle class="mf" cx="366" cy="136" r="1.6"/><circle class="fld nofill" cx="418" cy="136" r="5"/><circle class="mf" cx="418" cy="136" r="1.6"/><circle class="fld nofill" cx="470" cy="136" r="5"/><circle class="mf" cx="470" cy="136" r="1.6"/><circle class="fld nofill" cx="262" cy="188" r="5"/><circle class="mf" cx="262" cy="188" r="1.6"/><circle class="fld nofill" cx="314" cy="188" r="5"/><circle class="mf" cx="314" cy="188" r="1.6"/><circle class="fld nofill" cx="366" cy="188" r="5"/><circle class="mf" cx="366" cy="188" r="1.6"/><circle class="fld nofill" cx="418" cy="188" r="5"/><circle class="mf" cx="418" cy="188" r="1.6"/><circle class="fld nofill" cx="470" cy="188" r="5"/><circle class="mf" cx="470" cy="188" r="1.6"/><circle class="fld nofill" cx="262" cy="240" r="5"/><circle class="mf" cx="262" cy="240" r="1.6"/><circle class="fld nofill" cx="314" cy="240" r="5"/><circle class="mf" cx="314" cy="240" r="1.6"/><circle class="fld nofill" cx="366" cy="240" r="5"/><circle class="mf" cx="366" cy="240" r="1.6"/><circle class="fld nofill" cx="418" cy="240" r="5"/><circle class="mf" cx="418" cy="240" r="1.6"/><circle class="fld nofill" cx="470" cy="240" r="5"/><circle class="mf" cx="470" cy="240" r="1.6"/><polyline class="w" points="180,112 206,112"/><line class="m" x1="193" y1="112" x2="193" y2="236"/><line class="m" x1="197" y1="112" x2="189" y2="112"/><line class="m" x1="197" y1="236" x2="189" y2="236"/><line class="m" x1="222" y1="114" x2="222" y2="252"/><line class="m" x1="226" y1="114" x2="218" y2="114"/><line class="m" x1="226" y1="252" x2="218" y2="252"/><line class="c" x1="44" y1="150" x2="44.0" y2="90.0"/><polygon class="cf" points="44,82 48.0,90.0 40.0,90.0"/><line class="a" x1="80" y1="112" x2="138.0" y2="112.0"/><polygon class="af" points="146,112 138.0,116.0 138.0,108.0"/><path class="a nofill" d="M 206 112 A 62 62 0 0 1 206 236"/><line class="a" x1="266" y1="170" x2="266.0" y2="174.0"/><polygon class="af" points="266,182 262.0,174.0 270.0,174.0"/><line class="wk" x1="206" y1="112" x2="206" y2="252"/><circle class="inkf" cx="206" cy="112" r="3.6"/><circle class="inkf" cx="206" cy="236" r="3.6"/><line class="m" x1="420" y1="66" x2="444.0" y2="66.0"/><polygon class="mf" points="452,66 444.0,70.0 444.0,62.0"/><line class="m" x1="420" y1="66" x2="420.0" y2="50.0"/><polygon class="mf" points="420,42 424.0,50.0 416.0,50.0"/><g><text class="sc" x="60.4" y="121" text-anchor="middle">E</text><line class="gl-cop" x1="58.4" y1="106.4" x2="64.9" y2="106.4"/><polygon class="glf-cop" points="66.4,106.4 60.9,103.8 60.9,108.9"/></g><g><text class="sa" x="108.6" y="104" text-anchor="middle">v</text><line class="gl-acc" x1="106.6" y1="89.4" x2="113.0" y2="89.4"/><polygon class="glf-acc" points="114.5,89.4 109.1,86.8 109.1,91.9"/><text class="sa" x="113.0" y="104" text-anchor="start">₀</text></g><text class="t" x="104" y="52" text-anchor="middle">Región I: selector</text><g><text class="sc" x="74.8" y="182" text-anchor="middle">B</text><line class="gl-cop" x1="72.7" y1="167.4" x2="79.2" y2="167.4"/><polygon class="glf-cop" points="80.7,167.4 75.3,164.8 75.3,169.9"/><text class="sc" x="79.2" y="182" text-anchor="start">₁ = B₁ ẑ</text></g><text class="t" x="340" y="24" text-anchor="middle">Región II: analizador</text><g><text class="sc" x="410.8" y="278" text-anchor="middle">B</text><line class="gl-cop" x1="408.7" y1="263.4" x2="415.2" y2="263.4"/><polygon class="glf-cop" points="416.7,263.4 411.3,260.8 411.3,265.9"/><text class="sc" x="415.2" y="278" text-anchor="start">₂ = B₂ ẑ</text></g><text class="s" x="214" y="104" text-anchor="start">(0, 0)</text><text class="s" x="176" y="240" text-anchor="end">y = −d</text><text class="s" x="181" y="179" text-anchor="end">d</text><text class="s" x="234" y="188" text-anchor="start">L</text><text class="t" x="160" y="262" text-anchor="middle">detector</text><text class="t" x="436" y="79" text-anchor="middle">x</text><text class="t" x="414" y="59" text-anchor="end">y</text></svg>

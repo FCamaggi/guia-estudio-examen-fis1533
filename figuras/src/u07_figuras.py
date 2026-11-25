@@ -374,6 +374,35 @@ def barrera_campo():
     return d
 
 
+def ex_2026_2_i2_p2():
+    d = FieldGeometryDiagram(500, 285, "Espectrómetro de la I2 2026-2 P2: selector con E hacia arriba y B1 saliente, y analizador con B2 saliente donde la partícula describe media circunferencia hasta el detector en x = 0")
+    ys = 112
+    d.raw('<rect class="soft w" x="28" y="64" width="152" height="96"/>', layer="bg")
+    d.raw('<rect class="soft w" x="206" y="34" width="270" height="228"/>', layer="bg")
+    d.field_region(66, 80, 172, 150, step=46, direction="out")
+    d.field_region(262, 84, 470, 250, step=52, direction="out")
+    d.current_arrow((44, 150), (44, 82), text="E⃗", cls="c", label_side="right", offset=12)
+    d.current_arrow((80, ys), (146, ys), text="v⃗₀", cls="a", label_side="top", offset=8)
+    d.text(104, 52, "Región I: selector", cls="t")
+    d.text(104, 182, "B⃗₁ = B₁ ẑ", cls="sc")
+    d.text(340, 24, "Región II: analizador", cls="t")
+    d.text(440, 278, "B⃗₂ = B₂ ẑ", cls="sc")
+    d.wire((180, ys), (206, ys))
+    d.raw(f'<path class="a nofill" d="M 206 {ys} A 62 62 0 0 1 206 {ys + 124}"/>', layer="overlay")
+    d.current_arrow((266, ys + 58), (266, ys + 70), cls="a")
+    d.raw(f'<line class="wk" x1="206" y1="{ys}" x2="206" y2="{ys + 140}"/>', layer="overlay")
+    d.node("o", 206, ys)
+    d.text(214, ys - 8, "(0, 0)", cls="s", anchor="start")
+    d.node("f", 206, ys + 124)
+    d.text(176, ys + 128, "y = −d", cls="s", anchor="end")
+    d.dimension((193, ys), (193, ys + 124), text="d", label_side="left")
+    d.dimension((222, ys + 2), (222, ys + 140), text="L", label_side="right")
+    d.text(160, ys + 150, "detector", cls="t")
+    d.current_arrow((420, 66), (452, 66), text="x", cls="m", label_side="right", offset=8)
+    d.current_arrow((420, 66), (420, 42), text="y", cls="m", label_side="left", offset=6)
+    return d
+
+
 def figures():
     return {
         "u07-lorentz-mano": lorentz_mano(),
@@ -390,4 +419,5 @@ def figures():
         "u07-ex-2018-2-p3": ex_2018_2_p3(),
         "u07-placa-deflexion": placa_deflexion(),
         "u07-barrera-campo": barrera_campo(),
-    }
+            "u07-ex-2026-2-i2-p2": ex_2026_2_i2_p2(),
+}
